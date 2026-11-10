@@ -1,0 +1,1044 @@
+{
+  "_aviso": "Archivo GENERADO por scripts/csv_a_json.py a partir de data/productos.csv. No lo edites a mano.",
+  "productos": [
+    {
+      "id": "SOF-01",
+      "ean": "3560231300012",
+      "nombre": "Sofá Ostuni de 3 Plazas de Madera",
+      "tipo": "sofa",
+      "estancias": [
+        "salon"
+      ],
+      "precio_eur": 999.99,
+      "ancho_cm": 232,
+      "fondo_cm": 100,
+      "alto_cm": 75,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/sofas/17736-sofa-ostuni-de-3-plazas-de-madera-3560231300012.html",
+      "url_foto": "https://alihogar.es/88153-large_default/sofa-ostuni-de-3-plazas-de-madera.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Medidas: 232 x 100 x 75 cm",
+      "aviso_cliente": null
+    },
+    {
+      "id": "SOF-02",
+      "ean": "2513600282809",
+      "nombre": "Sofá Turin de 3 Plazas Sintra de Madera de Pino",
+      "tipo": "sofa",
+      "estancias": [
+        "salon"
+      ],
+      "precio_eur": 349.99,
+      "ancho_cm": 180,
+      "fondo_cm": 90,
+      "alto_cm": 100,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/sofas/17113-18202-sofa-turin-de-3-plazas-sintra-de-madera-de-pino.html",
+      "url_foto": "https://alihogar.es/85087-large_default/sofa-turin-de-3-plazas-sintra-de-madera-de-pino.jpg",
+      "foto_autorizada": false,
+      "variantes": [
+        "Beige",
+        "Gris"
+      ],
+      "medidas_origen": "Dimensiones: 180 x 90 x 100 cm",
+      "aviso_cliente": null
+    },
+    {
+      "id": "SOF-03",
+      "ean": "2513630282831",
+      "nombre": "Sofá Turin de 2 Plazas Tavira de Madera de Pino",
+      "tipo": "sofa",
+      "estancias": [
+        "salon"
+      ],
+      "precio_eur": 299.99,
+      "ancho_cm": 150,
+      "fondo_cm": 90,
+      "alto_cm": 100,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/sofas/17109-18195-sofa-turin-de-2-plazas-tavira-de-madera-de-pino.html",
+      "url_foto": "https://alihogar.es/85509-large_default/sofa-turin-de-2-plazas-tavira-de-madera-de-pino.jpg",
+      "foto_autorizada": false,
+      "variantes": [
+        "Gris",
+        "Camel"
+      ],
+      "medidas_origen": "Medidas: 150 x 90 x 100 cm",
+      "aviso_cliente": null
+    },
+    {
+      "id": "SOF-04",
+      "ean": "2513760282961",
+      "nombre": "Sofá Sar de 3 Plazas Tavira de Madera de Pino con Asientos y Brazos Deslizantes",
+      "tipo": "sofa",
+      "estancias": [
+        "salon"
+      ],
+      "precio_eur": 1029.99,
+      "ancho_cm": 250,
+      "fondo_cm": 100,
+      "alto_cm": 107,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/sofas/17098-sofa-sar-de-3-plazas-tavira-de-madera-de-pino-con-asientos-deslizantes-2513760282961.html",
+      "url_foto": "https://alihogar.es/85488-large_default/sofa-sar-de-3-plazas-tavira-de-madera-de-pino-con-asientos-deslizantes.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Dimensiones: 250 x 100 x 107 cm",
+      "aviso_cliente": "Asientos deslizantes: aumentan el fondo"
+    },
+    {
+      "id": "SOF-05",
+      "ean": "8427507123322",
+      "nombre": "Sofá Chesterfield Velvet de 3 Plazas con Acabado Capitoné",
+      "tipo": "sofa",
+      "estancias": [
+        "salon"
+      ],
+      "precio_eur": 849.99,
+      "ancho_cm": 205,
+      "fondo_cm": 82,
+      "alto_cm": 72,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/sofas/15938-sofa-chesterfield-de-3-plazas-con-acabado-capitone-8427507123322.html",
+      "url_foto": "https://alihogar.es/78814-large_default/sofa-chesterfield-de-3-plazas-con-acabado-capitone.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Medidas: 205 x 82 x 72 cm",
+      "aviso_cliente": "Plazo de entrega 30 días hábiles"
+    },
+    {
+      "id": "SOF-06",
+      "ean": "3560231081379",
+      "nombre": "Sofá Palma Efecto Chenilla de 3 Plazas",
+      "tipo": "sofa",
+      "estancias": [
+        "salon"
+      ],
+      "precio_eur": 899.99,
+      "ancho_cm": 212,
+      "fondo_cm": 97,
+      "alto_cm": 76,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/sofas/13373-15092-sofa-palma-efecto-chenilla-de-3-plazas.html",
+      "url_foto": "https://alihogar.es/66231-large_default/sofa-palma-efecto-chenilla-de-3-plazas.jpg",
+      "foto_autorizada": false,
+      "variantes": [
+        "Marfil",
+        "Gris"
+      ],
+      "medidas_origen": "Tamaño: 212 x 97 x 76 cm",
+      "aviso_cliente": null
+    },
+    {
+      "id": "SOF-07",
+      "ean": "3560231147464",
+      "nombre": "Sofá Miroa de Chenilla y Espuma",
+      "tipo": "sofa",
+      "estancias": [
+        "salon"
+      ],
+      "precio_eur": 199.99,
+      "ancho_cm": 130,
+      "fondo_cm": 92,
+      "alto_cm": 68,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/sofas/15502-sillon-de-poliester-y-espuma-3560231147464.html",
+      "url_foto": "https://alihogar.es/76676-large_default/sillon-de-poliester-y-espuma.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Medidas: 130 x 92 x 68 cm",
+      "aviso_cliente": null
+    },
+    {
+      "id": "SOF-08",
+      "ean": "2513660282863",
+      "nombre": "Sofá Chaise Longue Turin Reversible de 3 Plazas Sintra de Madera de Pino",
+      "tipo": "sofa",
+      "estancias": [
+        "salon"
+      ],
+      "precio_eur": 599.99,
+      "ancho_cm": 200,
+      "fondo_cm": 145,
+      "alto_cm": 100,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/chaise-longue/17170-18272-sofa-chaise-longue-turin-reversible-de-3-plazas-sintra-de-madera-de-pino.html",
+      "url_foto": "https://alihogar.es/85520-large_default/sofa-chaise-longue-turin-reversible-de-3-plazas-sintra-de-madera-de-pino.jpg",
+      "foto_autorizada": false,
+      "variantes": [
+        "Gris",
+        "Gris Oscuro"
+      ],
+      "medidas_origen": "Medidas: 200 x 145 x 100 cm",
+      "aviso_cliente": "Chaise longue: el fondo (145) es el de la parte larga"
+    },
+    {
+      "id": "TV-01",
+      "ean": "2522290283904",
+      "nombre": "Mueble de TV Strait de Melamina y MDF (pequeño)",
+      "tipo": "mueble_tv",
+      "estancias": [
+        "salon"
+      ],
+      "precio_eur": 199.99,
+      "ancho_cm": 140,
+      "fondo_cm": 43,
+      "alto_cm": 50,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/muebles-tv/17568-18722-mueble-de-tv-strait-de-melamina-y-mdf.html",
+      "url_foto": "https://alihogar.es/87480-large_default/mueble-de-tv-strait-de-melamina-y-mdf.jpg",
+      "foto_autorizada": false,
+      "variantes": [
+        "Nogal",
+        "Roble"
+      ],
+      "medidas_origen": "Pequeño: 140 x 43 x 50 cm. Grande: 180 x 43 x 50 cm",
+      "aviso_cliente": "Existe versión grande de 180 cm; precio por tamaño sin confirmar"
+    },
+    {
+      "id": "TV-02",
+      "ean": "8423490268088",
+      "nombre": "Mueble de TV Kaway con 2 Cajones de Melamina",
+      "tipo": "mueble_tv",
+      "estancias": [
+        "salon"
+      ],
+      "precio_eur": 89.99,
+      "ancho_cm": 180,
+      "fondo_cm": 34.5,
+      "alto_cm": 28,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/muebles-tv/17381-mueble-de-tv-kaway-con-2-cajones-de-melamina-8423490268088.html",
+      "url_foto": "https://alihogar.es/86601-large_default/mueble-de-tv-kaway-con-2-cajones-de-melamina.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Medidas: 180 x 34,5 x 28 cm",
+      "aviso_cliente": null
+    },
+    {
+      "id": "TV-03",
+      "ean": "8424002266929",
+      "nombre": "Mueble de TV con 3 Estantes de Madera de Acacia",
+      "tipo": "mueble_tv",
+      "estancias": [
+        "salon"
+      ],
+      "precio_eur": 329.99,
+      "ancho_cm": 210,
+      "fondo_cm": 35,
+      "alto_cm": 38,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/muebles-tv/16892-mueble-de-tv-con-3-estantes-de-madera-de-madera-de-acacia-8424002266929.html",
+      "url_foto": "https://alihogar.es/83962-large_default/mueble-de-tv-con-3-estantes-de-madera-de-madera-de-acacia.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Sus dimensiones son 210 x 35 x 38 cm",
+      "aviso_cliente": null
+    },
+    {
+      "id": "TV-04",
+      "ean": "8423490264608",
+      "nombre": "Mueble de TV Kioto con 2 Estantes y 2 Puertas de Melamina",
+      "tipo": "mueble_tv",
+      "estancias": [
+        "salon"
+      ],
+      "precio_eur": 79.99,
+      "ancho_cm": 130,
+      "fondo_cm": 42,
+      "alto_cm": 36,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/muebles-tv/16890-mueble-de-tv-kioto-con-2-estantes-y-2-puertas-de-melamina-8423490264608.html",
+      "url_foto": "https://alihogar.es/83958-large_default/mueble-de-tv-kioto-con-2-estantes-y-2-puertas-de-melamina.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Dimensiones: 130 x 42 x 36 cm",
+      "aviso_cliente": null
+    },
+    {
+      "id": "TV-05",
+      "ean": "3560232688256",
+      "nombre": "Mueble de TV Olbia con 2 Puertas y 1 Cajón de Madera de Acacia",
+      "tipo": "mueble_tv",
+      "estancias": [
+        "salon"
+      ],
+      "precio_eur": 399.99,
+      "ancho_cm": 140,
+      "fondo_cm": 40,
+      "alto_cm": 50,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/muebles-tv/16196-mueble-de-tv-con-2-puertas-y-un-cajon-olbia-de-madera-de-acacia-3560232688256.html",
+      "url_foto": "https://alihogar.es/80253-large_default/mueble-de-tv-con-2-puertas-y-un-cajon-olbia-de-madera-de-acacia.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Medidas: 140 x 40 x 50 cm",
+      "aviso_cliente": null
+    },
+    {
+      "id": "TV-06",
+      "ean": "3560231013394",
+      "nombre": "Mueble de TV Homelya con 2 Puertas de Madera de Hevea",
+      "tipo": "mueble_tv",
+      "estancias": [
+        "salon"
+      ],
+      "precio_eur": 229.99,
+      "ancho_cm": 160,
+      "fondo_cm": 40.2,
+      "alto_cm": 50.2,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/muebles-tv/14620-mueble-de-tv-homelya-con-2-puertas-de-madera-de-hevea-3560231013394.html",
+      "url_foto": "https://alihogar.es/71850-large_default/mueble-de-tv-homelya-con-2-puertas-de-madera-de-hevea.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Medidas: 160 x 40,2 x 50,2 cm",
+      "aviso_cliente": null
+    },
+    {
+      "id": "APA-01",
+      "ean": "2522310283921",
+      "nombre": "Aparador Strait con 1 Cajón y 4 Puertas de Melamina",
+      "tipo": "aparador",
+      "estancias": [
+        "salon",
+        "comedor"
+      ],
+      "precio_eur": 349.99,
+      "ancho_cm": 160,
+      "fondo_cm": 43,
+      "alto_cm": 85,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/aparadores/17519-18672-aparador-strait-con-1-cajon-y-4-puertas-de-melamina.html",
+      "url_foto": "https://alihogar.es/87186-large_default/aparador-strait-con-1-cajon-y-4-puertas-de-melamina.jpg",
+      "foto_autorizada": false,
+      "variantes": [
+        "Nogal",
+        "Roble"
+      ],
+      "medidas_origen": "Medidas: 160 x 43 x 85 cm",
+      "aviso_cliente": null
+    },
+    {
+      "id": "APA-02",
+      "ean": "8423490264271",
+      "nombre": "Aparador Zaiken Plus con 3 Puertas y Patas",
+      "tipo": "aparador",
+      "estancias": [
+        "salon",
+        "comedor"
+      ],
+      "precio_eur": 139.99,
+      "ancho_cm": 154,
+      "fondo_cm": 41,
+      "alto_cm": 75,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/aparadores/16673-aparador-zaiken-plus-con-3-puertas-y-patas-8423490264271.html",
+      "url_foto": "https://alihogar.es/82782-large_default/aparador-zaiken-plus-con-3-puertas-y-patas.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Medidas: 154 x 41 x 75 cm",
+      "aviso_cliente": null
+    },
+    {
+      "id": "APA-03",
+      "ean": "2255000266446",
+      "nombre": "Aparador Turin con 4 Puertas",
+      "tipo": "aparador",
+      "estancias": [
+        "salon",
+        "comedor"
+      ],
+      "precio_eur": 309.99,
+      "ancho_cm": 160,
+      "fondo_cm": 42,
+      "alto_cm": 80,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/aparadores/16639-17653-aparador-turin-con-4-puertas-.html",
+      "url_foto": "https://alihogar.es/82664-large_default/aparador-turin-con-4-puertas-.jpg",
+      "foto_autorizada": false,
+      "variantes": [
+        "Blanco",
+        "Roble"
+      ],
+      "medidas_origen": "Medidas: 160 x 42 x 80 cm",
+      "aviso_cliente": null
+    },
+    {
+      "id": "APA-04",
+      "ean": "8427507163687",
+      "nombre": "Aparador Decor con 2 Puertas de Melamina y Ratán",
+      "tipo": "aparador",
+      "estancias": [
+        "salon",
+        "comedor"
+      ],
+      "precio_eur": 169.99,
+      "ancho_cm": 80,
+      "fondo_cm": 40,
+      "alto_cm": 110,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/aparadores/15959-aparador-decor-con-2-puertas-de-melamina-y-ratan-8427507163687.html",
+      "url_foto": "https://alihogar.es/78920-large_default/aparador-decor-con-2-puertas-de-melamina-y-ratan.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Medidas: 80 x 40 x 110 cm",
+      "aviso_cliente": "Plazo de entrega 30 días hábiles"
+    },
+    {
+      "id": "APA-05",
+      "ean": "3560231013370",
+      "nombre": "Aparador Homelya con 2 Puertas y 2 Cajones de Madera de Hevea",
+      "tipo": "aparador",
+      "estancias": [
+        "salon",
+        "comedor"
+      ],
+      "precio_eur": 299.99,
+      "ancho_cm": 160.5,
+      "fondo_cm": 40.2,
+      "alto_cm": 80.2,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/aparadores/14676-aparador-homelya-con-2-puertas-y-2-cajones-de-madera-de-hevea-3560231013370.html",
+      "url_foto": "https://alihogar.es/72121-large_default/aparador-homelya-con-2-puertas-y-2-cajones-de-madera-de-hevea.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Medidas: 160,5 x 40,2 x 80,2 cm",
+      "aviso_cliente": null
+    },
+    {
+      "id": "APA-06",
+      "ean": "8428006050492",
+      "nombre": "Aparador Boro con 3 Puertas de Melamina",
+      "tipo": "aparador",
+      "estancias": [
+        "salon",
+        "comedor"
+      ],
+      "precio_eur": 139.99,
+      "ancho_cm": 140,
+      "fondo_cm": 40,
+      "alto_cm": 87.1,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/aparadores/14533-aparador-boro-con-3-puertas-de-melamina-8428006050492.html",
+      "url_foto": "https://alihogar.es/71509-large_default/aparador-boro-con-3-puertas-de-melamina.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Dimensiones: 140 x 40 x 87.1 cm",
+      "aviso_cliente": null
+    },
+    {
+      "id": "EST-01",
+      "ean": "8423490266008",
+      "nombre": "Estantería IJoy de Melamina",
+      "tipo": "estanteria",
+      "estancias": [
+        "salon",
+        "dormitorio"
+      ],
+      "precio_eur": 64.99,
+      "ancho_cm": 52,
+      "fondo_cm": 25,
+      "alto_cm": 180,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/estanterias-y-librerias/17361-estanteria-ijoy-de-6-baldas-de-melamina-8423490266008.html",
+      "url_foto": "https://alihogar.es/86498-large_default/estanteria-ijoy-de-6-baldas-de-melamina.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Dimensiones: 52 x 25 x 180 cm",
+      "aviso_cliente": null
+    },
+    {
+      "id": "EST-02",
+      "ean": "8427507174034",
+      "nombre": "Estantería Alta Deck de Melamina y Metal",
+      "tipo": "estanteria",
+      "estancias": [
+        "salon",
+        "dormitorio"
+      ],
+      "precio_eur": 119.99,
+      "ancho_cm": 75,
+      "fondo_cm": 40,
+      "alto_cm": 180,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/estanterias-y-librerias/15927-estanteria-alta-deck-de-melamina-y-metal-8427507174034.html",
+      "url_foto": "https://alihogar.es/78734-large_default/estanteria-alta-deck-de-melamina-y-metal.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Medidas: 75 x 40 x 180 cm",
+      "aviso_cliente": "Plazo de entrega 30 días hábiles"
+    },
+    {
+      "id": "EST-03",
+      "ean": "8427507168330",
+      "nombre": "Estantería Alta Moon de Madera de Roble y Estructura Metálica",
+      "tipo": "estanteria",
+      "estancias": [
+        "salon",
+        "dormitorio"
+      ],
+      "precio_eur": 359.99,
+      "ancho_cm": 150,
+      "fondo_cm": 35,
+      "alto_cm": 180,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/estanterias-y-librerias/15926-estanteria-alta-moon-de-madera-de-roble-y-estructura-metalica-8427507168330.html",
+      "url_foto": "https://alihogar.es/78720-large_default/estanteria-alta-moon-de-madera-de-roble-y-estructura-metalica.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Medidas: 150 x 35 x 180 cm",
+      "aviso_cliente": "Plazo de entrega 30 días hábiles"
+    },
+    {
+      "id": "EST-04",
+      "ean": "8427507162062",
+      "nombre": "Estantería Alta Steve de Madera de Roble y Metal",
+      "tipo": "estanteria",
+      "estancias": [
+        "salon",
+        "dormitorio"
+      ],
+      "precio_eur": 239.99,
+      "ancho_cm": 120,
+      "fondo_cm": 35,
+      "alto_cm": 180,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/estanterias-y-librerias/15923-estanteria-alta-steve-de-madera-de-roble-y-metal-8427507162062.html",
+      "url_foto": "https://alihogar.es/78713-large_default/estanteria-alta-steve-de-madera-de-roble-y-metal.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Medidas: 120 x 35 x 180 cm",
+      "aviso_cliente": "Plazo de entrega 30 días hábiles"
+    },
+    {
+      "id": "EST-05",
+      "ean": "2016420238822",
+      "nombre": "Estante Flotante de Pared Turin Liso (pequeño)",
+      "tipo": "estanteria",
+      "estancias": [
+        "salon",
+        "dormitorio"
+      ],
+      "precio_eur": 36.99,
+      "ancho_cm": 138,
+      "fondo_cm": 22,
+      "alto_cm": 3,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/estanterias-y-librerias/16648-17669-estante-flotante-de-pared-turin-liso.html",
+      "url_foto": "https://alihogar.es/82633-large_default/estante-flotante-de-pared-turin-liso.jpg",
+      "foto_autorizada": false,
+      "variantes": [
+        "Roble",
+        "Blanco"
+      ],
+      "medidas_origen": "Pequeño (138 x 22 x 3 cm) y Grande (180 x 22 x 3 cm)",
+      "aviso_cliente": "Existe versión grande de 180 cm. Es una balda de pared, no una estantería de suelo"
+    },
+    {
+      "id": "CAM-01",
+      "ean": null,
+      "nombre": "Canapé Modelo 30 con Pata Alta de Melamina y MDF (135 x 190)",
+      "tipo": "cama_canape",
+      "estancias": [
+        "dormitorio"
+      ],
+      "precio_eur": 249.99,
+      "ancho_cm": 135,
+      "fondo_cm": 190,
+      "alto_cm": null,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/canapes/17578-18728-canape-strait-con-pata-alta-de-melamina-y-mdf.html",
+      "url_foto": "https://alihogar.es/87505-large_default/canape-strait-con-pata-alta-de-melamina-y-mdf.jpg",
+      "foto_autorizada": false,
+      "variantes": [
+        "Blanco",
+        "Nogal",
+        "Roble"
+      ],
+      "medidas_origen": "Tamaños: 90, 105, 135 y 150 x 190 cm; altura no indicada",
+      "aviso_cliente": "Plazo de entrega 30 días hábiles. Precio de la variante por defecto; el de 135 x 190 puede ser distinto"
+    },
+    {
+      "id": "CAM-02",
+      "ean": "8423490266299",
+      "nombre": "Estructura de Cama Kendra con 4 Cajones sin Somier de Melamina",
+      "tipo": "cama_canape",
+      "estancias": [
+        "dormitorio"
+      ],
+      "precio_eur": 199.99,
+      "ancho_cm": 156,
+      "fondo_cm": 196,
+      "alto_cm": 37,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/canapes/17365-18465-estructura-de-cama-kendra-con-4-cajones-sin-somier-de-melamina.html",
+      "url_foto": "https://alihogar.es/86519-large_default/estructura-de-cama-kendra-con-4-cajones-sin-somier-de-melamina.jpg",
+      "foto_autorizada": false,
+      "variantes": [
+        "Blanco",
+        "Roble"
+      ],
+      "medidas_origen": "Sus dimensiones son 156 x 196 x 37 cm",
+      "aviso_cliente": "Medidas exteriores"
+    },
+    {
+      "id": "CAM-03",
+      "ean": "1995720236855",
+      "nombre": "Canapé Abatible Modelo 30 con Tapa 3D (135 x 190)",
+      "tipo": "cama_canape",
+      "estancias": [
+        "dormitorio"
+      ],
+      "precio_eur": 229.99,
+      "ancho_cm": 135,
+      "fondo_cm": 190,
+      "alto_cm": 35,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/canapes/9193-10758-canape-abatible-con-tapa-3d.html",
+      "url_foto": "https://alihogar.es/73952-large_default/canape-abatible-con-tapa-3d.jpg",
+      "foto_autorizada": false,
+      "variantes": [
+        "Blanco",
+        "Nogal",
+        "Cambria",
+        "Roble"
+      ],
+      "medidas_origen": "Tamaños: 90, 105, 135 y 150 x 190 cm. Altura: 33 cm / unos 35 cm",
+      "aviso_cliente": "El precio mostrado es el de 90 x 190; el de 135 x 190 puede ser mayor. La web da dos alturas (33 y 35 cm): se usa 35"
+    },
+    {
+      "id": "CAM-04",
+      "ean": "8433905313906",
+      "nombre": "Canapé Abatible IVY con Patas Metálicas de ECUS (135 x 190)",
+      "tipo": "cama_canape",
+      "estancias": [
+        "dormitorio"
+      ],
+      "precio_eur": 369.99,
+      "ancho_cm": 135,
+      "fondo_cm": 190,
+      "alto_cm": 38,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/canapes/9186-16062-canape-abatible-ivy-con-patas-metalicas-de-ecus.html",
+      "url_foto": "https://alihogar.es/75116-large_default/canape-abatible-ivy-con-patas-metalicas-de-ecus.jpg",
+      "foto_autorizada": false,
+      "variantes": [
+        "Gris",
+        "Beige"
+      ],
+      "medidas_origen": "Tamaños: 90, 135 y 150 x 190 cm. Altura sin patas 25 cm + patas de 13 cm",
+      "aviso_cliente": "Alto calculado: 25 + 13 cm. Precio de la variante por defecto"
+    },
+    {
+      "id": "CAM-05",
+      "ean": "2451290279184",
+      "nombre": "Canapé Abatible WATERLILLY con Patas Antideslizantes de ECUS (135 x 190)",
+      "tipo": "cama_canape",
+      "estancias": [
+        "dormitorio"
+      ],
+      "precio_eur": 459.99,
+      "ancho_cm": 135,
+      "fondo_cm": 190,
+      "alto_cm": 37.5,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/canapes/8131-16280-canape-waterlilly-con-patas-antideslizante-ecus.html",
+      "url_foto": "https://alihogar.es/75125-large_default/canape-waterlilly-con-patas-antideslizante-ecus.jpg",
+      "foto_autorizada": false,
+      "variantes": [
+        "Blanco (135)",
+        "Ártico (150)",
+        "Cambria (150)"
+      ],
+      "medidas_origen": "Tamaños: 135 y 150 x 190 cm. Altura exterior de 37,5 cm",
+      "aviso_cliente": "Plazo de entrega 15 días hábiles"
+    },
+    {
+      "id": "COM-01",
+      "ean": "8420327611819",
+      "nombre": "Cómoda Amelie con 2 Puertas de MDF",
+      "tipo": "comoda",
+      "estancias": [
+        "dormitorio"
+      ],
+      "precio_eur": 129.99,
+      "ancho_cm": 60.5,
+      "fondo_cm": 33,
+      "alto_cm": 82,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/comodas-y-sinfonieres/18881-comoda-amelie-con-2-puertas-de-mdf-8420327611819.html",
+      "url_foto": "https://alihogar.es/92519-large_default/comoda-amelie-con-2-puertas-de-mdf.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Medidas: 60.5 x 33 x 82 cm",
+      "aviso_cliente": null
+    },
+    {
+      "id": "COM-02",
+      "ean": "8423490266329",
+      "nombre": "Cómoda Sweet con 4 Cajones de Melamina",
+      "tipo": "comoda",
+      "estancias": [
+        "dormitorio"
+      ],
+      "precio_eur": 104.99,
+      "ancho_cm": 95,
+      "fondo_cm": 40,
+      "alto_cm": 77.5,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/comodas-y-sinfonieres/17766-comoda-sweet-con-4-cajones-de-melamina-8423490266329.html",
+      "url_foto": "https://alihogar.es/88248-large_default/comoda-sweet-con-4-cajones-de-melamina.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Medidas: 95 x 40 x 77.5 cm",
+      "aviso_cliente": null
+    },
+    {
+      "id": "COM-03",
+      "ean": "8051836802674",
+      "nombre": "Cómoda Vesly con 4 Cajones de MDF",
+      "tipo": "comoda",
+      "estancias": [
+        "dormitorio"
+      ],
+      "precio_eur": 89.99,
+      "ancho_cm": 45,
+      "fondo_cm": 30,
+      "alto_cm": 75.5,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/comodas-y-sinfonieres/17613-comoda-vesly-con-4-cajones-de-mdf-8051836802674.html",
+      "url_foto": "https://alihogar.es/87605-large_default/comoda-vesly-con-4-cajones-de-mdf.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Medidas: 45 x 30 x 75.5 cm",
+      "aviso_cliente": null
+    },
+    {
+      "id": "COM-04",
+      "ean": "8423490267630",
+      "nombre": "Cómoda Enzo con 4 Cajones de Melamina",
+      "tipo": "comoda",
+      "estancias": [
+        "dormitorio"
+      ],
+      "precio_eur": 129.99,
+      "ancho_cm": 77.5,
+      "fondo_cm": 40,
+      "alto_cm": 94,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/comodas-y-sinfonieres/17558-comoda-enzo-con-4-cajones-de-melamina-8423490267630.html",
+      "url_foto": "https://alihogar.es/87374-large_default/comoda-enzo-con-4-cajones-de-melamina.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Cómoda: 77,5 x 40 x 94 cm",
+      "aviso_cliente": null
+    },
+    {
+      "id": "COM-05",
+      "ean": "2521650283639",
+      "nombre": "Cómoda Strait con 4 Cajones de Melamina",
+      "tipo": "comoda",
+      "estancias": [
+        "dormitorio"
+      ],
+      "precio_eur": 289.99,
+      "ancho_cm": 100,
+      "fondo_cm": 43,
+      "alto_cm": 91,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/comodas-y-sinfonieres/17527-18682-comoda-strait-con-4-cajones-de-melamina.html",
+      "url_foto": "https://alihogar.es/87253-large_default/comoda-strait-con-4-cajones-de-melamina.jpg",
+      "foto_autorizada": false,
+      "variantes": [
+        "Blanco",
+        "Nogal",
+        "Roble"
+      ],
+      "medidas_origen": "Medidas: 100 x 43 x 91 cm",
+      "aviso_cliente": null
+    },
+    {
+      "id": "COM-06",
+      "ean": "8423490266244",
+      "nombre": "Sinfonier Alaya con 5 Cajones",
+      "tipo": "comoda",
+      "estancias": [
+        "dormitorio"
+      ],
+      "precio_eur": 109.99,
+      "ancho_cm": 60,
+      "fondo_cm": 40,
+      "alto_cm": 110,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/comodas-y-sinfonieres/16676-sinfonier-alaya-con-5-cajones-8423490266244.html",
+      "url_foto": "https://alihogar.es/82794-large_default/sinfonier-alaya-con-5-cajones.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Medidas: 60 x 40 x 110 cm",
+      "aviso_cliente": null
+    },
+    {
+      "id": "MES-01",
+      "ean": "2521470283451",
+      "nombre": "Mesa de Comedor Extensible Toscana de Melamina y MDF",
+      "tipo": "mesa_comedor",
+      "estancias": [
+        "comedor"
+      ],
+      "precio_eur": 239.99,
+      "ancho_cm": 140,
+      "fondo_cm": 90,
+      "alto_cm": 73.5,
+      "ancho_abierto_cm": 180,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/mesas-de-comedor/17567-18703-mesa-de-comedor-extensible-toscana-de-melamina-y-mdf.html",
+      "url_foto": "https://alihogar.es/87402-large_default/mesa-de-comedor-extensible-toscana-de-melamina-y-mdf.jpg",
+      "foto_autorizada": false,
+      "variantes": [
+        "Blanco",
+        "Nogal",
+        "Roble"
+      ],
+      "medidas_origen": "Medidas: 140 - 180 x 90 x 73.5 cm",
+      "aviso_cliente": "Extensible: 140 cm cerrada, 180 cm abierta"
+    },
+    {
+      "id": "MES-02",
+      "ean": "8423490264776",
+      "nombre": "Mesa de Comedor Kendra Bicolor Extensible de Melamina",
+      "tipo": "mesa_comedor",
+      "estancias": [
+        "comedor"
+      ],
+      "precio_eur": 159.99,
+      "ancho_cm": 140,
+      "fondo_cm": 90,
+      "alto_cm": 78,
+      "ancho_abierto_cm": 190,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/mesas-de-comedor/17391-18480-mesa-de-comedor-kendra-bicolor-extensible-de-melamina.html",
+      "url_foto": "https://alihogar.es/86645-large_default/mesa-de-comedor-kendra-bicolor-extensible-de-melamina.jpg",
+      "foto_autorizada": false,
+      "variantes": [
+        "Gris",
+        "Roble"
+      ],
+      "medidas_origen": "140/190 x 90 x 78 cm",
+      "aviso_cliente": "Extensible: 140 cm cerrada, 190 cm abierta"
+    },
+    {
+      "id": "MES-03",
+      "ean": "8420327583307",
+      "nombre": "Mesa de Comedor Extensible Rysi de MDF y Metal",
+      "tipo": "mesa_comedor",
+      "estancias": [
+        "comedor"
+      ],
+      "precio_eur": 159.99,
+      "ancho_cm": 120,
+      "fondo_cm": 70,
+      "alto_cm": 75,
+      "ancho_abierto_cm": 160,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/mesas-de-comedor/17147-mesa-de-comedor-extensible-rysi-de-mdf-y-metal-8420327583307.html",
+      "url_foto": "https://alihogar.es/85354-large_default/mesa-de-comedor-extensible-rysi-de-mdf-y-metal.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Medidas: 120-160 x 70 x 75 cm",
+      "aviso_cliente": "Extensible: 120 cm cerrada, 160 cm abierta"
+    },
+    {
+      "id": "MES-04",
+      "ean": "8427507148394",
+      "nombre": "Mesa de Comedor Roma Extensible de Madera de Roble",
+      "tipo": "mesa_comedor",
+      "estancias": [
+        "comedor"
+      ],
+      "precio_eur": 429.99,
+      "ancho_cm": 140,
+      "fondo_cm": 80,
+      "alto_cm": 77,
+      "ancho_abierto_cm": 220,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/mesas-de-comedor/16128-16969-mesa-de-comedor-roma-extensible-de-madera-de-roble.html",
+      "url_foto": "https://alihogar.es/79814-large_default/mesa-de-comedor-roma-extensible-de-madera-de-roble.jpg",
+      "foto_autorizada": false,
+      "variantes": [
+        "Blanco",
+        "Negro",
+        "Roble"
+      ],
+      "medidas_origen": "Medidas: 140 - 180 - 220 x 80 x 77 cm",
+      "aviso_cliente": "Plazo de entrega 30 días hábiles. Extensible: 140 cm cerrada, hasta 220 cm abierta"
+    },
+    {
+      "id": "MES-05",
+      "ean": "0600120020010",
+      "nombre": "Mesa de Comedor Berg Extensible de Madera de Roble (mediana)",
+      "tipo": "mesa_comedor",
+      "estancias": [
+        "comedor"
+      ],
+      "precio_eur": 339.99,
+      "ancho_cm": 100,
+      "fondo_cm": 100,
+      "alto_cm": 76,
+      "ancho_abierto_cm": 180,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/mesas-de-comedor/16125-16962-mesa-de-comedor-berg-extensible-de-madera-de-roble.html",
+      "url_foto": "https://alihogar.es/79770-large_default/mesa-de-comedor-berg-extensible-de-madera-de-roble.jpg",
+      "foto_autorizada": false,
+      "variantes": [
+        "Pequeña 80",
+        "Mediana 100",
+        "Grande 120"
+      ],
+      "medidas_origen": "Pequeño: 80-120-160 x 80 x 76. Mediano: 100-140-180 x 100 x 76. Grande: 120-160-200 x 120 x 76 cm",
+      "aviso_cliente": "Plazo de entrega 30 días hábiles. Un único precio para los tres tamaños. Extensible: 100 cm cerrada, hasta 180 cm abierta"
+    },
+    {
+      "id": "REC-01",
+      "ean": "3560233000217",
+      "nombre": "Recibidor Perchero Tissa con 6 Cajones de Acero",
+      "tipo": "recibidor",
+      "estancias": [
+        "recibidor"
+      ],
+      "precio_eur": 99.99,
+      "ancho_cm": 116,
+      "fondo_cm": 40,
+      "alto_cm": 176,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/recibidores/18123-recibidor-perchero-tissa-con-6-cajones-de-acero-3560233000217.html",
+      "url_foto": "https://alihogar.es/89129-large_default/recibidor-perchero-tissa-con-6-cajones-de-acero.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Medidas: 116 x 40 x 176 cm",
+      "aviso_cliente": null
+    },
+    {
+      "id": "REC-02",
+      "ean": "8424002124601",
+      "nombre": "Recibidor Perchero con 6 Colgadores y 3 Cajones de Metal",
+      "tipo": "recibidor",
+      "estancias": [
+        "recibidor"
+      ],
+      "precio_eur": 199.99,
+      "ancho_cm": 110,
+      "fondo_cm": 36,
+      "alto_cm": 186,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/recibidores/18122-recibidor-perchero-con-6-colgadores-y-3-cajones-de-metal-8424002124601.html",
+      "url_foto": "https://alihogar.es/89120-large_default/recibidor-perchero-con-6-colgadores-y-3-cajones-de-metal.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Medidas: 110 x 36 x 186 cm",
+      "aviso_cliente": null
+    },
+    {
+      "id": "REC-03",
+      "ean": "8423490268316",
+      "nombre": "Recibidor Ethna de Melamina con Espejo",
+      "tipo": "recibidor",
+      "estancias": [
+        "recibidor"
+      ],
+      "precio_eur": 109.99,
+      "ancho_cm": 77,
+      "fondo_cm": 24,
+      "alto_cm": 91,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/recibidores/17385-recibidor-ethna-de-melamina-con-espejo-8423490268316.html",
+      "url_foto": "https://alihogar.es/86617-large_default/recibidor-ethna-de-melamina-con-espejo.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Dimensiones: 77 x 24 x 91 (módulo recibidor) y 50 x 77 cm (espejo)",
+      "aviso_cliente": "Medidas del módulo; el espejo (50 x 77 cm) va aparte en la pared"
+    },
+    {
+      "id": "REC-04",
+      "ean": "8437027378072",
+      "nombre": "Recibidor Adhara con Zapatero y Espejo de Melamina",
+      "tipo": "recibidor",
+      "estancias": [
+        "recibidor"
+      ],
+      "precio_eur": 129.99,
+      "ancho_cm": 77,
+      "fondo_cm": 24,
+      "alto_cm": 106,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/recibidores/17151-recibidor-adhara-con-zapatero-y-espejo-de-melamina-8437027378072.html",
+      "url_foto": "https://alihogar.es/85378-large_default/recibidor-adhara-con-zapatero-y-espejo-de-melamina.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Recibidor, 77 x 24 x 106 cm; espejo, 79 x 59 cm",
+      "aviso_cliente": "Medidas del módulo; el espejo va aparte en la pared"
+    },
+    {
+      "id": "REC-05",
+      "ean": "8423490267760",
+      "nombre": "Recibidor Dahlia con Cajón y Espejo Vertical",
+      "tipo": "recibidor",
+      "estancias": [
+        "recibidor"
+      ],
+      "precio_eur": 79.99,
+      "ancho_cm": 81,
+      "fondo_cm": 29,
+      "alto_cm": 116,
+      "ancho_abierto_cm": null,
+      "seccion_nave": null,
+      "url_alihogar": "https://alihogar.es/recibidores/16670-recibidor-dahlia-con-cajon-y-espejo-vertical-8423490267760.html",
+      "url_foto": "https://alihogar.es/82769-large_default/recibidor-dahlia-con-cajon-y-espejo-vertical.jpg",
+      "foto_autorizada": false,
+      "variantes": [],
+      "medidas_origen": "Medidas del conjunto: 81 x 29 x 116 cm",
+      "aviso_cliente": null
+    }
+  ]
+}

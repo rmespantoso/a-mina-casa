@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Muestrario de diseño · A miña casa (prototipo)</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#fbf6ee">
+  <link rel="icon" href="img/icono.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/componentes.css">
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+  <header id="cabecera" class="cabecera"></header>
+
+  <!-- Esta página es para el equipo, no para el cliente: enseña todas las piezas del diseño. -->
+  <main id="contenido" class="pagina">
+    <h1>Muestrario de diseño</h1>
+    <p class="entrada">Todas las piezas del prototipo en una página. Sirve para elegir el tema y para comprobar el contraste.</p>
+
+    <h2 class="cota">Tema</h2>
+    <p>Elige uno y recorre el prototipo: se queda guardado en este navegador.</p>
+    <div class="acciones">
+      <button class="boton boton--secundario" type="button" data-tema="ria">A · Ría (lino y azul)</button>
+      <button class="boton boton--secundario" type="button" data-tema="castano">B · Castaño (piedra y madera)</button>
+    </div>
+    <p id="tema-actual" class="nota" role="status"></p>
+
+    <h2 class="cota">Colores y contraste</h2>
+    <p class="nota">El contraste se calcula aquí mismo con los colores reales. AA pide 4,5 : 1 en texto.</p>
+    <ul id="muestras" class="muestras"></ul>
+
+    <h2 class="cota">Letras</h2>
+    <p class="saludo" lang="gl">Benvido</p>
+    <h1>Título de pantalla</h1>
+    <h2>Título de sección</h2>
+    <h3>Título de tarjeta</h3>
+    <p>Texto normal a 18 px. Mide tu casa una vez y sabrás qué muebles te caben.</p>
+    <p class="nota">Texto secundario a 16 px.</p>
+
+    <h2 class="cota">Botones</h2>
+    <div class="acciones">
+      <a class="boton boton--primario" href="#contenido">Botón principal</a>
+      <a class="boton boton--secundario" href="#contenido">Botón secundario</a>
+    </div>
+
+    <h2 class="cota">Semáforo</h2>
+    <div id="semaforos" class="fila"></div>
+    <div id="aviso"></div>
+
+    <h2 class="cota">Campo de medida</h2>
+    <label class="campo">
+      <span class="campo__etiqueta">Ancho de la pared</span>
+      <span class="campo__ayuda">De esquina a esquina, en centímetros.</span>
+      <span class="campo__caja">
+        <input class="campo__entrada" type="text" inputmode="decimal" autocomplete="off" placeholder="Por ejemplo, 300">
+        <span class="campo__unidad">cm</span>
+      </span>
+    </label>
+
+    <h2 class="cota">Tarjeta de producto</h2>
+    <p class="nota">Producto real del CSV. Sin foto autorizada, se enseña el dibujo neutro.</p>
+    <div id="tarjeta"></div>
+
+    <h2 class="cota">Croquis a escala</h2>
+    <p class="nota">El mismo producto sobre una pared de ejemplo de 300 cm.</p>
+    <div id="croquis"></div>
+
+    <h2 class="cota">Siluetas por tipo</h2>
+    <div id="siluetas" class="muestras"></div>
+  </main>
+
+  <footer id="pie" class="pie"></footer>
+  <nav id="navegacion" class="navegacion" aria-label="Secciones"></nav>
+
+  <script type="module" src="js/pantallas/estilo.js"></script>
+</body>
+</html>

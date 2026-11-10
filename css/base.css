@@ -1,0 +1,174 @@
+/* =========================================================================
+   BASE: colores, letras y reglas generales de toda la web.
+   Mobile-first: se diseña para el móvil y en pantallas grandes solo se centra.
+   ========================================================================= */
+
+/* ---- Tema A · «Ría»: lino claro y azul de ría. Es el tema por defecto. ---- */
+:root {
+  --fondo: #fbf6ee;          /* crema de lino */
+  --superficie: #ffffff;     /* tarjetas y campos */
+  --superficie-2: #f1e7d6;   /* madera clara: paredes del dibujo, marcadores de foto */
+  --tinta: #1e2a35;          /* texto principal */
+  --tinta-suave: #4a5563;    /* texto secundario */
+  --borde: #d8cbb5;          /* líneas decorativas */
+  --borde-campo: #7a6f60;    /* borde de campos y botones: contraste 3:1 o más */
+  --marca: #17506b;          /* azul de ría: botones y enlaces */
+  --marca-fuerte: #0f3b50;   /* al pulsar */
+  --marca-suave: #e2eef3;    /* fondos suaves */
+  --sobre-marca: #ffffff;    /* texto encima del color de marca */
+  --foco: #b3530a;           /* borde al navegar con teclado */
+
+  /* Semáforo. Estos tres colores NO se usan para nada más en la web,
+     y siempre van acompañados de un icono y una palabra (no solo color). */
+  --verde: #1b6b3a;
+  --verde-fondo: #e3f3e8;
+  --ambar: #7a4b00;
+  --ambar-fondo: #fff1d0;
+  --rojo: #9b1c1c;
+  --rojo-fondo: #fde8e6;
+
+  /* Letras del propio dispositivo: no se descarga ninguna fuente (carga rápida en la nave). */
+  --fuente-texto: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fuente-titulo: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --peso-titulo: 600;
+
+  --radio: 14px;
+  --radio-grande: 22px;
+  --sombra: 0 1px 2px rgb(30 42 53 / 8%), 0 6px 18px rgb(30 42 53 / 7%);
+  --alto-nav: 4.5rem;
+}
+
+/* ---- Tema B · «Castaño»: piedra clara y madera oscura. ---- */
+html[data-tema="castano"] {
+  --fondo: #f6f1ea;
+  --superficie: #fffdfa;
+  --superficie-2: #eadfcf;
+  --tinta: #2a211b;
+  --tinta-suave: #5a4e45;
+  --borde: #d6c7b4;
+  --borde-campo: #7d6e5f;
+  --marca: #5c3b1e;
+  --marca-fuerte: #422a14;
+  --marca-suave: #f0e4d4;
+  --foco: #17506b;
+  --fuente-titulo: var(--fuente-texto);
+  --peso-titulo: 800;
+  --radio: 8px;
+  --radio-grande: 12px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--fondo);
+  color: var(--tinta);
+  font-family: var(--fuente-texto);
+  font-size: 1.125rem;   /* 18 px: por encima del mínimo de 16 px */
+  line-height: 1.55;
+  /* Hueco para la barra de navegación fija de abajo. */
+  padding-bottom: calc(var(--alto-nav) + env(safe-area-inset-bottom, 0px));
+}
+
+h1,
+h2,
+h3 {
+  margin: 0 0 0.5em;
+  font-family: var(--fuente-titulo);
+  font-weight: var(--peso-titulo);
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2.1rem, 9vw, 2.75rem);
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+a {
+  color: var(--marca);
+  text-underline-offset: 0.18em;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+/* Borde bien visible al moverse con teclado. */
+:focus-visible {
+  outline: 3px solid var(--foco);
+  outline-offset: 3px;
+}
+
+/* Columna central: en el móvil ocupa todo; en pantallas grandes se centra. */
+.pagina {
+  flex: 1;
+  width: 100%;
+  max-width: 34rem;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 2.5rem;
+}
+
+/* Enlace para saltar la cabecera (solo aparece al usar el teclado). */
+.saltar {
+  position: absolute;
+  left: 0.5rem;
+  top: -5rem;
+  z-index: 20;
+  padding: 0.75rem 1rem;
+  background: var(--marca);
+  color: var(--sobre-marca);
+  border-radius: var(--radio);
+}
+
+.saltar:focus {
+  top: 0.5rem;
+}
+
+/* Texto que solo leen los lectores de pantalla. */
+.solo-lector {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Quien pide menos movimiento en su móvil no ve animaciones. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

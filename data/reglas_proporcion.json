@@ -1,0 +1,15 @@
+{
+  "_aviso": "Reglas ORIENTATIVAS de decoración para el prototipo. Hay que validarlas con el personal de ALI Hogar antes del piloto. ocupacion_min y ocupacion_max son el porcentaje del ancho de la pared que debería ocupar el mueble.",
+  "margen_verde_cm": 5,
+  "max_resultados": 6,
+  "tipos": {
+    "sofa":        { "estancias": ["salon"],               "ocupacion_min": 0.50, "ocupacion_max": 0.75 },
+    "mueble_tv":   { "estancias": ["salon"],               "ocupacion_min": 0.40, "ocupacion_max": 0.70 },
+    "aparador":    { "estancias": ["salon", "comedor"],    "ocupacion_min": 0.40, "ocupacion_max": 0.70 },
+    "estanteria":  { "estancias": ["salon", "dormitorio"], "ocupacion_min": 0.25, "ocupacion_max": 0.60 },
+    "cama_canape": { "estancias": ["dormitorio"],          "ocupacion_min": 0.40, "ocupacion_max": 0.70 },
+    "comoda":      { "estancias": ["dormitorio"],          "ocupacion_min": 0.30, "ocupacion_max": 0.60 },
+    "mesa_comedor":{ "estancias": ["comedor"],             "ocupacion_min": 0.35, "ocupacion_max": 0.65 },
+    "recibidor":   { "estancias": ["recibidor"],           "ocupacion_min": 0.30, "ocupacion_max": 0.70 }
+  }
+}

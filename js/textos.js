@@ -1,0 +1,53 @@
+// Textos y formatos que se repiten en varias pantallas.
+
+// Texto que se enseña siempre que falta un dato. Nunca se inventa.
+export const CONSULTAR = "Consultar en tienda";
+
+// Nombres para el cliente de los tipos y estancias del CSV.
+export const NOMBRE_TIPO = {
+  sofa: "Sofá",
+  mueble_tv: "Mueble de TV",
+  aparador: "Aparador",
+  estanteria: "Estantería",
+  cama_canape: "Cama o canapé",
+  comoda: "Cómoda",
+  mesa_comedor: "Mesa de comedor",
+  recibidor: "Recibidor",
+};
+
+export const NOMBRE_ESTANCIA = {
+  salon: "Salón",
+  comedor: "Comedor",
+  dormitorio: "Dormitorio",
+  recibidor: "Recibidor",
+};
+
+const formatoNumero = new Intl.NumberFormat("es-ES", { maximumFractionDigits: 1 });
+const formatoEuros = new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" });
+
+/** 34.5 -> "34,5 cm". Si falta el dato -> "Consultar en tienda". */
+export function cm(valor) {
+  return valor == null ? CONSULTAR : `${formatoNumero.format(valor)} cm`;
+}
+
+/** 999.99 -> "999,99 €". Si falta el dato -> "Consultar en tienda". */
+export function euros(valor) {
+  return valor == null ? CONSULTAR : formatoEuros.format(valor);
+}
+
+/** Medidas de un producto en una línea: "180 × 90 × 100 cm". */
+export function medidas(producto) {
+  const partes = [producto.ancho_cm, producto.fondo_cm, producto.alto_cm];
+  if (partes.every((parte) => parte == null)) return CONSULTAR;
+  return partes.map((parte) => (parte == null ? "?" : formatoNumero.format(parte))).join(" × ") + " cm";
+}
+
+/** Evita que un texto (un nombre de hueco, por ejemplo) se interprete como HTML. */
+export function escapar(texto) {
+  return String(texto ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}

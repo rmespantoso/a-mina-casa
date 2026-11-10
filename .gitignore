@@ -1,0 +1,15 @@
+# Documentos de trabajo del equipo: no se publican.
+# (GitHub Pages gratis exige un repositorio público: todo lo que se sube lo ve cualquiera.)
+docs/
+PROMPT_INICIAL.md
+
+# Configuración local de Claude Code (rutas de este ordenador)
+.claude/
+
+# Python
+__pycache__/
+*.pyc
+
+# Sistema
+.DS_Store
+Thumbs.db

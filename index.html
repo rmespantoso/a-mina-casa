@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A miña casa · ALI Hogar (prototipo)</title>
+  <meta name="description" content="Mide tu casa una vez y descubre qué muebles te caben. Prototipo de estudiantes.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#fbf6ee">
+  <link rel="icon" href="img/icono.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/componentes.css">
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+  <header id="cabecera" class="cabecera"></header>
+
+  <main id="contenido" class="pagina">
+    <p class="saludo" lang="gl">Benvido</p>
+    <h1>¿Te cabe en casa? Compruébalo antes de comprar</h1>
+    <p class="entrada">Mide tu casa una vez y sabrás qué muebles de ALI Hogar te caben, en la tienda y desde el sofá.</p>
+
+    <!-- Dibujo de portada: un sofá que cabe en la pared. Es una ilustración, no un resultado real. -->
+    <div class="escena">
+      <svg class="escena__dibujo" viewBox="0 0 340 196" role="img"
+           aria-label="Dibujo de un salón: un sofá medido que cabe en la pared.">
+        <rect class="escena__pared" x="0" y="0" width="340" height="152" rx="18"/>
+        <path class="escena__cota" d="M24 30h88M228 30h88M24 23v14M316 23v14"/>
+        <text class="escena__texto" x="170" y="35" text-anchor="middle">tu pared</text>
+        <!-- cuadro -->
+        <rect class="escena__linea" x="120" y="48" width="48" height="34" rx="3"/>
+        <path class="escena__linea" d="m126 76 12-13 9 9 6-6 9 10"/>
+        <!-- lámpara de pie -->
+        <path class="escena__linea" d="M38 152V86M24 86h28l-6-22H30zM28 152h20"/>
+        <!-- sofá -->
+        <g class="escena__mueble">
+          <rect x="80" y="92" width="168" height="42" rx="12"/>
+          <rect x="64" y="108" width="30" height="38" rx="10"/>
+          <rect x="234" y="108" width="30" height="38" rx="10"/>
+          <rect x="90" y="118" width="148" height="28" rx="8"/>
+        </g>
+        <path class="escena__linea" d="M76 146v6M252 146v6M0 152h340"/>
+        <path class="escena__cota" d="M64 172h50M214 172h50M64 165v14M264 165v14"/>
+        <text class="escena__texto" x="164" y="177" text-anchor="middle">tu sofá</text>
+      </svg>
+      <span class="escena__resultado semaforo semaforo--verde" aria-hidden="true">
+        <svg class="icono" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.8 2.8L16.2 9.5"/></svg>Cabe
+      </span>
+    </div>
+
+    <div class="acciones">
+      <a class="boton boton--primario" href="huecos.html">Añade tus huecos</a>
+      <a class="boton boton--secundario" href="que-me-cabe.html">¿Qué me cabe?</a>
+    </div>
+    <p class="tranquilidad">Sin app · Sin registro · Tus medidas se quedan en tu móvil</p>
+
+    <h2 class="cota">En 3 pasos</h2>
+    <ol class="pasos">
+      <li class="pasos__paso">
+        <div>
+          <h3 class="pasos__titulo">Mide</h3>
+          <p class="pasos__texto">Apunta el ancho, el fondo y el alto de tus huecos y de tu puerta. Te enseñamos cómo en 2 minutos.</p>
+        </div>
+      </li>
+      <li class="pasos__paso">
+        <div>
+          <h3 class="pasos__titulo">Descubre</h3>
+          <p class="pasos__texto">En la tienda, escanea el código QR de la etiqueta. Desde casa, dinos cuánto mide tu pared.</p>
+        </div>
+      </li>
+      <li class="pasos__paso">
+        <div>
+          <h3 class="pasos__titulo">Decide</h3>
+          <p class="pasos__texto">Guarda lo que te gusta, compártelo con quien quieras y cómpralo en la tienda o en alihogar.es.</p>
+        </div>
+      </li>
+    </ol>
+  </main>
+
+  <footer id="pie" class="pie"></footer>
+  <nav id="navegacion" class="navegacion" aria-label="Secciones"></nav>
+
+  <script type="module" src="js/pantallas/inicio.js"></script>
+</body>
+</html>

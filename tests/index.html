@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pruebas · A miña casa</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="../img/icono.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/base.css">
+  <style>
+    body { padding-bottom: 2rem; }
+    .resumen { padding: 1rem; border-radius: var(--radio); font-weight: 700; }
+    .resumen--bien { background: var(--verde-fondo); color: var(--verde); }
+    .resumen--mal { background: var(--rojo-fondo); color: var(--rojo); }
+    .resultados { margin: 0 0 1.5rem; padding: 0; list-style: none; }
+    .resultados li { padding: 0.35rem 0; border-bottom: 1px solid var(--borde); }
+    .fallo { color: var(--rojo); font-weight: 700; }
+    .fallo small { display: block; font-weight: 400; }
+  </style>
+</head>
+<body>
+  <main class="pagina">
+    <h1>Pruebas</h1>
+    <p>Esta página ejecuta las pruebas automáticas del prototipo. Recárgala para repetirlas.</p>
+    <p id="resumen" class="resumen" role="status">Ejecutando…</p>
+    <div id="resultados"></div>
+  </main>
+
+  <script type="module">
+    import { ejecutar } from "./mini.js";
+
+    const resumen = document.getElementById("resumen");
+    try {
+      // Cada archivo apunta sus pruebas al importarse. Los nuevos se añaden aquí.
+      await import("./datos.test.js");
+      await import("./base.test.js");
+
+      const resultados = await ejecutar();
+      const bien = resultados.filter((r) => r.ok).length;
+      const todoBien = bien === resultados.length;
+
+      resumen.textContent = todoBien
+        ? `✅ Pasan las ${bien} pruebas`
+        : `❌ Fallan ${resultados.length - bien} de ${resultados.length} pruebas`;
+      resumen.className = `resumen ${todoBien ? "resumen--bien" : "resumen--mal"}`;
+
+      // Se pintan agrupadas por tema.
+      const grupos = [...new Set(resultados.map((r) => r.grupo))];
+      const zona = document.getElementById("resultados");
+      for (const nombreGrupo of grupos) {
+        const titulo = document.createElement("h2");
+        titulo.textContent = nombreGrupo;
+        const lista = document.createElement("ul");
+        lista.className = "resultados";
+        for (const r of resultados.filter((x) => x.grupo === nombreGrupo)) {
+          const linea = document.createElement("li");
+          linea.textContent = `${r.ok ? "✅" : "❌"} ${r.nombre}`;
+          if (!r.ok) {
+            linea.className = "fallo";
+            const detalle = document.createElement("small");
+            detalle.textContent = r.error;
+            linea.append(detalle);
+          }
+          lista.append(linea);
+        }
+        zona.append(titulo, lista);
+      }
+      console.info(`[pruebas] ${bien} de ${resultados.length} pasan`);
+    } catch (error) {
+      resumen.textContent = `❌ Las pruebas no han podido arrancar: ${error.message}`;
+      resumen.className = "resumen resumen--mal";
+      console.error(error);
+    }
+  </script>
+</body>
+</html>
