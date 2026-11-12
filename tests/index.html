@@ -38,6 +38,7 @@
       await import("./huecos.test.js");
       await import("./semaforo.test.js");
       await import("./lista.test.js");
+      await import("./recomendador.test.js");
 
       const resultados = await ejecutar();
       const bien = resultados.filter((r) => r.ok).length;

@@ -853,3 +853,38 @@ select.campo__entrada {
   min-height: 3rem;
   font-weight: 600;
 }
+
+/* ---------- Resultados del recomendador: una tarjeta por fila, con su croquis ---------- */
+.resultados-lista {
+  display: grid;
+  gap: 2rem;
+  margin: 1rem 0 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.resultados-lista > li {
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--borde);
+}
+
+.resultado__encaje {
+  margin-bottom: 1rem;
+}
+
+.resultado__encaje p {
+  margin: 0.5rem 0;
+}
+
+.resultado__encaje .croquis {
+  margin-top: 0.75rem;
+}
+
+select.campo__entrada:disabled {
+  color: var(--texto);
+}
+
+/* En los resultados la foto va más baja, para que el semáforo se vea sin tanto scroll. */
+.resultados-lista .tarjeta__foto {
+  aspect-ratio: 4 / 3;
+}

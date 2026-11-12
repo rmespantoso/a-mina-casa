@@ -4,6 +4,7 @@ import { iniciarPagina } from "../comun.js";
 import { guardar, leer } from "../almacen.js";
 import { destinoSeguro, estaRegistrado } from "../sesion.js";
 import { dibujoGuia } from "../dibujos.js";
+import { comoTexto, datosDe, pintarErrores } from "../formularios.js";
 import { NOMBRE_ESTANCIA, cm, escapar } from "../textos.js";
 import { ESTANCIAS, MAX_HUECOS, validarHueco } from "../logica/huecos.js";
 import { borrarHueco, guardarHueco, leerHuecos } from "../mis-huecos.js";
@@ -49,46 +50,6 @@ function decir(texto, enMovil = true) {
   mensaje.hidden = false;
   mensaje.focus();
 }
-
-// ---------- Errores de un formulario ----------
-
-/** Pinta los errores debajo de cada campo y lleva el cursor al primero. */
-function pintarErrores(formulario, errores = {}, sugerencias = {}) {
-  let primero = null;
-  for (const campo of formulario.querySelectorAll("[data-campo]")) {
-    const nombre = campo.dataset.campo;
-    const entrada = campo.querySelector(".campo__entrada");
-    const caja = campo.querySelector(".campo__error");
-    const texto = errores[nombre];
-
-    campo.classList.toggle("campo--error", Boolean(texto));
-    entrada.setAttribute("aria-invalid", texto ? "true" : "false");
-    caja.hidden = !texto;
-    caja.textContent = texto ?? "";
-
-    // Si parece escrito en metros, se ofrece la corrección con un botón. Nunca se cambia solo.
-    if (texto && sugerencias[nombre] != null) {
-      const boton = document.createElement("button");
-      boton.type = "button";
-      boton.className = "boton boton--secundario";
-      boton.textContent = `Sí, son ${sugerencias[nombre]} cm`;
-      boton.addEventListener("click", () => {
-        entrada.value = sugerencias[nombre];
-        campo.classList.remove("campo--error");
-        entrada.setAttribute("aria-invalid", "false");
-        caja.hidden = true;
-        caja.textContent = "";
-        entrada.focus();
-      });
-      caja.append(boton);
-    }
-    if (texto && !primero) primero = entrada;
-  }
-  primero?.focus();
-}
-
-const datosDe = (formulario) => Object.fromEntries(new FormData(formulario));
-const texto = (valor) => (valor == null ? "" : String(valor).replace(".", ","));
 
 // ---------- Huecos ----------
 
@@ -141,9 +102,9 @@ function abrirFormularioHueco(hueco = null) {
   if (hueco) {
     formularioHueco.elements.nombre.value = hueco.nombre;
     formularioHueco.elements.estancia.value = hueco.estancia;
-    formularioHueco.elements.ancho.value = texto(hueco.ancho_cm);
-    formularioHueco.elements.fondo.value = texto(hueco.fondo_cm);
-    formularioHueco.elements.alto.value = texto(hueco.alto_cm);
+    formularioHueco.elements.ancho.value = comoTexto(hueco.ancho_cm);
+    formularioHueco.elements.fondo.value = comoTexto(hueco.fondo_cm);
+    formularioHueco.elements.alto.value = comoTexto(hueco.alto_cm);
   }
   formularioHueco.hidden = false;
   pintarHuecos();

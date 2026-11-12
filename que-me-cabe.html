@@ -38,12 +38,73 @@
       </div>
     </section>
 
-    <!-- Registrado: aquí irá el recomendador -->
+    <!-- Registrado: el recomendador -->
     <section id="recomendador" hidden>
-      <div class="pendiente">
-        <p><strong>Pantalla en construcción.</strong></p>
-        <p>Llega el día 4: el formulario y los muebles recomendados.</p>
-      </div>
+      <form class="formulario" id="formulario-busqueda" novalidate>
+        <div class="campo" id="zona-hueco" hidden>
+          <label class="campo__etiqueta" for="hueco-guardado">Usar uno de mis huecos <span class="campo__opcional">(opcional)</span></label>
+          <span class="campo__ayuda" id="ayuda-hueco-guardado">Rellena las medidas por ti. Luego puedes cambiarlas.</span>
+          <div class="campo__caja">
+            <select class="campo__entrada" id="hueco-guardado" aria-describedby="ayuda-hueco-guardado"></select>
+          </div>
+        </div>
+
+        <div class="campo" data-campo="estancia">
+          <label class="campo__etiqueta" for="busqueda-estancia">¿En qué estancia?</label>
+          <div class="campo__caja">
+            <select class="campo__entrada" id="busqueda-estancia" name="estancia" aria-describedby="error-busqueda-estancia"></select>
+          </div>
+          <div class="campo__error" id="error-busqueda-estancia" hidden></div>
+        </div>
+
+        <div class="campo" data-campo="tipo">
+          <label class="campo__etiqueta" for="busqueda-tipo">¿Qué mueble buscas?</label>
+          <div class="campo__caja">
+            <select class="campo__entrada" id="busqueda-tipo" name="tipo" aria-describedby="error-busqueda-tipo"></select>
+          </div>
+          <div class="campo__error" id="error-busqueda-tipo" hidden></div>
+        </div>
+
+        <div class="campo" data-campo="ancho">
+          <label class="campo__etiqueta" for="busqueda-ancho">Ancho de la pared</label>
+          <span class="campo__ayuda" id="ayuda-busqueda-ancho">De lado a lado, en centímetros. Es obligatorio.</span>
+          <div class="campo__caja">
+            <input class="campo__entrada" id="busqueda-ancho" name="ancho" type="text" inputmode="decimal" autocomplete="off"
+              aria-describedby="ayuda-busqueda-ancho error-busqueda-ancho">
+            <span class="campo__unidad" aria-hidden="true">cm</span>
+          </div>
+          <div class="campo__error" id="error-busqueda-ancho" hidden></div>
+        </div>
+
+        <div class="campo" data-campo="fondo">
+          <label class="campo__etiqueta" for="busqueda-fondo">Fondo <span class="campo__opcional">(opcional)</span></label>
+          <span class="campo__ayuda" id="ayuda-busqueda-fondo">Lo que puede salir el mueble desde la pared, en centímetros.</span>
+          <div class="campo__caja">
+            <input class="campo__entrada" id="busqueda-fondo" name="fondo" type="text" inputmode="decimal" autocomplete="off"
+              aria-describedby="ayuda-busqueda-fondo error-busqueda-fondo">
+            <span class="campo__unidad" aria-hidden="true">cm</span>
+          </div>
+          <div class="campo__error" id="error-busqueda-fondo" hidden></div>
+        </div>
+
+        <div class="campo" data-campo="alto">
+          <label class="campo__etiqueta" for="busqueda-alto">Alto <span class="campo__opcional">(opcional)</span></label>
+          <span class="campo__ayuda" id="ayuda-busqueda-alto">Hasta el techo, una ventana o una balda, en centímetros.</span>
+          <div class="campo__caja">
+            <input class="campo__entrada" id="busqueda-alto" name="alto" type="text" inputmode="decimal" autocomplete="off"
+              aria-describedby="ayuda-busqueda-alto error-busqueda-alto">
+            <span class="campo__unidad" aria-hidden="true">cm</span>
+          </div>
+          <div class="campo__error" id="error-busqueda-alto" hidden></div>
+        </div>
+
+        <div class="acciones">
+          <button class="boton boton--primario" type="submit">Ver qué me cabe</button>
+        </div>
+      </form>
+
+      <!-- Aquí se pintan los muebles recomendados -->
+      <section id="resultados" aria-live="polite"></section>
     </section>
   </main>
 
