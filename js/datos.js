@@ -6,6 +6,8 @@
 const URL_PRODUCTOS = new URL("../data/products.json", import.meta.url);
 const URL_REGLAS = new URL("../data/reglas_proporcion.json", import.meta.url);
 
+const URL_AMBIENTES = new URL("../data/ambientes.json", import.meta.url);
+
 let promesa = null; // para pedir los archivos una sola vez por página
 
 async function pedirJson(url) {
@@ -31,4 +33,9 @@ export function cargarDatos() {
 export async function buscarProducto(id) {
   const { productos } = await cargarDatos();
   return productos.find((producto) => producto.id === id) ?? null;
+}
+
+/** Devuelve la lista de ambientes tal como está en data/ambientes.json (sin limpiar). */
+export async function cargarAmbientes() {
+  return (await pedirJson(URL_AMBIENTES)).ambientes;
 }

@@ -16,6 +16,7 @@ En Mac o Linux el comando es `python3 -m http.server 8000`.
 - Prototipo: http://localhost:8000/
 - Pruebas automáticas: http://localhost:8000/tests/
 - Muestrario de diseño: http://localhost:8000/estilo.html
+- Etiquetas con QR para imprimir (página del equipo): http://localhost:8000/etiquetas.html
 
 ## Cómo actualizar los productos
 
@@ -38,6 +39,7 @@ python scripts/csv_a_json.py
 | `js/` | Módulos compartidos: datos, guardado en el móvil, sesión (invitado o registrado), medición, enlaces, dibujos |
 | `fonts/`, `img/` | Fuente Poppins y logo de ALI Hogar (usado con su permiso) |
 | `js/pantallas/` | Un archivo por pantalla |
-| `data/` | `productos.csv` (fuente), `products.json` (generado) y las reglas de proporción |
+| `data/` | `productos.csv` (fuente), `products.json` (generado), las reglas de proporción y `ambientes.json` (conjuntos de la tienda) |
+| `js/vendor/` | `qrcode.js`: librería que dibuja los QR (qrcode-generator 1.4.4, de Kazuhiko Arase, licencia MIT) |
 | `scripts/` | `csv_a_json.py` |
 | `tests/` | Pruebas que se ejecutan en el navegador |

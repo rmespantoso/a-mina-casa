@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Etiquetas con QR · A miña casa (prototipo)</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="img/icono.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/componentes.css">
+  <link rel="stylesheet" href="css/imprimir.css">
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+  <header id="cabecera" class="cabecera"></header>
+
+  <!-- Herramienta DEL EQUIPO (no es para clientes): genera las etiquetas con QR para la tienda. -->
+  <main id="contenido" class="pagina pagina--etiquetas">
+    <div class="no-imprimir">
+      <h1>Etiquetas con QR</h1>
+      <p class="entrada">Página del equipo: una etiqueta por mueble y por ambiente, para imprimir en A4 y recortar.</p>
+      <div id="aviso-prueba"></div>
+      <p class="nota">Salen 8 etiquetas por hoja. En el cuadro de impresión, elige tamaño A4, márgenes «predeterminados» y escala al 100 %.</p>
+      <div class="acciones">
+        <button class="boton boton--primario" type="button" id="imprimir">Imprimir etiquetas</button>
+      </div>
+      <p id="estado" role="status">Preparando las etiquetas…</p>
+    </div>
+
+    <div id="etiquetas"></div>
+  </main>
+
+  <footer id="pie" class="pie"></footer>
+  <nav id="navegacion" class="navegacion" aria-label="Secciones"></nav>
+
+  <!-- Librería para dibujar los QR (qrcode-generator 1.4.4, de Kazuhiko Arase, licencia MIT). -->
+  <script src="js/vendor/qrcode.js"></script>
+  <script type="module" src="js/pantallas/etiquetas.js"></script>
+</body>
+</html>

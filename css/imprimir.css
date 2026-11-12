@@ -1,0 +1,129 @@
+/* =========================================================================
+   ETIQUETAS CON QR (solo etiquetas.html).
+   En pantalla se ven una debajo de otra; al imprimir, 8 por hoja A4 (2 × 4).
+   ========================================================================= */
+
+.etiquetas {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.etiqueta {
+  display: grid;
+  grid-template-columns: 1fr 9rem;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.9rem;
+  border: 1px dashed var(--borde-campo);   /* línea de corte */
+  background: #fff;
+  color: #000;
+}
+
+.etiqueta p,
+.etiqueta h3 {
+  margin: 0;
+}
+
+.etiqueta__logo {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.etiqueta__tipo {
+  font-size: 1rem;
+}
+
+.etiqueta__nombre {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.etiqueta__detalle {
+  font-size: 1rem;
+}
+
+.etiqueta__llamada {
+  margin-top: 0.4rem !important;
+  color: #d50d73;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.etiqueta__ref {
+  font-size: 1rem;
+}
+
+.etiqueta__qr {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- Al imprimir ---------- */
+@page {
+  size: A4;
+  margin: 10mm;
+}
+
+@media print {
+  .cabecera,
+  .navegacion,
+  .pie,
+  .whatsapp,
+  .saltar,
+  .no-imprimir {
+    display: none !important;
+  }
+
+  body {
+    padding: 0;
+    background: #fff;
+  }
+
+  .pagina--etiquetas {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .etiquetas {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    margin: 0;
+  }
+
+  /* 277 mm útiles de alto entre 4 filas = 69 mm por etiqueta. */
+  .etiqueta {
+    grid-template-columns: 1fr 40mm;
+    height: 69mm;
+    padding: 5mm;
+    overflow: hidden;
+    break-inside: avoid;
+    font-size: 10pt;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .etiqueta__tipo,
+  .etiqueta__detalle,
+  .etiqueta__ref {
+    font-size: 9pt;
+  }
+
+  .etiqueta__nombre {
+    font-size: 10pt;
+  }
+
+  .etiqueta__llamada {
+    font-size: 11pt;
+  }
+
+  .etiqueta__logo {
+    width: 10mm;
+    height: 10mm;
+  }
+}

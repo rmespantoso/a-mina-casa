@@ -85,6 +85,7 @@ Son 8: Inicio · Mis huecos · ¿Qué me cabe? · Ficha viva · Mi lista · Ambi
 - **Semáforo, cómo se lee:** 5 cm justos es verde; 0 cm justos es ámbar; el alto solo exige "menor o igual"; una medida vacía se salta y se dice; el mueble no se gira.
 - **Etiquetas del recomendador:** "Encaja perfecto" es verde y dentro del rango; "Encaja" es verde fuera del rango; "Justo" es ámbar.
 - **Marca:** desde el 12/11/2026 se usan el logotipo y las fotos de ALI Hogar, con su permiso. El pie sigue diciendo "Prototipo de estudiantes · no es una web oficial de ALI Hogar".
+- **Ambientes y QR (12/11/2026):** los ambientes están en `data/ambientes.json`; los dos actuales son ejemplos del equipo (`"estado": "ejemplo"`) y hay que sustituirlos por los conjuntos reales de ALI. Las etiquetas con QR se generan en `etiquetas.html` (página del equipo) con la librería `js/vendor/qrcode.js` (MIT), la única dependencia externa del proyecto. Las etiquetas no llevan precio.
 - **Tests:** se abren en `http://localhost:8000/tests/`. No hace falta instalar nada.
 - **Publicación:** `docs/` y `PROMPT_INICIAL.md` están en `.gitignore` porque el repositorio de GitHub Pages es público.
 

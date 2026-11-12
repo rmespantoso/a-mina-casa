@@ -2,7 +2,8 @@
 // Cada función recibe datos y devuelve el HTML ya montado.
 
 import { icono, silueta } from "./dibujos.js";
-import { NOMBRE_TIPO, escapar, euros, medidas } from "./textos.js";
+import { CONSULTAR, NOMBRE_TIPO, escapar, euros, medidas } from "./textos.js";
+import { evaluarEncaje, ordenarHuecos } from "./logica/semaforo.js";
 
 // Las tres luces del semáforo: siempre color + icono + palabra.
 const LUCES = {
@@ -81,4 +82,21 @@ export function croquisPared({ anchoPared, anchoMueble }) {
     <path class="croquis__cota" d="M${x} 110h${anchoDibujo}M${x} 104v12M${x + anchoDibujo} 104v12"/>
     <text class="croquis__texto" x="160" y="129" text-anchor="middle">mueble ${anchoMueble} cm · ${porcentaje} % de la pared</text>
   </svg>`;
+}
+
+/**
+ * Semáforo resumido de un mueble frente a los huecos del cliente: una línea por hueco.
+ * Se usan los huecos de la estancia del mueble; si no hay ninguno de esa estancia, todos.
+ * Lo usan Mi lista y Ambiente.
+ */
+export function encajesProducto(producto, huecos) {
+  if (huecos.length === 0) return "";
+  const deSuEstancia = huecos.filter((hueco) => producto.estancias.includes(hueco.estancia));
+  const elegidos = ordenarHuecos(deSuEstancia.length ? deSuEstancia : huecos, producto.estancias);
+  const lineas = elegidos.map((hueco) => {
+    const { estado } = evaluarEncaje(producto, hueco);
+    const chip = estado === "sin-datos" ? `<strong>${CONSULTAR}</strong>` : chipSemaforo(estado);
+    return `<li>${chip}<span>en «${escapar(hueco.nombre)}»</span></li>`;
+  });
+  return `<ul class="articulo__encajes">${lineas.join("")}</ul>`;
 }

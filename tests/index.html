@@ -39,6 +39,7 @@
       await import("./semaforo.test.js");
       await import("./lista.test.js");
       await import("./recomendador.test.js");
+      await import("./ambientes.test.js");
 
       const resultados = await ejecutar();
       const bien = resultados.filter((r) => r.ok).length;

@@ -1,0 +1,19 @@
+{
+  "_aviso": "Ambientes = conjuntos de muebles montados juntos en la tienda. Los dos de abajo son EJEMPLOS del equipo hechos con muebles reales del catálogo: hay que sustituirlos por los conjuntos que ALI Hogar tenga de verdad en la nave. Cuando un ambiente esté validado con ALI, cambia su \"estado\" de \"ejemplo\" a \"validado\" y dejará de mostrarse el aviso de ejemplo. Los ids de \"productos\" tienen que existir en productos.csv (lo comprueban las pruebas).",
+  "ambientes": [
+    {
+      "id": "AMB-01",
+      "nombre": "Salón de ejemplo",
+      "estancia": "salon",
+      "estado": "ejemplo",
+      "productos": ["SOF-02", "TV-01", "APA-01"]
+    },
+    {
+      "id": "AMB-02",
+      "nombre": "Dormitorio de ejemplo",
+      "estancia": "dormitorio",
+      "estado": "ejemplo",
+      "productos": ["CAM-01", "COM-05", "EST-02"]
+    }
+  ]
+}

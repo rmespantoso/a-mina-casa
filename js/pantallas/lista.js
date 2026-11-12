@@ -8,12 +8,11 @@ import { cargarDatos } from "../datos.js";
 import { medir } from "../medicion.js";
 import { estaRegistrado } from "../sesion.js";
 import { enlaceAsesor, enlaceTienda } from "../enlaces.js";
-import { avisoOrientativo, chipSemaforo, fotoProducto } from "../componentes.js";
+import { avisoOrientativo, encajesProducto, fotoProducto } from "../componentes.js";
 import { icono } from "../dibujos.js";
-import { CONSULTAR, NOMBRE_TIPO, escapar, euros, medidas } from "../textos.js";
+import { NOMBRE_TIPO, escapar, euros, medidas } from "../textos.js";
 import { crearEnlace, leerEnlace, textoCompartir, totalLista } from "../logica/lista.js";
 import { accionCompra } from "../logica/recomendador.js";
-import { evaluarEncaje, ordenarHuecos } from "../logica/semaforo.js";
 import { guardarHueco, leerHuecos } from "../mis-huecos.js";
 import { adoptarLista, leerLista, quitarProducto, reponerProducto } from "../mi-lista.js";
 
@@ -35,19 +34,6 @@ let ultimoQuitado = null; // { id, posicion, nombre } para el «Deshacer»
 function buscarProductos(ids) {
   const productos = ids.map((id) => catalogo.find((producto) => producto.id === id)).filter(Boolean);
   return { productos, perdidos: ids.length - productos.length };
-}
-
-/** Semáforo del mueble frente a cada hueco de su estancia (o todos, si no hay de esa estancia). */
-function encajesDe(producto, huecos) {
-  if (huecos.length === 0) return "";
-  const deSuEstancia = huecos.filter((hueco) => producto.estancias.includes(hueco.estancia));
-  const elegidos = ordenarHuecos(deSuEstancia.length ? deSuEstancia : huecos, producto.estancias);
-  const lineas = elegidos.map((hueco) => {
-    const { estado } = evaluarEncaje(producto, hueco);
-    const chip = estado === "sin-datos" ? `<strong>${CONSULTAR}</strong>` : chipSemaforo(estado);
-    return `<li>${chip}<span>en «${escapar(hueco.nombre)}»</span></li>`;
-  });
-  return `<ul class="articulo__encajes">${lineas.join("")}</ul>`;
 }
 
 function articulo(producto, huecos, conQuitar) {
@@ -86,7 +72,7 @@ function articulo(producto, huecos, conQuitar) {
       </div>
       ${quitar}
     </div>
-    ${encajesDe(producto, huecos)}
+    ${encajesProducto(producto, huecos)}
     <p class="mensaje articulo__aviso" role="status" hidden></p>
     <div class="acciones ${pareja ? "acciones--pareja" : ""}">${botones}</div>
   </li>`;

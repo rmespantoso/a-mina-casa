@@ -52,3 +52,19 @@ export function adoptarLista(lista) {
   guardar("lista", limpia);
   return true;
 }
+
+/**
+ * Guarda varios productos de una vez (el conjunto de un ambiente).
+ * No duplica los que ya estaban y se para si la lista se llena.
+ * Devuelve { anadidos, repetidos, sinSitio } con cuántos hay de cada caso.
+ */
+export function guardarVarios(ids) {
+  const cuenta = { anadidos: 0, repetidos: 0, sinSitio: 0 };
+  for (const id of ids) {
+    const resultado = guardarProducto(id);
+    if (resultado.ok) cuenta.anadidos += 1;
+    else if (resultado.motivo === "repetido") cuenta.repetidos += 1;
+    else cuenta.sinSitio += 1;
+  }
+  return cuenta;
+}
