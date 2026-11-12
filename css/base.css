@@ -182,3 +182,8 @@ svg {
     scroll-behavior: auto !important;
   }
 }
+
+/* Lo que lleva el atributo hidden no se ve nunca, aunque su clase le ponga otro display. */
+[hidden] {
+  display: none !important;
+}

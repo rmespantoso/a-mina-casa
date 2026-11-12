@@ -17,12 +17,158 @@
   <main id="contenido" class="pagina">
     <h1>Mis huecos</h1>
     <p class="entrada">Guarda una vez las medidas de tus espacios y de tu puerta. Las usaremos para decirte qué te cabe.</p>
-    <div class="pendiente">
-      <p><strong>Pantalla en construcción.</strong></p>
-      <p>Llega el día 2: crear huecos, guardar la puerta y la guía para medir.</p>
+    <p class="nota" id="donde-se-guarda"></p>
+
+    <!-- Mensajes de «guardado» o «borrado». Los lectores de pantalla los leen solos. -->
+    <p class="mensaje" id="mensaje" role="status" tabindex="-1" hidden></p>
+
+    <!-- Invitación a registrarse: sale una sola vez, al guardar el primer hueco. -->
+    <section class="invitacion" id="invitacion" aria-labelledby="titulo-invitacion" hidden>
+      <h2 id="titulo-invitacion">¿Quieres conservar tus medidas?</h2>
+      <p>Ahora están guardadas en este móvil. Con una cuenta las tendrías también en otros dispositivos y sin límite de tiempo. No es obligatorio.</p>
+      <div class="acciones">
+        <a class="boton boton--secundario" href="acceso.html?volver=huecos">Crear cuenta</a>
+        <button class="boton boton--secundario" type="button" id="invitacion-no">Ahora no</button>
+      </div>
+    </section>
+
+    <!-- ===== Huecos ===== -->
+    <h2 class="seccion" id="titulo-huecos">Tus huecos <span class="contador" id="contador"></span></h2>
+    <div id="lista-huecos"></div>
+
+    <div class="acciones" id="zona-anadir">
+      <button class="boton boton--primario" type="button" id="anadir-hueco">Añadir un hueco</button>
     </div>
-    <div class="acciones">
-      <a class="boton boton--secundario" href="index.html">Volver al inicio</a>
+    <p class="nota" id="aviso-lleno" hidden>Has llegado al máximo de 8 huecos. Para añadir otro, borra uno que ya no necesites.</p>
+
+    <form class="formulario" id="formulario-hueco" novalidate hidden>
+      <h3 id="titulo-formulario-hueco">Hueco nuevo</h3>
+
+      <div class="campo" data-campo="nombre">
+        <label class="campo__etiqueta" for="hueco-nombre">Nombre</label>
+        <span class="campo__ayuda" id="ayuda-hueco-nombre">Para reconocerlo. Por ejemplo: Pared del sofá.</span>
+        <div class="campo__caja">
+          <input class="campo__entrada" id="hueco-nombre" name="nombre" type="text" maxlength="40" autocomplete="off"
+            aria-describedby="ayuda-hueco-nombre error-hueco-nombre">
+        </div>
+        <div class="campo__error" id="error-hueco-nombre" hidden></div>
+      </div>
+
+      <div class="campo" data-campo="estancia">
+        <label class="campo__etiqueta" for="hueco-estancia">Estancia</label>
+        <div class="campo__caja">
+          <select class="campo__entrada" id="hueco-estancia" name="estancia" aria-describedby="error-hueco-estancia"></select>
+        </div>
+        <div class="campo__error" id="error-hueco-estancia" hidden></div>
+      </div>
+
+      <div class="campo" data-campo="ancho">
+        <label class="campo__etiqueta" for="hueco-ancho">Ancho</label>
+        <span class="campo__ayuda" id="ayuda-hueco-ancho">De lado a lado, en centímetros. Es obligatorio.</span>
+        <div class="campo__caja">
+          <input class="campo__entrada" id="hueco-ancho" name="ancho" type="text" inputmode="decimal" autocomplete="off"
+            aria-describedby="ayuda-hueco-ancho error-hueco-ancho">
+          <span class="campo__unidad" aria-hidden="true">cm</span>
+        </div>
+        <div class="campo__error" id="error-hueco-ancho" hidden></div>
+      </div>
+
+      <div class="campo" data-campo="fondo">
+        <label class="campo__etiqueta" for="hueco-fondo">Fondo <span class="campo__opcional">(opcional)</span></label>
+        <span class="campo__ayuda" id="ayuda-hueco-fondo">Lo que puede salir el mueble desde la pared, en centímetros.</span>
+        <div class="campo__caja">
+          <input class="campo__entrada" id="hueco-fondo" name="fondo" type="text" inputmode="decimal" autocomplete="off"
+            aria-describedby="ayuda-hueco-fondo error-hueco-fondo">
+          <span class="campo__unidad" aria-hidden="true">cm</span>
+        </div>
+        <div class="campo__error" id="error-hueco-fondo" hidden></div>
+      </div>
+
+      <div class="campo" data-campo="alto">
+        <label class="campo__etiqueta" for="hueco-alto">Alto <span class="campo__opcional">(opcional)</span></label>
+        <span class="campo__ayuda" id="ayuda-hueco-alto">Hasta el techo, una ventana o una balda, en centímetros.</span>
+        <div class="campo__caja">
+          <input class="campo__entrada" id="hueco-alto" name="alto" type="text" inputmode="decimal" autocomplete="off"
+            aria-describedby="ayuda-hueco-alto error-hueco-alto">
+          <span class="campo__unidad" aria-hidden="true">cm</span>
+        </div>
+        <div class="campo__error" id="error-hueco-alto" hidden></div>
+      </div>
+
+      <div class="acciones">
+        <button class="boton boton--primario" type="submit">Guardar hueco</button>
+        <button class="boton boton--secundario" type="button" data-cancelar>Cancelar</button>
+      </div>
+    </form>
+
+    <!-- ===== Puerta ===== -->
+    <h2 class="seccion">Tu puerta</h2>
+    <p>Mide la puerta más estrecha por la que tiene que pasar el mueble. Te avisaremos si no entra.</p>
+    <div id="puerta-guardada"></div>
+
+    <form class="formulario" id="formulario-puerta" novalidate hidden>
+      <h3>Medidas de la puerta</h3>
+
+      <div class="campo" data-campo="ancho">
+        <label class="campo__etiqueta" for="puerta-ancho">Ancho del paso</label>
+        <span class="campo__ayuda" id="ayuda-puerta-ancho">Por dentro del marco, con la puerta abierta, en centímetros.</span>
+        <div class="campo__caja">
+          <input class="campo__entrada" id="puerta-ancho" name="ancho" type="text" inputmode="decimal" autocomplete="off"
+            aria-describedby="ayuda-puerta-ancho error-puerta-ancho">
+          <span class="campo__unidad" aria-hidden="true">cm</span>
+        </div>
+        <div class="campo__error" id="error-puerta-ancho" hidden></div>
+      </div>
+
+      <div class="campo" data-campo="alto">
+        <label class="campo__etiqueta" for="puerta-alto">Alto del paso</label>
+        <span class="campo__ayuda" id="ayuda-puerta-alto">Del suelo al marco de arriba, en centímetros.</span>
+        <div class="campo__caja">
+          <input class="campo__entrada" id="puerta-alto" name="alto" type="text" inputmode="decimal" autocomplete="off"
+            aria-describedby="ayuda-puerta-alto error-puerta-alto">
+          <span class="campo__unidad" aria-hidden="true">cm</span>
+        </div>
+        <div class="campo__error" id="error-puerta-alto" hidden></div>
+      </div>
+
+      <div class="acciones">
+        <button class="boton boton--primario" type="submit">Guardar puerta</button>
+        <button class="boton boton--secundario" type="button" data-cancelar>Cancelar</button>
+      </div>
+    </form>
+
+    <!-- ===== Guía para medir ===== -->
+    <h2 class="seccion">Cómo medir bien</h2>
+    <details class="guia">
+      <summary>Ver la guía en 3 pasos</summary>
+      <ol class="pasos">
+        <li class="pasos__paso">
+          <div>
+            <h3 class="pasos__titulo">Mide ancho, fondo y alto</h3>
+            <p class="pasos__texto">Con un metro, en centímetros. El ancho es de lado a lado; el fondo, lo que puede salir el mueble desde la pared; el alto, hasta donde haya sitio.</p>
+            <div id="dibujo-hueco"></div>
+          </div>
+        </li>
+        <li class="pasos__paso">
+          <div>
+            <h3 class="pasos__titulo">Cuenta con lo que sobresale</h3>
+            <p class="pasos__texto">Rodapiés, radiadores, enchufes y marcos quitan sitio. Mide desde lo que más sobresale, no desde la pared.</p>
+            <div id="dibujo-rodapie"></div>
+          </div>
+        </li>
+        <li class="pasos__paso">
+          <div>
+            <h3 class="pasos__titulo">Mide la puerta por dentro</h3>
+            <p class="pasos__texto">Cuenta solo el paso libre: por dentro del marco y con la puerta abierta. Si hay ascensor o pasillo estrecho, apunta la medida más pequeña.</p>
+            <div id="dibujo-puerta"></div>
+          </div>
+        </li>
+      </ol>
+    </details>
+
+    <div class="aviso">
+      <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.5v.3"/></svg>
+      <p><strong>Resultado orientativo.</strong> Mide siempre antes de comprar.</p>
     </div>
   </main>
 

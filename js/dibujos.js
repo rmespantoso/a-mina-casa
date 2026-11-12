@@ -23,6 +23,51 @@ export function icono(nombre) {
   return `<svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${ICONOS[nombre] ?? ""}</svg>`;
 }
 
+// Dibujos de la guía para medir (320 × 170). Usan los mismos estilos que el croquis.
+const TRAZOS_GUIA = {
+  hueco: {
+    descripcion: "Un hueco visto de frente: el ancho va de lado a lado, el alto de abajo arriba y el fondo desde la pared hacia ti.",
+    trazos:
+      '<rect class="croquis__pared" x="70" y="18" width="200" height="100"/>' +
+      '<path class="croquis__suelo" d="M70 118 40 158M270 118l30 40M70 118h200"/>' +
+      '<path class="croquis__cota" d="M82 44h176M82 37v14M258 37v14"/>' +
+      '<text class="croquis__texto" x="170" y="68" text-anchor="middle">ancho</text>' +
+      '<path class="croquis__cota" d="M54 18v100M47 18h14M47 118h14"/>' +
+      '<text class="croquis__texto" x="42" y="73" text-anchor="end">alto</text>' +
+      '<path class="croquis__cota" d="m284 122 24 32M278 126l12-8M302 158l12-8"/>' +
+      '<text class="croquis__texto" x="268" y="150" text-anchor="end">fondo</text>',
+  },
+  rodapie: {
+    descripcion: "Una pared vista de lado con un rodapié y un radiador: el fondo se mide desde el radiador, que es lo que más sobresale.",
+    trazos:
+      '<rect class="croquis__pared" x="40" y="8" width="16" height="122"/>' +
+      '<rect class="croquis__mueble" x="56" y="50" width="24" height="52"/>' +
+      '<rect class="croquis__pared" x="56" y="112" width="9" height="18" stroke="var(--texto)" stroke-width="1.5"/>' +
+      '<path class="croquis__suelo" d="M20 130h280"/>' +
+      '<path class="croquis__cota" d="M80 76h180M80 68v16M260 68v16"/>' +
+      '<text class="croquis__texto" x="170" y="62" text-anchor="middle">fondo libre</text>' +
+      '<text class="croquis__texto" x="160" y="160" text-anchor="middle">desde lo que sobresale</text>',
+  },
+  puerta: {
+    descripcion: "Una puerta vista de frente: el ancho y el alto se miden por dentro del marco.",
+    trazos:
+      '<rect x="104" y="10" width="112" height="140" fill="none" stroke="var(--texto)" stroke-width="1.5"/>' +
+      '<rect class="croquis__pared" x="116" y="22" width="88" height="128"/>' +
+      '<path class="croquis__suelo" d="M40 150h240"/>' +
+      '<path class="croquis__cota" d="M116 96h88M116 88v16M204 88v16"/>' +
+      '<text class="croquis__texto" x="160" y="82" text-anchor="middle">ancho</text>' +
+      '<path class="croquis__cota" d="M238 22v128M230 22h16M230 150h16"/>' +
+      '<text class="croquis__texto" x="250" y="92">alto</text>',
+  },
+};
+
+/** Devuelve el dibujo de un paso de la guía para medir: "hueco", "rodapie" o "puerta". */
+export function dibujoGuia(nombre) {
+  const dibujo = TRAZOS_GUIA[nombre];
+  if (!dibujo) return "";
+  return `<svg class="croquis croquis--guia" viewBox="0 0 320 170" role="img" aria-label="${dibujo.descripcion}">${dibujo.trazos}</svg>`;
+}
+
 // Siluetas de 120 × 80, una por cada tipo de mueble del CSV.
 const SILUETAS = {
   sofa:

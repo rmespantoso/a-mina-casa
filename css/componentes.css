@@ -410,6 +410,178 @@
   font-weight: 600;
 }
 
+.campo__opcional {
+  color: var(--texto);
+  font-weight: 400;
+}
+
+select.campo__entrada {
+  font-size: 1.1rem;
+}
+
+/* Error de un campo: se marca con borde grueso, raya magenta y texto.
+   No se usa el rojo, que en esta herramienta solo significa «no cabe». */
+.campo--error .campo__caja {
+  border: 2px solid var(--titulo);
+}
+
+.campo__error {
+  margin-top: 0.4rem;
+  padding-left: 0.75rem;
+  border-left: 4px solid var(--marca-viva);
+  color: var(--titulo);
+  font-weight: 600;
+}
+
+.campo__error .boton {
+  margin-top: 0.5rem;
+}
+
+/* ---------- Formulario dentro de la página (hueco nuevo, puerta) ---------- */
+.formulario {
+  margin: 1.25rem 0;
+  padding: 1rem;
+  background: var(--gris-claro);
+}
+
+.formulario h3 {
+  margin-top: 0;
+}
+
+.formulario .acciones {
+  margin-bottom: 0;
+}
+
+/* Dos botones del mismo tamaño, uno al lado del otro. */
+.acciones--pareja {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* ---------- Hueco guardado ---------- */
+.huecos {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hueco {
+  padding: 1rem;
+  border: 1px solid var(--borde);
+}
+
+.hueco__estancia {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.hueco__nombre {
+  margin: 0 0 0.5rem;
+  text-transform: uppercase;
+}
+
+.hueco__medidas {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.hueco__medidas dt {
+  font-size: 1rem;
+}
+
+.hueco__medidas dd {
+  margin: 0;
+  color: var(--titulo);
+  font-weight: 600;
+}
+
+.hueco__pregunta {
+  margin: 1rem 0 0;
+  color: var(--titulo);
+  font-weight: 600;
+}
+
+.hueco .acciones {
+  margin: 1rem 0 0;
+}
+
+.hueco__pregunta + .acciones {
+  margin-top: 0.5rem;
+}
+
+/* Contador «3 de 8»: redondo, como los contadores de la web de ALI. */
+.contador:not(:empty) {
+  display: inline-block;
+  margin-left: 0.35rem;
+  padding: 0.1rem 0.7rem;
+  background: var(--rosa-claro);
+  border-radius: 999px;
+  color: var(--titulo);
+  font-size: 1rem;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+/* ---------- Mensaje de «guardado» e invitación a registrarse ---------- */
+.mensaje {
+  padding: 0.85rem 1rem;
+  border-left: 4px solid var(--marca-viva);
+  background: var(--gris-claro);
+  color: var(--titulo);
+  font-weight: 600;
+}
+
+.invitacion {
+  margin: 1.25rem 0;
+  padding: 1rem;
+  background: var(--rosa-claro);
+  color: var(--titulo);
+}
+
+.invitacion h2 {
+  margin-top: 0;
+  color: var(--titulo);
+  font-size: 1.2rem;
+}
+
+.invitacion .acciones {
+  margin-bottom: 0;
+}
+
+/* ---------- Guía para medir (desplegable) ---------- */
+.guia {
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--titulo);
+}
+
+.guia summary {
+  display: flex;
+  align-items: center;
+  min-height: 3.25rem;
+  padding: 0.5rem 1rem;
+  color: var(--titulo);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.guia .pasos {
+  padding: 0.5rem 1rem 0;
+}
+
+.guia .pasos__paso:last-child {
+  border-bottom: 0;
+}
+
+.guia .croquis {
+  max-width: 20rem;
+  margin-top: 0.75rem;
+}
+
 /* Casilla de consentimiento: grande y fácil de pulsar. */
 .casilla {
   display: flex;
@@ -601,4 +773,10 @@
   flex-wrap: wrap;
   gap: 0.6rem;
   margin-bottom: 1rem;
+}
+
+/* Los dibujos de la guía se ven más pequeños que el croquis: su letra se sube
+   para que en un móvil de 390 px siga midiendo 16 px. */
+.croquis--guia .croquis__texto {
+  font-size: 19px;
 }
