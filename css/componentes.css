@@ -437,7 +437,7 @@ select.campo__entrada {
   margin-top: 0.5rem;
 }
 
-/* ---------- Formulario dentro de la página (hueco nuevo, puerta) ---------- */
+/* ---------- Formulario dentro de la página (hueco nuevo) ---------- */
 .formulario {
   margin: 1.25rem 0;
   padding: 1rem;
@@ -779,4 +779,77 @@ select.campo__entrada {
    para que en un móvil de 390 px siga midiendo 16 px. */
 .croquis--guia .croquis__texto {
   font-size: 19px;
+}
+
+/* ---------- Ficha viva ---------- */
+.ficha__tipo {
+  margin: 0.9rem 0 0;
+  font-size: 1rem;
+}
+
+.ficha__nombre {
+  margin: 0 0 0.35rem;
+  font-size: 1.45rem;
+  line-height: 1.25;
+}
+
+.ficha__precio {
+  margin: 0 0 1rem;
+  color: var(--titulo);
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.pagina > .hueco__medidas {
+  margin-bottom: 1rem;
+}
+
+/* Resultado del semáforo para un hueco: la etiqueta de color va lo primero. */
+.encajes {
+  display: grid;
+  gap: 1rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.encaje {
+  padding: 1rem;
+  border: 1px solid var(--borde);
+}
+
+.encaje .semaforo {
+  font-size: 1.15rem;
+}
+
+.encaje__sin-datos {
+  margin: 0;
+  color: var(--titulo);
+  font-weight: 600;
+}
+
+.encaje__nombre {
+  margin: 0.75rem 0 0;
+  text-transform: uppercase;
+}
+
+.encaje__estancia {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.encaje__motivos {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.encaje__motivos li {
+  margin-bottom: 0.2rem;
+}
+
+.mensaje a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3rem;
+  font-weight: 600;
 }

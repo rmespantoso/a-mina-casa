@@ -8,14 +8,14 @@ La actuación propuesta se llama **A Miña Casa ALI**: una herramienta web, sin 
 
 ## Las dos puertas de entrada (las dos son obligatorias)
 
-1. **Desde la tienda:** el cliente escanea el QR de la etiqueta de un mueble y abre su *ficha viva*. Allí ve un semáforo que le dice si el mueble cabe en los huecos de su casa y si pasa por su puerta.
+1. **Desde la tienda:** el cliente escanea el QR de la etiqueta de un mueble y abre su *ficha viva*. Allí ve un semáforo que le dice si el mueble cabe en los huecos de su casa.
 2. **Desde alihogar.es:** el cliente pulsa el banner "¿Qué me cabe?" e introduce la estancia, el tipo de mueble y las medidas de su pared. El *recomendador* le devuelve solo los muebles que caben, ordenados por proporción con la pared, e indica en qué sección de la nave puede verlos y tocarlos.
 
 Las dos entradas acaban en la misma **Mi lista**. La lista se puede compartir por WhatsApp, enviar al asesor de ALI (WhatsApp 604 06 57 88) o usar para comprar online o con recogida en tienda (Click & Collect).
 
 ## Invitado y registrado (decisión del 12/11/2026)
 
-- **Invitado (sin cuenta):** escanea QR, mete medidas de huecos y puerta, ve el semáforo, abre la ficha de producto y guarda productos en Mi lista. Todo se queda en su móvil.
+- **Invitado (sin cuenta):** escanea QR, mete medidas de sus huecos, ve el semáforo, abre la ficha de producto y guarda productos en Mi lista. Todo se queda en su móvil.
 - **Registrado:** lo mismo, guardado en su cuenta (sin límite de tiempo y en otros dispositivos), y además el recomendador "¿Qué me cabe?".
 - Compartir la lista por WhatsApp y escribir al asesor están abiertos a todos.
 - Al invitado se le propone registrarse, sin obligar, al guardar su primer hueco y cuando ya tiene productos en la lista.
@@ -45,13 +45,13 @@ Son 8: Inicio · Mis huecos · ¿Qué me cabe? · Ficha viva · Mi lista · Ambi
 - **Verde:** sobran al menos 5 cm en ancho y en fondo, y el alto del mueble es menor o igual que el del hueco.
 - **Ámbar:** en alguna medida sobran entre 0 y 5 cm.
 - **Rojo:** alguna medida supera la del hueco.
-- **Puerta:** el mueble pasa si sus dos lados más cortos caben en el ancho y el alto de la puerta.
+- **Sin comprobación de puerta (decisión del 12/11/2026):** los muebles se entregan desmontados, así que no se piden las medidas de la puerta ni se comprueba si el mueble pasa por ella. No la añadas.
 - Mostrar siempre el aviso "Resultado orientativo".
 - Escribir tests sencillos de los casos límite: exacto, 5 cm justos, 1 cm de más y medidas que faltan.
 
 ## Lógica del recomendador
 
-1. **Filtro:** solo entran los muebles de la estancia y el tipo elegidos que salen en verde o ámbar, y que pasan por la puerta si se ha indicado.
+1. **Filtro:** solo entran los muebles de la estancia y el tipo elegidos que salen en verde o ámbar.
 2. **Proporción:** se calcula qué porcentaje del ancho de la pared ocupa el mueble y se compara con el rango ideal de su tipo en `reglas_proporcion.json`.
 3. **Orden y etiquetas:** primero los que quedan dentro del rango y más cerca de su centro. Se muestran 6 como máximo, con la etiqueta "Encaja perfecto", "Encaja" o "Justo".
 4. **Sin resultados:** decirlo claramente y ofrecer el WhatsApp del asesor. Nunca se recomienda algo que no cabe.
@@ -81,7 +81,7 @@ Son 8: Inicio · Mis huecos · ¿Qué me cabe? · Ficha viva · Mi lista · Ambi
 - **Lista en la URL:** `lista.html?v=1&c=CÓDIGO&l=SOF-02.TV-04&h=…`. Los huecos (`h`) son opcionales y se avisa al cliente. Una lista recibida nunca pisa la propia sin preguntar.
 - **Huecos con estancia:** cada hueco guarda su estancia; la ficha enseña primero los de la estancia del mueble.
 - **Privacidad:** Microsoft Clarity queda fuera del MVP. GA4 solo se carga tras un aviso de consentimiento con dos botones iguales.
-- **Semáforo, cómo se lee:** 5 cm justos es verde; 0 cm justos es ámbar; el alto solo exige "menor o igual"; una medida vacía se salta y se dice; el mueble no se gira; sin alto, la puerta muestra "Consultar en tienda".
+- **Semáforo, cómo se lee:** 5 cm justos es verde; 0 cm justos es ámbar; el alto solo exige "menor o igual"; una medida vacía se salta y se dice; el mueble no se gira.
 - **Etiquetas del recomendador:** "Encaja perfecto" es verde y dentro del rango; "Encaja" es verde fuera del rango; "Justo" es ámbar.
 - **Marca:** desde el 12/11/2026 se usan el logotipo y las fotos de ALI Hogar, con su permiso. El pie sigue diciendo "Prototipo de estudiantes · no es una web oficial de ALI Hogar".
 - **Tests:** se abren en `http://localhost:8000/tests/`. No hace falta instalar nada.

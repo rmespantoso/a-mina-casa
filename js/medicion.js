@@ -14,7 +14,7 @@ import { leer, guardar } from "./almacen.js";
 export const EVENTOS = [
   "qr_scan",          // entra escaneando un QR de la tienda (se detecta por el UTM)
   "fit_check",        // se le enseña un semáforo
-  "space_add",        // guarda un hueco o la puerta
+  "space_add",        // guarda un hueco
   "list_create",      // guarda su primer producto: nace una lista
   "list_add",         // guarda un producto en la lista
   "list_share",       // comparte la lista

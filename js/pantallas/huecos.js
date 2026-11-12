@@ -1,29 +1,33 @@
-// Pantalla Mis huecos: crear, cambiar y borrar huecos, guardar la puerta
-// y enseñar la guía para medir. La usan igual el invitado y el registrado.
+// Pantalla Mis huecos: crear, cambiar y borrar huecos y enseñar la guía para medir. La usan igual el invitado y el registrado.
 
 import { iniciarPagina } from "../comun.js";
 import { guardar, leer } from "../almacen.js";
-import { estaRegistrado } from "../sesion.js";
+import { destinoSeguro, estaRegistrado } from "../sesion.js";
 import { dibujoGuia } from "../dibujos.js";
 import { NOMBRE_ESTANCIA, cm, escapar } from "../textos.js";
-import { ESTANCIAS, MAX_HUECOS, validarHueco, validarPuerta } from "../logica/huecos.js";
-import { borrarHueco, borrarPuerta, guardarHueco, guardarPuerta, leerHuecos, leerPuerta } from "../mis-huecos.js";
+import { ESTANCIAS, MAX_HUECOS, validarHueco } from "../logica/huecos.js";
+import { borrarHueco, guardarHueco, leerHuecos } from "../mis-huecos.js";
 
 iniciarPagina("huecos");
 
 const listaHuecos = document.getElementById("lista-huecos");
 const formularioHueco = document.getElementById("formulario-hueco");
-const formularioPuerta = document.getElementById("formulario-puerta");
-const puertaGuardada = document.getElementById("puerta-guardada");
 const zonaAnadir = document.getElementById("zona-anadir");
 const mensaje = document.getElementById("mensaje");
 const invitacion = document.getElementById("invitacion");
 
 let idEnEdicion = null;      // hueco que se está cambiando (null si es uno nuevo)
 let idPorBorrar = null;      // hueco que espera el «Sí, borrar»
-let puertaPorQuitar = false; // la puerta espera el «Sí, quitar»
 
 // ---------- Piezas fijas de la página ----------
+
+// Si se llegó desde la ficha de un mueble (?volver=ficha&p=SOF-01), se ofrece volver a él.
+const parametros = new URLSearchParams(window.location.search);
+const vuelta = destinoSeguro(parametros.get("volver"), parametros.get("p"));
+if (vuelta.startsWith("ficha.html?p=")) {
+  document.getElementById("volver-ficha").href = vuelta;
+  document.getElementById("zona-volver").hidden = false;
+}
 
 document.getElementById("donde-se-guarda").textContent = estaRegistrado()
   ? "Guardado en tu cuenta (demostración: en este prototipo se queda en este móvil)."
@@ -35,7 +39,6 @@ document.getElementById("hueco-estancia").innerHTML =
 
 document.getElementById("dibujo-hueco").innerHTML = dibujoGuia("hueco");
 document.getElementById("dibujo-rodapie").innerHTML = dibujoGuia("rodapie");
-document.getElementById("dibujo-puerta").innerHTML = dibujoGuia("puerta");
 
 // ---------- Mensajes ----------
 
@@ -218,91 +221,4 @@ document.getElementById("invitacion-no").addEventListener("click", () => {
   invitacion.hidden = true;
 });
 
-// ---------- Puerta ----------
-
-function pintarPuerta() {
-  const puerta = leerPuerta();
-  if (!formularioPuerta.hidden) {
-    puertaGuardada.innerHTML = "";
-    return;
-  }
-  if (!puerta) {
-    puertaGuardada.innerHTML = `<div class="acciones">
-      <button class="boton boton--secundario" type="button" data-accion="editar">Añadir mi puerta</button>
-    </div>`;
-    return;
-  }
-  const acciones = puertaPorQuitar
-    ? `<p class="hueco__pregunta" role="alert">¿Quitar la puerta guardada?</p>
-       <div class="acciones acciones--pareja">
-         <button class="boton boton--primario" type="button" data-accion="confirmar">Sí, quitar</button>
-         <button class="boton boton--secundario" type="button" data-accion="cancelar">No</button>
-       </div>`
-    : `<div class="acciones acciones--pareja">
-         <button class="boton boton--secundario" type="button" data-accion="editar" aria-label="Editar la puerta">Editar</button>
-         <button class="boton boton--secundario" type="button" data-accion="borrar" aria-label="Quitar la puerta">Quitar</button>
-       </div>`;
-  puertaGuardada.innerHTML = `<div class="hueco">
-    <h3 class="hueco__nombre">Puerta</h3>
-    <dl class="hueco__medidas">
-      <div><dt>Ancho</dt><dd>${cm(puerta.ancho_cm)}</dd></div>
-      <div><dt>Alto</dt><dd>${cm(puerta.alto_cm)}</dd></div>
-    </dl>
-    ${acciones}
-  </div>`;
-}
-
-function cerrarFormularioPuerta() {
-  formularioPuerta.hidden = true;
-  pintarPuerta();
-}
-
-puertaGuardada.addEventListener("click", (evento) => {
-  const accion = evento.target.closest("[data-accion]")?.dataset.accion;
-  if (!accion) return;
-
-  if (accion === "editar") {
-    const puerta = leerPuerta();
-    puertaPorQuitar = false;
-    formularioPuerta.reset();
-    pintarErrores(formularioPuerta);
-    formularioPuerta.elements.ancho.value = texto(puerta?.ancho_cm);
-    formularioPuerta.elements.alto.value = texto(puerta?.alto_cm);
-    formularioPuerta.hidden = false;
-    pintarPuerta();
-    formularioPuerta.elements.ancho.focus();
-  } else if (accion === "borrar") {
-    puertaPorQuitar = true;
-    pintarPuerta();
-    puertaGuardada.querySelector('[data-accion="cancelar"]').focus();
-  } else if (accion === "cancelar") {
-    puertaPorQuitar = false;
-    pintarPuerta();
-    puertaGuardada.querySelector('[data-accion="borrar"]').focus();
-  } else if (accion === "confirmar") {
-    borrarPuerta();
-    puertaPorQuitar = false;
-    pintarPuerta();
-    decir("Puerta quitada.");
-  }
-});
-
-formularioPuerta.querySelector("[data-cancelar]").addEventListener("click", () => {
-  cerrarFormularioPuerta();
-  puertaGuardada.querySelector('[data-accion="editar"]').focus();
-});
-
-formularioPuerta.addEventListener("submit", (evento) => {
-  evento.preventDefault();
-  const revision = validarPuerta(datosDe(formularioPuerta));
-  if (!revision.ok) {
-    pintarErrores(formularioPuerta, revision.errores, revision.sugerencias);
-    return;
-  }
-  const resultado = guardarPuerta(revision.puerta);
-  cerrarFormularioPuerta();
-  decir("Puerta guardada.", resultado.enMovil);
-});
-
 pintarHuecos();
-pintarPuerta();

@@ -1,12 +1,12 @@
 // Pruebas de Mis huecos: qué medidas valen, el aviso de metros, el máximo de 8,
-// editar y borrar, y que la puerta se guarda aparte.
+// y editar y borrar.
 
 import { grupo, prueba, igual, cierto } from "./mini.js";
 import { borrar, guardar, leer } from "../js/almacen.js";
 import {
-  MAX_HUECOS, leerMedida, limpiarHuecos, limpiarPuerta, ponerHueco, quitarHueco, validarHueco, validarPuerta,
+  MAX_HUECOS, leerMedida, limpiarHuecos, ponerHueco, quitarHueco, validarHueco,
 } from "../js/logica/huecos.js";
-import { borrarHueco, borrarPuerta, guardarHueco, guardarPuerta, leerHuecos, leerPuerta } from "../js/mis-huecos.js";
+import { borrarHueco, guardarHueco, leerHuecos } from "../js/mis-huecos.js";
 
 const PARED = { nombre: "Pared del sofá", estancia: "salon", ancho: "250", fondo: "95", alto: "" };
 const hueco = (nombre, ancho = 200) => ({ nombre, estancia: "salon", ancho_cm: ancho, fondo_cm: null, alto_cm: null });
@@ -39,6 +39,7 @@ prueba("si parece escrita en metros se pregunta, no se corrige sola", () => {
   igual(leida.sugerencia, 250);
   cierto(leida.mensaje.includes("250 cm"), leida.mensaje);
   igual(leerMedida("0.8").sugerencia, 80);
+  igual(leerMedida("2,03").sugerencia, 203, "se calcula sin redondear antes");
 });
 
 prueba("los límites: 20 y 1000 cm valen; 19 y 1001 no", () => {
@@ -74,12 +75,6 @@ prueba("una medida en metros bloquea el guardado y propone la corrección", () =
   igual(revision.ok, false);
   igual(revision.hueco, null);
   igual(revision.sugerencias, { ancho: 250 });
-});
-
-prueba("la puerta necesita ancho y alto", () => {
-  igual(validarPuerta({ ancho: "80", alto: "203" }).puerta, { ancho_cm: 80, alto_cm: 203 });
-  igual(Object.keys(validarPuerta({ ancho: "80", alto: "" }).errores), ["alto"]);
-  igual(validarPuerta({ ancho: "0,8", alto: "2,03" }).sugerencias, { ancho: 80, alto: 203 });
 });
 
 grupo("Huecos · la lista");
@@ -118,23 +113,19 @@ prueba("datos estropeados o manipulados en el móvil no rompen la pantalla", () 
   igual(limpiarHuecos([null, { id: "h1" }, { id: "h2", ancho_cm: 99999 }]), []);
   const limpio = limpiarHuecos([{ id: "h1", nombre: "A", estancia: "garaje", ancho_cm: 200, fondo_cm: "x", alto_cm: 240 }]);
   igual(limpio, [{ id: "h1", nombre: "A", estancia: "salon", ancho_cm: 200, fondo_cm: null, alto_cm: 240 }]);
-  igual(limpiarPuerta({ ancho_cm: 80 }), null);
 });
 
 grupo("Huecos · guardar en el móvil");
 
-/** Ejecuta una prueba con huecos y puerta vacíos y deja el navegador como estaba. */
+/** Ejecuta una prueba sin huecos guardados y deja el navegador como estaba. */
 function conMovilLimpio(funcion) {
   return () => {
     const huecosAntes = leer("huecos", null);
-    const puertaAntes = leer("puerta", null);
     borrar("huecos");
-    borrar("puerta");
     try {
       funcion();
     } finally {
       if (huecosAntes === null) borrar("huecos"); else guardar("huecos", huecosAntes);
-      if (puertaAntes === null) borrar("puerta"); else guardar("puerta", puertaAntes);
     }
   };
 }
@@ -152,14 +143,4 @@ prueba("se puede cambiar y borrar un hueco guardado", conMovilLimpio(() => {
   igual(leerHuecos().map((h) => h.nombre), ["A corregido", "B"]);
   borrarHueco(id);
   igual(leerHuecos().map((h) => h.nombre), ["B"]);
-}));
-
-prueba("la puerta se guarda aparte: no cuenta como hueco ni se borra con ellos", conMovilLimpio(() => {
-  const { id } = guardarHueco(hueco("A"));
-  guardarPuerta({ ancho_cm: 80, alto_cm: 203 });
-  igual(leerHuecos().length, 1);
-  borrarHueco(id);
-  igual(leerPuerta(), { ancho_cm: 80, alto_cm: 203 });
-  borrarPuerta();
-  igual(leerPuerta(), null);
 }));

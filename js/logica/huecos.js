@@ -1,4 +1,4 @@
-// Reglas de un hueco y de la puerta: qué medidas valen y cuáles no.
+// Reglas de un hueco: qué medidas valen y cuáles no.
 // Es lógica pura: no toca la pantalla ni guarda nada, y por eso se puede probar sola
 // (tests/huecos.test.js).
 
@@ -92,16 +92,6 @@ export function validarHueco(datos = {}) {
   return { ok, hueco, errores, sugerencias };
 }
 
-/** Revisa el formulario de la puerta: hacen falta el ancho y el alto del paso libre. */
-export function validarPuerta(datos = {}) {
-  const { valores, errores, sugerencias } = revisarMedidas(datos, [
-    { nombre: "ancho", obligatoria: true, falta: "Falta el ancho de la puerta." },
-    { nombre: "alto", obligatoria: true, falta: "Falta el alto de la puerta." },
-  ]);
-  const ok = Object.keys(errores).length === 0;
-  return { ok, puerta: ok ? { ancho_cm: valores.ancho, alto_cm: valores.alto } : null, errores, sugerencias };
-}
-
 // Identificador nuevo para un hueco: h1, h2, h3… sin repetir ninguno de la lista.
 function siguienteId(lista) {
   const numeros = lista.map((hueco) => Number(String(hueco.id).slice(1))).filter(Number.isFinite);
@@ -145,10 +135,4 @@ export function limpiarHuecos(dato) {
       fondo_cm: medidaONada(hueco.fondo_cm),
       alto_cm: medidaONada(hueco.alto_cm),
     }));
-}
-
-/** Igual para la puerta: o es válida entera o no hay puerta. */
-export function limpiarPuerta(dato) {
-  if (!dato || typeof dato !== "object" || !esMedida(dato.ancho_cm) || !esMedida(dato.alto_cm)) return null;
-  return { ancho_cm: dato.ancho_cm, alto_cm: dato.alto_cm };
 }

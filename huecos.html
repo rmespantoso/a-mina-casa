@@ -16,11 +16,16 @@
 
   <main id="contenido" class="pagina">
     <h1>Mis huecos</h1>
-    <p class="entrada">Guarda una vez las medidas de tus espacios y de tu puerta. Las usaremos para decirte qué te cabe.</p>
+    <p class="entrada">Guarda una vez las medidas de tus espacios. Las usaremos para decirte qué te cabe.</p>
     <p class="nota" id="donde-se-guarda"></p>
 
     <!-- Mensajes de «guardado» o «borrado». Los lectores de pantalla los leen solos. -->
     <p class="mensaje" id="mensaje" role="status" tabindex="-1" hidden></p>
+
+    <!-- Solo si se llegó desde la ficha de un mueble: botón para volver a él. -->
+    <div class="acciones" id="zona-volver" hidden>
+      <a class="boton boton--primario" id="volver-ficha" href="index.html">Volver al mueble</a>
+    </div>
 
     <!-- Invitación a registrarse: sale una sola vez, al guardar el primer hueco. -->
     <section class="invitacion" id="invitacion" aria-labelledby="titulo-invitacion" hidden>
@@ -101,46 +106,10 @@
       </div>
     </form>
 
-    <!-- ===== Puerta ===== -->
-    <h2 class="seccion">Tu puerta</h2>
-    <p>Mide la puerta más estrecha por la que tiene que pasar el mueble. Te avisaremos si no entra.</p>
-    <div id="puerta-guardada"></div>
-
-    <form class="formulario" id="formulario-puerta" novalidate hidden>
-      <h3>Medidas de la puerta</h3>
-
-      <div class="campo" data-campo="ancho">
-        <label class="campo__etiqueta" for="puerta-ancho">Ancho del paso</label>
-        <span class="campo__ayuda" id="ayuda-puerta-ancho">Por dentro del marco, con la puerta abierta, en centímetros.</span>
-        <div class="campo__caja">
-          <input class="campo__entrada" id="puerta-ancho" name="ancho" type="text" inputmode="decimal" autocomplete="off"
-            aria-describedby="ayuda-puerta-ancho error-puerta-ancho">
-          <span class="campo__unidad" aria-hidden="true">cm</span>
-        </div>
-        <div class="campo__error" id="error-puerta-ancho" hidden></div>
-      </div>
-
-      <div class="campo" data-campo="alto">
-        <label class="campo__etiqueta" for="puerta-alto">Alto del paso</label>
-        <span class="campo__ayuda" id="ayuda-puerta-alto">Del suelo al marco de arriba, en centímetros.</span>
-        <div class="campo__caja">
-          <input class="campo__entrada" id="puerta-alto" name="alto" type="text" inputmode="decimal" autocomplete="off"
-            aria-describedby="ayuda-puerta-alto error-puerta-alto">
-          <span class="campo__unidad" aria-hidden="true">cm</span>
-        </div>
-        <div class="campo__error" id="error-puerta-alto" hidden></div>
-      </div>
-
-      <div class="acciones">
-        <button class="boton boton--primario" type="submit">Guardar puerta</button>
-        <button class="boton boton--secundario" type="button" data-cancelar>Cancelar</button>
-      </div>
-    </form>
-
     <!-- ===== Guía para medir ===== -->
     <h2 class="seccion">Cómo medir bien</h2>
     <details class="guia">
-      <summary>Ver la guía en 3 pasos</summary>
+      <summary>Ver la guía en 2 pasos</summary>
       <ol class="pasos">
         <li class="pasos__paso">
           <div>
@@ -154,13 +123,6 @@
             <h3 class="pasos__titulo">Cuenta con lo que sobresale</h3>
             <p class="pasos__texto">Rodapiés, radiadores, enchufes y marcos quitan sitio. Mide desde lo que más sobresale, no desde la pared.</p>
             <div id="dibujo-rodapie"></div>
-          </div>
-        </li>
-        <li class="pasos__paso">
-          <div>
-            <h3 class="pasos__titulo">Mide la puerta por dentro</h3>
-            <p class="pasos__texto">Cuenta solo el paso libre: por dentro del marco y con la puerta abierta. Si hay ascensor o pasillo estrecho, apunta la medida más pequeña.</p>
-            <div id="dibujo-puerta"></div>
           </div>
         </li>
       </ol>

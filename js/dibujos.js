@@ -48,20 +48,9 @@ const TRAZOS_GUIA = {
       '<text class="croquis__texto" x="170" y="62" text-anchor="middle">fondo libre</text>' +
       '<text class="croquis__texto" x="160" y="160" text-anchor="middle">desde lo que sobresale</text>',
   },
-  puerta: {
-    descripcion: "Una puerta vista de frente: el ancho y el alto se miden por dentro del marco.",
-    trazos:
-      '<rect x="104" y="10" width="112" height="140" fill="none" stroke="var(--texto)" stroke-width="1.5"/>' +
-      '<rect class="croquis__pared" x="116" y="22" width="88" height="128"/>' +
-      '<path class="croquis__suelo" d="M40 150h240"/>' +
-      '<path class="croquis__cota" d="M116 96h88M116 88v16M204 88v16"/>' +
-      '<text class="croquis__texto" x="160" y="82" text-anchor="middle">ancho</text>' +
-      '<path class="croquis__cota" d="M238 22v128M230 22h16M230 150h16"/>' +
-      '<text class="croquis__texto" x="250" y="92">alto</text>',
-  },
 };
 
-/** Devuelve el dibujo de un paso de la guía para medir: "hueco", "rodapie" o "puerta". */
+/** Devuelve el dibujo de un paso de la guía para medir: "hueco" o "rodapie". */
 export function dibujoGuia(nombre) {
   const dibujo = TRAZOS_GUIA[nombre];
   if (!dibujo) return "";

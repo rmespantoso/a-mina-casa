@@ -1,10 +1,10 @@
-// Los huecos y la puerta del cliente: leerlos y guardarlos en su móvil.
+// Los huecos del cliente: leerlos y guardarlos en su móvil.
 // Las reglas (qué vale y qué no) están en js/logica/huecos.js; aquí solo se guarda y se mide.
 // Lo usan la pantalla Mis huecos y, desde el día 3, la ficha con el semáforo.
 
-import { borrar, guardar, leer } from "./almacen.js";
+import { guardar, leer } from "./almacen.js";
 import { medir } from "./medicion.js";
-import { limpiarHuecos, limpiarPuerta, ponerHueco, quitarHueco } from "./logica/huecos.js";
+import { limpiarHuecos, ponerHueco, quitarHueco } from "./logica/huecos.js";
 
 /** Los huecos guardados (lista vacía si no hay ninguno). */
 export function leerHuecos() {
@@ -31,22 +31,4 @@ export function guardarHueco(hueco, id = null) {
 /** Borra un hueco. */
 export function borrarHueco(id) {
   guardar("huecos", quitarHueco(leerHuecos(), id));
-}
-
-/** La puerta guardada, o null si no hay. */
-export function leerPuerta() {
-  return limpiarPuerta(leer("puerta", null));
-}
-
-/** Guarda la puerta (solo hay una). Devuelve { ok, enMovil }. */
-export function guardarPuerta(puerta) {
-  const eraNueva = leerPuerta() === null;
-  const enMovil = guardar("puerta", puerta);
-  if (eraNueva) medir("space_add", { tipo: "puerta" });
-  return { ok: true, enMovil };
-}
-
-/** Quita la puerta guardada. */
-export function borrarPuerta() {
-  borrar("puerta");
 }
