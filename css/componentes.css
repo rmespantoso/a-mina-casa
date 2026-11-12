@@ -1002,3 +1002,29 @@ select.campo__entrada:disabled {
   text-decoration: underline;
   cursor: pointer;
 }
+
+/* Botón de solo icono (la papelera de Mi lista): cuadrado y de 48 px, fácil de pulsar. */
+.boton-icono {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: 1px solid var(--borde-campo);
+  background: var(--fondo);
+  color: var(--titulo);
+  cursor: pointer;
+}
+
+.boton-icono:hover,
+.boton-icono:active {
+  background: var(--gris-claro);
+}
+
+.articulo__cabeza--con-quitar {
+  grid-template-columns: 6.5rem 1fr 3rem;
+}
+
+.articulo__aviso {
+  margin: 0.9rem 0 0;
+}

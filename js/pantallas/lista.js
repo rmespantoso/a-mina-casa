@@ -12,6 +12,7 @@ import { avisoOrientativo, chipSemaforo, fotoProducto } from "../componentes.js"
 import { icono } from "../dibujos.js";
 import { CONSULTAR, NOMBRE_TIPO, escapar, euros, medidas } from "../textos.js";
 import { crearEnlace, leerEnlace, textoCompartir, totalLista } from "../logica/lista.js";
+import { accionCompra } from "../logica/recomendador.js";
 import { evaluarEncaje, ordenarHuecos } from "../logica/semaforo.js";
 import { guardarHueco, leerHuecos } from "../mis-huecos.js";
 import { adoptarLista, leerLista, quitarProducto, reponerProducto } from "../mi-lista.js";
@@ -51,24 +52,43 @@ function encajesDe(producto, huecos) {
 
 function articulo(producto, huecos, conQuitar) {
   const tienda = enlaceTienda(producto.url_alihogar);
-  const verFicha = tienda
-    ? `<a class="boton boton--secundario" data-tienda href="${escapar(tienda)}" target="_blank" rel="noopener">Ver ficha de producto<span class="solo-lector"> de ${escapar(producto.nombre)} en alihogar.es (se abre en otra pestaña)</span></a>`
-    : "";
+  const nombre = escapar(producto.nombre);
+  const enlace = (texto, clase) => (tienda
+    ? `<a class="boton ${clase}" data-tienda href="${escapar(tienda)}" target="_blank" rel="noopener">${texto}<span class="solo-lector"> de ${nombre} en alihogar.es (se abre en otra pestaña)</span></a>`
+    : "");
+
+  // Mismo criterio que en el recomendador (accionCompra):
+  // - sin variantes: «Añadir al carrito» (DEMOSTRACIÓN) y, al lado, la ficha de producto;
+  // - con colores o medidas a elegir: a su página de alihogar.es, para no comprar la opción equivocada.
+  const accion = accionCompra(producto);
+  let botones = enlace("Ver ficha de producto", "boton--secundario");
+  let pareja = false;
+  if (accion === "carrito") {
+    botones = `<button class="boton boton--primario" type="button" data-carrito aria-label="Añadir al carrito: ${nombre}">Añadir al carrito</button>${botones}`;
+    pareja = Boolean(tienda);
+  } else if (accion === "elegir") {
+    botones = enlace("Elegir opción y comprar", "boton--primario");
+  }
+
+  // Quitar: una papelera arriba a la derecha, con su texto para lectores de pantalla.
   const quitar = conQuitar
-    ? `<button class="boton boton--secundario" type="button" data-quitar aria-label="Quitar ${escapar(producto.nombre)} de mi lista">Quitar</button>`
+    ? `<button class="boton-icono" type="button" data-quitar aria-label="Quitar ${nombre} de mi lista" title="Quitar de mi lista">${icono("papelera")}</button>`
     : "";
+
   return `<li class="articulo" data-producto="${escapar(producto.id)}">
-    <div class="articulo__cabeza">
-      <a class="articulo__foto" href="ficha.html?p=${encodeURIComponent(producto.id)}" aria-label="Ver si me cabe: ${escapar(producto.nombre)}">${fotoProducto(producto)}</a>
+    <div class="articulo__cabeza${conQuitar ? " articulo__cabeza--con-quitar" : ""}">
+      <a class="articulo__foto" href="ficha.html?p=${encodeURIComponent(producto.id)}" aria-label="Ver si me cabe: ${nombre}">${fotoProducto(producto)}</a>
       <div>
         <p class="tarjeta__tipo">${escapar(NOMBRE_TIPO[producto.tipo] ?? producto.tipo)}</p>
-        <h3 class="tarjeta__nombre">${escapar(producto.nombre)}</h3>
+        <h3 class="tarjeta__nombre">${nombre}</h3>
         <p class="tarjeta__medidas">${medidas(producto)}</p>
         <p class="tarjeta__precio">${euros(producto.precio_eur)}</p>
       </div>
+      ${quitar}
     </div>
     ${encajesDe(producto, huecos)}
-    <div class="acciones ${verFicha && quitar ? "acciones--pareja" : ""}">${verFicha}${quitar}</div>
+    <p class="mensaje articulo__aviso" role="status" hidden></p>
+    <div class="acciones ${pareja ? "acciones--pareja" : ""}">${botones}</div>
   </li>`;
 }
 
@@ -165,7 +185,7 @@ function pintarMia() {
     <p class="mensaje" id="aviso-compartir" role="status" hidden></p>
 
     <h2 class="seccion">Comprar</h2>
-    <p>Pulsa «Ver ficha de producto» en cada mueble para comprarlo en alihogar.es. Al finalizar la compra puedes elegir envío a casa o recogida en tienda.</p>` : ""}`;
+    <p>Cada mueble tiene su botón para comprarlo en alihogar.es. Al finalizar la compra puedes elegir envío a casa o recogida en tienda.</p>` : ""}`;
 
   if (!productos.length) return;
 
@@ -213,6 +233,16 @@ contenido.addEventListener("click", (evento) => {
 
   if (evento.target.closest("[data-tienda]") && fila) {
     medir("go_to_shop", { producto: fila.dataset.producto, desde: "lista" });
+    return;
+  }
+
+  // Carrito de DEMOSTRACIÓN: no se envía nada a alihogar.es; solo se mide el interés.
+  if (evento.target.closest("[data-carrito]") && fila) {
+    medir("add_to_cart", { producto: fila.dataset.producto, desde: "lista", demo: true });
+    const aviso = fila.querySelector(".articulo__aviso");
+    aviso.innerHTML = "<strong>Esto es una demostración.</strong> Cuando la herramienta esté dentro de alihogar.es, " +
+      "este mueble se añadirá a tu carrito. Hoy no se ha añadido nada: para comprarlo, pulsa «Ver ficha de producto».";
+    aviso.hidden = false;
     return;
   }
 

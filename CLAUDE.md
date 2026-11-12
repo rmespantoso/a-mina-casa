@@ -21,7 +21,7 @@ Las dos entradas acaban en la misma **Mi lista**. La lista se puede compartir po
 - Al invitado se le propone registrarse, sin obligar, al guardar su primer hueco y cuando ya tiene productos en la lista.
 - La cuenta sería la de alihogar.es. **En el prototipo el registro es simulado:** un botón de "cuenta de demostración", sin pedir correo ni contraseña y sin enviar datos a ningún sitio. Nunca publiques un formulario que pida credenciales reales con la marca de ALI.
 - "Ver ficha de producto" lleva a la página del producto en alihogar.es (con UTM). En los resultados del recomendador va directo, sin pasar por nuestra ficha.
-- **Carrito (decisión del 12/11/2026):** en los resultados del recomendador hay un botón "Añadir al carrito" que en el prototipo es una **demostración**: avisa de que no se ha añadido nada y solo lanza el evento `add_to_cart`. El carrito real solo será posible cuando la herramienta esté dentro de alihogar.es. Los muebles con variantes (color o medida) no llevan ese botón: llevan "Elegir opción y comprar", que abre su página en alihogar.es.
+- **Carrito (decisión del 12/11/2026):** en los resultados del recomendador y en Mi lista hay un botón "Añadir al carrito" que en el prototipo es una **demostración**: avisa de que no se ha añadido nada y solo lanza el evento `add_to_cart`. El carrito real solo será posible cuando la herramienta esté dentro de alihogar.es. Los muebles con variantes (color o medida) no llevan ese botón: llevan "Elegir opción y comprar", que abre su página en alihogar.es.
 
 ## Pantallas
 
