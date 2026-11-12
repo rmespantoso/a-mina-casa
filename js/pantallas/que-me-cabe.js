@@ -13,7 +13,7 @@ import { avisoOrientativo, chipSemaforo, croquisPared, tarjetaProducto } from ".
 import { icono } from "../dibujos.js";
 import { comoTexto, datosDe, pintarErrores } from "../formularios.js";
 import { NOMBRE_ESTANCIA, NOMBRE_TIPO, cm, escapar } from "../textos.js";
-import { estanciasDeReglas, porcentaje, recomendar, tiposDeEstancia, validarBusqueda } from "../logica/recomendador.js";
+import { accionCompra, estanciasDeReglas, porcentaje, recomendar, tiposDeEstancia, validarBusqueda } from "../logica/recomendador.js";
 import { frase } from "../logica/semaforo.js";
 import { leerHuecos } from "../mis-huecos.js";
 import { estaGuardado, guardarProducto, quitarProducto } from "../mi-lista.js";
@@ -108,11 +108,23 @@ async function iniciarRecomendador() {
     // «Ver ficha de producto» lleva directo a alihogar.es (con UTM), sin paso intermedio.
     // Si un producto no tuviera enlace, se abre nuestra ficha: nunca se inventa una dirección.
     const tienda = enlaceTienda(producto.url_alihogar);
-    const verFicha = tienda
-      ? `<a class="boton boton--primario" data-tienda href="${escapar(tienda)}" target="_blank" rel="noopener">Ver ficha de producto<span class="solo-lector"> en alihogar.es (se abre en otra pestaña)</span></a>`
-      : `<a class="boton boton--primario" href="ficha.html?p=${encodeURIComponent(producto.id)}">Ver ficha</a>`;
+    const otraPestana = '<span class="solo-lector"> en alihogar.es (se abre en otra pestaña)</span>';
+    const enlace = (texto, clase) =>
+      `<a class="boton ${clase}" data-tienda href="${escapar(tienda)}" target="_blank" rel="noopener">${texto}${otraPestana}</a>`;
+
+    // El botón principal depende del mueble (ver accionCompra en js/logica/recomendador.js):
+    // - sin variantes: «Añadir al carrito» (DEMOSTRACIÓN: el prototipo no puede tocar el carrito real);
+    // - con colores o medidas a elegir: a su página de alihogar.es, para no comprar la opción equivocada.
+    const accion = accionCompra(producto);
+    let principales = `<a class="boton boton--primario" href="ficha.html?p=${encodeURIComponent(producto.id)}">Ver ficha</a>`;
+    if (accion === "carrito") {
+      principales = `<button class="boton boton--primario" type="button" data-carrito>Añadir al carrito</button>
+        ${tienda ? enlace("Ver ficha de producto", "boton--secundario") : ""}`;
+    } else if (accion === "elegir") {
+      principales = enlace("Elegir opción y comprar", "boton--primario");
+    }
     const botones = `<div class="acciones">
-        ${verFicha}
+        ${principales}
         <button class="boton boton--secundario" type="button" data-guardar>${textoGuardar(producto.id)}</button>
       </div>`;
     return `<li data-producto="${escapar(producto.id)}">${tarjetaProducto(producto, extra, botones)}</li>`;
@@ -173,9 +185,19 @@ async function iniciarRecomendador() {
       return;
     }
 
+    const aviso = tarjeta.querySelector(".resultado__aviso");
+
+    // Carrito de DEMOSTRACIÓN: no se envía nada a alihogar.es; solo se mide el interés.
+    if (evento.target.closest("[data-carrito]")) {
+      medir("add_to_cart", { producto: id, puesto, desde: "recomendador", demo: true });
+      aviso.innerHTML = "<strong>Esto es una demostración.</strong> Cuando la herramienta esté dentro de alihogar.es, " +
+        "este mueble se añadirá a tu carrito. Hoy no se ha añadido nada: para comprarlo, pulsa «Ver ficha de producto».";
+      aviso.hidden = false;
+      return;
+    }
+
     const boton = evento.target.closest("[data-guardar]");
     if (!boton) return;
-    const aviso = tarjeta.querySelector(".resultado__aviso");
     if (estaGuardado(id)) {
       quitarProducto(id);
       aviso.textContent = "Quitado de tu lista.";

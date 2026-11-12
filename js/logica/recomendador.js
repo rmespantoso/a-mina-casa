@@ -92,6 +92,18 @@ export function recomendar(productos, reglas, { estancia, tipo, pared }) {
   return { resultados: candidatos.slice(0, reglas.max_resultados), total: candidatos.length, regla };
 }
 
+/**
+ * Qué botón de compra lleva un mueble en los resultados:
+ * - "carrito": se puede añadir directamente (no hay nada que elegir).
+ * - "elegir":  tiene variantes (colores o medidas); hay que elegirlas en su página de alihogar.es,
+ *              para que el cliente no compre sin querer la opción que no era.
+ * - "ficha":   tiene variantes pero no enlace a alihogar.es; se abre nuestra ficha.
+ */
+export function accionCompra(producto) {
+  if (!producto.variantes || producto.variantes.length === 0) return "carrito";
+  return producto.url_alihogar ? "elegir" : "ficha";
+}
+
 /** 0.6234 -> 62 (porcentaje entero, para enseñarlo). */
 export function porcentaje(proporcion) {
   return Math.round(proporcion * 100);

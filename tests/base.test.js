@@ -39,8 +39,8 @@ prueba("sin localStorage (modo privado estricto) sigue funcionando en memoria", 
 
 grupo("Medición · eventos");
 
-prueba("están los 13 eventos acordados", () => {
-  igual([...EVENTOS].sort(), ["fit_check", "go_to_shop", "list_add", "list_create", "list_share", "login", "qr_scan",
+prueba("están los 14 eventos acordados", () => {
+  igual([...EVENTOS].sort(), ["add_to_cart", "fit_check", "go_to_shop", "list_add", "list_create", "list_share", "login", "qr_scan",
     "recommend_click", "recommend_view", "sign_up", "space_add", "survey_open", "whatsapp_advisor"]);
 });
 

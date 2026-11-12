@@ -4,7 +4,7 @@
 import { grupo, prueba, igual, cierto } from "./mini.js";
 import { cargarDatos } from "../js/datos.js";
 import { MARGEN_CM } from "../js/logica/semaforo.js";
-import { estanciasDeReglas, porcentaje, recomendar, tiposDeEstancia, validarBusqueda } from "../js/logica/recomendador.js";
+import { accionCompra, estanciasDeReglas, porcentaje, recomendar, tiposDeEstancia, validarBusqueda } from "../js/logica/recomendador.js";
 
 // Reglas de mentira, pequeñas, para probar sin depender del catálogo real.
 const REGLAS = {
@@ -120,6 +120,22 @@ prueba("no deja buscar un mueble que no es de esa estancia, ni medidas en metros
   igual(Object.keys(validarBusqueda({ estancia: "salon", tipo: "comoda", ancho: "300" }, REGLAS).errores), ["tipo"]);
   igual(Object.keys(validarBusqueda({ estancia: "garaje", tipo: "sofa", ancho: "300" }, REGLAS).errores), ["estancia"]);
   igual(validarBusqueda({ estancia: "salon", tipo: "sofa", ancho: "3" }, REGLAS).sugerencias, { ancho: 300 });
+});
+
+grupo("Recomendador · botón de compra");
+
+prueba("sin variantes se puede añadir al carrito directamente", () => {
+  igual(accionCompra({ variantes: [], url_alihogar: "https://alihogar.es/x.html" }), "carrito");
+});
+
+prueba("con colores o medidas a elegir se manda a alihogar.es, no al carrito", () => {
+  igual(accionCompra({ variantes: ["Gris", "Gris Oscuro"], url_alihogar: "https://alihogar.es/x.html" }), "elegir");
+  igual(accionCompra({ variantes: ["Gris"], url_alihogar: null }), "ficha");
+});
+
+prueba("en el catálogo real, todo mueble con variantes tiene su enlace para elegirlas", async () => {
+  const { productos } = await cargarDatos();
+  igual(productos.filter((p) => accionCompra(p) === "ficha").map((p) => p.id), []);
 });
 
 grupo("Recomendador · catálogo y reglas reales");

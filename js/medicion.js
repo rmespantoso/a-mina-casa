@@ -20,6 +20,7 @@ export const EVENTOS = [
   "list_share",       // comparte la lista
   "whatsapp_advisor", // escribe al asesor de ALI
   "go_to_shop",       // sale hacia alihogar.es
+  "add_to_cart",      // pulsa «Añadir al carrito» (en el prototipo es una demostración)
   "survey_open",      // abre la encuesta CES
   "recommend_view",   // ve resultados del recomendador
   "recommend_click",  // pulsa un resultado del recomendador

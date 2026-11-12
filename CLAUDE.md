@@ -20,7 +20,8 @@ Las dos entradas acaban en la misma **Mi lista**. La lista se puede compartir po
 - Compartir la lista por WhatsApp y escribir al asesor están abiertos a todos.
 - Al invitado se le propone registrarse, sin obligar, al guardar su primer hueco y cuando ya tiene productos en la lista.
 - La cuenta sería la de alihogar.es. **En el prototipo el registro es simulado:** un botón de "cuenta de demostración", sin pedir correo ni contraseña y sin enviar datos a ningún sitio. Nunca publiques un formulario que pida credenciales reales con la marca de ALI.
-- "Ver ficha de producto" lleva a la página del producto en alihogar.es (con UTM).
+- "Ver ficha de producto" lleva a la página del producto en alihogar.es (con UTM). En los resultados del recomendador va directo, sin pasar por nuestra ficha.
+- **Carrito (decisión del 12/11/2026):** en los resultados del recomendador hay un botón "Añadir al carrito" que en el prototipo es una **demostración**: avisa de que no se ha añadido nada y solo lanza el evento `add_to_cart`. El carrito real solo será posible cuando la herramienta esté dentro de alihogar.es. Los muebles con variantes (color o medida) no llevan ese botón: llevan "Elegir opción y comprar", que abre su página en alihogar.es.
 
 ## Pantallas
 
@@ -33,7 +34,7 @@ Son 8: Inicio · Mis huecos · ¿Qué me cabe? · Ficha viva · Mi lista · Ambi
 - Datos de productos: `data/products.json`, generado a partir de `data/productos.csv` con un script. Nunca edites el JSON a mano.
 - Reglas de proporción del recomendador: `data/reglas_proporcion.json`. Son **orientativas y configurables**. Nunca las escribas fijas en el código.
 - Los huecos y la lista se guardan en el navegador (`localStorage`), envolviendo cada lectura y escritura en try/catch. La lista se puede compartir codificada en la URL.
-- Medición: los eventos de GA4 son `qr_scan` (por UTM), `fit_check`, `space_add`, `list_create`, `list_add`, `list_share`, `whatsapp_advisor`, `go_to_shop`, `survey_open`, `recommend_view`, `recommend_click`, `sign_up` y `login`. El ID de medición de GA4 va en un único archivo de configuración (`js/config.js`). Mientras no lo tengamos, los eventos se escriben en consola.
+- Medición: los eventos de GA4 son `qr_scan` (por UTM), `fit_check`, `space_add`, `list_create`, `list_add`, `list_share`, `whatsapp_advisor`, `go_to_shop`, `add_to_cart`, `survey_open`, `recommend_view`, `recommend_click`, `sign_up` y `login`. El ID de medición de GA4 va en un único archivo de configuración (`js/config.js`). Mientras no lo tengamos, los eventos se escriben en consola.
 - Todos los enlaces a alihogar.es llevan UTM: `utm_source=amicasa&utm_medium=qr|web&utm_campaign=piloto`. El `utm_medium` es `qr` si el cliente entró por un QR y `web` en el resto.
 - Los QR de la tienda entran al prototipo con `utm_source=qr_tienda&utm_medium=qr&utm_campaign=piloto`.
 - Diseño mobile-first: letra base de al menos 16 px, contraste AA y botones de al menos 48 px de alto. Tiene que poder usarlo alguien de 60 años.
