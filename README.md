@@ -1,6 +1,6 @@
 # A Miña Casa ALI · prototipo
 
-Web móvil, sin app y sin registro, que dice si un mueble de ALI Hogar cabe en tu casa.
+Herramienta web, sin app, que dice si un mueble de ALI Hogar cabe en tu casa. Se usa como invitado o con cuenta (simulada en el prototipo).
 Es un **prototipo de estudiantes**: no es una web oficial de ALI Hogar.
 
 ## Cómo abrirlo
@@ -35,7 +35,8 @@ python scripts/csv_a_json.py
 | `index.html`, `huecos.html`, … | Una página por pantalla |
 | `css/` | `base.css` (colores y letras) y `componentes.css` (piezas) |
 | `js/config.js` | El único archivo de configuración: GA4, WhatsApp, encuesta, UTM |
-| `js/` | Módulos compartidos: datos, guardado en el móvil, medición, dibujos |
+| `js/` | Módulos compartidos: datos, guardado en el móvil, sesión (invitado o registrado), medición, enlaces, dibujos |
+| `fonts/`, `img/` | Fuente Poppins y logo de ALI Hogar (usado con su permiso) |
 | `js/pantallas/` | Un archivo por pantalla |
 | `data/` | `productos.csv` (fuente), `products.json` (generado) y las reglas de proporción |
 | `scripts/` | `csv_a_json.py` |

@@ -78,8 +78,11 @@ prueba("todos los enlaces apuntan a https://alihogar.es/", () => {
   productos.forEach((p) => cierto(p.url_alihogar.startsWith("https://alihogar.es/"), `${p.id}: enlace raro`));
 });
 
-prueba("ninguna foto está autorizada todavía: se usará el dibujo neutro", () => {
-  cierto(productos.every((p) => p.foto_autorizada === false), "hay una foto marcada como autorizada");
+prueba("las 46 fotos están autorizadas y son de alihogar.es", () => {
+  productos.forEach((p) => {
+    cierto(p.foto_autorizada === true, `${p.id}: foto sin autorizar`);
+    cierto(p.url_foto.startsWith("https://alihogar.es/"), `${p.id}: la foto no es de alihogar.es`);
+  });
 });
 
 prueba("las notas internas no se publican en el JSON", () => {

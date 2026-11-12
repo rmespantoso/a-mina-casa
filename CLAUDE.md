@@ -4,7 +4,7 @@
 
 Somos un grupo de estudiantes de Negocios Digitales. Hacemos una consultoría de experiencia de cliente para **ALI Hogar** (Espher Hogar S.L.U., Grupo ALI), una gran superficie familiar de mueble y decoración del Polígono A Gándara (Ferrol) con tienda online en alihogar.es (PrestaShop). La asignatura es "Neuromarketing y comportamiento del cliente".
 
-La actuación propuesta se llama **A Miña Casa ALI**: una web móvil, sin app y sin registro, que une la tienda física y la tienda online. Este repositorio contiene **solo el prototipo funcional** que enseñaremos en el pitch. La especificación completa está en `docs/propuesta_A_Mina_Casa_ALI.md` (sección 6). Léela antes de proponer nada.
+La actuación propuesta se llama **A Miña Casa ALI**: una herramienta web, sin app, que une la tienda física y la tienda online. Se usa como invitado o con cuenta (ver "Invitado y registrado"). En el futuro irá integrada dentro de alihogar.es como una sección más; ahora solo construimos la herramienta, pensada para encajar ahí. Este repositorio contiene **solo el prototipo funcional** que enseñaremos en el pitch. La especificación completa está en `docs/propuesta_A_Mina_Casa_ALI.md` (sección 6). Léela antes de proponer nada.
 
 ## Las dos puertas de entrada (las dos son obligatorias)
 
@@ -13,22 +13,32 @@ La actuación propuesta se llama **A Miña Casa ALI**: una web móvil, sin app y
 
 Las dos entradas acaban en la misma **Mi lista**. La lista se puede compartir por WhatsApp, enviar al asesor de ALI (WhatsApp 604 06 57 88) o usar para comprar online o con recogida en tienda (Click & Collect).
 
+## Invitado y registrado (decisión del 12/11/2026)
+
+- **Invitado (sin cuenta):** escanea QR, mete medidas de huecos y puerta, ve el semáforo, abre la ficha de producto y guarda productos en Mi lista. Todo se queda en su móvil.
+- **Registrado:** lo mismo, guardado en su cuenta (sin límite de tiempo y en otros dispositivos), y además el recomendador "¿Qué me cabe?".
+- Compartir la lista por WhatsApp y escribir al asesor están abiertos a todos.
+- Al invitado se le propone registrarse, sin obligar, al guardar su primer hueco y cuando ya tiene productos en la lista.
+- La cuenta sería la de alihogar.es. **En el prototipo el registro es simulado:** un botón de "cuenta de demostración", sin pedir correo ni contraseña y sin enviar datos a ningún sitio. Nunca publiques un formulario que pida credenciales reales con la marca de ALI.
+- "Ver ficha de producto" lleva a la página del producto en alihogar.es (con UTM).
+
 ## Pantallas
 
-Son 7: Inicio · Mis huecos · ¿Qué me cabe? · Ficha viva · Mi lista · Ambiente (QR del conjunto) · Encuesta CES. El detalle de cada una está en la sección 6 de la propuesta.
+Son 8: Inicio · Mis huecos · ¿Qué me cabe? · Ficha viva · Mi lista · Ambiente (QR del conjunto) · Encuesta CES · Tu cuenta (acceso). El detalle de cada una está en la sección 6 de la propuesta.
 
 ## Reglas técnicas
 
 - HTML, CSS y JavaScript sin frameworks ni proceso de build. Tiene que funcionar abriendo los archivos con un servidor estático simple (`python3 -m http.server`).
-- Hosting en GitHub Pages. Sin backend, sin base de datos, sin cuentas de usuario.
+- Hosting en GitHub Pages. Sin backend ni base de datos: la cuenta de usuario del prototipo es simulada.
 - Datos de productos: `data/products.json`, generado a partir de `data/productos.csv` con un script. Nunca edites el JSON a mano.
 - Reglas de proporción del recomendador: `data/reglas_proporcion.json`. Son **orientativas y configurables**. Nunca las escribas fijas en el código.
 - Los huecos y la lista se guardan en el navegador (`localStorage`), envolviendo cada lectura y escritura en try/catch. La lista se puede compartir codificada en la URL.
-- Medición: los eventos de GA4 son `qr_scan` (por UTM), `fit_check`, `space_add`, `list_create`, `list_add`, `list_share`, `whatsapp_advisor`, `go_to_shop`, `survey_open`, `recommend_view` y `recommend_click`. El ID de medición de GA4 va en un único archivo de configuración (`js/config.js`). Mientras no lo tengamos, los eventos se escriben en consola.
+- Medición: los eventos de GA4 son `qr_scan` (por UTM), `fit_check`, `space_add`, `list_create`, `list_add`, `list_share`, `whatsapp_advisor`, `go_to_shop`, `survey_open`, `recommend_view`, `recommend_click`, `sign_up` y `login`. El ID de medición de GA4 va en un único archivo de configuración (`js/config.js`). Mientras no lo tengamos, los eventos se escriben en consola.
 - Todos los enlaces a alihogar.es llevan UTM: `utm_source=amicasa&utm_medium=qr|web&utm_campaign=piloto`. El `utm_medium` es `qr` si el cliente entró por un QR y `web` en el resto.
 - Los QR de la tienda entran al prototipo con `utm_source=qr_tienda&utm_medium=qr&utm_campaign=piloto`.
 - Diseño mobile-first: letra base de al menos 16 px, contraste AA y botones de al menos 48 px de alto. Tiene que poder usarlo alguien de 60 años.
 - Idioma: interfaz en castellano, con microcopy cálido en gallego en títulos y saludos ("A miña casa", "Benvido").
+- **Marca ALI Hogar** (guía en Canva, "Guía de marca ALI"): fondo blanco; magenta `#D50D73` en botones y texto y `#E41E85` solo en titulares grandes y adornos; texto gris `#54595F`; títulos negros; fuente Poppins (en `fonts/`); botones rectos en mayúsculas; lo redondo se reserva para el logo, el WhatsApp y los contadores. Tono: tuteo, frases cortas y prácticas. Verde, ámbar y rojo solo se usan en el semáforo. No se copia su letra pequeña de 12-15 px.
 
 ## Lógica del semáforo (no cambiar sin avisar)
 
@@ -49,7 +59,8 @@ Son 7: Inicio · Mis huecos · ¿Qué me cabe? · Ficha viva · Mi lista · Ambi
 ## Ética (forma parte de la nota)
 
 - Sin dark patterns: ni cuentas atrás, ni escasez falsa, ni precios ocultos.
-- No se recogen datos personales. El teléfono del cliente solo aparece si él decide escribir por WhatsApp.
+- El invitado no deja ningún dato personal. El registrado, solo los de su cuenta y con consentimiento; recibir comunicaciones comerciales va en una casilla aparte y sin marcar. El teléfono del cliente solo aparece si él decide escribir por WhatsApp.
+- El registro nunca se fuerza con trucos: se explica para qué sirve y se puede seguir sin él.
 - El semáforo dice "no cabe" aunque eso suponga perder una venta.
 - Nada dirigido a menores.
 
@@ -72,7 +83,7 @@ Son 7: Inicio · Mis huecos · ¿Qué me cabe? · Ficha viva · Mi lista · Ambi
 - **Privacidad:** Microsoft Clarity queda fuera del MVP. GA4 solo se carga tras un aviso de consentimiento con dos botones iguales.
 - **Semáforo, cómo se lee:** 5 cm justos es verde; 0 cm justos es ámbar; el alto solo exige "menor o igual"; una medida vacía se salta y se dice; el mueble no se gira; sin alto, la puerta muestra "Consultar en tienda".
 - **Etiquetas del recomendador:** "Encaja perfecto" es verde y dentro del rango; "Encaja" es verde fuera del rango; "Justo" es ámbar.
-- **Marca:** sin logotipo de ALI; el pie dice "Prototipo de estudiantes · no es una web oficial de ALI Hogar".
+- **Marca:** desde el 12/11/2026 se usan el logotipo y las fotos de ALI Hogar, con su permiso. El pie sigue diciendo "Prototipo de estudiantes · no es una web oficial de ALI Hogar".
 - **Tests:** se abren en `http://localhost:8000/tests/`. No hace falta instalar nada.
 - **Publicación:** `docs/` y `PROMPT_INICIAL.md` están en `.gitignore` porque el repositorio de GitHub Pages es público.
 
@@ -81,4 +92,6 @@ Son 7: Inicio · Mis huecos · ¿Qué me cabe? · Ficha viva · Mi lista · Ambi
 - Antes de escribir código en una tarea nueva, propón un plan corto y espera a que lo aprobemos.
 - Trabaja por días siguiendo la tabla "Plan con Claude Code" de la sección 6 de la propuesta. Al terminar cada día, resume qué funciona y qué falta, y haz un commit de git con un mensaje claro.
 - **No redactes el brief ni las diapositivas.** Ese texto lo escribimos nosotros a mano. Puedes ayudarnos a revisar, explicar o generar capturas y datos del prototipo.
+  - **Excepción (11/11/2026):** la presentación de la tutoría con la profesora sí la redacta Claude, por decisión nuestra. La regla sigue en pie para el brief y para las diapositivas de la exposición final.
+- **Permiso de ALI Hogar (11/11/2026):** nos autorizan a usar su logotipo, sus imágenes y su contenido real. La guía de marca está en Canva («Guía de marca ALI»).
 - Explícanos lo que haces en lenguaje sencillo: lo tenemos que defender en la exposición.

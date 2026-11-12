@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tu cuenta · A miña casa (prototipo)</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="img/icono.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/componentes.css">
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+  <header id="cabecera" class="cabecera"></header>
+
+  <main id="contenido" class="pagina">
+    <h1>Tu cuenta</h1>
+
+    <!-- Lo que se ve SIN haber entrado -->
+    <section id="vista-invitado" hidden>
+      <p class="entrada">Puedes usar la herramienta sin registrarte. Con tu cuenta de ALI Hogar, además:</p>
+      <ul class="ventajas">
+        <li>Tus medidas y tu lista se guardan sin límite de tiempo.</li>
+        <li>Las tienes en cualquier móvil u ordenador.</li>
+        <li>Usas «¿Qué me cabe?»: dinos tu pared y te enseñamos solo lo que cabe.</li>
+      </ul>
+
+      <div class="aviso">
+        <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.5v.3"/></svg>
+        <p><strong>Esto es una demostración.</strong> No te pedimos correo ni contraseña y no se envía ningún dato. En la herramienta real entrarías con tu cuenta de alihogar.es.</p>
+      </div>
+
+      <label class="casilla">
+        <input type="checkbox" id="quiere-noticias">
+        <span>Quiero recibir novedades y ofertas de ALI Hogar. Es opcional: puedes tener cuenta sin marcarlo.</span>
+      </label>
+
+      <div class="acciones">
+        <button class="boton boton--primario" type="button" id="crear-cuenta">Crear cuenta de demostración</button>
+        <button class="boton boton--secundario" type="button" id="entrar">Ya tengo cuenta: entrar</button>
+        <a class="boton boton--secundario" id="seguir-invitado" href="index.html">Seguir sin registrarme</a>
+      </div>
+    </section>
+
+    <!-- Lo que se ve DESPUÉS de entrar -->
+    <section id="vista-registrado" hidden>
+      <p class="entrada" id="saludo-cuenta" role="status"></p>
+      <ul class="ventajas">
+        <li>Tus medidas y tu lista quedan guardadas en tu cuenta.</li>
+        <li>Ya puedes usar «¿Qué me cabe?».</li>
+      </ul>
+      <p id="estado-noticias" class="nota"></p>
+      <div class="acciones">
+        <a class="boton boton--primario" id="continuar" href="index.html">Continuar</a>
+        <button class="boton boton--secundario" type="button" id="salir">Cerrar sesión</button>
+      </div>
+    </section>
+  </main>
+
+  <footer id="pie" class="pie"></footer>
+  <nav id="navegacion" class="navegacion" aria-label="Secciones"></nav>
+
+  <script type="module" src="js/pantallas/acceso.js"></script>
+</body>
+</html>

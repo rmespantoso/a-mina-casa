@@ -1,24 +1,58 @@
 /* =========================================================================
-   BASE: colores, letras y reglas generales de toda la web.
+   BASE: colores, letras y reglas generales de toda la herramienta.
+   Sigue la marca de ALI Hogar (guía de marca en Canva):
+   blanco dominante, magenta de acento, texto gris, títulos negros y Poppins.
    Mobile-first: se diseña para el móvil y en pantallas grandes solo se centra.
    ========================================================================= */
 
-/* ---- Tema A · «Ría»: lino claro y azul de ría. Es el tema por defecto. ---- */
-:root {
-  --fondo: #fbf6ee;          /* crema de lino */
-  --superficie: #ffffff;     /* tarjetas y campos */
-  --superficie-2: #f1e7d6;   /* madera clara: paredes del dibujo, marcadores de foto */
-  --tinta: #1e2a35;          /* texto principal */
-  --tinta-suave: #4a5563;    /* texto secundario */
-  --borde: #d8cbb5;          /* líneas decorativas */
-  --borde-campo: #7a6f60;    /* borde de campos y botones: contraste 3:1 o más */
-  --marca: #17506b;          /* azul de ría: botones y enlaces */
-  --marca-fuerte: #0f3b50;   /* al pulsar */
-  --marca-suave: #e2eef3;    /* fondos suaves */
-  --sobre-marca: #ffffff;    /* texto encima del color de marca */
-  --foco: #b3530a;           /* borde al navegar con teclado */
+/* Poppins va guardada en el proyecto (carpeta fonts/): no se pide nada a Google. */
+@font-face {
+  font-family: "Poppins";
+  src: url("../fonts/poppins-400.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
 
-  /* Semáforo. Estos tres colores NO se usan para nada más en la web,
+@font-face {
+  font-family: "Poppins";
+  src: url("../fonts/poppins-500.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("../fonts/poppins-600.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("../fonts/poppins-700.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  --fondo: #ffffff;          /* blanco: cerca del 80 % de la pantalla */
+  --gris-claro: #f9f9f9;     /* pestañas y cajas */
+  --rosa-claro: #fee5ff;     /* fondos suaves */
+  --titulo: #000000;         /* títulos y nombres de producto */
+  --texto: #54595f;          /* texto general */
+  --borde: #dddddd;          /* líneas decorativas */
+  --borde-campo: #767676;    /* borde de campos: contraste 3:1 o más */
+
+  /* El magenta de ALI tiene dos usos:
+     - #D50D73 para botones y texto (contraste 5,1:1 sobre blanco: cumple AA).
+     - #E41E85, el del logo, solo para titulares grandes y adornos (4,35:1). */
+  --marca: #d50d73;
+  --marca-viva: #e41e85;
+  --marca-fuerte: #b80b63;   /* al pulsar */
+  --sobre-marca: #ffffff;
+  --foco: #000000;           /* borde al navegar con teclado */
+
+  /* Semáforo. Estos tres colores NO se usan para nada más,
      y siempre van acompañados de un icono y una palabra (no solo color). */
   --verde: #1b6b3a;
   --verde-fondo: #e3f3e8;
@@ -27,34 +61,9 @@
   --rojo: #9b1c1c;
   --rojo-fondo: #fde8e6;
 
-  /* Letras del propio dispositivo: no se descarga ninguna fuente (carga rápida en la nave). */
-  --fuente-texto: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --fuente-titulo: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
-  --peso-titulo: 600;
-
-  --radio: 14px;
-  --radio-grande: 22px;
-  --sombra: 0 1px 2px rgb(30 42 53 / 8%), 0 6px 18px rgb(30 42 53 / 7%);
+  --fuente: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --sombra: 0 2px 10px rgb(0 0 0 / 12%);
   --alto-nav: 4.5rem;
-}
-
-/* ---- Tema B · «Castaño»: piedra clara y madera oscura. ---- */
-html[data-tema="castano"] {
-  --fondo: #f6f1ea;
-  --superficie: #fffdfa;
-  --superficie-2: #eadfcf;
-  --tinta: #2a211b;
-  --tinta-suave: #5a4e45;
-  --borde: #d6c7b4;
-  --borde-campo: #7d6e5f;
-  --marca: #5c3b1e;
-  --marca-fuerte: #422a14;
-  --marca-suave: #f0e4d4;
-  --foco: #17506b;
-  --fuente-titulo: var(--fuente-texto);
-  --peso-titulo: 800;
-  --radio: 8px;
-  --radio-grande: 12px;
 }
 
 *,
@@ -76,10 +85,10 @@ body {
   display: flex;
   flex-direction: column;
   background: var(--fondo);
-  color: var(--tinta);
-  font-family: var(--fuente-texto);
-  font-size: 1.125rem;   /* 18 px: por encima del mínimo de 16 px */
-  line-height: 1.55;
+  color: var(--texto);
+  font-family: var(--fuente);
+  font-size: 1.0625rem;   /* 17 px: por encima del mínimo de 16 px */
+  line-height: 1.6;
   /* Hueco para la barra de navegación fija de abajo. */
   padding-bottom: calc(var(--alto-nav) + env(safe-area-inset-bottom, 0px));
 }
@@ -88,23 +97,26 @@ h1,
 h2,
 h3 {
   margin: 0 0 0.5em;
-  font-family: var(--fuente-titulo);
-  font-weight: var(--peso-titulo);
-  line-height: 1.15;
+  color: var(--titulo);
+  font-weight: 700;
+  line-height: 1.2;
   text-wrap: balance;
 }
 
 h1 {
-  font-size: clamp(2.1rem, 9vw, 2.75rem);
-  letter-spacing: -0.01em;
+  font-size: clamp(1.9rem, 8vw, 2.5rem);
 }
 
+/* Títulos de sección: magenta y seminegrita, como en alihogar.es. */
 h2 {
-  font-size: 1.5rem;
+  color: var(--marca);
+  font-size: 1.35rem;
+  font-weight: 600;
 }
 
 h3 {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 p {
@@ -121,7 +133,6 @@ svg {
   max-width: 100%;
 }
 
-/* Borde bien visible al moverse con teclado. */
 :focus-visible {
   outline: 3px solid var(--foco);
   outline-offset: 3px;
@@ -141,11 +152,10 @@ svg {
   position: absolute;
   left: 0.5rem;
   top: -5rem;
-  z-index: 20;
+  z-index: 30;
   padding: 0.75rem 1rem;
   background: var(--marca);
   color: var(--sobre-marca);
-  border-radius: var(--radio);
 }
 
 .saltar:focus {

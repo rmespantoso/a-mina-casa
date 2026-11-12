@@ -34,6 +34,7 @@
       // Cada archivo apunta sus pruebas al importarse. Los nuevos se añaden aquí.
       await import("./datos.test.js");
       await import("./base.test.js");
+      await import("./acceso.test.js");
 
       const resultados = await ejecutar();
       const bien = resultados.filter((r) => r.ok).length;

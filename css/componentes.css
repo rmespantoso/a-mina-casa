@@ -1,40 +1,60 @@
 /* =========================================================================
    COMPONENTES: las piezas que se repiten en las pantallas.
-   Cabecera · Navegación · Pie · Botones · Cota · Pasos · Semáforo · Aviso ·
-   Campo · Tarjeta de producto · Marcador de foto · Croquis · Escena
+   Regla de la marca: «cuadrado para actuar, redondo para la marca».
+   Botones, cajas y campos van con esquinas rectas; solo son redondos
+   el logo, el botón de WhatsApp y los contadores.
    ========================================================================= */
 
 /* ---------- Cabecera ---------- */
 .cabecera {
-  min-height: 4rem;
+  min-height: 4.25rem;
+  background: var(--fondo);
   border-bottom: 1px solid var(--borde);
 }
 
 .cabecera__dentro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
   max-width: 34rem;
   margin: 0 auto;
-  padding: 0.6rem 1rem;
+  padding: 0.5rem 1rem;
 }
 
 .marca {
   display: inline-flex;
-  flex-direction: column;
-  min-height: 3rem;
-  justify-content: center;
-  color: var(--tinta);
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 3.25rem;
+  color: var(--titulo);
   text-decoration: none;
-  line-height: 1.15;
+}
+
+.marca__logo {
+  width: 3rem;
+  height: 3rem;
+  flex: none;
 }
 
 .marca__nombre {
-  font-family: var(--fuente-titulo);
-  font-weight: var(--peso-titulo);
-  font-size: 1.4rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  text-transform: uppercase;
 }
 
-.marca__sub {
+.cuenta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 3rem;
+  padding: 0 0.25rem;
+  color: var(--titulo);
   font-size: 1rem;
-  color: var(--tinta-suave);
+  font-weight: 500;
+  text-decoration: none;
 }
 
 /* ---------- Navegación inferior (siempre a mano del pulgar) ---------- */
@@ -44,13 +64,13 @@
   z-index: 10;
   min-height: var(--alto-nav);
   padding-bottom: env(safe-area-inset-bottom, 0px);
-  background: var(--superficie);
+  background: var(--fondo);
   border-top: 1px solid var(--borde);
 }
 
 .navegacion__lista {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   max-width: 34rem;
   margin: 0 auto;
   padding: 0;
@@ -62,14 +82,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.15rem;
+  gap: 0.1rem;
   min-height: var(--alto-nav);
-  padding: 0.4rem 0.2rem;
-  border-top: 4px solid transparent;
-  color: var(--tinta-suave);
+  padding: 0.35rem 0.1rem;
+  border-top: 3px solid transparent;
+  color: var(--titulo);
   font-size: 1rem;
-  font-weight: 600;
-  line-height: 1.2;
+  font-weight: 500;
+  line-height: 1.15;
   text-align: center;
   text-decoration: none;
 }
@@ -85,22 +105,43 @@
   flex: none;
   fill: none;
   stroke: currentColor;
-  stroke-width: 1.8;
+  stroke-width: 1.6;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
+/* ---------- Botón flotante de WhatsApp (redondo y magenta, como en alihogar.es) ---------- */
+.whatsapp {
+  position: fixed;
+  right: max(1rem, calc(50% - 16rem));
+  bottom: calc(var(--alto-nav) + 0.9rem + env(safe-area-inset-bottom, 0px));
+  z-index: 11;
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  background: var(--marca);
+  border-radius: 50%;
+  box-shadow: var(--sombra);
+  color: var(--sobre-marca);
+}
+
+.whatsapp .icono {
+  width: 1.9rem;
+  height: 1.9rem;
+}
+
 /* ---------- Pie ---------- */
 .pie {
+  background: var(--gris-claro);
   border-top: 1px solid var(--borde);
-  color: var(--tinta-suave);
   font-size: 1rem;
 }
 
 .pie__dentro {
   max-width: 34rem;
   margin: 0 auto;
-  padding: 1.25rem 1rem 1.5rem;
+  padding: 1.25rem 1rem 5rem;   /* hueco para que el WhatsApp no tape el texto */
 }
 
 .pie p {
@@ -114,7 +155,7 @@
   font-weight: 600;
 }
 
-/* ---------- Botones: 52 px de alto como mínimo ---------- */
+/* ---------- Botones: rectos, en mayúsculas y de 52 px de alto ---------- */
 .boton {
   display: inline-flex;
   align-items: center;
@@ -122,14 +163,17 @@
   gap: 0.5rem;
   width: 100%;
   min-height: 3.25rem;
-  padding: 0.7rem 1.25rem;
-  border: 2px solid transparent;
-  border-radius: var(--radio);
+  padding: 0.6rem 1.1rem;
+  border: 1px solid transparent;
+  border-radius: 0;
   font: inherit;
-  font-weight: 700;
-  line-height: 1.2;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1.25;
   text-align: center;
   text-decoration: none;
+  text-transform: uppercase;
   cursor: pointer;
 }
 
@@ -143,15 +187,16 @@
   background: var(--marca-fuerte);
 }
 
+/* Secundario: blanco con borde negro fino, como los botones de icono de su web. */
 .boton--secundario {
-  background: var(--superficie);
-  border-color: var(--marca);
-  color: var(--marca);
+  background: var(--fondo);
+  border-color: var(--titulo);
+  color: var(--titulo);
 }
 
 .boton--secundario:hover,
 .boton--secundario:active {
-  background: var(--marca-suave);
+  background: var(--gris-claro);
 }
 
 .acciones {
@@ -160,51 +205,56 @@
   margin: 1.25rem 0;
 }
 
-/* ---------- Cota: la línea de medida de los planos. Es el motivo de la marca ---------- */
-.cota {
+/* ---------- Buscador de portada: lleva a «¿Qué me cabe?» ---------- */
+.buscador {
   display: flex;
   align-items: center;
-  gap: 0.7rem;
-  margin: 2rem 0 1rem;
-  color: var(--tinta-suave);
-  font-family: var(--fuente-texto);
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 3.5rem;
+  margin: 1.25rem 0 0.75rem;
+  padding: 0.5rem 1rem;
+  background: var(--fondo);
+  border: 1px solid var(--titulo);
+  color: var(--titulo);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.buscador small {
+  display: block;
+  color: var(--texto);
   font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-weight: 400;
 }
 
-.cota::before,
-.cota::after {
+/* ---------- Título de sección con su raya magenta ---------- */
+.seccion {
+  margin: 2.25rem 0 1rem;
+}
+
+.seccion::after {
   content: "";
-  flex: 1;
-  height: 0.75rem;
-  background: linear-gradient(currentColor, currentColor) center / 100% 1.5px no-repeat;
-}
-
-.cota::before {
-  border-left: 1.5px solid currentColor;
-}
-
-.cota::after {
-  border-right: 1.5px solid currentColor;
+  display: block;
+  width: 3rem;
+  height: 2px;
+  margin-top: 0.5rem;
+  background: var(--marca-viva);
 }
 
 /* ---------- Saludo en gallego ---------- */
 .saludo {
-  margin: 0 0 0.25rem;
+  margin: 0 0 0.15rem;
   color: var(--marca);
-  font-family: var(--fuente-titulo);
-  font-size: 1.25rem;
-  font-style: italic;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .entrada {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
 }
 
 .tranquilidad {
-  color: var(--tinta-suave);
   font-size: 1rem;
   text-align: center;
 }
@@ -212,7 +262,7 @@
 /* ---------- Pasos 1 · 2 · 3 ---------- */
 .pasos {
   display: grid;
-  gap: 1.1rem;
+  gap: 1rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -221,28 +271,24 @@
 
 .pasos__paso {
   display: grid;
-  grid-template-columns: 3rem 1fr;
-  gap: 0.9rem;
+  grid-template-columns: 2.5rem 1fr;
+  gap: 0.75rem;
   align-items: start;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--borde);
   counter-increment: paso;
 }
 
 .pasos__paso::before {
   content: counter(paso);
-  display: grid;
-  place-items: center;
-  width: 3rem;
-  height: 3rem;
-  border: 2px solid var(--marca);
-  border-radius: 50%;
-  color: var(--marca);
-  font-family: var(--fuente-titulo);
-  font-size: 1.5rem;
+  color: var(--marca-viva);
+  font-size: 2.5rem;
   font-weight: 700;
+  line-height: 1;
 }
 
 .pasos__titulo {
-  margin: 0.2rem 0 0.15rem;
+  margin: 0.1rem 0 0.15rem;
 }
 
 .pasos__texto {
@@ -254,11 +300,12 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.3rem 0.85rem 0.3rem 0.5rem;
+  padding: 0.35rem 0.8rem 0.35rem 0.5rem;
   border: 2px solid currentColor;
-  border-radius: 999px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.2;
+  white-space: nowrap;
+  justify-self: start;
 }
 
 .semaforo--verde {
@@ -276,19 +323,38 @@
   background: var(--rojo-fondo);
 }
 
-/* ---------- Aviso «Resultado orientativo» ---------- */
+.leyenda {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.leyenda li {
+  display: grid;
+  grid-template-columns: 8.75rem 1fr;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+/* ---------- Avisos ---------- */
 .aviso {
   display: flex;
   gap: 0.6rem;
   align-items: flex-start;
-  padding: 0.8rem 1rem;
-  background: var(--marca-suave);
-  border-radius: var(--radio);
+  padding: 0.85rem 1rem;
+  background: var(--rosa-claro);
+  color: var(--titulo);
   font-size: 1rem;
 }
 
 .aviso p {
   margin: 0;
+}
+
+.aviso .icono {
+  color: var(--marca);
 }
 
 /* ---------- Campo de medida ---------- */
@@ -300,22 +366,21 @@
 .campo__etiqueta {
   display: block;
   margin-bottom: 0.3rem;
-  font-weight: 700;
+  color: var(--titulo);
+  font-weight: 600;
 }
 
 .campo__ayuda {
   display: block;
   margin-bottom: 0.3rem;
-  color: var(--tinta-suave);
   font-size: 1rem;
 }
 
 .campo__caja {
   display: flex;
   align-items: center;
-  background: var(--superficie);
-  border: 2px solid var(--borde-campo);
-  border-radius: var(--radio);
+  background: var(--fondo);
+  border: 1px solid var(--borde-campo);
 }
 
 .campo__caja:focus-within {
@@ -331,9 +396,9 @@
   padding: 0.5rem 0.9rem;
   border: 0;
   background: transparent;
-  color: var(--tinta);
+  color: var(--titulo);
   font: inherit;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
 }
 
 .campo__entrada:focus {
@@ -342,79 +407,117 @@
 
 .campo__unidad {
   padding: 0 0.9rem;
-  color: var(--tinta-suave);
-  font-weight: 700;
+  font-weight: 600;
+}
+
+/* Casilla de consentimiento: grande y fácil de pulsar. */
+.casilla {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  min-height: 3rem;
+  margin: 1rem 0;
+  font-size: 1rem;
+}
+
+.casilla input {
+  flex: none;
+  width: 1.6rem;
+  height: 1.6rem;
+  margin: 0.15rem 0 0;
+  accent-color: var(--marca);
 }
 
 /* ---------- Tarjeta de producto ---------- */
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 .tarjeta {
-  overflow: hidden;
-  background: var(--superficie);
-  border: 1px solid var(--borde);
-  border-radius: var(--radio-grande);
-  box-shadow: var(--sombra);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--fondo);
+}
+
+.tarjeta__foto {
+  display: block;
+  width: 100%;
+  height: auto;          /* sin esto, el alto del HTML (450) deformaría la foto */
+  aspect-ratio: 8 / 9;   /* la proporción de las fotos de alihogar.es */
+  object-fit: cover;
+  background: var(--gris-claro);
 }
 
 .tarjeta__cuerpo {
-  padding: 1rem 1.1rem 1.2rem;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 0.6rem 0 0;
 }
 
 .tarjeta__tipo {
-  margin: 0 0 0.2rem;
-  color: var(--tinta-suave);
+  margin: 0;
   font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
 }
 
 .tarjeta__nombre {
-  margin-bottom: 0.4rem;
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-transform: uppercase;
 }
 
 .tarjeta__medidas {
-  margin-bottom: 0.4rem;
-}
-
-.tarjeta__precio {
-  margin-bottom: 0.8rem;
-  font-size: 1.4rem;
-  font-weight: 700;
-}
-
-.nota {
-  color: var(--tinta-suave);
+  margin: 0 0 0.25rem;
   font-size: 1rem;
 }
 
-/* ---------- Marcador de foto: cuando no hay foto autorizada ---------- */
+.tarjeta__precio {
+  margin: 0 0 0.6rem;
+  color: var(--titulo);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.tarjeta .boton {
+  margin-top: auto;
+  padding-inline: 0.5rem;
+}
+
+.nota {
+  font-size: 1rem;
+}
+
+/* ---------- Marcador de foto: solo si un producto no tiene foto autorizada ---------- */
 .marcador-foto {
   display: grid;
+  place-content: center;
   justify-items: center;
   gap: 0.4rem;
-  padding: 1.4rem 1rem 1rem;
-  background: var(--superficie-2);
-  color: var(--tinta);
+  aspect-ratio: 8 / 9;
+  padding: 1rem;
+  background: var(--gris-claro);
+  color: var(--titulo);
   text-align: center;
 }
 
 .marcador-foto__dibujo {
-  width: min(60%, 13rem);
+  width: min(70%, 11rem);
   fill: none;
-  stroke: var(--marca);
-  stroke-width: 2.5;
+  stroke: var(--titulo);
+  stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-.marcador-foto__nombre {
-  font-family: var(--fuente-titulo);
-  font-weight: var(--peso-titulo);
-  line-height: 1.25;
-}
-
 .marcador-foto__nota {
-  color: var(--tinta-suave);
   font-size: 1rem;
 }
 
@@ -426,87 +529,47 @@
 }
 
 .croquis__pared {
-  fill: var(--superficie-2);
+  fill: var(--gris-claro);
 }
 
 .croquis__suelo,
 .croquis__cota {
   fill: none;
-  stroke: var(--tinta-suave);
+  stroke: var(--texto);
   stroke-width: 1.5;
 }
 
 .croquis__mueble {
-  fill: var(--marca-suave);
+  fill: var(--rosa-claro);
   stroke: var(--marca);
   stroke-width: 2;
 }
 
 .croquis__texto {
-  fill: var(--tinta);
-  font-family: var(--fuente-texto);
+  fill: var(--titulo);
+  font-family: var(--fuente);
   font-size: 15px;   /* unidades del dibujo: en un móvil de 390 px se ven a unos 17 px */
-  font-weight: 700;
+  font-weight: 600;
 }
 
-/* ---------- Escena de la portada ---------- */
-.escena {
-  position: relative;
-  margin: 1.25rem 0 0.5rem;
-}
-
-.escena__dibujo {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.escena__pared {
-  fill: var(--superficie-2);
-}
-
-.escena__linea,
-.escena__cota {
-  fill: none;
-  stroke: var(--tinta-suave);
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.escena__mueble {
-  fill: var(--marca-suave);
-  stroke: var(--marca);
-  stroke-width: 2.2;
-  stroke-linejoin: round;
-}
-
-.escena__texto {
-  fill: var(--tinta);
-  font-family: var(--fuente-texto);
-  font-size: 15px;   /* unidades del dibujo: en un móvil de 390 px se ven a unos 16 px */
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.escena__resultado {
-  position: absolute;
-  top: 26%;
-  right: 5%;
-  box-shadow: var(--sombra);
-}
-
-/* ---------- Aviso de «en construcción» de las pantallas pendientes ---------- */
+/* ---------- Caja de aviso: pantalla pendiente o función para registrados ---------- */
 .pendiente {
   padding: 1rem 1.1rem;
-  background: var(--superficie);
-  border: 2px dashed var(--borde-campo);
-  border-radius: var(--radio);
+  background: var(--gris-claro);
+  border-left: 4px solid var(--marca-viva);
 }
 
 .pendiente p:last-child {
   margin-bottom: 0;
+}
+
+.ventajas {
+  margin: 0 0 1rem;
+  padding-left: 1.2rem;
+}
+
+.ventajas li {
+  margin-bottom: 0.35rem;
 }
 
 /* ---------- Muestrario (solo estilo.html) ---------- */
@@ -522,9 +585,8 @@
 .muestra {
   padding: 0.9rem;
   border: 1px solid var(--borde);
-  border-radius: var(--radio);
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.3;
 }
 

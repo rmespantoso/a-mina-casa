@@ -23,6 +23,8 @@ export const EVENTOS = [
   "survey_open",      // abre la encuesta CES
   "recommend_view",   // ve resultados del recomendador
   "recommend_click",  // pulsa un resultado del recomendador
+  "sign_up",          // crea su cuenta (un lead, si además acepta comunicaciones)
+  "login",            // entra con su cuenta
 ];
 
 /** Por dónde entró el cliente: "qr" (tienda) o "web". Decide el utm_medium de salida. */

@@ -1,10 +1,15 @@
-// Lo que comparten todas las pantallas: cabecera, navegación inferior y pie.
-// Está en un solo sitio para no repetirlo en cada archivo HTML.
+// Lo que comparten todas las pantallas: cabecera, navegación inferior,
+// botón de WhatsApp y pie. Está en un solo sitio para no repetirlo en cada HTML.
+//
+// La herramienta está pensada para ir dentro de alihogar.es: por eso la cabecera
+// lleva el logo de ALI Hogar y el acceso a la cuenta, como una sección más de su web.
 
 import { CONFIG } from "./config.js";
-import { hayAlmacen, leer } from "./almacen.js";
-import { registrarEntrada } from "./medicion.js";
+import { hayAlmacen } from "./almacen.js";
+import { medir, registrarEntrada } from "./medicion.js";
 import { icono } from "./dibujos.js";
+import { enlaceAsesor } from "./enlaces.js";
+import { estaRegistrado } from "./sesion.js";
 
 // Los cuatro botones de la barra de abajo.
 const NAVEGACION = [
@@ -15,12 +20,14 @@ const NAVEGACION = [
 ];
 
 function pintarCabecera() {
+  const cuenta = estaRegistrado() ? "Mi cuenta" : "Entrar";
   document.getElementById("cabecera").innerHTML = `
     <div class="cabecera__dentro">
       <a class="marca" href="index.html">
+        <img class="marca__logo" src="img/logo-ali-hogar.png" alt="ALI Hogar" width="48" height="48">
         <span class="marca__nombre" lang="gl">A miña casa</span>
-        <span class="marca__sub">ALI Hogar · prototipo</span>
       </a>
+      <a class="cuenta" href="acceso.html">${icono("usuario")}<span>${cuenta}</span></a>
     </div>`;
 }
 
@@ -35,11 +42,25 @@ function pintarNavegacion(activa) {
   document.getElementById("navegacion").innerHTML = `<ul class="navegacion__lista">${enlaces}</ul>`;
 }
 
+// Botón redondo para escribir al asesor de ALI. Solo aquí aparece el teléfono
+// del cliente: si él decide escribir.
+function pintarWhatsapp() {
+  const boton = document.createElement("a");
+  boton.className = "whatsapp";
+  boton.href = enlaceAsesor();
+  boton.target = "_blank";
+  boton.rel = "noopener";
+  boton.setAttribute("aria-label", `Escribir al asesor de ALI Hogar por WhatsApp (${CONFIG.telefonoAsesor})`);
+  boton.innerHTML = icono("whatsapp");
+  boton.addEventListener("click", () => medir("whatsapp_advisor", { desde: "boton_flotante" }));
+  document.body.append(boton);
+}
+
 function pintarPie() {
   // Si el navegador no deja guardar, se avisa con claridad en vez de fallar en silencio.
   const avisoAlmacen = hayAlmacen()
     ? ""
-    : "<p><strong>Tu navegador no deja guardar datos.</strong> Puedes seguir usando la web, pero tus medidas y tu lista no se recordarán al cerrarla.</p>";
+    : "<p><strong>Tu navegador no deja guardar datos.</strong> Puedes seguir, pero tus medidas y tu lista no se recordarán al cerrar.</p>";
 
   document.getElementById("pie").innerHTML = `
     <div class="pie__dentro">
@@ -56,12 +77,9 @@ function pintarPie() {
  * ("inicio", "huecos", "que-me-cabe", "lista") o null si no es ninguno.
  */
 export function iniciarPagina(activa = null) {
-  // Tema visual elegido en estilo.html. Es provisional: cuando el equipo elija, se quita.
-  const tema = leer("tema", "ria");
-  if (tema !== "ria") document.documentElement.dataset.tema = tema;
-
   pintarCabecera();
   pintarNavegacion(activa);
+  pintarWhatsapp();
   pintarPie();
   registrarEntrada(); // apunta si se ha entrado por un QR de la tienda
 }

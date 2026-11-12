@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>¿Qué me cabe? · A miña casa (prototipo)</title>
   <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#fbf6ee">
+  <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="img/icono.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/componentes.css">
@@ -17,13 +17,34 @@
   <main id="contenido" class="pagina">
     <h1>¿Qué me cabe?</h1>
     <p class="entrada">Dinos cuánto mide tu pared y te enseñamos solo los muebles que caben.</p>
-    <div class="pendiente">
-      <p><strong>Pantalla en construcción.</strong></p>
-      <p>Llega el día 4: el formulario y los muebles recomendados.</p>
-    </div>
-    <div class="acciones">
-      <a class="boton boton--secundario" href="index.html">Volver al inicio</a>
-    </div>
+
+    <!-- Invitado: se explica que esta función es para clientes con cuenta -->
+    <section id="solo-registrados" hidden>
+      <div class="pendiente">
+        <p><strong>Esta función es para clientes con cuenta.</strong></p>
+        <p>Así guardamos tus medidas en tu cuenta y las tienes siempre a mano.</p>
+      </div>
+      <div class="acciones">
+        <a class="boton boton--primario" href="acceso.html?volver=que-me-cabe">Entrar o crear cuenta</a>
+      </div>
+      <h2 class="seccion">Sin cuenta también puedes</h2>
+      <ul class="ventajas">
+        <li>Guardar las medidas de tus huecos en este móvil.</li>
+        <li>Escanear cualquier etiqueta de la tienda y ver si el mueble te cabe.</li>
+        <li>Guardar en tu lista lo que te guste.</li>
+      </ul>
+      <div class="acciones">
+        <a class="boton boton--secundario" href="huecos.html">Añadir mis medidas</a>
+      </div>
+    </section>
+
+    <!-- Registrado: aquí irá el recomendador -->
+    <section id="recomendador" hidden>
+      <div class="pendiente">
+        <p><strong>Pantalla en construcción.</strong></p>
+        <p>Llega el día 4: el formulario y los muebles recomendados.</p>
+      </div>
+    </section>
   </main>
 
   <footer id="pie" class="pie"></footer>
