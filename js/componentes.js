@@ -41,8 +41,9 @@ export function fotoProducto(producto) {
 /**
  * Tarjeta de producto: foto, nombre en mayúsculas, medidas, precio y botón «Ver ficha».
  * `extra` es HTML opcional que va antes del botón (un semáforo, por ejemplo).
+ * `botones` cambia el botón «Ver ficha» por otros (los resultados del recomendador lo usan).
  */
-export function tarjetaProducto(producto, extra = "") {
+export function tarjetaProducto(producto, extra = "", botones = null) {
   return `<article class="tarjeta">
     ${fotoProducto(producto)}
     <div class="tarjeta__cuerpo">
@@ -51,7 +52,7 @@ export function tarjetaProducto(producto, extra = "") {
       <p class="tarjeta__medidas">${medidas(producto)}</p>
       <p class="tarjeta__precio">${euros(producto.precio_eur)}</p>
       ${extra}
-      <a class="boton boton--primario" href="ficha.html?p=${encodeURIComponent(producto.id)}">Ver ficha</a>
+      ${botones ?? `<a class="boton boton--primario" href="ficha.html?p=${encodeURIComponent(producto.id)}">Ver ficha</a>`}
     </div>
   </article>`;
 }

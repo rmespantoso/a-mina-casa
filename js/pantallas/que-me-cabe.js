@@ -8,7 +8,7 @@ import { iniciarPagina } from "../comun.js";
 import { puedeUsar } from "../sesion.js";
 import { cargarDatos } from "../datos.js";
 import { medir } from "../medicion.js";
-import { enlaceAsesor } from "../enlaces.js";
+import { enlaceAsesor, enlaceTienda } from "../enlaces.js";
 import { avisoOrientativo, chipSemaforo, croquisPared, tarjetaProducto } from "../componentes.js";
 import { icono } from "../dibujos.js";
 import { comoTexto, datosDe, pintarErrores } from "../formularios.js";
@@ -16,6 +16,7 @@ import { NOMBRE_ESTANCIA, NOMBRE_TIPO, cm, escapar } from "../textos.js";
 import { estanciasDeReglas, porcentaje, recomendar, tiposDeEstancia, validarBusqueda } from "../logica/recomendador.js";
 import { frase } from "../logica/semaforo.js";
 import { leerHuecos } from "../mis-huecos.js";
+import { estaGuardado, guardarProducto, quitarProducto } from "../mi-lista.js";
 
 iniciarPagina("que-me-cabe");
 
@@ -82,6 +83,8 @@ async function iniciarRecomendador() {
 
   // ---------- Resultados ----------
 
+  const textoGuardar = (id) => (estaGuardado(id) ? "Quitar de mi lista" : `${icono("corazon")}Guardar en mi lista`);
+
   function tarjetaResultado(resultado, busqueda, regla) {
     const { producto, encaje, ocupacion, etiqueta } = resultado;
     const justas = encaje.medidas.filter((medida) => medida.estado === "ambar");
@@ -100,8 +103,19 @@ async function iniciarRecomendador() {
         ${abiertaNoCabe ? `<p>Ojo: abierta mide ${cm(producto.ancho_abierto_cm)} y no cabe en tu pared.</p>` : ""}
         ${croquisPared({ anchoPared: busqueda.pared.ancho_cm, anchoMueble: producto.ancho_cm })}
         <p class="nota">${dondeVerlo}</p>
+        <p class="mensaje resultado__aviso" role="status" hidden></p>
       </div>`;
-    return `<li>${tarjetaProducto(producto, extra)}</li>`;
+    // «Ver ficha de producto» lleva directo a alihogar.es (con UTM), sin paso intermedio.
+    // Si un producto no tuviera enlace, se abre nuestra ficha: nunca se inventa una dirección.
+    const tienda = enlaceTienda(producto.url_alihogar);
+    const verFicha = tienda
+      ? `<a class="boton boton--primario" data-tienda href="${escapar(tienda)}" target="_blank" rel="noopener">Ver ficha de producto<span class="solo-lector"> en alihogar.es (se abre en otra pestaña)</span></a>`
+      : `<a class="boton boton--primario" href="ficha.html?p=${encodeURIComponent(producto.id)}">Ver ficha</a>`;
+    const botones = `<div class="acciones">
+        ${verFicha}
+        <button class="boton boton--secundario" type="button" data-guardar>${textoGuardar(producto.id)}</button>
+      </div>`;
+    return `<li data-producto="${escapar(producto.id)}">${tarjetaProducto(producto, extra, botones)}</li>`;
   }
 
   function pintarResultados(busqueda) {
@@ -146,15 +160,34 @@ async function iniciarRecomendador() {
     document.getElementById("titulo-resultados").focus();
   }
 
-  // Al pulsar un mueble recomendado se apunta cuál y en qué puesto estaba.
+  // Lo que se pulsa en un resultado: salir a alihogar.es o guardar en la lista.
   zonaResultados.addEventListener("click", (evento) => {
-    const enlace = evento.target.closest('a[href^="ficha.html"]');
-    if (!enlace) return;
-    const tarjetas = [...zonaResultados.querySelectorAll(".resultados-lista > li")];
-    medir("recommend_click", {
-      producto: new URL(enlace.href).searchParams.get("p"),
-      puesto: tarjetas.indexOf(enlace.closest("li")) + 1,
-    });
+    const tarjeta = evento.target.closest("[data-producto]");
+    if (!tarjeta) return;
+    const id = tarjeta.dataset.producto;
+    const puesto = [...zonaResultados.querySelectorAll(".resultados-lista > li")].indexOf(tarjeta) + 1;
+
+    if (evento.target.closest("a.boton")) {
+      medir("recommend_click", { producto: id, puesto });
+      if (evento.target.closest("[data-tienda]")) medir("go_to_shop", { producto: id, desde: "recomendador" });
+      return;
+    }
+
+    const boton = evento.target.closest("[data-guardar]");
+    if (!boton) return;
+    const aviso = tarjeta.querySelector(".resultado__aviso");
+    if (estaGuardado(id)) {
+      quitarProducto(id);
+      aviso.textContent = "Quitado de tu lista.";
+    } else {
+      const resultado = guardarProducto(id);
+      aviso.innerHTML = resultado.ok
+        ? 'Guardado en tu lista. <a href="lista.html">Ver mi lista</a>'
+        : "Tu lista está llena. Quita algún mueble para guardar este.";
+    }
+    aviso.hidden = false;
+    boton.innerHTML = textoGuardar(id);
+    boton.setAttribute("aria-pressed", estaGuardado(id) ? "true" : "false");
   });
 
   // ---------- Buscar ----------

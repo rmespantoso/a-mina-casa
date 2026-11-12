@@ -888,3 +888,7 @@ select.campo__entrada:disabled {
 .resultados-lista .tarjeta__foto {
   aspect-ratio: 4 / 3;
 }
+
+.tarjeta .acciones {
+  margin: auto 0 0;
+}
