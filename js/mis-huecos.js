@@ -16,12 +16,12 @@ export function leerHuecos() {
  * Devuelve { ok, id, enMovil } o { ok: false, motivo }.
  * `enMovil` es false si el navegador no deja guardar (solo dura hasta cerrar la página).
  */
-export function guardarHueco(hueco, id = null) {
+export function guardarHueco(hueco, id = null, { medirlo = true } = {}) {
   const resultado = ponerHueco(leerHuecos(), hueco, id);
   if (!resultado.ok) return { ok: false, motivo: resultado.motivo };
 
   const enMovil = guardar("huecos", resultado.lista);
-  if (id === null) {
+  if (id === null && medirlo) {
     // Solo se mide al añadir, no al corregir. No viaja ningún dato personal.
     medir("space_add", { tipo: "hueco", estancia: hueco.estancia, total: resultado.lista.length });
   }

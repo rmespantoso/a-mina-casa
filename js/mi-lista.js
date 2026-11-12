@@ -35,3 +35,20 @@ export function quitarProducto(id) {
   const lista = quitarDeLista(leerLista(), id);
   if (lista) guardar("lista", lista);
 }
+
+/** Vuelve a poner un producto recién quitado en su sitio («Deshacer»). No cuenta como añadir. */
+export function reponerProducto(id, posicion) {
+  const lista = leerLista();
+  if (!lista || lista.productos.includes(id)) return;
+  const productos = [...lista.productos];
+  productos.splice(posicion, 0, id);
+  guardar("lista", { ...lista, productos });
+}
+
+/** Guarda como propia una lista recibida por enlace. Sustituye a la que hubiera. */
+export function adoptarLista(lista) {
+  const limpia = limpiarLista(lista);
+  if (!limpia) return false;
+  guardar("lista", limpia);
+  return true;
+}

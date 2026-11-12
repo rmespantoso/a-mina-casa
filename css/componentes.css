@@ -892,3 +892,113 @@ select.campo__entrada:disabled {
 .tarjeta .acciones {
   margin: auto 0 0;
 }
+
+/* ---------- Mi lista ---------- */
+/* Código de la lista: grande, para leerlo en voz alta en caja. */
+.codigo {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: var(--rosa-claro);
+  color: var(--titulo);
+  text-align: center;
+}
+
+.codigo p {
+  margin: 0;
+}
+
+.codigo__etiqueta {
+  font-weight: 600;
+}
+
+.codigo__valor {
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.3;
+}
+
+.articulos {
+  display: grid;
+  gap: 1.25rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.articulo {
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--borde);
+}
+
+.articulo__cabeza {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  gap: 0.9rem;
+  align-items: start;
+}
+
+.articulo__foto {
+  display: block;
+}
+
+.articulo__foto .marcador-foto__nota {
+  display: none;   /* en pequeño no cabe: el nombre ya está al lado */
+}
+
+.articulo .tarjeta__precio {
+  margin-bottom: 0;
+}
+
+.articulo__encajes {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0.9rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.articulo__encajes li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.6rem;
+  align-items: center;
+}
+
+.articulo .acciones {
+  margin: 0.9rem 0 0;
+}
+
+.total {
+  margin: 1.25rem 0;
+  padding: 1rem;
+  background: var(--gris-claro);
+}
+
+.total__linea {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 0 0.35rem;
+  color: var(--titulo);
+  font-size: 1.2rem;
+}
+
+.total .nota {
+  margin: 0;
+}
+
+/* Botón con aspecto de enlace (el «Deshacer»). */
+.enlace-boton {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3rem;
+  padding: 0 0.5rem;
+  border: 0;
+  background: none;
+  color: var(--marca);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
