@@ -38,6 +38,10 @@ prueba("no se crea un QR para un identificador con mala forma", () => {
 prueba("se sabe cuándo un QR es de prueba (apunta a este ordenador)", () => {
   igual(esDePrueba("http://localhost:8000/"), true);
   igual(esDePrueba("http://127.0.0.1:8000/"), true);
+  igual(esDePrueba("http://192.168.1.134:8000/"), true, "la wifi de casa también es de prueba");
+  igual(esDePrueba("http://10.0.0.5/"), true);
+  igual(esDePrueba("http://172.20.1.1/"), true);
+  igual(esDePrueba("http://172.40.1.1/"), false);
   igual(esDePrueba("https://usuario.github.io/alimicasa/"), false);
 });
 

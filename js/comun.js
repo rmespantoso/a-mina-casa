@@ -6,7 +6,8 @@
 
 import { CONFIG } from "./config.js";
 import { hayAlmacen } from "./almacen.js";
-import { medir, registrarEntrada } from "./medicion.js";
+import { activarMedicion, decisionMedicion, medir, registrarEntrada } from "./medicion.js";
+import { pintarConsentimiento } from "./consentimiento.js";
 import { icono } from "./dibujos.js";
 import { enlaceAsesor } from "./enlaces.js";
 import { estaRegistrado } from "./sesion.js";
@@ -69,6 +70,7 @@ function pintarPie() {
       <p>Precios y medidas de alihogar.es consultados el ${CONFIG.fechaDatos}. Pueden haber cambiado.</p>
       <p>Prototipo de estudiantes · no es una web oficial de ALI Hogar.</p>
       <a href="encuesta.html">Cuéntanos qué te ha parecido</a>
+      <div id="pie-medicion"></div>
     </div>`;
 }
 
@@ -81,5 +83,8 @@ export function iniciarPagina(activa = null) {
   pintarNavegacion(activa);
   pintarWhatsapp();
   pintarPie();
+  // GA4 solo arranca si el cliente ya dijo que sí en una visita anterior.
+  if (decisionMedicion() === "si") activarMedicion();
+  pintarConsentimiento();
   registrarEntrada(); // apunta si se ha entrado por un QR de la tienda
 }

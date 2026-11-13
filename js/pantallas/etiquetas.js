@@ -56,11 +56,11 @@ try {
   const [{ productos }, ambientesCrudos] = await Promise.all([cargarDatos(), cargarAmbientes()]);
   const ambientes = prepararAmbientes(ambientesCrudos, productos).filter((ambiente) => ambiente.productos.length);
 
-  // Aviso bien visible: un QR que apunta a este ordenador no sirve en el móvil de un cliente.
+  // Aviso bien visible: un QR que apunta a este ordenador o a la wifi de casa no sirve en la tienda.
   if (esDePrueba(BASE)) {
     document.getElementById("aviso-prueba").innerHTML = `<div class="pendiente">
       <p><strong>Estos QR son de prueba: no los imprimas para la tienda.</strong></p>
-      <p>Apuntan a este ordenador (${escapar(new URL(BASE).host)}). Cuando el prototipo esté publicado, pon su dirección en <code>js/config.js</code> («urlPublicada») y vuelve a abrir esta página.</p>
+      <p>Apuntan a este ordenador o a esta wifi (${escapar(new URL(BASE).host)}): fuera de aquí no abren. Cuando el prototipo esté publicado, pon su dirección en <code>js/config.js</code> («urlPublicada») y vuelve a abrir esta página.</p>
     </div>`;
   }
 

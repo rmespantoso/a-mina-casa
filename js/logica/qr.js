@@ -30,10 +30,17 @@ export function enlaceQrAmbiente(base, id, utm) {
   return conUtm(enlace, utm);
 }
 
-/** ¿Apunta la dirección a este mismo ordenador? Un QR así no funciona en el móvil de un cliente. */
+/**
+ * ¿Apunta la dirección a este ordenador o a la red de casa (wifi)? Un QR así no
+ * funciona en el móvil de un cliente fuera de esa red.
+ */
 export function esDePrueba(base) {
   const { hostname } = new URL(base);
-  return hostname === "localhost" || hostname === "127.0.0.1" || hostname === "[::1]";
+  if (hostname === "localhost" || hostname === "[::1]" || hostname.endsWith(".local")) return true;
+  const partes = hostname.split(".").map(Number);
+  if (partes.length !== 4 || partes.some((parte) => !Number.isInteger(parte))) return false;
+  const [a, b] = partes;
+  return a === 127 || a === 10 || (a === 192 && b === 168) || (a === 172 && b >= 16 && b <= 31) || (a === 169 && b === 254);
 }
 
 /**

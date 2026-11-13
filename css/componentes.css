@@ -155,6 +155,44 @@
   font-weight: 600;
 }
 
+/* ---------- Aviso de medición: dos botones iguales, sin tapar la página ---------- */
+.consentimiento {
+  max-width: 34rem;
+  margin: 0 auto;
+  padding: 1rem;
+  background: var(--gris-claro);
+  border-bottom: 1px solid var(--borde);
+  font-size: 1rem;
+}
+
+.consentimiento .consentimiento__titulo {
+  margin: 0 0 0.3rem;
+  color: var(--titulo);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.consentimiento p {
+  margin: 0 0 0.75rem;
+}
+
+.consentimiento .acciones {
+  margin: 0;
+}
+
+.pie__boton {
+  min-height: 3rem;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--marca);
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 /* ---------- Botones: rectos, en mayúsculas y de 52 px de alto ---------- */
 .boton {
   display: inline-flex;
