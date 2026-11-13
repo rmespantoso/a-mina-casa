@@ -19,9 +19,15 @@
   <main id="contenido" class="pagina pagina--etiquetas">
     <div class="no-imprimir">
       <h1>Etiquetas con QR</h1>
-      <p class="entrada">Página del equipo: una etiqueta por mueble y por ambiente, para imprimir en A4 y recortar.</p>
+      <p class="entrada">Página del equipo: una etiqueta por mueble y por ambiente, para imprimir en A4 y recortar. Elige qué sección quieres imprimir.</p>
       <div id="aviso-prueba"></div>
       <p class="nota">Salen 8 etiquetas por hoja. En el cuadro de impresión, elige tamaño A4, márgenes «predeterminados» y escala al 100 %.</p>
+      <div class="campo">
+        <label class="campo__etiqueta" for="seccion">Qué etiquetas quieres</label>
+        <select class="campo__entrada" id="seccion" name="seccion">
+          <option value="ambientes">Ambientes (conjuntos)</option>
+        </select>
+      </div>
       <div class="acciones">
         <button class="boton boton--primario" type="button" id="imprimir">Imprimir etiquetas</button>
       </div>

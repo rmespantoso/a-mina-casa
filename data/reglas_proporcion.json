@@ -1,15 +1,28 @@
 {
-  "_aviso": "Reglas ORIENTATIVAS de decoración para el prototipo. Hay que validarlas con el personal de ALI Hogar antes del piloto. ocupacion_min y ocupacion_max son el porcentaje del ancho de la pared que debería ocupar el mueble.",
+  "_aviso": "Reglas ORIENTATIVAS de decoración para el prototipo. Hay que validarlas con el personal de ALI Hogar antes del piloto. ocupacion_min y ocupacion_max son el porcentaje del ancho de la pared que debería ocupar el mueble. Los tipos añadidos el 13/11/2026 (de chaise_longue en adelante) son una propuesta del equipo sin validar; mesa_centro y mesita_noche son los más orientativos, porque no se apoyan en la pared de la misma forma.",
   "margen_verde_cm": 5,
   "max_resultados": 6,
   "tipos": {
-    "sofa":        { "estancias": ["salon"],               "ocupacion_min": 0.50, "ocupacion_max": 0.75 },
-    "mueble_tv":   { "estancias": ["salon"],               "ocupacion_min": 0.40, "ocupacion_max": 0.70 },
-    "aparador":    { "estancias": ["salon", "comedor"],    "ocupacion_min": 0.40, "ocupacion_max": 0.70 },
-    "estanteria":  { "estancias": ["salon", "dormitorio"], "ocupacion_min": 0.25, "ocupacion_max": 0.60 },
-    "cama_canape": { "estancias": ["dormitorio"],          "ocupacion_min": 0.40, "ocupacion_max": 0.70 },
-    "comoda":      { "estancias": ["dormitorio"],          "ocupacion_min": 0.30, "ocupacion_max": 0.60 },
-    "mesa_comedor":{ "estancias": ["comedor"],             "ocupacion_min": 0.35, "ocupacion_max": 0.65 },
-    "recibidor":   { "estancias": ["recibidor"],           "ocupacion_min": 0.30, "ocupacion_max": 0.70 }
+    "sofa":          { "estancias": ["salon"],                         "ocupacion_min": 0.50, "ocupacion_max": 0.75 },
+    "mueble_tv":     { "estancias": ["salon"],                         "ocupacion_min": 0.40, "ocupacion_max": 0.70 },
+    "aparador":      { "estancias": ["salon", "comedor"],              "ocupacion_min": 0.40, "ocupacion_max": 0.70 },
+    "estanteria":    { "estancias": ["salon", "dormitorio", "estudio"], "ocupacion_min": 0.25, "ocupacion_max": 0.60 },
+    "cama_canape":   { "estancias": ["dormitorio"],                    "ocupacion_min": 0.40, "ocupacion_max": 0.70 },
+    "comoda":        { "estancias": ["dormitorio"],                    "ocupacion_min": 0.30, "ocupacion_max": 0.60 },
+    "mesa_comedor":  { "estancias": ["comedor"],                       "ocupacion_min": 0.35, "ocupacion_max": 0.65 },
+    "recibidor":     { "estancias": ["recibidor"],                     "ocupacion_min": 0.30, "ocupacion_max": 0.70 },
+    "chaise_longue": { "estancias": ["salon"],                         "ocupacion_min": 0.50, "ocupacion_max": 0.75 },
+    "sofa_cama":     { "estancias": ["salon", "dormitorio"],           "ocupacion_min": 0.45, "ocupacion_max": 0.70 },
+    "butaca":        { "estancias": ["salon", "dormitorio"],           "ocupacion_min": 0.15, "ocupacion_max": 0.35 },
+    "vitrina":       { "estancias": ["salon", "comedor"],              "ocupacion_min": 0.20, "ocupacion_max": 0.45 },
+    "mesa_centro":   { "estancias": ["salon"],                         "ocupacion_min": 0.20, "ocupacion_max": 0.40 },
+    "somier":        { "estancias": ["dormitorio"],                    "ocupacion_min": 0.40, "ocupacion_max": 0.70 },
+    "cabecero":      { "estancias": ["dormitorio"],                    "ocupacion_min": 0.40, "ocupacion_max": 0.75 },
+    "armario":       { "estancias": ["dormitorio"],                    "ocupacion_min": 0.40, "ocupacion_max": 0.80 },
+    "mesita_noche":  { "estancias": ["dormitorio"],                    "ocupacion_min": 0.10, "ocupacion_max": 0.25 },
+    "banqueta":      { "estancias": ["dormitorio"],                    "ocupacion_min": 0.25, "ocupacion_max": 0.50 },
+    "consola":       { "estancias": ["recibidor", "salon"],            "ocupacion_min": 0.30, "ocupacion_max": 0.60 },
+    "zapatero":      { "estancias": ["recibidor"],                     "ocupacion_min": 0.25, "ocupacion_max": 0.55 },
+    "escritorio":    { "estancias": ["estudio", "dormitorio"],         "ocupacion_min": 0.30, "ocupacion_max": 0.60 }
   }
 }

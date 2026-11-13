@@ -67,7 +67,7 @@ Son 8: Inicio · Mis huecos · ¿Qué me cabe? · Ficha viva · Mi lista · Ambi
 
 ## Datos
 
-- Usa solo los productos de `data/productos.csv` (46 productos reales de alihogar.es, consultados el 10/11/2026). No inventes productos, precios ni medidas.
+- Usa solo los productos de `data/productos.csv`. No inventes productos, precios ni medidas. Son 839 productos reales de alihogar.es: los 46 primeros los revisó el equipo a mano (consultados el 10/11/2026) y el resto se importó el 13/11/2026 con `scripts/importar_alihogar.py` (ver «Catálogo completo»).
 - Columnas: `ancho_cm`, `fondo_cm` y `alto_cm` siguen el orden ancho × fondo × alto (supuesto: la web no lo etiqueta). `estancia` puede tener varias separadas por `|`. Trata `ean` como texto (hay EAN con ceros a la izquierda). `medidas_origen` es el texto literal de la web. `aviso_cliente` es lo que se enseña al cliente y `notas_internas` son apuntes del equipo que no se publican (no pasan al JSON).
 - Nunca se muestran stock ("últimas unidades") ni ofertas ("antes X €"): caducan y serían escasez o anclaje falsos.
 - Si `alto_cm` está vacío, el semáforo solo compara ancho y fondo y muestra "Alto: consultar en tienda".
@@ -87,6 +87,7 @@ Son 8: Inicio · Mis huecos · ¿Qué me cabe? · Ficha viva · Mi lista · Ambi
 - **Marca:** desde el 12/11/2026 se usan el logotipo y las fotos de ALI Hogar, con su permiso. El pie sigue diciendo "Prototipo de estudiantes · no es una web oficial de ALI Hogar".
 - **Ambientes y QR (12/11/2026):** los ambientes están en `data/ambientes.json`; los dos actuales son ejemplos del equipo (`"estado": "ejemplo"`) y hay que sustituirlos por los conjuntos reales de ALI. Las etiquetas con QR se generan en `etiquetas.html` (página del equipo) con la librería `js/vendor/qrcode.js` (MIT), la única dependencia externa del proyecto. Las etiquetas no llevan precio.
 - **Consentimiento (13/11/2026):** el aviso de medición está en `js/consentimiento.js` y solo aparece si hay ID de GA4 en `js/config.js`. Dos botones iguales (Rechazar / Aceptar); GA4 no se carga hasta que el cliente acepta y se puede cambiar la decisión desde el pie. A GA4 nunca viaja la dirección completa: `direccionLimpia` quita medidas, nombres de huecos y listas compartidas.
+- **Catálogo completo (13/11/2026):** solo las secciones donde se mide un hueco (salón, comedor, dormitorio, descanso, sofás, entrada y estudio); fuera sillas, puffs, percheros, colchones, cocina, baño, terraza y patas sueltas. El importador nunca toca las filas que ya están en el CSV, solo guarda una medida si la ficha da una única medida clara de tres números y marca «Revisar» lo raro sin corregirlo. Canapés: una fila por tamaño, sin medida exterior salvo que la web la dé. Somieres: medida del colchón con aviso. Los sillones de la sección «Sofás» pasan a butaca. Las dudas van a `docs/informe_importacion.csv` (no se publica). Los ids admiten 3 cifras (`MCE-120`). Hay estancia «Estudio». Los rangos de los tipos nuevos en `reglas_proporcion.json` son una propuesta sin validar.
 - **Tests:** se abren en `http://localhost:8000/tests/`. No hace falta instalar nada.
 - **Publicación:** `docs/` y `PROMPT_INICIAL.md` están en `.gitignore` porque el repositorio de GitHub Pages es público.
 

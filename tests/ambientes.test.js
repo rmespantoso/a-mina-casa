@@ -22,6 +22,10 @@ prueba("el QR de un mueble abre su ficha con los tres UTM de entrada", () => {
   igual(enlace.searchParams.get("utm_campaign"), "piloto");
 });
 
+prueba("un mueble con id de 3 cifras también tiene QR", () => {
+  igual(new URL(enlaceQrProducto(BASE, "MCE-134", UTM)).searchParams.get("p"), "MCE-134");
+});
+
 prueba("el QR de un ambiente abre el conjunto con los mismos UTM", () => {
   const enlace = new URL(enlaceQrAmbiente(BASE, "AMB-01", UTM));
   igual(enlace.pathname, "/amicasa/ambiente.html");
@@ -31,6 +35,7 @@ prueba("el QR de un ambiente abre el conjunto con los mismos UTM", () => {
 
 prueba("no se crea un QR para un identificador con mala forma", () => {
   igual(enlaceQrProducto(BASE, "<script>", UTM), null);
+  igual(enlaceQrProducto(BASE, "MCE-1234", UTM), null);
   igual(enlaceQrProducto(BASE, "AMB-1", UTM), null);
   igual(enlaceQrAmbiente(BASE, "SOF-01", UTM), null);
 });

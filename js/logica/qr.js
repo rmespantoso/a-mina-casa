@@ -4,7 +4,7 @@
 // Todo QR entra en el prototipo con los UTM de entrada de config.js
 // (utm_source=qr_tienda&utm_medium=qr&utm_campaign=piloto): así se cuenta el evento qr_scan.
 
-const FORMA_PRODUCTO = /^[A-Z]{2,4}-\d{2}$/;
+const FORMA_PRODUCTO = /^[A-Z]{2,4}-\d{2,3}$/;
 const FORMA_AMBIENTE = /^AMB-\d{2}$/;
 
 function conUtm(enlace, utm) {

@@ -29,6 +29,15 @@ python scripts/csv_a_json.py
 
 3. Abre las pruebas y comprueba que pasan todas.
 
+### Traer muebles nuevos de alihogar.es
+
+```bash
+python scripts/importar_alihogar.py
+python scripts/csv_a_json.py
+```
+
+El primero lee las secciones con hueco de alihogar.es (una página por segundo, unos 20 minutos) y añade al CSV solo los muebles que aún no están; no toca las filas que ya había. Las medidas dudosas se quedan vacías («Consultar en tienda») y se apuntan en `docs/informe_importacion.csv` para revisarlas a mano.
+
 ## Cómo está organizado
 
 | Carpeta o archivo | Qué contiene |
@@ -41,5 +50,5 @@ python scripts/csv_a_json.py
 | `js/pantallas/` | Un archivo por pantalla |
 | `data/` | `productos.csv` (fuente), `products.json` (generado), las reglas de proporción y `ambientes.json` (conjuntos de la tienda) |
 | `js/vendor/` | `qrcode.js`: librería que dibuja los QR (qrcode-generator 1.4.4, de Kazuhiko Arase, licencia MIT) |
-| `scripts/` | `csv_a_json.py` |
+| `scripts/` | `csv_a_json.py` (CSV → JSON) e `importar_alihogar.py` (trae muebles de alihogar.es) |
 | `tests/` | Pruebas que se ejecutan en el navegador |

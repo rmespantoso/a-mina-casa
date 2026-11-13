@@ -15,9 +15,13 @@ const numero = (texto) => (texto === "" ? null : Number(texto));
 
 grupo("Datos · products.json frente a productos.csv");
 
-prueba("hay 46 productos, los mismos que filas en el CSV", () => {
-  igual(productos.length, 46);
+prueba("hay tantos productos como filas en el CSV (al menos los 46 revisados a mano)", () => {
+  cierto(productos.length >= 46, `solo hay ${productos.length}`);
   igual(productos.length, filasCsv.length);
+});
+
+prueba("todos los ids tienen la forma acordada (ABC-12 o ABC-123)", () => {
+  productos.forEach((p) => cierto(/^[A-Z]{2,4}-\d{2,3}$/.test(p.id), `id raro: ${p.id}`));
 });
 
 prueba("los ids son los del CSV, en el mismo orden y sin repetir", () => {
@@ -25,7 +29,7 @@ prueba("los ids son los del CSV, en el mismo orden y sin repetir", () => {
   igual(new Set(productos.map((p) => p.id)).size, productos.length);
 });
 
-prueba("nombre, precio, medidas y enlace coinciden con el CSV en los 46 productos", () => {
+prueba("nombre, precio, medidas y enlace coinciden con el CSV en todos los productos", () => {
   filasCsv.forEach((fila, i) => {
     const p = productos[i];
     igual(p.nombre, fila.nombre, `${fila.id} nombre`);
@@ -67,21 +71,29 @@ prueba("las variantes se separan en una lista (SOF-02: Beige y Gris)", async () 
 });
 
 prueba("las mesas extensibles traen su ancho abierto, mayor que el cerrado", () => {
-  const mesas = productos.filter((p) => p.tipo === "mesa_comedor");
-  igual(mesas.length, 5);
-  mesas.forEach((p) => cierto(p.ancho_abierto_cm > p.ancho_cm, `${p.id}: abierto no es mayor que cerrado`));
-  cierto(productos.filter((p) => p.tipo !== "mesa_comedor").every((p) => p.ancho_abierto_cm === null),
-    "un mueble que no es mesa tiene ancho abierto");
+  ["MES-01", "MES-02", "MES-03", "MES-04", "MES-05"].forEach((id) => {
+    const mesa = productos.find((p) => p.id === id);
+    cierto(mesa.ancho_abierto_cm > mesa.ancho_cm, `${id}: abierto no es mayor que cerrado`);
+  });
+  productos.filter((p) => p.ancho_abierto_cm !== null).forEach((p) => {
+    cierto(p.ancho_cm !== null && p.ancho_abierto_cm > p.ancho_cm, `${p.id}: abierto no es mayor que cerrado`);
+  });
+});
+
+prueba("ninguna medida importada es absurda (más de 0 y hasta 4 m)", () => {
+  productos.forEach((p) => ["ancho_cm", "fondo_cm", "alto_cm"].forEach((campo) => {
+    if (p[campo] !== null) cierto(p[campo] > 0 && p[campo] <= 400, `${p.id}: ${campo} = ${p[campo]}`);
+  }));
 });
 
 prueba("todos los enlaces apuntan a https://alihogar.es/", () => {
   productos.forEach((p) => cierto(p.url_alihogar.startsWith("https://alihogar.es/"), `${p.id}: enlace raro`));
 });
 
-prueba("las 46 fotos están autorizadas y son de alihogar.es", () => {
+prueba("las fotos están autorizadas y son de alihogar.es", () => {
   productos.forEach((p) => {
     cierto(p.foto_autorizada === true, `${p.id}: foto sin autorizar`);
-    cierto(p.url_foto.startsWith("https://alihogar.es/"), `${p.id}: la foto no es de alihogar.es`);
+    if (p.url_foto) cierto(p.url_foto.startsWith("https://alihogar.es/"), `${p.id}: la foto no es de alihogar.es`);
   });
 });
 

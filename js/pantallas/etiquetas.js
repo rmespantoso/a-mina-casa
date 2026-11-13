@@ -53,7 +53,7 @@ const estado = document.getElementById("estado");
 try {
   if (typeof window.qrcode !== "function") throw new Error("No se ha cargado js/vendor/qrcode.js");
 
-  const [{ productos }, ambientesCrudos] = await Promise.all([cargarDatos(), cargarAmbientes()]);
+  const [{ productos, reglas }, ambientesCrudos] = await Promise.all([cargarDatos(), cargarAmbientes()]);
   const ambientes = prepararAmbientes(ambientesCrudos, productos).filter((ambiente) => ambiente.productos.length);
 
   // Aviso bien visible: un QR que apunta a este ordenador o a la wifi de casa no sirve en la tienda.
@@ -73,21 +73,34 @@ try {
   }));
 
   // Sin precio a propósito: los precios cambian y una etiqueta impresa se quedaría vieja.
-  const etiquetasProductos = productos.map((producto) => etiqueta({
+  const etiquetaProducto = (producto) => etiqueta({
     tipo: NOMBRE_TIPO[producto.tipo] ?? producto.tipo,
     nombre: producto.nombre,
     detalle: medidas(producto),
     referencia: producto.id,
     enlace: enlaceQrProducto(BASE, producto.id, UTM),
-  }));
+  });
 
-  document.getElementById("etiquetas").innerHTML = `
-    <h2 class="seccion no-imprimir">Ambientes (${etiquetasAmbientes.length})</h2>
-    <div class="etiquetas">${etiquetasAmbientes.join("")}</div>
-    <h2 class="seccion no-imprimir">Muebles (${etiquetasProductos.length})</h2>
-    <div class="etiquetas">${etiquetasProductos.join("")}</div>`;
+  // Con cientos de muebles, dibujar todos los QR a la vez haría la página muy lenta:
+  // se elige una sección cada vez (los tipos salen en el orden de reglas_proporcion.json).
+  const selector = document.getElementById("seccion");
+  const tipos = Object.keys(reglas.tipos).filter((tipo) => productos.some((producto) => producto.tipo === tipo));
+  selector.insertAdjacentHTML("beforeend", tipos.map((tipo) => {
+    const cuantos = productos.filter((producto) => producto.tipo === tipo).length;
+    return `<option value="${escapar(tipo)}">${escapar(NOMBRE_TIPO[tipo] ?? tipo)} (${cuantos})</option>`;
+  }).join(""));
 
-  estado.textContent = `Listas ${etiquetasAmbientes.length + etiquetasProductos.length} etiquetas.`;
+  function pintar() {
+    const elegida = selector.value;
+    const etiquetas = elegida === "ambientes"
+      ? etiquetasAmbientes
+      : productos.filter((producto) => producto.tipo === elegida).map(etiquetaProducto);
+    document.getElementById("etiquetas").innerHTML = `<div class="etiquetas">${etiquetas.join("")}</div>`;
+    estado.textContent = `Listas ${etiquetas.length} etiquetas.`;
+  }
+
+  selector.addEventListener("change", pintar);
+  pintar();
   document.getElementById("imprimir").addEventListener("click", () => window.print());
 } catch (error) {
   console.error(error);

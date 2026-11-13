@@ -7,7 +7,7 @@ export const MEDIDA_MAXIMA = 1000;  // cm. Una pared de más de 10 m no es de un
 export const MAX_HUECOS = 8;
 export const LARGO_NOMBRE = 40;
 
-export const ESTANCIAS = ["salon", "comedor", "dormitorio", "recibidor"];
+export const ESTANCIAS = ["salon", "comedor", "dormitorio", "recibidor", "estudio"];
 
 /**
  * Lee lo que el cliente ha escrito en un campo de medida. Devuelve uno de estos:

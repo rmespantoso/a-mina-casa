@@ -53,7 +53,7 @@ export function direccionLimpia(url) {
   // Cada dato solo viaja si tiene su forma exacta («a» es el ambiente en un QR,
   // pero el ancho de la pared en «¿Qué me cabe?»: ese no pasa).
   const FORMAS = {
-    p: /^[A-Z]{2,4}-\d{2}$/,
+    p: /^[A-Z]{2,4}-\d{2,3}$/,
     a: /^AMB-\d{2}$/,
     utm_source: /^[\w-]{1,40}$/,
     utm_medium: /^[\w-]{1,40}$/,

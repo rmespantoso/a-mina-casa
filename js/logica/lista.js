@@ -11,7 +11,7 @@ export const MAX_PRODUCTOS = 20;
 // Sin 0, O, 1 ni I: en caja se confunden al leerlos en voz alta o al anotarlos.
 const LETRAS = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
 const FORMA_CODIGO = /^ALI-[2-9A-HJ-NP-Z]{4}$/;
-const FORMA_ID = /^[A-Z]{2,4}-\d{2}$/;
+const FORMA_ID = /^[A-Z]{2,4}-\d{2,3}$/;
 
 /** Crea un código corto al azar, tipo ALI-7K3F. Solo sirve para que caja lo anote. */
 export function nuevoCodigo(azar = Math.random) {

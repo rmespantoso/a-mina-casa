@@ -13,6 +13,19 @@ export const NOMBRE_TIPO = {
   comoda: "Cómoda",
   mesa_comedor: "Mesa de comedor",
   recibidor: "Recibidor",
+  chaise_longue: "Sofá chaise longue",
+  sofa_cama: "Sofá cama",
+  butaca: "Butaca o sillón",
+  vitrina: "Vitrina",
+  mesa_centro: "Mesa de centro o auxiliar",
+  somier: "Somier, base o cama",
+  cabecero: "Cabecero",
+  armario: "Armario",
+  mesita_noche: "Mesita de noche",
+  banqueta: "Banqueta de pie de cama",
+  consola: "Consola",
+  zapatero: "Zapatero",
+  escritorio: "Escritorio",
 };
 
 export const NOMBRE_ESTANCIA = {
@@ -20,6 +33,7 @@ export const NOMBRE_ESTANCIA = {
   comedor: "Comedor",
   dormitorio: "Dormitorio",
   recibidor: "Recibidor",
+  estudio: "Estudio",
 };
 
 const formatoNumero = new Intl.NumberFormat("es-ES", { maximumFractionDigits: 1 });

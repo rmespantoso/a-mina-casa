@@ -126,6 +126,10 @@ prueba("CAM-01 no tiene alto en la web: se compara sin él", async () => {
 
 prueba("ningún mueble del catálogo rompe el semáforo", async () => {
   const { productos } = await cargarDatos();
-  const estados = productos.map((p) => estado(p, hueco(250, 100, 240)));
-  cierto(estados.every((e) => ["verde", "ambar", "rojo"].includes(e)), estados.join(","));
+  productos.forEach((p) => {
+    const resultado = estado(p, hueco(250, 100, 240));
+    // «sin-datos» solo vale si al mueble le falta el ancho o el fondo (sale «Consultar en tienda»).
+    const permitido = p.ancho_cm === null || p.fondo_cm === null ? ["sin-datos"] : ["verde", "ambar", "rojo"];
+    cierto(permitido.includes(resultado), `${p.id}: ${resultado}`);
+  });
 });
