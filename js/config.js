@@ -8,7 +8,7 @@ export const CONFIG = {
 
   // Dirección pública del prototipo en GitHub Pages, acabada en "/".
   // Ejemplo: "https://usuario.github.io/alimicasa/". La usan los códigos QR (día 6).
-  urlPublicada: "",
+  urlPublicada: "https://rmespantoso.github.io/a-mina-casa/",
 
   // WhatsApp del asesor de ALI Hogar (604 06 57 88), con el prefijo de España.
   whatsappAsesor: "34604065788",
