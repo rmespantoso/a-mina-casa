@@ -62,6 +62,7 @@ function pintarAmbiente(ambiente) {
   const huecos = leerHuecos();
   const { productos } = ambiente;
   const { total, sinPrecio } = totalLista(productos);
+  const volver = `huecos.html?volver=ambiente&a=${encodeURIComponent(ambiente.id)}`;
   const asesor = enlaceAsesor(`Hola, tengo una duda sobre este conjunto de la tienda: ${ambiente.nombre} (ref. ${ambiente.id}).`);
 
   const ejemplo = ambiente.esEjemplo
@@ -81,8 +82,13 @@ function pintarAmbiente(ambiente) {
     <h2 class="seccion">Los muebles del conjunto</h2>
     <ul class="articulos">${productos.map((producto) => articulo(producto, huecos)).join("")}</ul>
     ${huecos.length
-      ? `${avisoOrientativo()}<p class="nota">El semáforo es por mueble: puede que te quepa una parte del conjunto.</p>`
-      : '<p class="nota">¿Quieres saber si te caben? <a href="huecos.html">Añade tus medidas</a>.</p>'}
+      ? `${avisoOrientativo()}<p class="nota">El semáforo es por mueble: puede que te quepa una parte del conjunto.</p>
+         <div class="acciones"><a class="boton boton--secundario" href="${volver}">Añadir o cambiar medidas</a></div>`
+      : `<div class="pendiente">
+           <p><strong>Todavía no has guardado medidas.</strong></p>
+           <p>Dinos cuánto mide tu hueco y te decimos qué muebles de este conjunto te caben. Luego vuelves aquí con un botón.</p>
+         </div>
+         <div class="acciones"><a class="boton boton--primario" href="${volver}">Añadir mis medidas</a></div>`}
 
     <div class="total">
       <p class="total__linea"><span>Total orientativo del conjunto</span><strong>${euros(total)}</strong></p>

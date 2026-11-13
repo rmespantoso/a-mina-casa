@@ -155,7 +155,7 @@ function pintarMia() {
     <h2 class="seccion">${productos.length === 1 ? "1 mueble guardado" : `${productos.length} muebles guardados`}</h2>
     ${productos.length
       ? `<ul class="articulos">${productos.map((producto) => articulo(producto, huecos, true)).join("")}</ul>
-         ${huecos.length ? avisoOrientativo() : '<p class="nota">¿Quieres saber si te caben? <a href="huecos.html">Añade tus medidas</a>.</p>'}
+         ${huecos.length ? avisoOrientativo() : '<p class="nota">¿Quieres saber si te caben? <a href="huecos.html?volver=lista">Añade tus medidas</a>.</p>'}
          ${bloqueTotal(productos)}`
       : '<p class="pendiente">No queda ningún mueble en tu lista.</p>'}
 

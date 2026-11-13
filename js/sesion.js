@@ -60,8 +60,11 @@ export function salir() {
 const DESTINOS = ["index", "huecos", "que-me-cabe", "lista", "ficha", "ambiente"];
 
 /** Convierte el parámetro ?volver= en una dirección segura dentro de la herramienta. */
-export function destinoSeguro(volver, producto = null) {
+export function destinoSeguro(volver, producto = null, ambiente = null) {
   if (!DESTINOS.includes(volver)) return "index.html";
-  const esId = typeof producto === "string" && /^[A-Z]{2,4}-\d{2}$/.test(producto);
-  return volver === "ficha" && esId ? `ficha.html?p=${producto}` : `${volver}.html`;
+  const esProducto = typeof producto === "string" && /^[A-Z]{2,4}-\d{2}$/.test(producto);
+  const esAmbiente = typeof ambiente === "string" && /^AMB-\d{2}$/.test(ambiente);
+  if (volver === "ficha" && esProducto) return `ficha.html?p=${producto}`;
+  if (volver === "ambiente" && esAmbiente) return `ambiente.html?a=${ambiente}`;
+  return `${volver}.html`;
 }

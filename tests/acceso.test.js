@@ -66,6 +66,9 @@ prueba("después de entrar solo se vuelve a páginas de la herramienta", () => {
   igual(destinoSeguro("que-me-cabe"), "que-me-cabe.html");
   igual(destinoSeguro("ficha", "SOF-01"), "ficha.html?p=SOF-01");
   igual(destinoSeguro("ficha", "<script>"), "ficha.html");
+  igual(destinoSeguro("ambiente", null, "AMB-01"), "ambiente.html?a=AMB-01");
+  igual(destinoSeguro("ambiente", null, "../otra"), "ambiente.html");
+  igual(destinoSeguro("lista"), "lista.html");
   igual(destinoSeguro("https://otra-web.example"), "index.html");
   igual(destinoSeguro(null), "index.html");
 });

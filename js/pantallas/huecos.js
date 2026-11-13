@@ -22,11 +22,19 @@ let idPorBorrar = null;      // hueco que espera el «Sí, borrar»
 
 // ---------- Piezas fijas de la página ----------
 
-// Si se llegó desde la ficha de un mueble (?volver=ficha&p=SOF-01), se ofrece volver a él.
+// Si se llegó desde un mueble, un conjunto o la lista (?volver=ficha&p=SOF-01,
+// ?volver=ambiente&a=AMB-01, ?volver=lista), se ofrece volver ahí: lo escaneado no se pierde.
 const parametros = new URLSearchParams(window.location.search);
-const vuelta = destinoSeguro(parametros.get("volver"), parametros.get("p"));
-if (vuelta.startsWith("ficha.html?p=")) {
-  document.getElementById("volver-ficha").href = vuelta;
+const vuelta = destinoSeguro(parametros.get("volver"), parametros.get("p"), parametros.get("a"));
+const TEXTO_VUELTA = [
+  ["ficha.html?p=", "Volver al mueble", "al mueble"],
+  ["ambiente.html?a=", "Volver al conjunto", "al conjunto"],
+  ["lista.html", "Volver a mi lista", "a tu lista"],
+].find(([inicio]) => vuelta.startsWith(inicio)) ?? null;
+if (TEXTO_VUELTA) {
+  const enlace = document.getElementById("volver-ficha");
+  enlace.href = vuelta;
+  enlace.textContent = TEXTO_VUELTA[1];
   document.getElementById("zona-volver").hidden = false;
 }
 
@@ -143,7 +151,10 @@ formularioHueco.addEventListener("submit", (evento) => {
   }
 
   cerrarFormularioHueco();
-  decir(`Guardado: «${revision.hueco.nombre}».`, resultado.enMovil);
+  // Si venía de un mueble o un conjunto, se le recuerda que puede volver a verlo con su semáforo.
+  const comoVolver = TEXTO_VUELTA ? ` Ya puedes volver ${TEXTO_VUELTA[2]} para ver si te cabe.` : "";
+  decir(`Guardado: «${revision.hueco.nombre}».${comoVolver}`, resultado.enMovil);
+  if (TEXTO_VUELTA) document.getElementById("volver-ficha").focus();
 
   // Al invitado se le propone registrarse una sola vez, al guardar su primer hueco.
   if (eraNuevo && !estaRegistrado() && leerHuecos().length === 1 && !leer("invitacion-huecos", false)) {
