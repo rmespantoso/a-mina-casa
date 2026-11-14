@@ -20,76 +20,8 @@
     <h1 id="titulo">Planifica tu espacio</h1>
     <p class="entrada">Dinos qué buscas, qué medidas quieres, tu precio y tus colores. Te enseñamos los muebles que encajan.</p>
 
-    <form class="formulario" id="formulario-plan" novalidate hidden>
-      <p class="nota">Todo es opcional: rellena solo lo que te importe y pulsa «Ver qué me cabe».</p>
-
-      <!-- 1: qué mueble (desplegable; «Todos los muebles» si no elige) -->
-      <div class="campo">
-        <label class="campo__etiqueta paso-titulo" for="plan-grupo"><span class="contador" aria-hidden="true">1</span>¿Qué buscas?</label>
-        <div class="campo__caja">
-          <select class="campo__entrada" id="plan-grupo" name="grupo"></select>
-        </div>
-      </div>
-
-      <!-- 2: medidas del mueble (como mucho) -->
-      <fieldset class="grupo-campos">
-        <legend class="paso-titulo"><span class="contador" aria-hidden="true">2</span>Medidas</legend>
-        <p class="campo__ayuda" id="ayuda-medidas">Las medidas máximas que quieres que tenga el mueble, en centímetros.</p>
-        <div class="medidas-fila">
-          <div class="campo" data-campo="ancho">
-            <label class="campo__etiqueta" for="plan-ancho">Ancho</label>
-            <div class="campo__caja">
-              <input class="campo__entrada" id="plan-ancho" name="ancho" type="text" inputmode="decimal" autocomplete="off"
-                aria-describedby="ayuda-medidas error-plan-ancho">
-              <span class="campo__unidad" aria-hidden="true">cm</span>
-            </div>
-            <div class="campo__error" id="error-plan-ancho" hidden></div>
-          </div>
-          <div class="campo" data-campo="fondo">
-            <label class="campo__etiqueta" for="plan-fondo">Fondo</label>
-            <div class="campo__caja">
-              <input class="campo__entrada" id="plan-fondo" name="fondo" type="text" inputmode="decimal" autocomplete="off"
-                aria-describedby="ayuda-medidas error-plan-fondo">
-              <span class="campo__unidad" aria-hidden="true">cm</span>
-            </div>
-            <div class="campo__error" id="error-plan-fondo" hidden></div>
-          </div>
-          <div class="campo" data-campo="alto">
-            <label class="campo__etiqueta" for="plan-alto">Alto</label>
-            <div class="campo__caja">
-              <input class="campo__entrada" id="plan-alto" name="alto" type="text" inputmode="decimal" autocomplete="off"
-                aria-describedby="ayuda-medidas error-plan-alto">
-              <span class="campo__unidad" aria-hidden="true">cm</span>
-            </div>
-            <div class="campo__error" id="error-plan-alto" hidden></div>
-          </div>
-        </div>
-      </fieldset>
-
-      <!-- 3: precio (barra de 0 a 2.000 €; al final, sin límite) -->
-      <div class="campo">
-        <label class="campo__etiqueta paso-titulo" for="plan-precio"><span class="contador" aria-hidden="true">3</span>Precio máximo</label>
-        <output class="precio-valor" id="precio-valor" for="plan-precio">Sin límite</output>
-        <input class="barra" id="plan-precio" name="precio" type="range" min="0" max="2000" step="25" value="2000">
-        <div class="barra__extremos" aria-hidden="true"><span>0 €</span><span>2.000 €</span></div>
-      </div>
-
-      <!-- 4: color (desplegable con casillas: varios o ninguno) -->
-      <div class="campo">
-        <p class="campo__etiqueta paso-titulo" id="titulo-colores"><span class="contador" aria-hidden="true">4</span>Color</p>
-        <details class="desplegable" id="desplegable-colores">
-          <summary class="desplegable__boton" aria-describedby="titulo-colores"><span id="resumen-colores">Todos los colores</span></summary>
-          <fieldset class="desplegable__panel">
-            <legend class="solo-lector">Colores (puedes elegir varios o ninguno)</legend>
-            <div id="colores"></div>
-          </fieldset>
-        </details>
-      </div>
-
-      <div class="acciones">
-        <button class="boton boton--primario" type="submit">Ver qué me cabe</button>
-      </div>
-    </form>
+    <!-- El filtro lo pinta js/filtro.js (el mismo que usa «Añadir artículo» en Mi plano 3D). -->
+    <form class="formulario" id="formulario-plan" novalidate hidden></form>
 
     <!-- Aquí se pintan los muebles que caben -->
     <section id="resultados" aria-live="polite"></section>

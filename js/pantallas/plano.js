@@ -14,7 +14,8 @@
 
 import { iniciarPagina } from "../comun.js";
 import { leer, guardar } from "../almacen.js";
-import { cargarDatos } from "../datos.js";
+import { cargarDatos, cargarEstancias } from "../datos.js";
+import { htmlFiltro, montarFiltro } from "../filtro.js";
 import { medir } from "../medicion.js";
 import { comoTexto, pintarErrores } from "../formularios.js";
 import { cm, escapar, euros, medidas as textoMedidas } from "../textos.js";
@@ -22,6 +23,7 @@ import { fotoProducto } from "../componentes.js";
 import { icono } from "../dibujos.js";
 import { leerMedida } from "../logica/medidas.js";
 import { FAMILIAS } from "../logica/colores.js";
+import { POR_PAGINA, buscarEnEstancia, estanciaPorId } from "../logica/planificador.js";
 import {
   MAX_PIEZAS, MAX_PLANOS, PRUEBA, abrirPlano, abrirPrueba, actualizarPlano, altoDibujo, cambiarHabitacion, coleccionValida,
   girarPieza, guardarComoNuevo, huella, moverPieza, planoActivo, planoDePruebaVacio, ponerPieza, problemas, quitarPieza,
@@ -35,7 +37,6 @@ iniciarPagina("plano");
 const formularioHabitacion = document.getElementById("formulario-habitacion");
 const formularioGuardar = document.getElementById("formulario-guardar");
 const estado = document.getElementById("estado-plano");
-const controles = document.getElementById("controles");
 const avisoPlanos = document.getElementById("aviso-planos");
 const avisoGuardar = document.getElementById("aviso-guardar");
 const NOMBRES_COLOR = Object.fromEntries(FAMILIAS.map((familia) => [familia.id, familia.nombre]));
@@ -47,6 +48,7 @@ if (!planoActivo(coleccion)) coleccion = abrirPrueba(coleccion);
 let plano = planoActivo(coleccion);
 let elegida = null;
 let catalogo = [];
+let estancias = [];
 let escena = null;
 
 const nuevoId = (letra) => `${letra}${Date.now().toString(36)}${Math.random().toString(36).slice(2, 5)}`;
@@ -224,47 +226,44 @@ function dibujar({ soloEscena = false } = {}) {
       : `Todo cabe. Queda libre más o menos ${String(sueloLibre(plano)).replace(".", ",")} m² de suelo.`;
   estado.classList.toggle("mensaje--aviso", avisos.length > 0);
 
-  pintarListaPiezas(conAviso);
-  pintarElegido();
+  pintarPiezas(conAviso);
 }
 
-function pintarListaPiezas(conAviso) {
-  document.getElementById("piezas").innerHTML = plano.piezas.length
-    ? plano.piezas.map((pieza) => {
-      const { w, h } = huella(pieza);
-      return `<li>
-        <button class="pieza${pieza.id === elegida ? " pieza--elegida" : ""}" type="button" data-elegir="${escapar(pieza.id)}" aria-pressed="${pieza.id === elegida}">
-          <span class="pieza__nombre">${escapar(nombreCorto(pieza.nombre))}${conAviso.has(pieza.id) ? " · revisar" : ""}</span>
-          <span>${cm(w)} × ${cm(h)}${pieza.giro ? " (girado)" : ""}</span>
-        </button>
-      </li>`;
-    }).join("")
-    : '<li class="nota">Aquí aparecerán los muebles que pongas en el plano.</li>';
-}
-
-// Ficha corta del mueble elegido: foto real, medidas, precio, girar y quitar.
-function pintarElegido() {
-  const pieza = plano.piezas.find((actual) => actual.id === elegida);
-  controles.hidden = !pieza;
-  if (!pieza) return;
-  const producto = catalogo.find((actual) => actual.id === pieza.producto);
-  const { aproximado } = altoDibujo(pieza);
-  const notas = [];
-  if (aproximado) notas.push("La web no da su alto: en el 3D sale con una altura aproximada.");
-  if (!pieza.color) notas.push("La web no dice su color: en el 3D sale en un tono neutro.");
-  document.getElementById("elegido").innerHTML = `
-    <div class="elegido__foto">${producto ? fotoProducto(producto) : ""}</div>
-    <div class="elegido__datos">
-      <p class="tarjeta__tipo">Mueble ${numeroDe(pieza.id)}${pieza.color ? ` · ${escapar(NOMBRES_COLOR[pieza.color] ?? "")}` : ""}</p>
-      <p class="elegido__nombre">${escapar(pieza.nombre)}</p>
-      <p>${producto ? textoMedidas(producto) : `${cm(pieza.ancho_cm)} × ${cm(pieza.fondo_cm)}`}${producto ? ` · <strong>${euros(producto.precio_eur)}</strong>` : ""}</p>
-      ${notas.length ? `<p class="nota">${escapar(notas.join(" "))}</p>` : ""}
-      <div class="elegido__botones">
-        <button class="boton-mini" type="button" id="girar">↻ Girar</button>
-        <button class="boton-mini" type="button" id="quitar">${icono("papelera")}Quitar</button>
-        <a class="boton-mini" href="ficha.html?p=${encodeURIComponent(pieza.producto)}">Ver ficha</a>
+// «En el plano»: una tarjeta por mueble con su foto, medidas, precio, girar, quitar y ver ficha.
+// La del mueble elegido (tocado en el 3D o en la tarjeta) va marcada en magenta.
+function pintarPiezas(conAviso) {
+  const zona = document.getElementById("piezas");
+  if (plano.piezas.length === 0) {
+    zona.innerHTML = '<li class="nota">Aquí aparecerán los muebles que pongas en el plano. Usa «+ Añadir artículo».</li>';
+    return;
+  }
+  zona.innerHTML = plano.piezas.map((pieza, indice) => {
+    const producto = catalogo.find((actual) => actual.id === pieza.producto);
+    const { w, h } = huella(pieza);
+    const notas = [];
+    if (conAviso.has(pieza.id)) notas.push("Revisa: no cabe o pisa a otro mueble.");
+    if (altoDibujo(pieza).aproximado) notas.push("La web no da su alto: en el 3D sale con una altura aproximada.");
+    if (!pieza.color) notas.push("La web no dice su color: en el 3D sale en un tono neutro.");
+    const elegido = pieza.id === elegida;
+    const nombre = escapar(pieza.nombre);
+    return `<li class="en-plano__mueble${elegido ? " en-plano__mueble--elegido" : ""}" data-pieza="${escapar(pieza.id)}">
+      <button class="en-plano__foto" type="button" data-elegir aria-pressed="${elegido}" aria-label="Elegir en el plano: ${nombre}">
+        ${producto ? fotoProducto(producto) : ""}
+      </button>
+      <div class="en-plano__datos">
+        <p class="tarjeta__tipo"><span class="contador">${indice + 1}</span>${pieza.color ? escapar(NOMBRES_COLOR[pieza.color] ?? "") : ""}</p>
+        <p class="en-plano__nombre">${nombre}</p>
+        <p>${producto ? textoMedidas(producto) : `${cm(pieza.ancho_cm)} × ${cm(pieza.fondo_cm)}`}${producto ? ` · <strong>${euros(producto.precio_eur)}</strong>` : ""}</p>
+        <p class="nota">En el suelo: ${cm(w)} × ${cm(h)}${pieza.giro ? " (girado)" : ""}</p>
+        ${notas.length ? `<p class="nota">${escapar(notas.join(" "))}</p>` : ""}
+        <div class="elegido__botones">
+          <button class="boton-mini" type="button" data-girar>↻ Girar<span class="solo-lector"> ${nombre}</span></button>
+          <button class="boton-mini" type="button" data-quitar>${icono("papelera")}Quitar<span class="solo-lector"> ${nombre}</span></button>
+          <a class="boton-mini" href="ficha.html?p=${encodeURIComponent(pieza.producto)}">Ver ficha<span class="solo-lector"> de ${nombre}</span></a>
+        </div>
       </div>
-    </div>`;
+    </li>`;
+  }).join("");
 }
 
 function pintarDeMiLista() {
@@ -312,9 +311,21 @@ function poner(id, { avisar = true } = {}) {
 }
 
 document.getElementById("piezas").addEventListener("click", (evento) => {
-  const boton = evento.target.closest("[data-elegir]");
-  if (!boton) return;
-  elegida = elegida === boton.dataset.elegir ? null : boton.dataset.elegir;
+  const tarjeta = evento.target.closest("[data-pieza]");
+  if (!tarjeta) return;
+  const id = tarjeta.dataset.pieza;
+  if (evento.target.closest("[data-girar]")) {
+    plano = girarPieza(plano, id);
+    elegida = id;
+  } else if (evento.target.closest("[data-quitar]")) {
+    plano = quitarPieza(plano, id);
+    if (elegida === id) elegida = null;
+  } else if (evento.target.closest("[data-elegir]")) {
+    elegida = elegida === id ? null : id;
+    dibujar();
+    return;
+  } else return;
+  guardarCambios();
   dibujar();
 });
 document.getElementById("de-mi-lista").addEventListener("click", (evento) => {
@@ -325,15 +336,125 @@ document.getElementById("de-mi-lista").addEventListener("click", (evento) => {
   dibujar();
   document.getElementById("escena").scrollIntoView({ behavior: "smooth", block: "center" });
 });
-controles.addEventListener("click", (evento) => {
-  if (!elegida) return;
-  if (evento.target.closest("#girar")) plano = girarPieza(plano, elegida);
-  else if (evento.target.closest("#quitar")) {
-    plano = quitarPieza(plano, elegida);
-    elegida = null;
-  } else return;
+
+// ---------- Volver a la búsqueda ----------
+// Si se ha llegado con «Probar en mi plano 3D», la estancia dejó su búsqueda en sessionStorage
+// (solo estancia y filtros, nada personal). Si no, se vuelve a las estancias.
+
+function leerBusquedaDeVuelta() {
+  try {
+    const destino = sessionStorage.getItem("amicasa:volver-plano");
+    return destino && /^espacio\.html\?[\w=&.%-]*$/.test(destino) ? destino : null;
+  } catch {
+    return null;
+  }
+}
+
+function prepararVolver() {
+  const destino = leerBusquedaDeVuelta();
+  if (!destino) return;
+  const enlace = document.getElementById("volver");
+  enlace.href = destino;
+  enlace.textContent = "← Volver a la búsqueda";
+}
+
+// ---------- Añadir artículo: el filtro de las estancias, dentro del plano ----------
+
+const zonaAnadir = document.getElementById("anadir");
+const botonAnadir = document.getElementById("abrir-anadir");
+const resultadosAnadir = document.getElementById("resultados-anadir");
+const avisoAnadir = document.getElementById("aviso-anadir");
+let filtroAnadir = null;
+let encontradosAnadir = [];
+let mostradosAnadir = 0;
+
+botonAnadir.addEventListener("click", () => {
+  const abrirlo = zonaAnadir.hidden;
+  zonaAnadir.hidden = !abrirlo;
+  botonAnadir.setAttribute("aria-expanded", String(abrirlo));
+  botonAnadir.textContent = abrirlo ? "Cerrar el buscador" : "+ Añadir artículo";
+  if (!abrirlo) return;
+  prepararAnadir();
+  document.getElementById("titulo-anadir").focus();
+});
+
+function prepararAnadir() {
+  if (filtroAnadir || estancias.length === 0) return;
+  const formulario = document.getElementById("filtro-anadir");
+  formulario.innerHTML = htmlFiltro("anadir", { conEstancia: true, textoBoton: "Buscar muebles" });
+  // Se empieza por la estancia y los filtros de la última búsqueda, si se viene de una.
+  const vuelta = new URLSearchParams((leerBusquedaDeVuelta() ?? "").split("?")[1] ?? "");
+  const estancia = estanciaPorId(estancias, vuelta.get("e")) ?? estancias[0];
+  filtroAnadir = montarFiltro(formulario, { prefijo: "anadir", estancias, estancia, alBuscar: buscarParaPlano });
+  if (vuelta.get("e")) {
+    filtroAnadir.rellenar({
+      grupo: vuelta.get("g"), ancho: vuelta.get("a"), fondo: vuelta.get("f"), alto: vuelta.get("h"),
+      precio: vuelta.get("p"), colores: (vuelta.get("c") ?? "").split("."),
+    });
+  }
+}
+
+function buscarParaPlano(busqueda, estancia) {
+  const { resultados, total } = buscarEnEstancia(catalogo, busqueda);
+  medir("recommend_view", { estancia: estancia.id, tipo: busqueda.grupo ?? "todos", resultados: total, desde: "plano" });
+  encontradosAnadir = resultados;
+  mostradosAnadir = 0;
+  avisoAnadir.hidden = true;
+  resultadosAnadir.innerHTML = total === 0
+    ? '<p class="pendiente">Ningún mueble cumple todo lo que has elegido. Prueba a quitar algún filtro o a subir el precio.</p>'
+    : `<h4 class="anadir__cuantos" id="titulo-resultados-anadir" tabindex="-1">${total === 1 ? "1 mueble" : `${total} muebles`}</h4>
+       <ul class="resultados-mini" id="lista-anadir"></ul>
+       <div class="acciones"><button class="boton boton--secundario" type="button" id="mas-anadir">Ver más</button></div>`;
+  if (total) {
+    pintarMasAnadir();
+    document.getElementById("titulo-resultados-anadir").focus();
+  }
+}
+
+function tarjetaMini(producto) {
+  const nombre = escapar(producto.nombre);
+  const yaEsta = plano.piezas.some((pieza) => pieza.producto === producto.id);
+  const boton = sePuedePoner(producto)
+    ? `<button class="boton-mini boton-mini--primario" type="button" data-anadir="${escapar(producto.id)}">+ ${yaEsta ? "Añadir otro" : "Añadir al plano"}<span class="solo-lector">: ${nombre}</span></button>`
+    : '<p class="nota">La web no da su ancho o su fondo: no se puede dibujar.</p>';
+  return `<li class="resultado-mini">
+    <div class="resultado-mini__foto">${fotoProducto(producto)}</div>
+    <div>
+      <p class="resultado-mini__nombre">${nombre}</p>
+      <p>${textoMedidas(producto)} · <strong>${euros(producto.precio_eur)}</strong></p>
+      ${yaEsta ? '<p class="nota">Ya está en tu plano.</p>' : ""}
+      ${boton}
+    </div>
+  </li>`;
+}
+
+function pintarMasAnadir() {
+  const nuevos = encontradosAnadir.slice(mostradosAnadir, mostradosAnadir + POR_PAGINA);
+  document.getElementById("lista-anadir").insertAdjacentHTML("beforeend", nuevos.map(tarjetaMini).join(""));
+  mostradosAnadir += nuevos.length;
+  const quedan = encontradosAnadir.length - mostradosAnadir;
+  const boton = document.getElementById("mas-anadir");
+  boton.hidden = quedan <= 0;
+  boton.textContent = `Ver ${Math.min(quedan, POR_PAGINA)} más (quedan ${quedan})`;
+}
+
+resultadosAnadir.addEventListener("click", (evento) => {
+  if (evento.target.closest("#mas-anadir")) {
+    pintarMasAnadir();
+    return;
+  }
+  const boton = evento.target.closest("[data-anadir]");
+  if (!boton) return;
+  const producto = catalogo.find((actual) => actual.id === boton.dataset.anadir);
+  if (!poner(producto.id)) return;
+  medir("plan_try", { producto: producto.id, desde: "anadir_articulo" });
   guardarCambios();
   dibujar();
+  avisoAnadir.textContent = `Añadido al plano: «${producto.nombre}». Muévelo con el dedo o el ratón.`;
+  avisoAnadir.hidden = false;
+  // Se marca «Ya está en tu plano» en la tarjeta y se sube al 3D para verlo colocado.
+  boton.closest(".resultado-mini").outerHTML = tarjetaMini(producto);
+  document.getElementById("escena").scrollIntoView({ behavior: "smooth", block: "center" });
 });
 
 // ---------- La escena 3D ----------
@@ -370,7 +491,9 @@ function prepararEscena() {
 // ---------- Arranque ----------
 
 try {
-  catalogo = (await cargarDatos()).productos;
+  const [datos, todas] = await Promise.all([cargarDatos(), cargarEstancias()]);
+  catalogo = datos.productos;
+  estancias = todas;
 } catch (error) {
   console.error(error);
   estado.textContent = "No hemos podido cargar los muebles. Recarga la página.";
@@ -396,6 +519,7 @@ if (pedidos.length) {
   window.history.replaceState(null, "", window.location.pathname);
 }
 
+prepararVolver();
 prepararEscena();
 pintarTodo();
 pintarDeMiLista();

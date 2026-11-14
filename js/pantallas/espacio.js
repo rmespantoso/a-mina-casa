@@ -15,12 +15,12 @@ import { medir } from "../medicion.js";
 import { enlaceAsesor, enlaceTienda } from "../enlaces.js";
 import { tarjetaProducto } from "../componentes.js";
 import { icono } from "../dibujos.js";
-import { datosDe, pintarErrores } from "../formularios.js";
+import { htmlFiltro, montarFiltro } from "../filtro.js";
 import { escapar, euros } from "../textos.js";
 import { accionCompra } from "../logica/recomendador.js";
-import { FAMILIAS, limpiarColores } from "../logica/colores.js";
+import { FAMILIAS } from "../logica/colores.js";
 import {
-  POR_PAGINA, PRECIO_TOPE, buscarEnEstancia, enlaceBusqueda, estanciaPorId, leerPrecio, nombreBusqueda, paraGuardar, textoMedidas, validarPlan,
+  POR_PAGINA, buscarEnEstancia, enlaceBusqueda, estanciaPorId, nombreBusqueda, paraGuardar, textoMedidas,
 } from "../logica/planificador.js";
 import { guardarBusqueda } from "../mis-busquedas.js";
 import { estaGuardado, guardarProducto, quitarProducto } from "../mi-lista.js";
@@ -31,104 +31,50 @@ iniciarPagina("planifica");
 const parametros = new URLSearchParams(window.location.search);
 const formulario = document.getElementById("formulario-plan");
 const zonaResultados = document.getElementById("resultados");
-const barraPrecio = document.getElementById("plan-precio");
 const NOMBRES_COLOR = Object.fromEntries(FAMILIAS.map((familia) => [familia.id, familia.nombre]));
 
-let productos, estancia;
+let productos, estancia, estancias;
 let ultimaBusqueda = null; // la última búsqueda hecha, para «Guardar esta búsqueda»
 let encontrados = []; // todos los muebles de la última búsqueda (se enseñan de POR_PAGINA en POR_PAGINA)
 let mostrados = 0;
 
-// ---------- Formulario ----------
+// ---------- Formulario (el filtro compartido de js/filtro.js) ----------
 
-const textoPrecio = (valor) => {
-  const precio = leerPrecio(valor);
-  return precio == null ? "Sin límite" : `Hasta ${precio} €`;
-};
+let enfocarResultados = true;
 
-function pintarPrecio() {
-  const texto = textoPrecio(barraPrecio.value);
-  document.getElementById("precio-valor").textContent = texto;
-  barraPrecio.setAttribute("aria-valuetext", texto);
-  // El tramo elegido de la barra se pinta en magenta (ver .barra en componentes.css).
-  barraPrecio.style.setProperty("--relleno", `${(Number(barraPrecio.value) / PRECIO_TOPE) * 100}%`);
-}
-
-function coloresElegidos() {
-  return [...formulario.querySelectorAll('input[name="colores"]:checked')].map((casilla) => casilla.value);
-}
-
-function pintarResumenColores() {
-  const elegidos = coloresElegidos();
-  document.getElementById("resumen-colores").textContent = elegidos.length
-    ? elegidos.map((id) => NOMBRES_COLOR[id]).join(", ")
-    : "Todos los colores";
-}
-
-function prepararEstancia() {
+function prepararEstancia(estancias) {
   document.title = `${estancia.titulo} · A miña casa (prototipo)`;
   document.getElementById("titulo").textContent = estancia.titulo;
   document.getElementById("portada").innerHTML =
     `<img src="${escapar(estancia.foto)}" alt="Ambiente de ${escapar(estancia.nombre.toLowerCase())} con muebles de ALI Hogar" width="1000" height="1000">`;
 
-  // 1. Tipos de mueble de la estancia. La primera opción no filtra.
-  formulario.elements.grupo.innerHTML = '<option value="">Todos los muebles</option>' +
-    estancia.grupos.map((grupo) => `<option value="${escapar(grupo.id)}">${escapar(grupo.nombre)}</option>`).join("");
-
-  // 3. Barra del precio.
-  barraPrecio.addEventListener("input", pintarPrecio);
-
-  // 4. Colores: casillas con muestra y nombre (el color nunca va solo, siempre con su nombre).
-  document.getElementById("colores").innerHTML = FAMILIAS.map((familia) => `
-    <label class="casilla-color"><input type="checkbox" name="colores" value="${familia.id}">
-      <span class="casilla-color__muestra" style="background:${familia.muestra}" aria-hidden="true"></span>${escapar(familia.nombre)}</label>`).join("") +
-    '<button class="boton-enlace" type="button" id="quitar-colores">Quitar colores</button>';
-  document.getElementById("colores").addEventListener("change", pintarResumenColores);
-  document.getElementById("quitar-colores").addEventListener("click", () => {
-    for (const casilla of formulario.querySelectorAll('input[name="colores"]')) casilla.checked = false;
-    pintarResumenColores();
-  });
-
+  formulario.innerHTML = htmlFiltro("plan");
+  const filtro = montarFiltro(formulario, { prefijo: "plan", estancias, estancia, alBuscar: buscar });
   formulario.hidden = false;
-  formulario.addEventListener("submit", (evento) => {
-    evento.preventDefault();
-    document.getElementById("desplegable-colores").open = false;
-    buscar();
-  });
   zonaResultados.addEventListener("click", alPulsarResultado);
 
   // Si la dirección ya trae una búsqueda (guardada o vuelta de una ficha), se rellena y se repite sola.
-  formulario.elements.grupo.value = estancia.grupos.some((grupo) => grupo.id === parametros.get("g")) ? parametros.get("g") : "";
-  formulario.elements.ancho.value = parametros.get("a") ?? "";
-  formulario.elements.fondo.value = parametros.get("f") ?? "";
-  formulario.elements.alto.value = parametros.get("h") ?? "";
-  barraPrecio.value = leerPrecio(parametros.get("p")) ?? PRECIO_TOPE;
-  const elegidos = limpiarColores((parametros.get("c") ?? "").split("."));
-  for (const casilla of formulario.querySelectorAll('input[name="colores"]')) casilla.checked = elegidos.includes(casilla.value);
-  pintarPrecio();
-  pintarResumenColores();
-  if (parametros.has("b") || parametros.has("g")) buscar({ enfocar: false });
-}
-
-function leerFormulario() {
-  const datos = datosDe(formulario);
-  datos.colores = coloresElegidos();
-  return datos;
-}
-
-function buscar({ enfocar = true } = {}) {
-  const revision = validarPlan(leerFormulario(), estancia);
-  if (!revision.ok) {
-    pintarErrores(formulario, revision.errores, revision.sugerencias);
-    zonaResultados.innerHTML = "";
-    return;
+  filtro.rellenar({
+    grupo: parametros.get("g"),
+    ancho: parametros.get("a"),
+    fondo: parametros.get("f"),
+    alto: parametros.get("h"),
+    precio: parametros.get("p"),
+    colores: (parametros.get("c") ?? "").split("."),
+  });
+  if (parametros.has("b") || parametros.has("g")) {
+    enfocarResultados = false;
+    filtro.enviar();
+    enfocarResultados = true;
   }
-  pintarErrores(formulario);
-  ultimaBusqueda = revision.busqueda;
+}
+
+function buscar(busqueda) {
+  ultimaBusqueda = busqueda;
   // La búsqueda se deja en la dirección (sin ningún dato personal): así, al volver de una
-  // ficha, los resultados siguen ahí. GA4 nunca recibe estos datos (ver direccionLimpia).
-  window.history.replaceState(null, "", enlaceBusqueda(paraGuardar(revision.busqueda)));
-  pintarResultados(revision.busqueda, enfocar);
+  // ficha o del plano, los resultados siguen ahí. GA4 nunca recibe estos datos (ver direccionLimpia).
+  window.history.replaceState(null, "", enlaceBusqueda(paraGuardar(busqueda)));
+  pintarResultados(busqueda, enfocarResultados);
 }
 
 // ---------- Resultados ----------
@@ -159,7 +105,7 @@ function tarjetaResultado(producto) {
     principales = enlace("Elegir opción y comprar", "boton--primario");
   }
   const plano = producto.ancho_cm && producto.fondo_cm
-    ? `<a class="boton boton--secundario" href="plano.html?p=${encodeURIComponent(producto.id)}">Probar en mi plano 3D</a>`
+    ? `<a class="boton boton--secundario" data-plano href="plano.html?p=${encodeURIComponent(producto.id)}">Probar en mi plano 3D</a>`
     : "";
   const botones = `<div class="acciones">
       ${principales}
@@ -280,6 +226,8 @@ function alPulsarResultado(evento) {
   const puesto = [...zonaResultados.querySelectorAll(".resultados-lista > li")].indexOf(tarjeta) + 1;
 
   if (evento.target.closest("a.boton")) {
+    // Para que Mi plano 3D pueda ofrecer «← Volver a la búsqueda».
+    if (evento.target.closest("[data-plano]")) recordarBusqueda();
     medir("recommend_click", { producto: id, puesto });
     if (evento.target.closest("[data-tienda]")) medir("go_to_shop", { producto: id, desde: "planifica" });
     return;
@@ -310,11 +258,20 @@ function alPulsarResultado(evento) {
   boton.setAttribute("aria-pressed", estaGuardado(id) ? "true" : "false");
 }
 
+// Mi plano 3D lee esto para su enlace «← Volver a la búsqueda». Solo es la dirección de la
+// búsqueda (estancia y filtros), nada personal; dura lo que dure la pestaña.
+function recordarBusqueda() {
+  try {
+    sessionStorage.setItem("amicasa:volver-plano", enlaceBusqueda(paraGuardar(ultimaBusqueda)));
+  } catch { /* sin sessionStorage, el plano enseña «← Otras estancias» */ }
+}
+
 // ---------- Arranque ----------
 // Va al final del archivo: así todas las funciones y constantes de arriba ya existen.
 
 try {
-  const [datos, estancias] = await Promise.all([cargarDatos(), cargarEstancias()]);
+  let datos;
+  [datos, estancias] = await Promise.all([cargarDatos(), cargarEstancias()]);
   ({ productos } = datos);
   estancia = estanciaPorId(estancias, parametros.get("e"));
 } catch (error) {
@@ -326,5 +283,5 @@ if (productos && !estancia) {
   document.getElementById("titulo").textContent = "No encontramos esa estancia";
   zonaResultados.innerHTML = `<div class="acciones"><a class="boton boton--primario" href="index.html">Ver todas las estancias</a></div>`;
 } else if (estancia) {
-  prepararEstancia();
+  prepararEstancia(estancias);
 }

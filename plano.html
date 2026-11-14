@@ -15,8 +15,9 @@
   <header id="cabecera" class="cabecera"></header>
 
   <!-- Mi plano 3D (rediseño del 14/11/2026): lo primero es el 3D. Debajo, las medidas
-       de la habitación (editables), el mueble elegido, guardar, Mis planos y Mi lista. -->
+       de la habitación (editables), En el plano, Añadir artículo, guardar, Mis planos y Mi lista. -->
   <main id="contenido" class="pagina pagina--ancha">
+    <p><a class="enlace-volver" id="volver" href="index.html">← Otras estancias</a></p>
     <p class="saludo" lang="gl">A miña casa</p>
     <h1>Mi plano 3D</h1>
     <p class="nota" id="estado-guardado" role="status"></p>
@@ -62,10 +63,22 @@
       </div>
     </form>
 
-    <!-- 3. El mueble elegido -->
-    <div id="controles" hidden>
-      <div class="elegido" id="elegido"></div>
-    </div>
+    <!-- 3. En el plano: una tarjeta por mueble (girar, quitar, ver ficha) -->
+    <section aria-labelledby="titulo-en-plano">
+      <h2 class="seccion" id="titulo-en-plano">En el plano</h2>
+      <ul class="en-plano" id="piezas"></ul>
+
+      <!-- Añadir artículo: el mismo filtro de las estancias, sin salir del plano -->
+      <div class="acciones">
+        <button class="boton boton--primario" type="button" id="abrir-anadir" aria-expanded="false" aria-controls="anadir">+ Añadir artículo</button>
+      </div>
+      <section class="anadir" id="anadir" hidden aria-labelledby="titulo-anadir">
+        <h3 class="anadir__titulo" id="titulo-anadir" tabindex="-1">Añadir artículo al plano</h3>
+        <form class="formulario" id="filtro-anadir" novalidate></form>
+        <p class="mensaje" id="aviso-anadir" role="status" hidden></p>
+        <div id="resultados-anadir" aria-live="polite"></div>
+      </section>
+    </section>
 
     <!-- 4. Guardar como nuevo plano -->
     <form class="guardar-plano" id="formulario-guardar" novalidate>
@@ -81,9 +94,6 @@
       <p class="mensaje" id="aviso-guardar" role="status" hidden></p>
     </form>
 
-    <!-- 5. En el plano -->
-    <h2 class="seccion">En el plano</h2>
-    <ol class="piezas" id="piezas"></ol>
 
     <!-- 6. Mis planos -->
     <section id="mis-planos" aria-labelledby="titulo-mis-planos">
