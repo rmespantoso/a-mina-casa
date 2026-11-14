@@ -1,19 +1,17 @@
 // Pantalla Ambiente: lo que se abre al escanear el QR de un conjunto montado en la tienda
-// (ambiente.html?a=AMB-01). Enseña todos sus muebles, cada uno con su semáforo, y deja
-// guardar el conjunto entero o solo algunos.
+// (ambiente.html?a=AMB-01). Enseña todos sus muebles y deja guardar el conjunto entero
+// o solo algunos. (El semáforo de los huecos se quitó el 14/11/2026.)
 
 import { CONFIG } from "../config.js";
 import { iniciarPagina } from "../comun.js";
 import { cargarAmbientes, cargarDatos } from "../datos.js";
 import { medir } from "../medicion.js";
 import { enlaceAsesor } from "../enlaces.js";
-import { avisoOrientativo, encajesProducto, fotoProducto } from "../componentes.js";
+import { fotoProducto } from "../componentes.js";
 import { icono } from "../dibujos.js";
 import { NOMBRE_ESTANCIA, NOMBRE_TIPO, escapar, euros, medidas } from "../textos.js";
 import { totalLista } from "../logica/lista.js";
-import { evaluarEncaje } from "../logica/semaforo.js";
 import { prepararAmbientes } from "../logica/qr.js";
-import { leerHuecos } from "../mis-huecos.js";
 import { estaGuardado, guardarProducto, guardarVarios, quitarProducto } from "../mi-lista.js";
 
 iniciarPagina(null);
@@ -37,7 +35,7 @@ function pintarNoEncontrado() {
 
 const textoGuardar = (id) => (estaGuardado(id) ? "Quitar de mi lista" : `${icono("corazon")}Guardar en mi lista`);
 
-function articulo(producto, huecos) {
+function articulo(producto) {
   const nombre = escapar(producto.nombre);
   return `<li class="articulo" data-producto="${escapar(producto.id)}">
     <div class="articulo__cabeza">
@@ -49,7 +47,6 @@ function articulo(producto, huecos) {
         <p class="tarjeta__precio">${euros(producto.precio_eur)}</p>
       </div>
     </div>
-    ${encajesProducto(producto, huecos)}
     <div class="acciones acciones--pareja">
       <button class="boton boton--secundario" type="button" data-guardar aria-pressed="${estaGuardado(producto.id)}">${textoGuardar(producto.id)}</button>
       <a class="boton boton--secundario" href="ficha.html?p=${encodeURIComponent(producto.id)}">Ver ficha<span class="solo-lector"> de ${nombre}</span></a>
@@ -59,10 +56,8 @@ function articulo(producto, huecos) {
 
 function pintarAmbiente(ambiente) {
   document.title = `${ambiente.nombre} · A miña casa (prototipo)`;
-  const huecos = leerHuecos();
   const { productos } = ambiente;
   const { total, sinPrecio } = totalLista(productos);
-  const volver = `huecos.html?volver=ambiente&a=${encodeURIComponent(ambiente.id)}`;
   const asesor = enlaceAsesor(`Hola, tengo una duda sobre este conjunto de la tienda: ${ambiente.nombre} (ref. ${ambiente.id}).`);
 
   const ejemplo = ambiente.esEjemplo
@@ -75,20 +70,12 @@ function pintarAmbiente(ambiente) {
   contenido.innerHTML = `
     <p class="ficha__tipo">Ambiente · ${escapar(NOMBRE_ESTANCIA[ambiente.estancia] ?? "")}</p>
     <h1 class="ficha__nombre">${escapar(ambiente.nombre)}</h1>
-    <p class="entrada">${productos.length === 1 ? "Un mueble" : `${productos.length} muebles`} que has visto juntos en la tienda. Mira cuáles te caben y guarda los que quieras.</p>
+    <p class="entrada">${productos.length === 1 ? "Un mueble" : `${productos.length} muebles`} que has visto juntos en la tienda. Guarda los que quieras en tu lista.</p>
     ${ejemplo}
     ${perdidos}
 
     <h2 class="seccion">Los muebles del conjunto</h2>
-    <ul class="articulos">${productos.map((producto) => articulo(producto, huecos)).join("")}</ul>
-    ${huecos.length
-      ? `${avisoOrientativo()}<p class="nota">El semáforo es por mueble: puede que te quepa una parte del conjunto.</p>
-         <div class="acciones"><a class="boton boton--secundario" href="${volver}">Añadir o cambiar medidas</a></div>`
-      : `<div class="pendiente">
-           <p><strong>Todavía no has guardado medidas.</strong></p>
-           <p>Dinos cuánto mide tu hueco y te decimos qué muebles de este conjunto te caben. Luego vuelves aquí con un botón.</p>
-         </div>
-         <div class="acciones"><a class="boton boton--primario" href="${volver}">Añadir mis medidas</a></div>`}
+    <ul class="articulos">${productos.map((producto) => articulo(producto)).join("")}</ul>
 
     <div class="total">
       <p class="total__linea"><span>Total orientativo del conjunto</span><strong>${euros(total)}</strong></p>
@@ -145,19 +132,6 @@ function pintarAmbiente(ambiente) {
 
   document.getElementById("asesor").addEventListener("click", () => medir("whatsapp_advisor", { ambiente: ambiente.id, desde: "ambiente" }));
 
-  // Medición: se han enseñado semáforos de un ambiente. Solo viajan ids y resultados.
-  if (huecos.length) {
-    const estados = productos.flatMap((producto) => huecos.map((hueco) => evaluarEncaje(producto, hueco).estado));
-    const contar = (estado) => estados.filter((actual) => actual === estado).length;
-    medir("fit_check", {
-      ambiente: ambiente.id,
-      productos: productos.length,
-      huecos: huecos.length,
-      verdes: contar("verde"),
-      ambar: contar("ambar"),
-      rojos: contar("rojo"),
-    });
-  }
 }
 
 try {

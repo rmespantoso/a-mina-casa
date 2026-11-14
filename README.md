@@ -43,7 +43,7 @@ El primero lee las secciones con hueco de alihogar.es (una página por segundo, 
 
 | Carpeta o archivo | Qué contiene |
 | --- | --- |
-| `index.html`, `huecos.html`, … | Una página por pantalla |
+| `index.html`, `espacio.html`, `plano.html`, … | Una página por pantalla |
 | `css/` | `base.css` (colores y letras) y `componentes.css` (piezas) |
 | `js/config.js` | El único archivo de configuración: GA4, WhatsApp, encuesta, UTM |
 | `js/` | Módulos compartidos: datos, guardado en el móvil, sesión (invitado o registrado), medición, enlaces, dibujos |

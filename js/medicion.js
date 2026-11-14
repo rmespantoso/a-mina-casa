@@ -14,8 +14,8 @@ import { leer, guardar } from "./almacen.js";
 // Lista cerrada de eventos. Si alguien escribe mal un nombre, no se envía.
 export const EVENTOS = [
   "qr_scan",          // entra escaneando un QR de la tienda (se detecta por el UTM)
-  "fit_check",        // se le enseña un semáforo
-  "space_add",        // guarda un hueco
+  "plan_try",         // prueba un mueble en Mi plano 3D (desde el 14/11/2026)
+  "plan_save",        // guarda un plano nuevo con nombre
   "list_create",      // guarda su primer producto: nace una lista
   "list_add",         // guarda un producto en la lista
   "list_share",       // comparte la lista

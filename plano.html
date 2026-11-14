@@ -14,99 +14,96 @@
   <a class="saltar" href="#contenido">Saltar al contenido</a>
   <header id="cabecera" class="cabecera"></header>
 
+  <!-- Mi plano 3D (rediseño del 14/11/2026): lo primero es el 3D. Debajo, las medidas
+       de la habitación (editables), el mueble elegido, guardar, Mis planos y Mi lista. -->
   <main id="contenido" class="pagina pagina--ancha">
     <p class="saludo" lang="gl">A miña casa</p>
     <h1>Mi plano 3D</h1>
-    <p class="entrada">Crea tu habitación con sus medidas, coloca los muebles a su tamaño real y mira cómo quedan en 3D. Puedes guardar varios planos.</p>
+    <p class="nota" id="estado-guardado" role="status"></p>
+    <h2 class="plano-titulo" id="titulo-plano" tabindex="-1">Plano de prueba</h2>
 
-    <!-- Planos guardados -->
+    <!-- 1. La habitación en 3D -->
+    <div class="escena" id="escena">
+      <div class="escena__ayuda" id="ayuda-escena">
+        <p><strong>Muévete con el dedo o el ratón</strong></p>
+        <ul>
+          <li>☝️ Arrastra un mueble para moverlo</li>
+          <li>👆 Desliza el suelo para girar la vista</li>
+          <li>🤏 Pellizca (o rueda del ratón) para el zoom</li>
+        </ul>
+        <p class="escena__ayuda-cierre">Toca el plano para empezar</p>
+      </div>
+    </div>
+    <p class="escena__pista">Arrastra los muebles · desliza para girar · pellizca para hacer zoom</p>
+    <p class="mensaje" id="estado-plano" role="status"></p>
+
+    <!-- 2. Medidas de la habitación: editables, se aplican al momento -->
+    <form class="habitacion" id="formulario-habitacion" novalidate>
+      <p class="habitacion__titulo">✏️ Medidas de tu habitación <span>Cámbialas por las tuyas: el plano se actualiza solo.</span></p>
+      <div class="medidas-fila medidas-fila--dos">
+        <div class="campo" data-campo="ancho">
+          <label class="campo__etiqueta" for="hab-ancho">Ancho</label>
+          <div class="campo__caja campo__caja--grande">
+            <input class="campo__entrada" id="hab-ancho" name="ancho" type="text" inputmode="decimal" autocomplete="off"
+              aria-describedby="error-hab-ancho">
+            <span class="campo__unidad" aria-hidden="true">cm</span>
+          </div>
+          <div class="campo__error" id="error-hab-ancho" hidden></div>
+        </div>
+        <div class="campo" data-campo="largo">
+          <label class="campo__etiqueta" for="hab-largo">Largo</label>
+          <div class="campo__caja campo__caja--grande">
+            <input class="campo__entrada" id="hab-largo" name="largo" type="text" inputmode="decimal" autocomplete="off"
+              aria-describedby="error-hab-largo">
+            <span class="campo__unidad" aria-hidden="true">cm</span>
+          </div>
+          <div class="campo__error" id="error-hab-largo" hidden></div>
+        </div>
+      </div>
+    </form>
+
+    <!-- 3. El mueble elegido -->
+    <div id="controles" hidden>
+      <div class="elegido" id="elegido"></div>
+    </div>
+
+    <!-- 4. Guardar como nuevo plano -->
+    <form class="guardar-plano" id="formulario-guardar" novalidate>
+      <label class="campo__etiqueta" for="nombre-nuevo">Guardar como nuevo plano</label>
+      <p class="campo__ayuda" id="ayuda-nombre-nuevo">Se guardan las medidas y los muebles tal como están. Ponle un nombre, por ejemplo «Salón».</p>
+      <div class="guardar-plano__fila">
+        <div class="campo__caja">
+          <input class="campo__entrada" id="nombre-nuevo" name="nombre" type="text" maxlength="40" autocomplete="off"
+            placeholder="Mi salón" aria-describedby="ayuda-nombre-nuevo">
+        </div>
+        <button class="boton boton--primario" type="submit" id="guardar-nuevo">Guardar</button>
+      </div>
+      <p class="mensaje" id="aviso-guardar" role="status" hidden></p>
+    </form>
+
+    <!-- 5. En el plano -->
+    <h2 class="seccion">En el plano</h2>
+    <ol class="piezas" id="piezas"></ol>
+
+    <!-- 6. Mis planos -->
     <section id="mis-planos" aria-labelledby="titulo-mis-planos">
       <h2 class="seccion" id="titulo-mis-planos" tabindex="-1">Mis planos</h2>
       <div id="lista-planos"></div>
       <p class="mensaje" id="aviso-planos" role="status" hidden></p>
     </section>
 
-    <!-- La habitación del plano abierto (o de uno nuevo) -->
-    <form class="formulario" id="formulario-habitacion" novalidate>
-      <fieldset class="grupo-campos">
-        <legend class="paso-titulo" id="titulo-formulario"><span class="contador" aria-hidden="true">1</span>Tu habitación</legend>
-        <div class="campo">
-          <label class="campo__etiqueta" for="hab-nombre">Nombre del plano <span class="campo__opcional">(opcional)</span></label>
-          <span class="campo__ayuda" id="ayuda-hab-nombre">Por ejemplo, «Dormitorio» o «Salón nuevo». Máximo 40 letras.</span>
-          <div class="campo__caja">
-            <input class="campo__entrada" id="hab-nombre" name="nombre" type="text" maxlength="40" autocomplete="off"
-              aria-describedby="ayuda-hab-nombre">
-          </div>
-        </div>
-        <div class="medidas-fila medidas-fila--dos">
-          <div class="campo" data-campo="ancho">
-            <label class="campo__etiqueta" for="hab-ancho">Ancho</label>
-            <div class="campo__caja">
-              <input class="campo__entrada" id="hab-ancho" name="ancho" type="text" inputmode="decimal" autocomplete="off"
-                aria-describedby="ayuda-hab-medidas error-hab-ancho">
-              <span class="campo__unidad" aria-hidden="true">cm</span>
-            </div>
-            <div class="campo__error" id="error-hab-ancho" hidden></div>
-          </div>
-          <div class="campo" data-campo="largo">
-            <label class="campo__etiqueta" for="hab-largo">Largo</label>
-            <div class="campo__caja">
-              <input class="campo__entrada" id="hab-largo" name="largo" type="text" inputmode="decimal" autocomplete="off"
-                aria-describedby="ayuda-hab-medidas error-hab-largo">
-              <span class="campo__unidad" aria-hidden="true">cm</span>
-            </div>
-            <div class="campo__error" id="error-hab-largo" hidden></div>
-          </div>
-        </div>
-        <p class="campo__ayuda" id="ayuda-hab-medidas">De pared a pared, en centímetros. El largo va de la pared del fondo a la de la puerta.</p>
-        <div class="acciones">
-          <button class="boton boton--primario" type="submit" id="crear">Crear mi plano</button>
-        </div>
-      </fieldset>
-    </form>
-
-    <!-- La habitación en 3D y los muebles -->
-    <section id="zona-plano" hidden aria-labelledby="titulo-plano">
-      <h2 class="paso-titulo seccion" id="titulo-plano" tabindex="-1"><span class="contador" aria-hidden="true">2</span><span id="nombre-plano">Coloca tus muebles</span></h2>
-      <p class="nota" id="guardado" role="status"></p>
-      <p>Arrastra un mueble para moverlo. Arrastra el suelo o el fondo para girar la vista; acerca con dos dedos o con la rueda del ratón.</p>
-
-      <div class="escena" id="escena"></div>
-      <div class="escena__botones" role="group" aria-label="Cámara">
-        <button class="boton boton--secundario" type="button" data-camara="3d" aria-pressed="true">Vista 3D</button>
-        <button class="boton boton--secundario" type="button" data-camara="arriba" aria-pressed="false">Desde arriba</button>
-        <button class="boton boton--secundario" type="button" data-camara="izquierda">Girar ⟲</button>
-        <button class="boton boton--secundario" type="button" data-camara="derecha">Girar ⟳</button>
-        <button class="boton boton--secundario" type="button" data-camara="acercar">Acercar</button>
-        <button class="boton boton--secundario" type="button" data-camara="alejar">Alejar</button>
-      </div>
-      <p class="mensaje" id="estado-plano" role="status"></p>
-
-      <div id="controles" hidden>
-        <div class="elegido" id="elegido"></div>
-        <div class="plano__flechas" role="group" aria-label="Mover el mueble elegido (10 cm cada toque)">
-          <button class="boton boton--secundario" type="button" data-mover="0,-10">Al fondo</button>
-          <button class="boton boton--secundario" type="button" data-mover="-10,0">Izquierda</button>
-          <button class="boton boton--secundario" type="button" data-mover="10,0">Derecha</button>
-          <button class="boton boton--secundario" type="button" data-mover="0,10">Hacia la puerta</button>
-        </div>
-        <div class="acciones acciones--pareja">
-          <button class="boton boton--secundario" type="button" id="girar">Girar el mueble</button>
-          <button class="boton boton--secundario" type="button" id="quitar">Quitar del plano</button>
-        </div>
-      </div>
-
-      <h3 class="seccion">En el plano</h3>
-      <ol class="piezas" id="piezas"></ol>
-
-      <h3 class="seccion">Añadir de mi lista</h3>
+    <!-- 7. Añadir de mi lista -->
+    <section aria-labelledby="titulo-de-mi-lista">
+      <h2 class="seccion" id="titulo-de-mi-lista">Añadir de mi lista</h2>
+      <p>Prueba otros muebles que hayas guardado: aparecen en el plano al tocarlos.</p>
       <div id="de-mi-lista"></div>
-      <div class="aviso">
-        <p><strong>Cómo leer el 3D.</strong> Cada mueble tiene su ancho, fondo y alto reales de alihogar.es y su color.
-          La forma es una aproximación según el tipo de mueble: para ver el modelo exacto hace falta un 3D de cada producto
-          (fase 2). Resultado orientativo: mide siempre antes de comprar.</p>
-      </div>
     </section>
+
+    <div class="aviso">
+      <p><strong>Cómo leer el 3D.</strong> Cada mueble tiene su ancho, fondo y alto reales de alihogar.es y su color.
+        La forma es una aproximación según el tipo de mueble: para ver el modelo exacto hace falta un 3D de cada producto
+        (fase 2). Orientativo: mide siempre antes de comprar.</p>
+    </div>
   </main>
 
   <footer id="pie" class="pie"></footer>

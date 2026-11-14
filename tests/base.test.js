@@ -39,9 +39,9 @@ prueba("sin localStorage (modo privado estricto) sigue funcionando en memoria", 
 
 grupo("Medición · eventos");
 
-prueba("están los 14 eventos acordados", () => {
-  igual([...EVENTOS].sort(), ["add_to_cart", "fit_check", "go_to_shop", "list_add", "list_create", "list_share", "login", "qr_scan",
-    "recommend_click", "recommend_view", "sign_up", "space_add", "survey_open", "whatsapp_advisor"]);
+prueba("están los 14 eventos acordados (sin semáforo ni huecos desde el 14/11/2026)", () => {
+  igual([...EVENTOS].sort(), ["add_to_cart", "go_to_shop", "list_add", "list_create", "list_share", "login", "plan_save", "plan_try",
+    "qr_scan", "recommend_click", "recommend_view", "sign_up", "survey_open", "whatsapp_advisor"]);
 });
 
 prueba("un evento con el nombre mal escrito no se envía", () => {

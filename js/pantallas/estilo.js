@@ -3,7 +3,7 @@
 
 import { iniciarPagina } from "../comun.js";
 import { cargarDatos } from "../datos.js";
-import { avisoOrientativo, chipSemaforo, croquisPared, tarjetaProducto } from "../componentes.js";
+import { avisoOrientativo, tarjetaProducto } from "../componentes.js";
 
 iniciarPagina(null);
 
@@ -31,9 +31,6 @@ const PAREJAS = [
   ["Botón al pulsar", "--sobre-marca", "--marca-fuerte", 4.5],
   ["Aviso", "--titulo", "--rosa-claro", 4.5],
   ["Magenta del logo (solo letra grande: pide 3 : 1)", "--marca-viva", "--fondo", 3],
-  ["Semáforo: cabe", "--verde", "--verde-fondo", 4.5],
-  ["Semáforo: justo", "--ambar", "--ambar-fondo", 4.5],
-  ["Semáforo: no cabe", "--rojo", "--rojo-fondo", 4.5],
   ["Borde de campo (pide 3 : 1)", "--borde-campo", "--fondo", 3],
 ];
 
@@ -54,15 +51,13 @@ lista.querySelectorAll(".muestra").forEach((muestra) => {
 });
 
 // ---- Piezas ----
-document.getElementById("semaforos").innerHTML = ["verde", "ambar", "rojo"].map((estado) => chipSemaforo(estado)).join("");
 document.getElementById("aviso").innerHTML = avisoOrientativo();
 
-// La tarjeta y el croquis usan un producto real del catálogo (el primero), no uno inventado.
+// La tarjeta usa un producto real del catálogo (el primero), no uno inventado.
 try {
   const { productos } = await cargarDatos();
   const producto = productos[0];
-  document.getElementById("tarjeta").innerHTML = `<li>${tarjetaProducto(producto, chipSemaforo("verde"))}</li>`;
-  document.getElementById("croquis").innerHTML = croquisPared({ anchoPared: 300, anchoMueble: producto.ancho_cm });
+  document.getElementById("tarjeta").innerHTML = `<li>${tarjetaProducto(producto)}</li>`;
 } catch (error) {
   console.error(error);
   document.getElementById("tarjeta").innerHTML = `<li class="pendiente"><p>No se han podido cargar los productos.</p></li>`;

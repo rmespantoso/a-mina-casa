@@ -3,7 +3,6 @@
 //
 // Una lista es { codigo: "ALI-7K3F", productos: ["SOF-02", "TV-04"] }, o null si aún no existe.
 
-import { limpiarHuecos } from "./huecos.js";
 import { euros } from "../textos.js";
 
 export const MAX_PRODUCTOS = 20;
@@ -53,49 +52,27 @@ export function limpiarLista(dato) {
 
 // ---------------------------------------------------------------------------
 // Compartir: la lista viaja escrita en el propio enlace (no hay servidor).
-//   lista.html?v=1&c=ALI-7K3F&l=SOF-02.TV-04&h=salon;250;95;260;Pared del sofá
-// v = versión del formato · c = código · l = productos · h = huecos (opcional)
+//   lista.html?v=1&c=ALI-7K3F&l=SOF-02.TV-04
+// v = versión del formato · c = código · l = productos.
+// (Hasta el 14/11/2026 también podían viajar los huecos en «h»; ahora se ignora.)
 // ---------------------------------------------------------------------------
 
 const VERSION = "1";
 
-// Un hueco se escribe como estancia;ancho;fondo;alto;nombre. Varios, separados por «|».
-function huecoATexto(hueco) {
-  const nombre = String(hueco.nombre ?? "").replace(/[;|]/g, " ");
-  return [hueco.estancia, hueco.ancho_cm, hueco.fondo_cm ?? "", hueco.alto_cm ?? "", nombre].join(";");
-}
-
-function textoAHueco(texto, indice) {
-  const [estancia, ancho, fondo, alto, ...nombre] = texto.split(";");
-  const numero = (valor) => (valor === "" || valor === undefined ? null : Number(valor));
-  return {
-    id: `h${indice + 1}`,
-    nombre: nombre.join(";") || "Hueco",
-    estancia,
-    ancho_cm: numero(ancho),
-    fondo_cm: numero(fondo),
-    alto_cm: numero(alto),
-  };
-}
-
-/**
- * Crea el enlace para compartir una lista. `base` es la dirección de lista.html.
- * Los huecos solo viajan si se pasan: el cliente lo decide con una casilla.
- */
-export function crearEnlace(base, lista, huecos = null) {
+/** Crea el enlace para compartir una lista. `base` es la dirección de lista.html. */
+export function crearEnlace(base, lista) {
   const enlace = new URL(base);
   enlace.search = "";
   enlace.searchParams.set("v", VERSION);
   enlace.searchParams.set("c", lista.codigo);
   enlace.searchParams.set("l", lista.productos.join("."));
-  if (huecos && huecos.length) enlace.searchParams.set("h", huecos.map(huecoATexto).join("|"));
   return enlace.href;
 }
 
 /**
  * Lee una lista de un enlace. `busqueda` es la parte «?v=1&c=…» de la dirección.
  * Devuelve null si el enlace no trae ninguna lista, { error } si no se puede leer
- * y { lista, huecos } si está bien. Lo que viene de fuera siempre se limpia.
+ * y { lista } si está bien. Lo que viene de fuera siempre se limpia.
  */
 export function leerEnlace(busqueda) {
   const parametros = new URLSearchParams(busqueda);
@@ -104,10 +81,7 @@ export function leerEnlace(busqueda) {
 
   const lista = limpiarLista({ codigo: parametros.get("c"), productos: (parametros.get("l") ?? "").split(".") });
   if (!lista || lista.productos.length === 0) return { error: "estropeado" };
-
-  const textoHuecos = parametros.get("h");
-  const huecos = textoHuecos ? limpiarHuecos(textoHuecos.split("|").map(textoAHueco)) : [];
-  return { lista, huecos };
+  return { lista };
 }
 
 /** Suma los precios. `sinPrecio` dice a cuántos muebles les falta (no se inventa). */

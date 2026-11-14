@@ -1,37 +1,49 @@
-// Pantalla «Mi plano 3D» (decisión del 14/11/2026): la habitación del cliente en 3D, con los
-// muebles de Mi lista a su tamaño real. Se mueven arrastrando (dedo o ratón) o con botones,
-// se giran, y se avisa si dos muebles se pisan o si alguno no cabe.
+// Pantalla «Mi plano 3D» (rediseño del 14/11/2026).
 //
-// El cliente puede guardar varios planos con nombre (hasta 10): la habitación y la posición
-// de cada mueble. Se guardan en este navegador (localStorage, con try/catch dentro de
-// almacen.js) y no piden ningún dato personal. Cada cambio se guarda solo.
+// Lo primero que se ve es la habitación en 3D. Al pulsar «Probar en mi plano 3D» en un
+// mueble (plano.html?p=SOF-02, o varios: ?p=SOF-02.MCE-05), el mueble cae directamente en
+// el PLANO DE PRUEBA, una habitación estándar de 500 × 500 cm. Debajo:
+//   - dos recuadros con el ancho y el largo de la habitación, que se cambian al momento;
+//   - el mueble elegido (foto, medidas, precio, girar y quitar);
+//   - «Guardar como nuevo plano» con un nombre (medidas y muebles incluidos);
+//   - Mis planos (abrir y borrar) y «Añadir de mi lista».
+// Todo se mueve con el dedo o el ratón: no hay botones de cámara.
+//
+// Se guarda en este navegador (localStorage, con try/catch dentro de almacen.js) y no se
+// pide ningún dato personal. Los planos guardados guardan solos cada cambio.
 
 import { iniciarPagina } from "../comun.js";
 import { leer, guardar } from "../almacen.js";
 import { cargarDatos } from "../datos.js";
-import { datosDe, comoTexto, pintarErrores } from "../formularios.js";
+import { medir } from "../medicion.js";
+import { comoTexto, pintarErrores } from "../formularios.js";
 import { cm, escapar, euros, medidas as textoMedidas } from "../textos.js";
 import { fotoProducto } from "../componentes.js";
-import { leerMedida } from "../logica/huecos.js";
+import { icono } from "../dibujos.js";
+import { leerMedida } from "../logica/medidas.js";
 import { FAMILIAS } from "../logica/colores.js";
 import {
-  MAX_PLANOS, altoDibujo, cambiarHabitacion, coleccionValida, crearPlano, girarPieza, huella, moverPieza, nombreValido,
-  planoActivo, ponerPieza, ponerPlano, problemas, quitarPieza, quitarPlano, sePuedePoner, sueloLibre,
+  MAX_PIEZAS, MAX_PLANOS, PRUEBA, abrirPlano, abrirPrueba, actualizarPlano, altoDibujo, cambiarHabitacion, coleccionValida,
+  girarPieza, guardarComoNuevo, huella, moverPieza, planoActivo, planoDePruebaVacio, ponerPieza, problemas, quitarPieza,
+  quitarPlano, sePuedePoner, sueloLibre,
 } from "../logica/plano.js";
 import { leerLista } from "../mi-lista.js";
 import { crearEscena, hayWebGL } from "../escena3d.js";
 
 iniciarPagina("plano");
 
-const formulario = document.getElementById("formulario-habitacion");
-const zonaPlano = document.getElementById("zona-plano");
+const formularioHabitacion = document.getElementById("formulario-habitacion");
+const formularioGuardar = document.getElementById("formulario-guardar");
 const estado = document.getElementById("estado-plano");
 const controles = document.getElementById("controles");
 const avisoPlanos = document.getElementById("aviso-planos");
+const avisoGuardar = document.getElementById("aviso-guardar");
 const NOMBRES_COLOR = Object.fromEntries(FAMILIAS.map((familia) => [familia.id, familia.nombre]));
+const FORMA_ID = /^[A-Z]{2,4}-\d{2,3}$/;
 
-// Colección de planos guardados. Si había un plano de antes (un solo plano), se recupera.
+// Colección: plano de prueba + planos guardados. Si había un plano de la versión anterior, se recupera.
 let coleccion = coleccionValida(leer("planos", null), leer("plano", null));
+if (!planoActivo(coleccion)) coleccion = abrirPrueba(coleccion);
 let plano = planoActivo(coleccion);
 let elegida = null;
 let catalogo = [];
@@ -41,40 +53,46 @@ const nuevoId = (letra) => `${letra}${Date.now().toString(36)}${Math.random().to
 const nombreCorto = (nombre) => (nombre.length > 38 ? `${nombre.slice(0, 36)}…` : nombre);
 const numeroDe = (id) => plano.piezas.findIndex((pieza) => pieza.id === id) + 1;
 const fechaBonita = (fecha) => (fecha ? fecha.split("-").reverse().join("/") : "");
+const esPrueba = () => plano.id === PRUEBA;
 
 // ---------- Guardar ----------
 
-function guardarPlano() {
-  const resultado = ponerPlano(coleccion, plano);
-  if (!resultado.ok) return false;
-  coleccion = resultado.coleccion;
+// Guarda el plano abierto donde le toca (en el de prueba o en su plano guardado).
+function guardarCambios() {
+  coleccion = actualizarPlano(coleccion, plano);
   const ok = guardar("planos", coleccion);
-  const hora = new Date().toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
-  document.getElementById("guardado").textContent = ok
-    ? `Guardado en este navegador a las ${hora}. Cada cambio se guarda solo.`
-    : "Tu navegador no deja guardar: el plano se perderá al cerrar.";
+  pintarEstadoGuardado(ok);
   pintarPlanos();
-  return true;
+}
+
+function pintarEstadoGuardado(ok = true) {
+  const zona = document.getElementById("estado-guardado");
+  if (!ok) {
+    zona.textContent = "Tu navegador no deja guardar: el plano se perderá al cerrar.";
+  } else if (esPrueba()) {
+    zona.textContent = "Plano de prueba: se recuerda en este navegador. Guárdalo con un nombre para tenerlo en «Mis planos».";
+  } else {
+    zona.textContent = `Plano guardado en este navegador. Cada cambio se guarda solo.`;
+  }
 }
 
 // ---------- Mis planos ----------
 
 function pintarPlanos() {
   const zona = document.getElementById("lista-planos");
-  const nuevo = coleccion.planos.length < MAX_PLANOS
-    ? '<button class="boton boton--secundario" type="button" id="nuevo-plano">+ Nuevo plano</button>'
-    : `<p class="nota">Tienes ${MAX_PLANOS} planos, el máximo. Borra alguno para crear otro.</p>`;
+  const vacio = esPrueba() && plano.piezas.length === 0 ? "" : `
+    <div class="acciones"><button class="boton boton--secundario" type="button" id="plano-vacio">Empezar un plano vacío (500 × 500 cm)</button></div>`;
   if (coleccion.planos.length === 0) {
-    zona.innerHTML = '<p class="nota">Todavía no tienes planos. Crea el primero aquí abajo.</p>';
+    zona.innerHTML = `<p class="nota">Todavía no has guardado ningún plano. Usa «Guardar como nuevo plano» para tenerlo aquí.</p>${vacio}`;
     return;
   }
   zona.innerHTML = `
     <ul class="planos">
       ${coleccion.planos.map((guardado) => {
-        const abierto = plano && guardado.id === plano.id;
+        const abierto = guardado.id === plano.id;
         const muebles = guardado.piezas.length === 1 ? "1 mueble" : `${guardado.piezas.length} muebles`;
         return `<li class="plano-guardado${abierto ? " plano-guardado--abierto" : ""}">
-          <p class="plano-guardado__nombre">${escapar(guardado.nombre)}${abierto ? " <span class=\"plano-guardado__marca\">(abierto)</span>" : ""}</p>
+          <p class="plano-guardado__nombre">${escapar(guardado.nombre)}${abierto ? ' <span class="plano-guardado__marca">(abierto)</span>' : ""}</p>
           <p class="plano-guardado__datos">${cm(guardado.habitacion.ancho_cm)} × ${cm(guardado.habitacion.largo_cm)} · ${muebles}${guardado.fecha ? ` · ${fechaBonita(guardado.fecha)}` : ""}</p>
           <div class="acciones acciones--pareja">
             ${abierto ? "" : `<button class="boton boton--primario" type="button" data-abrir="${escapar(guardado.id)}">Abrir<span class="solo-lector"> ${escapar(guardado.nombre)}</span></button>`}
@@ -83,46 +101,106 @@ function pintarPlanos() {
         </li>`;
       }).join("")}
     </ul>
-    <div class="acciones">${nuevo}</div>`;
+    ${esPrueba() ? "" : '<div class="acciones"><button class="boton boton--secundario" type="button" id="ir-prueba">Volver al plano de prueba</button></div>'}
+    ${vacio}`;
+}
+
+function abrir(nuevaColeccion, { enfocar = true } = {}) {
+  coleccion = nuevaColeccion;
+  guardar("planos", coleccion);
+  plano = planoActivo(coleccion);
+  elegida = null;
+  pintarTodo();
+  if (enfocar) document.getElementById("titulo-plano").focus();
 }
 
 document.getElementById("lista-planos").addEventListener("click", (evento) => {
-  const abrir = evento.target.closest("[data-abrir]");
-  const borrar = evento.target.closest("[data-borrar]");
-  if (abrir) {
-    coleccion = { ...coleccion, activo: abrir.dataset.abrir };
-    guardar("planos", coleccion);
-    plano = planoActivo(coleccion);
-    elegida = null;
-    mostrarPlano();
-    document.getElementById("titulo-plano").focus();
-  } else if (borrar) {
-    const guardado = coleccion.planos.find((actual) => actual.id === borrar.dataset.borrar);
+  const botonAbrir = evento.target.closest("[data-abrir]");
+  const botonBorrar = evento.target.closest("[data-borrar]");
+  avisoPlanos.hidden = true;
+  if (botonAbrir) {
+    abrir(abrirPlano(coleccion, botonAbrir.dataset.abrir));
+  } else if (botonBorrar) {
+    const guardado = coleccion.planos.find((actual) => actual.id === botonBorrar.dataset.borrar);
     if (!guardado || !window.confirm(`¿Borrar el plano «${guardado.nombre}»? No se puede deshacer.`)) return;
-    coleccion = quitarPlano(coleccion, guardado.id);
-    guardar("planos", coleccion);
-    plano = planoActivo(coleccion);
-    elegida = null;
+    abrir(quitarPlano(coleccion, guardado.id), { enfocar: false });
     avisoPlanos.textContent = `Plano «${guardado.nombre}» borrado.`;
     avisoPlanos.hidden = false;
-    if (plano) mostrarPlano();
-    else empezarNuevo(false);
-    pintarPlanos();
     document.getElementById("titulo-mis-planos").focus();
-  } else if (evento.target.closest("#nuevo-plano")) {
-    empezarNuevo(true);
+  } else if (evento.target.closest("#ir-prueba")) {
+    abrir(abrirPrueba(coleccion));
+  } else if (evento.target.closest("#plano-vacio")) {
+    if (esPrueba() && plano.piezas.length && !window.confirm("¿Vaciar el plano de prueba? Los muebles que no hayas guardado se quitarán del plano.")) return;
+    abrir({ ...coleccion, activo: PRUEBA, prueba: planoDePruebaVacio() });
   }
 });
 
-function empezarNuevo(enfocar) {
-  plano = null;
-  elegida = null;
-  formulario.reset();
-  zonaPlano.hidden = true;
-  document.getElementById("crear").textContent = "Crear mi plano";
-  pintarPlanos();
-  if (enfocar) document.getElementById("hab-nombre").focus();
+// ---------- Medidas de la habitación (se aplican al momento) ----------
+
+function pintarMedidas() {
+  formularioHabitacion.elements.ancho.value = comoTexto(plano.habitacion.ancho_cm);
+  formularioHabitacion.elements.largo.value = comoTexto(plano.habitacion.largo_cm);
+  pintarErrores(formularioHabitacion);
 }
+
+let esperaMedidas = null;
+formularioHabitacion.addEventListener("input", () => {
+  clearTimeout(esperaMedidas);
+  esperaMedidas = setTimeout(aplicarMedidas, 450); // espera a que termine de escribir
+});
+formularioHabitacion.addEventListener("change", aplicarMedidas);
+formularioHabitacion.addEventListener("submit", (evento) => {
+  evento.preventDefault();
+  aplicarMedidas();
+});
+
+function aplicarMedidas() {
+  clearTimeout(esperaMedidas);
+  const errores = {};
+  const sugerencias = {};
+  const medidas = {};
+  for (const nombre of ["ancho", "largo"]) {
+    const leida = leerMedida(formularioHabitacion.elements[nombre].value);
+    if (leida.estado === "ok") medidas[nombre] = leida.valor;
+    else if (leida.estado === "vacia") errores[nombre] = "Escribe esta medida en centímetros.";
+    else {
+      errores[nombre] = leida.mensaje;
+      if (leida.estado === "metros") sugerencias[nombre] = leida.sugerencia;
+    }
+  }
+  // Los errores se enseñan sin mover el cursor (pintarErrores lo llevaría al campo).
+  const activo = document.activeElement;
+  pintarErrores(formularioHabitacion, errores, sugerencias);
+  activo?.focus?.();
+  if (Object.keys(errores).length) return;
+  if (medidas.ancho === plano.habitacion.ancho_cm && medidas.largo === plano.habitacion.largo_cm) return;
+  plano = cambiarHabitacion(plano, medidas.ancho, medidas.largo);
+  guardarCambios();
+  dibujar();
+}
+
+// ---------- Guardar como nuevo plano ----------
+
+formularioGuardar.addEventListener("submit", (evento) => {
+  evento.preventDefault();
+  const nombre = formularioGuardar.elements.nombre.value;
+  const resultado = guardarComoNuevo(coleccion, plano, nombre, nuevoId("h"));
+  if (!resultado.ok) {
+    avisoGuardar.textContent = `Ya tienes ${MAX_PLANOS} planos guardados. Borra alguno en «Mis planos» para guardar otro.`;
+    avisoGuardar.hidden = false;
+    return;
+  }
+  coleccion = resultado.coleccion;
+  plano = resultado.plano;
+  const ok = guardar("planos", coleccion);
+  medir("plan_save", { muebles: plano.piezas.length, planos: coleccion.planos.length });
+  formularioGuardar.reset();
+  pintarTodo();
+  avisoGuardar.innerHTML = ok
+    ? `Guardado como «${escapar(plano.nombre)}». Lo tienes en <a href="#mis-planos">Mis planos</a>. Lo que cambies ahora se guarda solo.`
+    : "Tu navegador no deja guardar: el plano se perderá al cerrar.";
+  avisoGuardar.hidden = false;
+});
 
 // ---------- Dibujo ----------
 
@@ -132,17 +210,15 @@ function dibujar({ soloEscena = false } = {}) {
   escena?.dibujar(plano, { elegida, conAviso });
   if (soloEscena) return;
 
-  document.getElementById("nombre-plano").textContent = plano.nombre;
   document.getElementById("escena").setAttribute("aria-label",
     `Habitación en 3D de ${cm(plano.habitacion.ancho_cm)} por ${cm(plano.habitacion.largo_cm)} con ${plano.piezas.length} muebles`);
 
-  // Estado en palabras: qué pasa en el plano.
   const avisos = [
     ...noCaben.map((pieza) => `El mueble ${numeroDe(pieza.id)} (${nombreCorto(pieza.nombre)}) no cabe en esta habitación.`),
     ...pisadas.map(([a, b]) => `Los muebles ${numeroDe(a.id)} y ${numeroDe(b.id)} se pisan: sepáralos.`),
   ];
   estado.textContent = plano.piezas.length === 0
-    ? "Todavía no hay muebles. Añade alguno de tu lista."
+    ? "Todavía no hay muebles. Añade alguno de tu lista (abajo) o pulsa «Probar en mi plano 3D» en un mueble."
     : avisos.length
       ? avisos.join(" ")
       : `Todo cabe. Queda libre más o menos ${String(sueloLibre(plano)).replace(".", ",")} m² de suelo.`;
@@ -166,7 +242,7 @@ function pintarListaPiezas(conAviso) {
     : '<li class="nota">Aquí aparecerán los muebles que pongas en el plano.</li>';
 }
 
-// Ficha corta del mueble elegido: su foto real, medidas, precio y enlace a su ficha.
+// Ficha corta del mueble elegido: foto real, medidas, precio, girar y quitar.
 function pintarElegido() {
   const pieza = plano.piezas.find((actual) => actual.id === elegida);
   controles.hidden = !pieza;
@@ -174,19 +250,20 @@ function pintarElegido() {
   const producto = catalogo.find((actual) => actual.id === pieza.producto);
   const { aproximado } = altoDibujo(pieza);
   const notas = [];
-  if (aproximado) notas.push("La web no da su alto: en el 3D se dibuja con una altura aproximada.");
-  notas.push(pieza.color
-    ? `Color en el 3D: ${NOMBRES_COLOR[pieza.color] ?? pieza.color} (aproximado).`
-    : "La web no dice su color: en el 3D sale en un tono neutro.");
+  if (aproximado) notas.push("La web no da su alto: en el 3D sale con una altura aproximada.");
+  if (!pieza.color) notas.push("La web no dice su color: en el 3D sale en un tono neutro.");
   document.getElementById("elegido").innerHTML = `
     <div class="elegido__foto">${producto ? fotoProducto(producto) : ""}</div>
-    <div>
-      <p class="tarjeta__tipo">Elegido: mueble ${numeroDe(pieza.id)}</p>
+    <div class="elegido__datos">
+      <p class="tarjeta__tipo">Mueble ${numeroDe(pieza.id)}${pieza.color ? ` · ${escapar(NOMBRES_COLOR[pieza.color] ?? "")}` : ""}</p>
       <p class="elegido__nombre">${escapar(pieza.nombre)}</p>
-      <p>${producto ? textoMedidas(producto) : `${cm(pieza.ancho_cm)} × ${cm(pieza.fondo_cm)}`}</p>
-      ${producto ? `<p class="tarjeta__precio">${euros(producto.precio_eur)}</p>` : ""}
-      <p class="nota">${escapar(notas.join(" "))}</p>
-      <a href="ficha.html?p=${encodeURIComponent(pieza.producto)}">Ver ficha del mueble</a>
+      <p>${producto ? textoMedidas(producto) : `${cm(pieza.ancho_cm)} × ${cm(pieza.fondo_cm)}`}${producto ? ` · <strong>${euros(producto.precio_eur)}</strong>` : ""}</p>
+      ${notas.length ? `<p class="nota">${escapar(notas.join(" "))}</p>` : ""}
+      <div class="elegido__botones">
+        <button class="boton-mini" type="button" id="girar">↻ Girar</button>
+        <button class="boton-mini" type="button" id="quitar">${icono("papelera")}Quitar</button>
+        <a class="boton-mini" href="ficha.html?p=${encodeURIComponent(pieza.producto)}">Ver ficha</a>
+      </div>
     </div>`;
 }
 
@@ -206,136 +283,74 @@ function pintarDeMiLista() {
         <span>Sin medidas completas: consultar en tienda</span></li>`).join("")}</ul>`;
 }
 
-// ---------- Acciones ----------
-
-function poner(id) {
-  const producto = catalogo.find((actual) => actual.id === id);
-  const resultado = ponerPieza(plano, producto, nuevoId("p"));
-  if (!resultado.ok) {
-    estado.textContent = resultado.motivo === "lleno"
-      ? "El plano está lleno (20 muebles). Quita alguno para añadir otro."
-      : "A este mueble le falta el ancho o el fondo en la web: no lo podemos dibujar.";
-    return;
-  }
-  plano = resultado.plano;
-  elegida = plano.piezas.at(-1).id;
-  guardarPlano();
+function pintarTodo() {
+  document.getElementById("titulo-plano").textContent = plano.nombre;
+  document.getElementById("guardar-nuevo").textContent = esPrueba() ? "Guardar" : "Guardar copia";
+  pintarEstadoGuardado();
+  pintarMedidas();
+  pintarPlanos();
   dibujar();
 }
 
-function elegir(id) {
-  elegida = elegida === id ? null : id;
-  dibujar();
+// ---------- Acciones sobre los muebles ----------
+
+/** Pone un mueble en el plano abierto. Devuelve true si se ha podido. */
+function poner(id, { avisar = true } = {}) {
+  const producto = catalogo.find((actual) => actual.id === id);
+  const resultado = ponerPieza(plano, producto, nuevoId("p"));
+  if (!resultado.ok) {
+    if (avisar) {
+      estado.textContent = resultado.motivo === "lleno"
+        ? `El plano está lleno (${MAX_PIEZAS} muebles). Quita alguno para añadir otro.`
+        : "A este mueble le falta el ancho o el fondo en la web: no lo podemos dibujar.";
+    }
+    return false;
+  }
+  plano = resultado.plano;
+  elegida = plano.piezas.at(-1).id;
+  return true;
 }
 
 document.getElementById("piezas").addEventListener("click", (evento) => {
   const boton = evento.target.closest("[data-elegir]");
-  if (boton) elegir(boton.dataset.elegir);
+  if (!boton) return;
+  elegida = elegida === boton.dataset.elegir ? null : boton.dataset.elegir;
+  dibujar();
 });
 document.getElementById("de-mi-lista").addEventListener("click", (evento) => {
   const boton = evento.target.closest("[data-poner]");
-  if (boton) poner(boton.dataset.poner);
+  if (!boton || !poner(boton.dataset.poner)) return;
+  medir("plan_try", { producto: boton.dataset.poner, desde: "mi_lista" });
+  guardarCambios();
+  dibujar();
+  document.getElementById("escena").scrollIntoView({ behavior: "smooth", block: "center" });
 });
 controles.addEventListener("click", (evento) => {
-  const flecha = evento.target.closest("[data-mover]");
-  if (!flecha || !elegida) return;
-  const [dx, dy] = flecha.dataset.mover.split(",").map(Number);
-  const pieza = plano.piezas.find((actual) => actual.id === elegida);
-  plano = moverPieza(plano, elegida, pieza.x + dx, pieza.y + dy);
-  guardarPlano();
-  dibujar();
-});
-document.getElementById("girar").addEventListener("click", () => {
-  plano = girarPieza(plano, elegida);
-  guardarPlano();
-  dibujar();
-});
-document.getElementById("quitar").addEventListener("click", () => {
-  plano = quitarPieza(plano, elegida);
-  elegida = null;
-  guardarPlano();
+  if (!elegida) return;
+  if (evento.target.closest("#girar")) plano = girarPieza(plano, elegida);
+  else if (evento.target.closest("#quitar")) {
+    plano = quitarPieza(plano, elegida);
+    elegida = null;
+  } else return;
+  guardarCambios();
   dibujar();
 });
 
-// Botones de la cámara (para quien no quiera o no pueda arrastrar).
-document.querySelector(".escena__botones").addEventListener("click", (evento) => {
-  const boton = evento.target.closest("[data-camara]");
-  if (!boton || !escena) return;
-  const accion = boton.dataset.camara;
-  if (accion === "3d" || accion === "arriba") {
-    if (accion === "3d") escena.vista3D();
-    else escena.vistaArriba();
-    for (const otro of document.querySelectorAll('[data-camara="3d"], [data-camara="arriba"]')) {
-      otro.setAttribute("aria-pressed", String(otro === boton));
-    }
-  }
-  if (accion === "izquierda") escena.girarVista(-Math.PI / 8);
-  if (accion === "derecha") escena.girarVista(Math.PI / 8);
-  if (accion === "acercar") escena.acercar(0.8);
-  if (accion === "alejar") escena.acercar(1.25);
-});
+// ---------- La escena 3D ----------
 
-formulario.addEventListener("submit", (evento) => {
-  evento.preventDefault();
-  const datos = datosDe(formulario);
-  const errores = {};
-  const sugerencias = {};
-  const medidas = {};
-  for (const nombre of ["ancho", "largo"]) {
-    const leida = leerMedida(datos[nombre]);
-    if (leida.estado === "ok") medidas[nombre] = leida.valor;
-    else if (leida.estado === "vacia") errores[nombre] = "Falta esta medida.";
-    else {
-      errores[nombre] = leida.mensaje;
-      if (leida.estado === "metros") sugerencias[nombre] = leida.sugerencia;
-    }
-  }
-  if (Object.keys(errores).length) {
-    pintarErrores(formulario, errores, sugerencias);
-    return;
-  }
-  pintarErrores(formulario);
-  const nombre = nombreValido(datos.nombre);
-  if (plano) {
-    plano = { ...cambiarHabitacion(plano, medidas.ancho, medidas.largo), nombre };
-  } else {
-    if (coleccion.planos.length >= MAX_PLANOS) {
-      avisoPlanos.textContent = `Ya tienes ${MAX_PLANOS} planos. Borra alguno para crear otro.`;
-      avisoPlanos.hidden = false;
-      return;
-    }
-    plano = crearPlano(medidas.ancho, medidas.largo, nombre, nuevoId("h"));
-  }
-  guardarPlano();
-  mostrarPlano();
-  ponerPendiente();
-  document.getElementById("titulo-plano").focus();
-});
-
-function mostrarPlano() {
-  zonaPlano.hidden = false;
-  formulario.elements.nombre.value = plano.nombre;
-  formulario.elements.ancho.value = comoTexto(plano.habitacion.ancho_cm);
-  formulario.elements.largo.value = comoTexto(plano.habitacion.largo_cm);
-  document.getElementById("crear").textContent = "Guardar cambios";
-  pintarPlanos();
-  prepararEscena();
-  dibujar();
-  pintarDeMiLista();
-}
-
-// La escena se crea la primera vez que se enseña el plano (necesita que la caja se vea).
 function prepararEscena() {
-  if (escena) return;
   const caja = document.getElementById("escena");
+  const ayuda = document.getElementById("ayuda-escena");
   if (!hayWebGL()) {
     caja.classList.add("escena--sin");
-    caja.innerHTML = '<p class="pendiente">Tu navegador no puede mostrar el 3D. Puedes seguir colocando los muebles con la lista y los botones.</p>';
-    document.querySelector(".escena__botones").hidden = true;
+    caja.innerHTML = '<p class="pendiente">Tu navegador no puede mostrar el 3D. Puedes seguir colocando los muebles con la lista.</p>';
     return;
   }
   caja.setAttribute("role", "img");
   escena = crearEscena(caja, {
+    alTocar() {
+      ayuda.hidden = true;
+    },
     alElegir(id) {
       if (id === elegida) return;
       elegida = id;
@@ -346,21 +361,10 @@ function prepararEscena() {
       dibujar({ soloEscena: true });
     },
     alSoltar() {
-      guardarPlano();
+      guardarCambios();
       dibujar();
     },
   });
-}
-
-// ---------- «Probar en mi plano 3D» desde un resultado (plano.html?p=SOF-02) ----------
-
-function ponerPendiente() {
-  let pendiente = null;
-  try {
-    pendiente = sessionStorage.getItem("amicasa:pendiente-plano");
-    sessionStorage.removeItem("amicasa:pendiente-plano");
-  } catch { /* sin sessionStorage no pasa nada: el cliente lo añade desde su lista */ }
-  if (pendiente && plano && !plano.piezas.some((pieza) => pieza.producto === pendiente)) poner(pendiente);
 }
 
 // ---------- Arranque ----------
@@ -372,24 +376,26 @@ try {
   estado.textContent = "No hemos podido cargar los muebles. Recarga la página.";
 }
 
-if (plano) {
-  guardar("planos", coleccion); // deja ya guardado el plano recuperado de la versión anterior
-  mostrarPlano();
-} else {
-  pintarPlanos();
+// «Probar en mi plano 3D» (plano.html?p=SOF-02 o ?p=SOF-02.MCE-05): al plano de prueba, directo.
+const pedidos = (new URLSearchParams(window.location.search).get("p") ?? "").split(".").filter((id) => FORMA_ID.test(id));
+if (pedidos.length) {
+  coleccion = abrirPrueba(coleccion);
+  plano = planoActivo(coleccion);
+  let puestos = 0;
+  for (const id of pedidos) {
+    if (plano.piezas.some((pieza) => pieza.producto === id)) continue; // ya estaba: no se duplica
+    if (poner(id)) {
+      puestos += 1;
+      medir("plan_try", { producto: id, desde: "boton" });
+    }
+  }
+  if (!puestos) elegida = plano.piezas.find((pieza) => pieza.producto === pedidos[0])?.id ?? null;
+  coleccion = actualizarPlano(coleccion, plano);
+  guardar("planos", coleccion);
+  // Se quita ?p de la dirección: al recargar no se vuelve a añadir.
+  window.history.replaceState(null, "", window.location.pathname);
 }
 
-const pedido = new URLSearchParams(window.location.search).get("p");
-if (pedido && /^[A-Z]{2,4}-\d{2,3}$/.test(pedido)) {
-  if (plano) {
-    if (!plano.piezas.some((pieza) => pieza.producto === pedido)) poner(pedido);
-  } else {
-    const aviso = document.createElement("p");
-    aviso.className = "pendiente";
-    aviso.textContent = "Primero dinos cuánto mide tu habitación y después añadiremos el mueble al plano.";
-    formulario.before(aviso);
-    try {
-      sessionStorage.setItem("amicasa:pendiente-plano", pedido);
-    } catch { /* sin sessionStorage, el cliente lo añadirá desde su lista */ }
-  }
-}
+prepararEscena();
+pintarTodo();
+pintarDeMiLista();

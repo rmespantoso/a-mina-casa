@@ -3,139 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mis huecos · A miña casa (prototipo)</title>
+  <title>Planifica tu espacio · A miña casa (prototipo)</title>
   <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="img/icono.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/componentes.css">
+  <!-- «Mis medidas» (los huecos y el semáforo) se quitó el 14/11/2026.
+       Esta página solo reenvía los enlaces antiguos al inicio. -->
+  <script>window.location.replace("index.html");</script>
 </head>
 <body>
-  <a class="saltar" href="#contenido">Saltar al contenido</a>
-  <header id="cabecera" class="cabecera"></header>
-
-  <main id="contenido" class="pagina">
-    <h1>Mis huecos</h1>
-    <p class="entrada">Guarda una vez las medidas de tus espacios. Las usaremos para decirte qué te cabe.</p>
-    <p class="nota" id="donde-se-guarda"></p>
-
-    <!-- Mensajes de «guardado» o «borrado». Los lectores de pantalla los leen solos. -->
-    <p class="mensaje" id="mensaje" role="status" tabindex="-1" hidden></p>
-
-    <!-- Solo si se llegó desde la ficha de un mueble: botón para volver a él. -->
-    <div class="acciones" id="zona-volver" hidden>
-      <a class="boton boton--primario" id="volver-ficha" href="index.html">Volver al mueble</a>
-    </div>
-
-    <!-- Invitación a registrarse: sale una sola vez, al guardar el primer hueco. -->
-    <section class="invitacion" id="invitacion" aria-labelledby="titulo-invitacion" hidden>
-      <h2 id="titulo-invitacion">¿Quieres conservar tus medidas?</h2>
-      <p>Ahora están guardadas en este móvil. Con una cuenta las tendrías también en otros dispositivos y sin límite de tiempo. No es obligatorio.</p>
-      <div class="acciones">
-        <a class="boton boton--secundario" href="acceso.html?volver=huecos">Crear cuenta</a>
-        <button class="boton boton--secundario" type="button" id="invitacion-no">Ahora no</button>
-      </div>
-    </section>
-
-    <!-- ===== Huecos ===== -->
-    <h2 class="seccion" id="titulo-huecos">Tus huecos <span class="contador" id="contador"></span></h2>
-    <div id="lista-huecos"></div>
-
-    <div class="acciones" id="zona-anadir">
-      <button class="boton boton--primario" type="button" id="anadir-hueco">Añadir un hueco</button>
-    </div>
-    <p class="nota" id="aviso-lleno" hidden>Has llegado al máximo de 8 huecos. Para añadir otro, borra uno que ya no necesites.</p>
-
-    <form class="formulario" id="formulario-hueco" novalidate hidden>
-      <h3 id="titulo-formulario-hueco">Hueco nuevo</h3>
-
-      <div class="campo" data-campo="nombre">
-        <label class="campo__etiqueta" for="hueco-nombre">Nombre</label>
-        <span class="campo__ayuda" id="ayuda-hueco-nombre">Para reconocerlo. Por ejemplo: Pared del sofá.</span>
-        <div class="campo__caja">
-          <input class="campo__entrada" id="hueco-nombre" name="nombre" type="text" maxlength="40" autocomplete="off"
-            aria-describedby="ayuda-hueco-nombre error-hueco-nombre">
-        </div>
-        <div class="campo__error" id="error-hueco-nombre" hidden></div>
-      </div>
-
-      <div class="campo" data-campo="estancia">
-        <label class="campo__etiqueta" for="hueco-estancia">Estancia</label>
-        <div class="campo__caja">
-          <select class="campo__entrada" id="hueco-estancia" name="estancia" aria-describedby="error-hueco-estancia"></select>
-        </div>
-        <div class="campo__error" id="error-hueco-estancia" hidden></div>
-      </div>
-
-      <div class="campo" data-campo="ancho">
-        <label class="campo__etiqueta" for="hueco-ancho">Ancho</label>
-        <span class="campo__ayuda" id="ayuda-hueco-ancho">De lado a lado, en centímetros. Es obligatorio.</span>
-        <div class="campo__caja">
-          <input class="campo__entrada" id="hueco-ancho" name="ancho" type="text" inputmode="decimal" autocomplete="off"
-            aria-describedby="ayuda-hueco-ancho error-hueco-ancho">
-          <span class="campo__unidad" aria-hidden="true">cm</span>
-        </div>
-        <div class="campo__error" id="error-hueco-ancho" hidden></div>
-      </div>
-
-      <div class="campo" data-campo="fondo">
-        <label class="campo__etiqueta" for="hueco-fondo">Fondo <span class="campo__opcional">(opcional)</span></label>
-        <span class="campo__ayuda" id="ayuda-hueco-fondo">Lo que puede salir el mueble desde la pared, en centímetros.</span>
-        <div class="campo__caja">
-          <input class="campo__entrada" id="hueco-fondo" name="fondo" type="text" inputmode="decimal" autocomplete="off"
-            aria-describedby="ayuda-hueco-fondo error-hueco-fondo">
-          <span class="campo__unidad" aria-hidden="true">cm</span>
-        </div>
-        <div class="campo__error" id="error-hueco-fondo" hidden></div>
-      </div>
-
-      <div class="campo" data-campo="alto">
-        <label class="campo__etiqueta" for="hueco-alto">Alto <span class="campo__opcional">(opcional)</span></label>
-        <span class="campo__ayuda" id="ayuda-hueco-alto">Hasta el techo, una ventana o una balda, en centímetros.</span>
-        <div class="campo__caja">
-          <input class="campo__entrada" id="hueco-alto" name="alto" type="text" inputmode="decimal" autocomplete="off"
-            aria-describedby="ayuda-hueco-alto error-hueco-alto">
-          <span class="campo__unidad" aria-hidden="true">cm</span>
-        </div>
-        <div class="campo__error" id="error-hueco-alto" hidden></div>
-      </div>
-
-      <div class="acciones">
-        <button class="boton boton--primario" type="submit">Guardar hueco</button>
-        <button class="boton boton--secundario" type="button" data-cancelar>Cancelar</button>
-      </div>
-    </form>
-
-    <!-- ===== Guía para medir ===== -->
-    <h2 class="seccion">Cómo medir bien</h2>
-    <details class="guia" id="guia">
-      <summary>Ver la guía en 2 pasos</summary>
-      <ol class="pasos">
-        <li class="pasos__paso">
-          <div>
-            <h3 class="pasos__titulo">Mide ancho, fondo y alto</h3>
-            <p class="pasos__texto">Con un metro, en centímetros. El ancho es de lado a lado; el fondo, lo que puede salir el mueble desde la pared; el alto, hasta donde haya sitio.</p>
-            <div id="dibujo-hueco"></div>
-          </div>
-        </li>
-        <li class="pasos__paso">
-          <div>
-            <h3 class="pasos__titulo">Cuenta con lo que sobresale</h3>
-            <p class="pasos__texto">Rodapiés, radiadores, enchufes y marcos quitan sitio. Mide desde lo que más sobresale, no desde la pared.</p>
-            <div id="dibujo-rodapie"></div>
-          </div>
-        </li>
-      </ol>
-    </details>
-
-    <div class="aviso">
-      <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.5v.3"/></svg>
-      <p><strong>Resultado orientativo.</strong> Mide siempre antes de comprar.</p>
-    </div>
+  <main class="pagina">
+    <h1>Planifica tu espacio</h1>
+    <p><a href="index.html">Ir a Planifica tu espacio</a></p>
   </main>
-
-  <footer id="pie" class="pie"></footer>
-
-  <script type="module" src="js/pantallas/huecos.js"></script>
 </body>
 </html>

@@ -1,23 +1,10 @@
-// Piezas de pantalla que se repiten: semáforo, foto, tarjeta de producto y croquis.
+// Piezas de pantalla que se repiten: aviso, foto y tarjeta de producto.
 // Cada función recibe datos y devuelve el HTML ya montado.
 
 import { icono, silueta } from "./dibujos.js";
-import { CONSULTAR, NOMBRE_TIPO, escapar, euros, medidas } from "./textos.js";
-import { evaluarEncaje, ordenarHuecos } from "./logica/semaforo.js";
+import { NOMBRE_TIPO, escapar, euros, medidas } from "./textos.js";
 
-// Las tres luces del semáforo: siempre color + icono + palabra.
-const LUCES = {
-  verde: { icono: "cabe", texto: "Cabe" },
-  ambar: { icono: "justo", texto: "Justo" },
-  rojo: { icono: "no-cabe", texto: "No cabe" },
-};
-
-/** Etiqueta del semáforo. `estado` es "verde", "ambar" o "rojo". */
-export function chipSemaforo(estado, texto = LUCES[estado].texto) {
-  return `<span class="semaforo semaforo--${estado}">${icono(LUCES[estado].icono)}${escapar(texto)}</span>`;
-}
-
-/** Aviso obligatorio que acompaña a cualquier semáforo. */
+/** Aviso de que las medidas son orientativas. */
 export function avisoOrientativo() {
   return `<div class="aviso">${icono("info")}<p><strong>Resultado orientativo.</strong> Mide siempre antes de comprar.</p></div>`;
 }
@@ -41,7 +28,7 @@ export function fotoProducto(producto) {
 
 /**
  * Tarjeta de producto: foto, nombre en mayúsculas, medidas, precio y botón «Ver ficha».
- * `extra` es HTML opcional que va antes del botón (un semáforo, por ejemplo).
+ * `extra` es HTML opcional que va antes del botón (dónde verlo en la tienda, por ejemplo).
  * `botones` cambia el botón «Ver ficha» por otros (los resultados del recomendador lo usan).
  */
 export function tarjetaProducto(producto, extra = "", botones = null) {
@@ -56,47 +43,4 @@ export function tarjetaProducto(producto, extra = "", botones = null) {
       ${botones ?? `<a class="boton boton--primario" href="ficha.html?p=${encodeURIComponent(producto.id)}">Ver ficha</a>`}
     </div>
   </article>`;
-}
-
-/**
- * Croquis a escala: dibuja la pared y, encima, el mueble con su ancho real en proporción.
- * Sirve para ver de un vistazo qué parte de la pared ocupa.
- */
-export function croquisPared({ anchoPared, anchoMueble }) {
-  const IZQUIERDA = 10;   // margen del dibujo
-  const ANCHO = 300;      // ancho de la pared en el dibujo
-  const SUELO = 96;
-  const proporcion = anchoMueble / anchoPared;
-  const porcentaje = Math.round(proporcion * 100);
-  const anchoDibujo = Math.min(proporcion, 1) * ANCHO;
-  const x = IZQUIERDA + (ANCHO - anchoDibujo) / 2;
-  const descripcion = `El mueble mide ${anchoMueble} cm y ocupa el ${porcentaje} % de una pared de ${anchoPared} cm.`;
-
-  return `<svg class="croquis" viewBox="0 0 320 132" role="img" aria-label="${escapar(descripcion)}">
-    <rect class="croquis__pared" x="${IZQUIERDA}" y="26" width="${ANCHO}" height="${SUELO - 26}"/>
-    <path class="croquis__cota" d="M${IZQUIERDA} 14h${ANCHO}M${IZQUIERDA} 8v12M${IZQUIERDA + ANCHO} 8v12"/>
-    <rect x="100" y="4" width="120" height="20" fill="var(--fondo)"/>
-    <text class="croquis__texto" x="160" y="19" text-anchor="middle">pared ${anchoPared} cm</text>
-    <rect class="croquis__mueble" x="${x}" y="58" width="${anchoDibujo}" height="${SUELO - 58}"/>
-    <path class="croquis__suelo" d="M0 ${SUELO}h320"/>
-    <path class="croquis__cota" d="M${x} 110h${anchoDibujo}M${x} 104v12M${x + anchoDibujo} 104v12"/>
-    <text class="croquis__texto" x="160" y="129" text-anchor="middle">mueble ${anchoMueble} cm · ${porcentaje} % de la pared</text>
-  </svg>`;
-}
-
-/**
- * Semáforo resumido de un mueble frente a los huecos del cliente: una línea por hueco.
- * Se usan los huecos de la estancia del mueble; si no hay ninguno de esa estancia, todos.
- * Lo usan Mi lista y Ambiente.
- */
-export function encajesProducto(producto, huecos) {
-  if (huecos.length === 0) return "";
-  const deSuEstancia = huecos.filter((hueco) => producto.estancias.includes(hueco.estancia));
-  const elegidos = ordenarHuecos(deSuEstancia.length ? deSuEstancia : huecos, producto.estancias);
-  const lineas = elegidos.map((hueco) => {
-    const { estado } = evaluarEncaje(producto, hueco);
-    const chip = estado === "sin-datos" ? `<strong>${CONSULTAR}</strong>` : chipSemaforo(estado);
-    return `<li>${chip}<span>en «${escapar(hueco.nombre)}»</span></li>`;
-  });
-  return `<ul class="articulo__encajes">${lineas.join("")}</ul>`;
 }

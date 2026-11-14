@@ -307,8 +307,9 @@ function contorno(W, H, D, estilo) {
  * Prepara la escena dentro de `contenedor`.
  * `alElegir(id | null)` se llama al tocar un mueble (o el suelo vacío).
  * `alMover(id, x_cm, y_cm)` se llama al arrastrar un mueble; `alSoltar()` al terminar.
+ * `alTocar()` se llama la primera vez que el cliente toca la escena (para quitar la ayuda).
  */
-export function crearEscena(contenedor, { alElegir, alMover, alSoltar }) {
+export function crearEscena(contenedor, { alElegir, alMover, alSoltar, alTocar = () => {} }) {
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.shadowMap.enabled = true;
@@ -510,6 +511,7 @@ export function crearEscena(contenedor, { alElegir, alMover, alSoltar }) {
   }
 
   lienzo.addEventListener("pointerdown", (evento) => {
+    alTocar();
     punteros.set(evento.pointerId, { x: evento.clientX, y: evento.clientY });
     lienzo.setPointerCapture(evento.pointerId);
     if (punteros.size === 2) {
@@ -566,6 +568,7 @@ export function crearEscena(contenedor, { alElegir, alMover, alSoltar }) {
   lienzo.addEventListener("pointercancel", terminar);
   lienzo.addEventListener("wheel", (evento) => {
     evento.preventDefault();
+    alTocar();
     vista.radio *= 1 + Math.sign(evento.deltaY) * 0.1;
     colocarCamara();
   }, { passive: false });

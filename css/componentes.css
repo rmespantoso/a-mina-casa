@@ -1819,3 +1819,140 @@ ol.piezas .pieza__nombre::before {
   color: var(--titulo);
   font-weight: 700;
 }
+
+/* ---------- Mi plano 3D: rediseño (14/11/2026) ---------- */
+.plano-titulo {
+  margin: 0.25rem 0 0;
+}
+
+/* Ayuda encima del 3D: cómo moverse con el dedo o el ratón. Se va al primer toque. */
+.escena__ayuda {
+  position: absolute;
+  inset: auto 0.75rem 0.75rem;
+  z-index: 2;
+  padding: 0.75rem 1rem;
+  background: rgb(255 255 255 / 94%);
+  border-left: 6px solid var(--marca);
+  box-shadow: var(--sombra);
+  color: var(--titulo);
+  pointer-events: none; /* el toque llega al plano y la ayuda se oculta */
+}
+
+.escena__ayuda[hidden] {
+  display: none;
+}
+
+.escena__ayuda p {
+  margin: 0 0 0.25rem;
+}
+
+.escena__ayuda ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1rem;
+}
+
+.escena__ayuda-cierre {
+  margin-top: 0.35rem !important;
+  color: var(--marca);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.escena__pista {
+  margin: -0.4rem 0 0.5rem;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* Medidas de la habitación: recuadros grandes que se ve que se pueden cambiar. */
+.habitacion {
+  margin: 0.75rem 0 1rem;
+  padding: 0.85rem 1rem 0.25rem;
+  background: var(--rosa-claro);
+  border: 2px dashed var(--marca);
+}
+
+.habitacion__titulo {
+  margin: 0 0 0.5rem;
+  color: var(--titulo);
+  font-weight: 700;
+}
+
+.habitacion__titulo span {
+  display: block;
+  color: var(--texto);
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.campo__caja--grande .campo__entrada {
+  min-height: 3.5rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--titulo);
+  background: var(--fondo);
+}
+
+/* Mueble elegido: compacto. */
+.elegido__datos p {
+  margin: 0 0 0.2rem;
+}
+
+.elegido__botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
+}
+
+.boton-mini {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  min-height: 3rem;
+  padding: 0 0.85rem;
+  background: var(--fondo);
+  border: 1px solid var(--titulo);
+  color: var(--titulo);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.boton-mini:hover {
+  border-color: var(--marca);
+  color: var(--marca);
+}
+
+.boton-mini .icono {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+/* Guardar como nuevo plano: nombre y botón en la misma fila. */
+.guardar-plano {
+  margin: 1rem 0;
+  padding: 0.85rem 1rem;
+  background: var(--gris-claro);
+  border: 1px solid var(--borde);
+}
+
+.guardar-plano .campo__etiqueta {
+  font-weight: 700;
+}
+
+.guardar-plano__fila {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+  align-items: stretch;
+}
+
+.guardar-plano__fila .boton {
+  width: auto;
+  margin: 0;
+}

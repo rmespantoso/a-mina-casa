@@ -8,24 +8,24 @@ La actuación propuesta se llama **A Miña Casa ALI**: una herramienta web, sin 
 
 ## Las dos puertas de entrada (las dos son obligatorias)
 
-1. **Desde la tienda:** el cliente escanea el QR de la etiqueta de un mueble y abre su *ficha viva*. Allí ve un semáforo que le dice si el mueble cabe en los huecos de su casa.
-2. **Desde alihogar.es:** el cliente pulsa el banner "¿Qué me cabe?" e introduce la estancia, el tipo de mueble y las medidas de su pared. El *recomendador* le devuelve solo los muebles que caben, ordenados por proporción con la pared, e indica en qué sección de la nave puede verlos y tocarlos.
+1. **Desde la tienda:** el cliente escanea el QR de la etiqueta de un mueble y abre su *ficha viva*. (El semáforo de huecos se quitó el 14/11/2026. El rediseño de la ficha está pendiente: acciones compactas —ver ficha, carrito, lista con corazón, probar en plano 3D— y debajo productos similares y complementos. No se construye hasta que el equipo lo pida.)
+2. **Desde alihogar.es:** el cliente entra en «Planifica tu espacio», elige una estancia y filtra los muebles (ver «Planifica tu espacio»).
 
-Las dos entradas acaban en la misma **Mi lista**. La lista se puede compartir por WhatsApp, enviar al asesor de ALI (WhatsApp 604 06 57 88) o usar para comprar online o con recogida en tienda (Click & Collect).
+Las dos entradas acaban en la misma **Mi lista** y en **Mi plano 3D**. La lista se puede compartir por WhatsApp, enviar al asesor de ALI (WhatsApp 604 06 57 88) o usar para comprar online o con recogida en tienda (Click & Collect).
 
 ## Invitado y registrado (decisión del 12/11/2026)
 
-- **Invitado (sin cuenta):** escanea QR, mete medidas de sus huecos, ve el semáforo, abre la ficha de producto y guarda productos en Mi lista. Todo se queda en su móvil.
+- **Invitado (sin cuenta):** escanea QR, filtra en las estancias, abre la ficha de producto, guarda productos en Mi lista y prueba muebles en Mi plano 3D. Todo se queda en su navegador.
 - **Registrado:** lo mismo, guardado en su cuenta (sin límite de tiempo y en otros dispositivos). Desde el 14/11/2026 el buscador «Planifica tu espacio» está abierto también al invitado (ver «Planifica tu espacio»).
 - Compartir la lista por WhatsApp y escribir al asesor están abiertos a todos.
-- Al invitado se le propone registrarse, sin obligar, al guardar su primer hueco y cuando ya tiene productos en la lista.
+- Al invitado se le propone registrarse, sin obligar, cuando ya tiene productos en la lista.
 - La cuenta sería la de alihogar.es. **En el prototipo el registro es simulado:** un botón de "cuenta de demostración", sin pedir correo ni contraseña y sin enviar datos a ningún sitio. Nunca publiques un formulario que pida credenciales reales con la marca de ALI.
 - "Ver ficha de producto" lleva a la página del producto en alihogar.es (con UTM). En los resultados del recomendador va directo, sin pasar por nuestra ficha.
 - **Carrito (decisión del 12/11/2026):** en los resultados del recomendador y en Mi lista hay un botón "Añadir al carrito" que en el prototipo es una **demostración**: avisa de que no se ha añadido nada y solo lanza el evento `add_to_cart`. El carrito real solo será posible cuando la herramienta esté dentro de alihogar.es. Los muebles con variantes (color o medida) no llevan ese botón: llevan "Elegir opción y comprar", que abre su página en alihogar.es.
 
 ## Pantallas
 
-Inicio · Planifica tu espacio (estancias) · Estancia (filtro) · Mi plano 3D · Mis huecos · Ficha viva · Mi lista · Ambiente (QR del conjunto) · Encuesta CES · Tu cuenta (acceso). «¿Qué me cabe?» (`que-me-cabe.html`) solo reenvía los enlaces antiguos a «Planifica tu espacio». El detalle original está en la sección 6 de la propuesta.
+Inicio · Planifica tu espacio (estancias) · Estancia (filtro) · Mi plano 3D · Ficha viva · Mi lista · Ambiente (QR del conjunto) · Encuesta CES · Tu cuenta (acceso). «¿Qué me cabe?» (`que-me-cabe.html`) y «Mis medidas» (`huecos.html`) solo reenvían los enlaces antiguos. El detalle original está en la sección 6 de la propuesta.
 
 ## Reglas técnicas
 
@@ -33,36 +33,24 @@ Inicio · Planifica tu espacio (estancias) · Estancia (filtro) · Mi plano 3D �
 - Hosting en GitHub Pages. Sin backend ni base de datos: la cuenta de usuario del prototipo es simulada.
 - Datos de productos: `data/products.json`, generado a partir de `data/productos.csv` con un script. Nunca edites el JSON a mano.
 - Reglas de proporción del recomendador: `data/reglas_proporcion.json`. Son **orientativas y configurables**. Nunca las escribas fijas en el código.
-- Los huecos y la lista se guardan en el navegador (`localStorage`), envolviendo cada lectura y escritura en try/catch. La lista se puede compartir codificada en la URL.
-- Medición: los eventos de GA4 son `qr_scan` (por UTM), `fit_check`, `space_add`, `list_create`, `list_add`, `list_share`, `whatsapp_advisor`, `go_to_shop`, `add_to_cart`, `survey_open`, `recommend_view`, `recommend_click`, `sign_up` y `login`. El ID de medición de GA4 va en un único archivo de configuración (`js/config.js`). Mientras no lo tengamos, los eventos se escriben en consola.
+- Los planos, las búsquedas y la lista se guardan en el navegador (`localStorage`), envolviendo cada lectura y escritura en try/catch. La lista se puede compartir codificada en la URL.
+- Medición: los eventos de GA4 son `qr_scan` (por UTM), `plan_try`, `plan_save`, `list_create`, `list_add`, `list_share`, `whatsapp_advisor`, `go_to_shop`, `add_to_cart`, `survey_open`, `recommend_view`, `recommend_click`, `sign_up` y `login`. El ID de medición de GA4 va en un único archivo de configuración (`js/config.js`). Mientras no lo tengamos, los eventos se escriben en consola.
 - Todos los enlaces a alihogar.es llevan UTM: `utm_source=amicasa&utm_medium=qr|web&utm_campaign=piloto`. El `utm_medium` es `qr` si el cliente entró por un QR y `web` en el resto.
 - Los QR de la tienda entran al prototipo con `utm_source=qr_tienda&utm_medium=qr&utm_campaign=piloto`.
 - Diseño mobile-first: letra base de al menos 16 px, contraste AA y botones de al menos 48 px de alto. Tiene que poder usarlo alguien de 60 años.
 - Idioma: interfaz en castellano, con microcopy cálido en gallego en títulos y saludos ("A miña casa", "Benvido").
-- **Marca ALI Hogar** (guía en Canva, "Guía de marca ALI"): fondo blanco; magenta `#D50D73` en botones y texto y `#E41E85` solo en titulares grandes y adornos; texto gris `#54595F`; títulos negros; fuente Poppins (en `fonts/`); botones rectos en mayúsculas; lo redondo se reserva para el logo, el WhatsApp y los contadores. Tono: tuteo, frases cortas y prácticas. Verde, ámbar y rojo solo se usan en el semáforo. No se copia su letra pequeña de 12-15 px.
+- **Marca ALI Hogar** (guía en Canva, "Guía de marca ALI"): fondo blanco; magenta `#D50D73` en botones y texto y `#E41E85` solo en titulares grandes y adornos; texto gris `#54595F`; títulos negros; fuente Poppins (en `fonts/`); botones rectos en mayúsculas; lo redondo se reserva para el logo, el WhatsApp y los contadores. Tono: tuteo, frases cortas y prácticas. Verde, ámbar y rojo no se usan para decorar (eran del semáforo, ya quitado). No se copia su letra pequeña de 12-15 px.
 
-## Lógica del semáforo (no cambiar sin avisar)
+## Semáforo y recomendador por pared: descartados (14/11/2026)
 
-- **Verde:** sobran al menos 5 cm en ancho y en fondo, y el alto del mueble es menor o igual que el del hueco.
-- **Ámbar:** en alguna medida sobran entre 0 y 5 cm.
-- **Rojo:** alguna medida supera la del hueco.
-- **Sin comprobación de puerta (decisión del 12/11/2026):** los muebles se entregan desmontados, así que no se piden las medidas de la puerta ni se comprueba si el mueble pasa por ella. No la añadas.
-- Mostrar siempre el aviso "Resultado orientativo".
-- Escribir tests sencillos de los casos límite: exacto, 5 cm justos, 1 cm de más y medidas que faltan.
-
-## Lógica del recomendador
-
-1. **Filtro:** solo entran los muebles de la estancia y el tipo elegidos que salen en verde o ámbar.
-2. **Proporción:** se calcula qué porcentaje del ancho de la pared ocupa el mueble y se compara con el rango ideal de su tipo en `reglas_proporcion.json`.
-3. **Orden y etiquetas:** primero los que quedan dentro del rango y más cerca de su centro. Se muestran 6 como máximo, con la etiqueta "Encaja perfecto", "Encaja" o "Justo".
-4. **Sin resultados:** decirlo claramente y ofrecer el WhatsApp del asesor. Nunca se recomienda algo que no cabe.
+El equipo decidió quitar «Mis medidas» (los huecos), el semáforo verde/ámbar/rojo y el recomendador por proporción con la pared. La herramienta se centra en los filtros de cada estancia y en Mi plano 3D. `reglas_proporcion.json` se conserva solo como lista de tipos de mueble. Sin comprobación de puerta: no se añade.
 
 ## Ética (forma parte de la nota)
 
 - Sin dark patterns: ni cuentas atrás, ni escasez falsa, ni precios ocultos.
 - El invitado no deja ningún dato personal. El registrado, solo los de su cuenta y con consentimiento; recibir comunicaciones comerciales va en una casilla aparte y sin marcar. El teléfono del cliente solo aparece si él decide escribir por WhatsApp.
 - El registro nunca se fuerza con trucos: se explica para qué sirve y se puede seguir sin él.
-- El semáforo dice "no cabe" aunque eso suponga perder una venta.
+- Si un mueble no cabe en el plano, se dice aunque eso suponga perder una venta.
 - Nada dirigido a menores.
 
 ## Datos
@@ -89,7 +77,7 @@ Inicio · Planifica tu espacio (estancias) · Estancia (filtro) · Mi plano 3D �
 - **Consentimiento (13/11/2026):** el aviso de medición está en `js/consentimiento.js` y solo aparece si hay ID de GA4 en `js/config.js`. Dos botones iguales (Rechazar / Aceptar); GA4 no se carga hasta que el cliente acepta y se puede cambiar la decisión desde el pie. A GA4 nunca viaja la dirección completa: `direccionLimpia` quita medidas, nombres de huecos y listas compartidas.
 - **Catálogo completo (13/11/2026):** solo las secciones donde se mide un hueco (salón, comedor, dormitorio, descanso, sofás, entrada y estudio); fuera sillas, puffs, percheros, colchones, cocina, baño, terraza y patas sueltas. El importador nunca toca las filas que ya están en el CSV, solo guarda una medida si la ficha da una única medida clara de tres números y marca «Revisar» lo raro sin corregirlo. Canapés: una fila por tamaño, sin medida exterior salvo que la web la dé. Somieres: medida del colchón con aviso. Los sillones de la sección «Sofás» pasan a butaca. Las dudas van a `docs/informe_importacion.csv` (no se publica). Los ids admiten 3 cifras (`MCE-120`). Hay estancia «Estudio». Los rangos de los tipos nuevos en `reglas_proporcion.json` son una propuesta sin validar.
 - **Planifica tu espacio (14/11/2026):** tras las pruebas con clientes (les costaba entender la herramienta), el recomendador se reorganiza por estancias. Menú ☰ arriba a la izquierda, como en la web móvil de ALI, con «Planifica tu espacio» destacado. Estancias en `data/estancias.json` (salón, comedor, dormitorio, estudio, entrada, cocina y baño; sin terraza), cada una con una foto real de ambiente sacada de la galería de un producto de alihogar.es (no ilustraciones: el equipo pidió realismo) y sus grupos de muebles. Filtro en 4 pasos, todo opcional: ¿qué buscas? (desplegable con «Todos los muebles»), medidas MÁXIMAS del mueble (ancho, fondo y alto; ya no es un hueco: no se guardan ni se usan los huecos aquí), precio máximo (barra de 0 a 2.000 €; en el tope, sin límite) y color (desplegable con casillas). Salen todos los que cumplen, de 12 en 12: con medidas, primero los que más se acercan; sin medidas, de menor a mayor precio. En esta pantalla ya no se usan las reglas de proporción ni las etiquetas «Encaja perfecto / Encaja / Justo» (sin pared no tienen sentido); el semáforo de los huecos (QR) no cambia. Colores: 9 familias contadas en el catálogo (madera oscura y marrón juntas; rosa, mostaza y teja juntas). El color se lee de las variantes y del nombre (`js/logica/colores.js`); si no aparece, el mueble queda sin color y no se adivina. Abierto a todos, sin cuenta. «Guardar esta búsqueda» guarda el filtro completo (tipo, medidas, precio y colores), hasta 10 búsquedas en el navegador (nada personal). Se importaron también cocina, baño, sillas y sillas de oficina (1.127 productos). La pantalla de inicio ES «Planifica tu espacio» (`index.html`): lo primero que se ve son las estancias; debajo, las búsquedas guardadas y «¿Estás en la tienda?» (la puerta del QR). `planifica.html` solo reenvía al inicio. Navegación 100 % web (es una web, no una app): sin barra de iconos abajo. En el ordenador, enlaces en la cabecera (Planifica tu espacio · Mi plano 3D · Mis medidas · Mi lista); en el móvil, dentro del menú ☰.
-- **Mi plano 3D (14/11/2026):** la habitación en 3D (three.js) con cada mueble a su ancho, fondo y alto reales y su color de la web; la forma es una aproximación por tipo (sofá con asiento, respaldo y brazos; armario con puertas…), hecha en `js/escena3d.js`. Si la web no da el alto, se dibuja con una altura aproximada del tipo y se avisa; si no da el color, tono neutro y se avisa. Se arrastra el mueble con el dedo o con botones, se gira, la cámara gira y acerca, y hay «Vista 3D» y «Desde arriba». Avisa si dos muebles se pisan o si uno no cabe. Se guardan hasta 10 planos con nombre (habitación y distribución) en el navegador; cada cambio se guarda solo. El modelo exacto de cada mueble (tipo IKEA) necesita un 3D de cada producto: fase 2.
+- **Mi plano 3D (14/11/2026):** la habitación en 3D (three.js) con cada mueble a su ancho, fondo y alto reales y su color de la web; la forma es una aproximación por tipo (sofá con asiento, respaldo y brazos; armario con puertas…), hecha en `js/escena3d.js`. Si la web no da el alto, se dibuja con una altura aproximada del tipo y se avisa; si no da el color, tono neutro y se avisa. Todo se hace con el dedo o el ratón (sin botones de cámara): arrastrar el mueble, deslizar para girar la vista y pellizcar o usar la rueda para el zoom; una ayuda encima del 3D lo explica y se va al primer toque. «Probar en mi plano 3D» (`plano.html?p=ID`, o varios separados por puntos) lleva directo al **plano de prueba**, una habitación estándar de 500 × 500 cm, con el mueble ya puesto. Debajo del 3D, dos recuadros editables de ancho y largo que se aplican al momento, el mueble elegido (girar, quitar), «Guardar como nuevo plano» con nombre (medidas y muebles), Mis planos (hasta 10; los guardados guardan solos cada cambio) y, al final, «Añadir de mi lista». Avisa si dos muebles se pisan o si uno no cabe. El modelo exacto de cada mueble (tipo IKEA) necesita un 3D de cada producto: fase 2.
 - **Tests:** se abren en `http://localhost:8000/tests/`. No hace falta instalar nada.
 - **Publicación:** `docs/` y `PROMPT_INICIAL.md` están en `.gitignore` porque el repositorio de GitHub Pages es público.
 

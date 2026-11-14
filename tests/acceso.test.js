@@ -27,8 +27,7 @@ prueba("sin haber entrado, se es invitado", conSesionLimpia(() => {
 }));
 
 prueba("el invitado puede usarlo todo, también «Planifica tu espacio» (desde el 14/11/2026)", conSesionLimpia(() => {
-  igual(puedeUsar("huecos"), true);
-  igual(puedeUsar("semaforo"), true);
+  igual(puedeUsar("plano"), true);
   igual(puedeUsar("lista"), true);
   igual(puedeUsar("recomendador"), true);
 }));

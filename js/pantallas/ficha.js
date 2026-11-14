@@ -1,16 +1,15 @@
 // Pantalla Ficha viva: lo que se abre al escanear el QR de un mueble (ficha.html?p=SOF-01).
-// Enseña el mueble, un semáforo por cada hueco guardado y tres acciones:
-// guardar en la lista, ver la ficha de producto en alihogar.es y preguntar al asesor.
+// Enseña el mueble y tres acciones: guardar en la lista, ver la ficha de producto en
+// alihogar.es y preguntar al asesor. (El semáforo de los huecos se quitó el 14/11/2026;
+// el rediseño de esta ficha está pendiente.)
 
 import { iniciarPagina } from "../comun.js";
 import { buscarProducto } from "../datos.js";
 import { medir } from "../medicion.js";
 import { enlaceAsesor, enlaceTienda } from "../enlaces.js";
-import { avisoOrientativo, chipSemaforo, fotoProducto } from "../componentes.js";
+import { fotoProducto } from "../componentes.js";
 import { icono } from "../dibujos.js";
-import { CONSULTAR, NOMBRE_ESTANCIA, NOMBRE_TIPO, cm, escapar, euros } from "../textos.js";
-import { evaluarEncaje, frase, ordenarHuecos } from "../logica/semaforo.js";
-import { leerHuecos } from "../mis-huecos.js";
+import { CONSULTAR, NOMBRE_TIPO, cm, escapar, euros } from "../textos.js";
 import { estaGuardado, guardarProducto, quitarProducto } from "../mi-lista.js";
 
 iniciarPagina(null);
@@ -48,40 +47,11 @@ function medidasProducto(producto) {
     </dl>${abierta}`;
 }
 
-function tarjetaEncaje(hueco, encaje) {
-  const chip = encaje.estado === "sin-datos"
-    ? `<p class="encaje__sin-datos">${CONSULTAR}</p>`
-    : chipSemaforo(encaje.estado);
-  const frases = [...encaje.medidas, ...(encaje.abierta ? [encaje.abierta] : [])];
-  return `<li class="encaje">
-    ${chip}
-    <h3 class="encaje__nombre">${escapar(hueco.nombre)}</h3>
-    <p class="encaje__estancia">${escapar(NOMBRE_ESTANCIA[hueco.estancia])} · hueco de ${cm(hueco.ancho_cm)} de ancho</p>
-    <ul class="encaje__motivos">${frases.map((medida) => `<li>${escapar(frase(medida))}</li>`).join("")}</ul>
-  </li>`;
-}
-
-function seccionEncaje(producto, huecos, encajes) {
-  const volver = `huecos.html?volver=ficha&p=${encodeURIComponent(producto.id)}`;
-  if (huecos.length === 0) {
-    return `<div class="pendiente">
-        <p><strong>Todavía no has guardado medidas.</strong></p>
-        <p>Dinos cuánto mide tu hueco y te decimos al momento si este mueble cabe.</p>
-      </div>
-      <div class="acciones"><a class="boton boton--primario" href="${volver}">Añadir mis medidas</a></div>`;
-  }
-  return `<ul class="encajes">${huecos.map((hueco, i) => tarjetaEncaje(hueco, encajes[i])).join("")}</ul>
-    ${avisoOrientativo()}
-    <div class="acciones"><a class="boton boton--secundario" href="${volver}">Añadir o cambiar medidas</a></div>`;
-}
-
 // ---------- La ficha ----------
 
 function pintarFicha(producto) {
   document.title = `${producto.nombre} · A miña casa (prototipo)`;
 
-  const huecos = ordenarHuecos(leerHuecos(), producto.estancias);
-  const encajes = huecos.map((hueco) => evaluarEncaje(producto, hueco));
   const tienda = enlaceTienda(producto.url_alihogar);
   const asesor = enlaceAsesor(`Hola, tengo una duda sobre este mueble: ${producto.nombre} (ref. ${producto.id}).`);
 
@@ -104,9 +74,6 @@ function pintarFicha(producto) {
     ${medidasProducto(producto)}
     ${variantes}
     ${aviso}
-
-    <h2 class="seccion">¿Te cabe en casa?</h2>
-    ${seccionEncaje(producto, huecos, encajes)}
 
     <h2 class="seccion">¿Qué quieres hacer?</h2>
     <p class="mensaje" id="mensaje" role="status" hidden></p>
@@ -153,17 +120,6 @@ function pintarFicha(producto) {
   document.getElementById("ver-tienda")?.addEventListener("click", () => medir("go_to_shop", { producto: producto.id, desde: "ficha" }));
   document.getElementById("asesor").addEventListener("click", () => medir("whatsapp_advisor", { producto: producto.id, desde: "ficha" }));
 
-  // --- Medición: se ha enseñado un semáforo (uno por hueco). Solo viajan ids y resultados. ---
-  if (encajes.length) {
-    const contar = (estado) => encajes.filter((encaje) => encaje.estado === estado).length;
-    medir("fit_check", {
-      producto: producto.id,
-      huecos: encajes.length,
-      verdes: contar("verde"),
-      ambar: contar("ambar"),
-      rojos: contar("rojo"),
-    });
-  }
 }
 
 // ---------- Arranque ----------

@@ -18,7 +18,6 @@ import { estaRegistrado } from "./sesion.js";
 const NAVEGACION = [
   { id: "planifica", texto: "Planifica tu espacio", enlace: "index.html" },
   { id: "plano", texto: "Mi plano 3D", enlace: "plano.html" },
-  { id: "huecos", texto: "Mis medidas", enlace: "huecos.html" },
   { id: "lista", texto: "Mi lista", enlace: "lista.html" },
 ];
 
@@ -31,7 +30,6 @@ function opcionesMenu(activa) {
     <li><a class="menu__enlace menu__enlace--destacado" href="index.html"${actual("planifica", activa)}>Planifica tu espacio<small>Elige una estancia y mira qué te cabe</small></a></li>
     <li><a class="menu__enlace" href="index.html#busquedas">Mis búsquedas guardadas</a></li>
     <li><a class="menu__enlace" href="plano.html"${actual("plano", activa)}>Mi plano 3D<small>Mira cómo quedan tus muebles en tu habitación</small></a></li>
-    <li><a class="menu__enlace" href="huecos.html"${actual("huecos", activa)}>Mis medidas<small>Tus huecos, para el semáforo de la tienda</small></a></li>
     <li><a class="menu__enlace" href="lista.html"${actual("lista", activa)}>Mi lista</a></li>
     <li><a class="menu__enlace" href="index.html#escanear">Escanea en la tienda</a></li>
     <li><a class="menu__enlace" href="acceso.html">${cuenta}</a></li>
@@ -118,7 +116,7 @@ function pintarPie() {
   // Si el navegador no deja guardar, se avisa con claridad en vez de fallar en silencio.
   const avisoAlmacen = hayAlmacen()
     ? ""
-    : "<p><strong>Tu navegador no deja guardar datos.</strong> Puedes seguir, pero tus medidas y tu lista no se recordarán al cerrar.</p>";
+    : "<p><strong>Tu navegador no deja guardar datos.</strong> Puedes seguir, pero tus planos y tu lista no se recordarán al cerrar.</p>";
 
   document.getElementById("pie").innerHTML = `
     <div class="pie__dentro">
@@ -133,7 +131,7 @@ function pintarPie() {
 
 /**
  * Arranca una pantalla. `activa` es la sección de la cabecera que se marca
- * ("planifica", "plano", "huecos", "lista") o null si no es ninguno.
+ * ("planifica", "plano", "lista") o null si no es ninguno.
  */
 export function iniciarPagina(activa = null) {
   pintarCabecera(activa);

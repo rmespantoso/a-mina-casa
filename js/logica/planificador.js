@@ -9,7 +9,7 @@
 // menos, primero los que más se acercan a lo que pidió. Si el mueble no tiene esa
 // medida en la web, no sale (no se adivina). El semáforo de los huecos (QR) no cambia.
 
-import { leerMedida } from "./huecos.js";
+import { leerMedida } from "./medidas.js";
 import { coloresDe, limpiarColores } from "./colores.js";
 
 /** Barra del precio: de 0 a PRECIO_TOPE euros, de PASO_PRECIO en PASO_PRECIO. El tope = sin límite. */

@@ -124,10 +124,6 @@ prueba("una lista recibida no cambia la mía hasta que la acepto", conListaLimpi
 grupo("Lista · enlace para compartir");
 
 const LISTA = { codigo: "ALI-7K3F", productos: ["SOF-02", "TV-04"] };
-const HUECOS = [
-  { id: "h1", nombre: "Pared del sofá", estancia: "salon", ancho_cm: 250, fondo_cm: 94.5, alto_cm: null },
-  { id: "h2", nombre: "Entrada", estancia: "recibidor", ancho_cm: 120, fondo_cm: null, alto_cm: 240 },
-];
 const BASE = "https://ejemplo.test/amicasa/lista.html";
 
 prueba("el enlace tiene la forma acordada: v, c y l", () => {
@@ -137,14 +133,11 @@ prueba("el enlace tiene la forma acordada: v, c y l", () => {
 
 prueba("crear un enlace y leerlo devuelve la misma lista", () => {
   const leida = leerEnlace(new URL(crearEnlace(BASE, LISTA)).search);
-  igual(leida.lista, LISTA);
-  igual(leida.huecos, [], "sin la casilla, las medidas no viajan");
+  igual(leida, { lista: LISTA });
 });
 
-prueba("con la casilla marcada, las medidas viajan y llegan iguales", () => {
-  const leida = leerEnlace(new URL(crearEnlace(BASE, LISTA, HUECOS)).search);
-  igual(leida.lista, LISTA);
-  igual(leida.huecos, HUECOS);
+prueba("un enlace antiguo con medidas (h) se sigue abriendo: las medidas se ignoran", () => {
+  igual(leerEnlace("?v=1&c=ALI-7K3F&l=SOF-02&h=salon;250;;;Pared"), { lista: { codigo: "ALI-7K3F", productos: ["SOF-02"] } });
 });
 
 prueba("una dirección sin lista no es un enlace compartido", () => {
@@ -159,7 +152,6 @@ prueba("enlaces estropeados o manipulados no rompen nada", () => {
   igual(leerEnlace("?v=1&c=ALI-7K3F"), { error: "estropeado" });
   const raro = leerEnlace("?v=1&c=ALI-7K3F&l=SOF-02.<script>.SOF-02&h=salon;99999;;;x|garaje;200;;;<b>Y</b>|basura");
   igual(raro.lista.productos, ["SOF-02"], "se quedan solo los productos con forma válida, sin repetir");
-  igual(raro.huecos.map((h) => [h.estancia, h.ancho_cm]), [["salon", 200]], "medidas imposibles fuera; estancia rara, a salón");
 });
 
 prueba("el total suma bien y avisa si falta algún precio", () => {

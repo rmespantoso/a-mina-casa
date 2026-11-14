@@ -8,12 +8,11 @@ import { cargarDatos } from "../datos.js";
 import { medir } from "../medicion.js";
 import { estaRegistrado } from "../sesion.js";
 import { enlaceAsesor, enlaceTienda } from "../enlaces.js";
-import { avisoOrientativo, encajesProducto, fotoProducto } from "../componentes.js";
+import { avisoOrientativo, fotoProducto } from "../componentes.js";
 import { icono } from "../dibujos.js";
 import { NOMBRE_TIPO, escapar, euros, medidas } from "../textos.js";
 import { crearEnlace, leerEnlace, textoCompartir, totalLista } from "../logica/lista.js";
 import { accionCompra } from "../logica/recomendador.js";
-import { guardarHueco, leerHuecos } from "../mis-huecos.js";
 import { adoptarLista, leerLista, quitarProducto, reponerProducto } from "../mi-lista.js";
 
 iniciarPagina("lista");
@@ -36,7 +35,7 @@ function buscarProductos(ids) {
   return { productos, perdidos: ids.length - productos.length };
 }
 
-function articulo(producto, huecos, conQuitar) {
+function articulo(producto, conQuitar) {
   const tienda = enlaceTienda(producto.url_alihogar);
   const nombre = escapar(producto.nombre);
   const enlace = (texto, clase) => (tienda
@@ -63,7 +62,7 @@ function articulo(producto, huecos, conQuitar) {
 
   return `<li class="articulo" data-producto="${escapar(producto.id)}">
     <div class="articulo__cabeza${conQuitar ? " articulo__cabeza--con-quitar" : ""}">
-      <a class="articulo__foto" href="ficha.html?p=${encodeURIComponent(producto.id)}" aria-label="Ver si me cabe: ${nombre}">${fotoProducto(producto)}</a>
+      <a class="articulo__foto" href="ficha.html?p=${encodeURIComponent(producto.id)}" aria-label="Ver la ficha de ${nombre}">${fotoProducto(producto)}</a>
       <div>
         <p class="tarjeta__tipo">${escapar(NOMBRE_TIPO[producto.tipo] ?? producto.tipo)}</p>
         <h3 class="tarjeta__nombre">${nombre}</h3>
@@ -72,7 +71,6 @@ function articulo(producto, huecos, conQuitar) {
       </div>
       ${quitar}
     </div>
-    ${encajesProducto(producto, huecos)}
     <p class="mensaje articulo__aviso" role="status" hidden></p>
     <div class="acciones ${pareja ? "acciones--pareja" : ""}">${botones}</div>
   </li>`;
@@ -102,7 +100,6 @@ function pintarVacia() {
     </div>
     <div class="acciones">
       <a class="boton boton--primario" href="index.html">Planifica tu espacio</a>
-      <a class="boton boton--secundario" href="huecos.html">Añadir mis medidas</a>
     </div>`;
 }
 
@@ -113,17 +110,10 @@ function pintarMia() {
     return;
   }
 
-  const huecos = leerHuecos();
   const { productos, perdidos } = buscarProductos(lista.productos);
   const deshacer = ultimoQuitado
     ? `<p class="mensaje" id="aviso-quitado" role="status">Quitado: «${escapar(ultimoQuitado.nombre)}».
         <button class="enlace-boton" type="button" id="deshacer">Deshacer</button></p>`
-    : "";
-  const casillaHuecos = huecos.length
-    ? `<label class="casilla">
-        <input type="checkbox" id="con-huecos">
-        <span>Incluir también mis medidas. Quien reciba el enlace verá los nombres y las medidas de tus huecos.</span>
-      </label>`
     : "";
   // Al invitado se le propone registrarse una sola vez, cuando ya tiene productos guardados.
   const invitar = !estaRegistrado() && productos.length > 0 && !leer("invitacion-lista", false);
@@ -154,8 +144,8 @@ function pintarMia() {
 
     <h2 class="seccion">${productos.length === 1 ? "1 mueble guardado" : `${productos.length} muebles guardados`}</h2>
     ${productos.length
-      ? `<ul class="articulos">${productos.map((producto) => articulo(producto, huecos, true)).join("")}</ul>
-         ${huecos.length ? avisoOrientativo() : '<p class="nota">¿Quieres saber si te caben? <a href="huecos.html?volver=lista">Añade tus medidas</a>.</p>'}
+      ? `<ul class="articulos">${productos.map((producto) => articulo(producto, true)).join("")}</ul>
+         ${avisoOrientativo()}
          ${bloqueTotal(productos)}
          <div class="acciones"><a class="boton boton--secundario" href="plano.html">Ver mis muebles en mi plano 3D</a></div>`
       : '<p class="pendiente">No queda ningún mueble en tu lista.</p>'}
@@ -163,7 +153,6 @@ function pintarMia() {
     ${productos.length ? `
     <h2 class="seccion">Compartir</h2>
     <p>Envía tu lista a quien quieras o al asesor de ALI Hogar. El mensaje solo lleva los muebles, el código y un enlace.</p>
-    ${casillaHuecos}
     <div class="acciones">
       <a class="boton boton--primario" id="compartir" target="_blank" rel="noopener" href="#">${icono("whatsapp")}Compartir por WhatsApp</a>
       <a class="boton boton--secundario" id="al-asesor" target="_blank" rel="noopener" href="#">Enviar al asesor de ALI</a>
@@ -176,22 +165,20 @@ function pintarMia() {
 
   if (!productos.length) return;
 
-  // --- Compartir: los enlaces se preparan con (o sin) las medidas, según la casilla ---
-  const casilla = document.getElementById("con-huecos");
+  // --- Compartir ---
   const avisoCompartir = document.getElementById("aviso-compartir");
 
   function prepararEnlaces() {
-    const enlace = crearEnlace(BASE, lista, casilla?.checked ? huecos : null);
+    const enlace = crearEnlace(BASE, lista);
     const texto = (paraAsesor) => textoCompartir({ lista, productos, enlace, paraAsesor });
     document.getElementById("compartir").href = `https://wa.me/?text=${encodeURIComponent(texto(false))}`;
     document.getElementById("al-asesor").href = enlaceAsesor(texto(true));
     return enlace;
   }
   prepararEnlaces();
-  casilla?.addEventListener("change", prepararEnlaces);
 
   function trasCompartir(canal, textoAviso) {
-    medir("list_share", { canal, productos: productos.length, con_medidas: Boolean(casilla?.checked) });
+    medir("list_share", { canal, productos: productos.length });
     avisoCompartir.innerHTML = `${textoAviso} <a href="encuesta.html">¿Nos cuentas qué te ha parecido?</a>`;
     avisoCompartir.hidden = false;
   }
@@ -262,13 +249,7 @@ contenido.addEventListener("click", (evento) => {
 function pintarRecibida(recibida) {
   const propia = leerLista();
   const tengoLista = Boolean(propia && propia.productos.length);
-  const misHuecos = leerHuecos();
-  // Si el enlace trae medidas, el semáforo usa esas; si no, las mías.
-  const huecos = recibida.huecos.length ? recibida.huecos : misHuecos;
   const { productos, perdidos } = buscarProductos(recibida.lista.productos);
-  const queMedidas = recibida.huecos.length
-    ? "El semáforo usa las medidas que venían en el enlace."
-    : (misHuecos.length ? "El semáforo usa tus propias medidas." : "");
 
   document.title = "Lista recibida · A miña casa (prototipo)";
   contenido.innerHTML = `
@@ -282,8 +263,7 @@ function pintarRecibida(recibida) {
 
     <h2 class="seccion">${productos.length === 1 ? "1 mueble" : `${productos.length} muebles`}</h2>
     ${productos.length
-      ? `<ul class="articulos">${productos.map((producto) => articulo(producto, huecos, false)).join("")}</ul>
-         ${huecos.length ? `${avisoOrientativo()}<p class="nota">${queMedidas}</p>` : ""}
+      ? `<ul class="articulos">${productos.map((producto) => articulo(producto, false)).join("")}</ul>
          ${bloqueTotal(productos)}`
       : '<p class="pendiente">No hemos podido cargar ningún mueble de esta lista.</p>'}
 
@@ -299,10 +279,6 @@ function pintarRecibida(recibida) {
 
   function guardarComoMia() {
     adoptarLista({ codigo: recibida.lista.codigo, productos: productos.map((producto) => producto.id) });
-    // Las medidas recibidas solo se guardan si yo no tenía ninguna: nunca pisan las mías.
-    if (misHuecos.length === 0) {
-      for (const { id, ...hueco } of recibida.huecos) guardarHueco(hueco, null, { medirlo: false });
-    }
     window.location.replace("lista.html");
   }
 

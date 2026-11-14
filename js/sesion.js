@@ -1,6 +1,6 @@
 // Sesión: sabe si quien usa la herramienta es INVITADO o está REGISTRADO.
 //
-// - Invitado: lo usa casi todo y sus medidas y su lista se quedan en su móvil.
+// - Invitado: lo usa casi todo y sus planos y su lista se quedan en su navegador.
 // - Registrado: lo mismo, guardado en su cuenta, y además el recomendador.
 //
 // IMPORTANTE: en este prototipo el registro es SIMULADO. No hay servidor, no se
@@ -29,7 +29,7 @@ export function estaRegistrado() {
   return sesion().tipo === "registrado";
 }
 
-/** ¿Puede usar esta función ("recomendador", "huecos", "lista"...)? */
+/** ¿Puede usar esta función ("recomendador", "plano", "lista"...)? */
 export function puedeUsar(funcion) {
   return estaRegistrado() || !SOLO_REGISTRADOS.includes(funcion);
 }
@@ -52,14 +52,14 @@ export function entrarConDemo({ esNueva = false, quiereNoticias = false } = {}) 
   return nueva;
 }
 
-/** Cierra la sesión: vuelve a ser invitado. Las medidas y la lista del móvil no se tocan. */
+/** Cierra la sesión: vuelve a ser invitado. Los planos y la lista del navegador no se tocan. */
 export function salir() {
   borrar("sesion");
 }
 
 // Páginas a las que se puede volver después de entrar. Es una lista cerrada para
 // que nadie pueda usar el enlace de acceso para mandar al cliente a otra web.
-const DESTINOS = ["index", "huecos", "planifica", "lista", "ficha", "ambiente"];
+const DESTINOS = ["index", "planifica", "plano", "lista", "ficha", "ambiente"];
 
 /** Convierte el parámetro ?volver= en una dirección segura dentro de la herramienta. */
 export function destinoSeguro(volver, producto = null, ambiente = null) {

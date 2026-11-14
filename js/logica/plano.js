@@ -184,40 +184,87 @@ export function planoValido(plano) {
   };
 }
 
-// ---------- Varios planos guardados ----------
-// La colección es { activo: id del plano abierto, planos: [plano, plano…] }.
+// ---------- Plano de prueba y planos guardados ----------
+// La colección es { activo, planos: [plano, plano…], prueba }:
+// - prueba: el plano de prueba (500 × 500 cm al empezar). Es donde cae un mueble al pulsar
+//   «Probar en mi plano 3D». Se recuerda en el navegador, pero no está en «Mis planos»
+//   hasta que el cliente lo guarda con un nombre.
+// - planos: los guardados con nombre (hasta MAX_PLANOS).
+// - activo: el id del plano abierto ("prueba" o el de uno guardado).
+
+export const PRUEBA = "prueba";
+export const LADO_ESTANDAR = 500; // cm: habitación de partida del plano de prueba
+
+/** Un plano de prueba vacío, de 500 × 500 cm. */
+export function planoDePruebaVacio() {
+  return crearPlano(LADO_ESTANDAR, LADO_ESTANDAR, "Plano de prueba", PRUEBA);
+}
 
 /** Revisa la colección leída del navegador. Acepta también el plano único de antes. */
 export function coleccionValida(datos, planoAntiguo = null) {
-  let planos = Array.isArray(datos?.planos) ? datos.planos.map(planoValido).filter((plano) => plano && plano.id) : [];
+  let planos = Array.isArray(datos?.planos)
+    ? datos.planos.map(planoValido).filter((plano) => plano && plano.id && plano.id !== PRUEBA)
+    : [];
   if (planos.length === 0) {
     const antiguo = planoValido(planoAntiguo);
     if (antiguo) planos = [{ ...antiguo, id: antiguo.id || "plano-1" }];
   }
   planos = planos.slice(0, MAX_PLANOS);
-  const activo = planos.some((plano) => plano.id === datos?.activo) ? datos.activo : planos[0]?.id ?? null;
-  return { activo, planos };
-}
-
-/** Guarda (o actualiza) un plano en la colección. Devuelve { ok, coleccion, motivo }. */
-export function ponerPlano(coleccion, plano, ahora = new Date()) {
-  const fechado = { ...plano, nombre: nombreValido(plano.nombre), fecha: ahora.toISOString().slice(0, 10) };
-  const existe = coleccion.planos.some((actual) => actual.id === plano.id);
-  if (!existe && coleccion.planos.length >= MAX_PLANOS) return { ok: false, coleccion, motivo: "lleno" };
-  const planos = existe
-    ? coleccion.planos.map((actual) => (actual.id === plano.id ? fechado : actual))
-    : [...coleccion.planos, fechado];
-  return { ok: true, coleccion: { activo: plano.id, planos }, motivo: null };
-}
-
-/** Borra un plano. Si era el abierto, se abre el primero que quede (o ninguno). */
-export function quitarPlano(coleccion, id) {
-  const planos = coleccion.planos.filter((plano) => plano.id !== id);
-  const activo = coleccion.activo === id ? planos[0]?.id ?? null : coleccion.activo;
-  return { activo, planos };
+  const leida = planoValido(datos?.prueba);
+  const prueba = leida ? { ...leida, id: PRUEBA, nombre: "Plano de prueba" } : null;
+  const existe = (id) => (id === PRUEBA ? Boolean(prueba) : planos.some((plano) => plano.id === id));
+  const activo = existe(datos?.activo) ? datos.activo : planos[0]?.id ?? (prueba ? PRUEBA : null);
+  return { activo, planos, prueba };
 }
 
 /** El plano abierto, o null. */
 export function planoActivo(coleccion) {
+  if (coleccion.activo === PRUEBA) return coleccion.prueba;
   return coleccion.planos.find((plano) => plano.id === coleccion.activo) ?? null;
+}
+
+/** Abre el plano de prueba (lo crea de 500 × 500 si no había). */
+export function abrirPrueba(coleccion) {
+  return { ...coleccion, activo: PRUEBA, prueba: coleccion.prueba ?? planoDePruebaVacio() };
+}
+
+/** Guarda los cambios del plano abierto donde corresponda (prueba o guardado). */
+export function actualizarPlano(coleccion, plano, ahora = new Date()) {
+  if (plano.id === PRUEBA) return { ...coleccion, activo: PRUEBA, prueba: plano };
+  const fechado = { ...plano, nombre: nombreValido(plano.nombre), fecha: ahora.toISOString().slice(0, 10) };
+  const existe = coleccion.planos.some((actual) => actual.id === plano.id);
+  const planos = existe ? coleccion.planos.map((actual) => (actual.id === plano.id ? fechado : actual)) : coleccion.planos;
+  return { ...coleccion, activo: existe ? plano.id : coleccion.activo, planos };
+}
+
+/**
+ * Guarda el plano abierto como un plano NUEVO con nombre (medidas y muebles incluidos).
+ * Si venía del plano de prueba, el de prueba se vacía para la próxima vez.
+ * Devuelve { ok, coleccion, plano, motivo }.
+ */
+export function guardarComoNuevo(coleccion, plano, nombre, idNuevo, ahora = new Date()) {
+  if (coleccion.planos.length >= MAX_PLANOS) return { ok: false, coleccion, plano, motivo: "lleno" };
+  const nuevo = { ...plano, id: idNuevo, nombre: nombreValido(nombre), fecha: ahora.toISOString().slice(0, 10) };
+  return {
+    ok: true,
+    coleccion: {
+      activo: idNuevo,
+      planos: [...coleccion.planos, nuevo],
+      prueba: plano.id === PRUEBA ? null : coleccion.prueba,
+    },
+    plano: nuevo,
+    motivo: null,
+  };
+}
+
+/** Abre un plano guardado. */
+export function abrirPlano(coleccion, id) {
+  return coleccion.planos.some((plano) => plano.id === id) ? { ...coleccion, activo: id } : coleccion;
+}
+
+/** Borra un plano guardado. Si era el abierto, se abre el plano de prueba. */
+export function quitarPlano(coleccion, id) {
+  const planos = coleccion.planos.filter((plano) => plano.id !== id);
+  if (coleccion.activo !== id) return { ...coleccion, planos };
+  return abrirPrueba({ ...coleccion, planos });
 }
