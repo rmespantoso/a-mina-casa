@@ -17,7 +17,7 @@ En Mac o Linux el comando es `python3 -m http.server 8000`.
 - Pruebas automáticas: http://localhost:8000/tests/
 - Muestrario de diseño: http://localhost:8000/estilo.html
 - Etiquetas con QR para imprimir (página del equipo): http://localhost:8000/etiquetas.html
-- Planifica tu espacio: http://localhost:8000/planifica.html · Mi plano: http://localhost:8000/plano.html
+- La portada (http://localhost:8000/) es «Planifica tu espacio» · Mi plano: http://localhost:8000/plano.html
 
 ## Cómo actualizar los productos
 

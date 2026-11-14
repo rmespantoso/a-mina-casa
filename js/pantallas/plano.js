@@ -17,7 +17,7 @@ import {
 } from "../logica/plano.js";
 import { leerLista } from "../mi-lista.js";
 
-iniciarPagina(null);
+iniciarPagina("plano");
 
 const formulario = document.getElementById("formulario-habitacion");
 const zonaPlano = document.getElementById("zona-plano");
@@ -112,10 +112,10 @@ function pintarControles() {
 
 function pintarDeMiLista() {
   const zona = document.getElementById("de-mi-lista");
-  const ids = leerLista().productos;
+  const ids = leerLista()?.productos ?? []; // sin lista guardada, leerLista() da null
   const productos = ids.map((id) => catalogo.find((producto) => producto.id === id)).filter(Boolean);
   if (productos.length === 0) {
-    zona.innerHTML = `<p class="pendiente">Tu lista está vacía. Guarda muebles desde <a href="planifica.html">Planifica tu espacio</a> y aparecerán aquí.</p>`;
+    zona.innerHTML = `<p class="pendiente">Tu lista está vacía. Guarda muebles desde <a href="index.html">Planifica tu espacio</a> y aparecerán aquí.</p>`;
     return;
   }
   zona.innerHTML = `<ul class="piezas">${productos.map((producto) => sePuedePoner(producto)

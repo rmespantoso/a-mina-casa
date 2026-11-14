@@ -4,41 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Planifica tu espacio · A miña casa (prototipo)</title>
-  <meta name="description" content="Elige la estancia que quieres amueblar y mira qué muebles de ALI Hogar te caben.">
   <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="img/icono.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/componentes.css">
+  <!-- «Planifica tu espacio» es ahora la pantalla de inicio (14/11/2026).
+       Esta página solo reenvía los enlaces antiguos, conservando #busquedas. -->
+  <script>window.location.replace("index.html" + (window.location.hash === "#busquedas" ? "#busquedas" : ""));</script>
 </head>
 <body>
-  <a class="saltar" href="#contenido">Saltar al contenido</a>
-  <header id="cabecera" class="cabecera"></header>
-
-  <main id="contenido" class="pagina">
-    <p class="saludo" lang="gl">A miña casa</p>
+  <main class="pagina">
     <h1>Planifica tu espacio</h1>
-    <p class="entrada">Elige la estancia que quieres amueblar. Te enseñamos solo los muebles que caben en tu hueco.</p>
-
-    <ol class="pasos-cortos" aria-label="Cómo funciona">
-      <li><span class="contador" aria-hidden="true">1</span>Elige la estancia</li>
-      <li><span class="contador" aria-hidden="true">2</span>Pon las medidas de tu hueco</li>
-      <li><span class="contador" aria-hidden="true">3</span>Mira qué te cabe</li>
-    </ol>
-
-    <h2 class="seccion">¿Qué quieres planificar?</h2>
-    <ul class="estancias" id="estancias" aria-live="polite"></ul>
-    <p class="nota">Fotos de ambientes de alihogar.es, con muebles que vende ALI Hogar.</p>
-
-    <section id="busquedas" aria-labelledby="titulo-busquedas">
-      <h2 class="seccion" id="titulo-busquedas" tabindex="-1">Tus búsquedas guardadas</h2>
-      <div id="lista-busquedas"></div>
-    </section>
+    <p><a href="index.html">Ir a Planifica tu espacio</a></p>
   </main>
-
-  <footer id="pie" class="pie"></footer>
-  <nav id="navegacion" class="navegacion" aria-label="Secciones"></nav>
-
-  <script type="module" src="js/pantallas/planifica.js"></script>
 </body>
 </html>

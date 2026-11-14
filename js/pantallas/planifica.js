@@ -1,5 +1,6 @@
-// Pantalla «Planifica tu espacio»: el cliente elige qué estancia quiere amueblar
-// (salón, dormitorio, cocina…) y aquí también tiene sus búsquedas guardadas.
+// Pantalla de INICIO = «Planifica tu espacio» (index.html, desde el 14/11/2026): lo
+// primero que ve el cliente son las estancias para elegir (salón, dormitorio, cocina…).
+// Debajo, sus búsquedas guardadas y cómo usar la herramienta en la tienda.
 
 import { iniciarPagina } from "../comun.js";
 import { cargarEstancias } from "../datos.js";

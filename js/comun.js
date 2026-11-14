@@ -14,9 +14,9 @@ import { estaRegistrado } from "./sesion.js";
 
 // Los cuatro botones de la barra de abajo.
 const NAVEGACION = [
-  { id: "inicio", texto: "Inicio", icono: "casa", enlace: "index.html" },
-  { id: "huecos", texto: "Mis huecos", icono: "regla", enlace: "huecos.html" },
-  { id: "planifica", texto: "Planifica", icono: "lupa", enlace: "planifica.html" },
+  { id: "planifica", texto: "Planifica", icono: "casa", enlace: "index.html" },
+  { id: "plano", texto: "Mi plano", icono: "plano", enlace: "plano.html" },
+  { id: "huecos", texto: "Mis medidas", icono: "regla", enlace: "huecos.html" },
   { id: "lista", texto: "Mi lista", icono: "corazon", enlace: "lista.html" },
 ];
 
@@ -26,8 +26,8 @@ function opcionesMenu() {
   const cuenta = estaRegistrado() ? "Mi cuenta" : "Entrar o crear cuenta";
   const tienda = enlaceTienda("https://alihogar.es/");
   return `
-    <li><a class="menu__enlace menu__enlace--destacado" href="planifica.html">Planifica tu espacio<small>Elige una estancia y mira qué te cabe</small></a></li>
-    <li><a class="menu__enlace" href="planifica.html#busquedas">Mis búsquedas guardadas</a></li>
+    <li><a class="menu__enlace menu__enlace--destacado" href="index.html">Planifica tu espacio<small>Elige una estancia y mira qué te cabe</small></a></li>
+    <li><a class="menu__enlace" href="index.html#busquedas">Mis búsquedas guardadas</a></li>
     <li><a class="menu__enlace" href="plano.html">Mi plano<small>Coloca tus muebles a escala</small></a></li>
     <li><a class="menu__enlace" href="huecos.html">Mis medidas</a></li>
     <li><a class="menu__enlace" href="lista.html">Mi lista</a></li>
@@ -137,7 +137,7 @@ function pintarPie() {
 
 /**
  * Arranca una pantalla. `activa` es el botón de la barra que se marca
- * ("inicio", "huecos", "planifica", "lista") o null si no es ninguno.
+ * ("planifica", "plano", "huecos", "lista") o null si no es ninguno.
  */
 export function iniciarPagina(activa = null) {
   pintarCabecera();

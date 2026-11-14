@@ -232,8 +232,8 @@ function alPulsarResultado(evento) {
     const nombre = nombreBusqueda(ultimaBusqueda, estancia, NOMBRES_COLOR);
     const donde = estaRegistrado() ? "en tu cuenta (demostración: se queda en este móvil)" : "en este móvil";
     aviso.innerHTML = resultado.repetida
-      ? `Ya la tenías guardada: «${escapar(nombre)}». <a href="planifica.html#busquedas">Ver mis búsquedas</a>`
-      : `Búsqueda guardada ${donde}: «${escapar(nombre)}». <a href="planifica.html#busquedas">Ver mis búsquedas</a>`;
+      ? `Ya la tenías guardada: «${escapar(nombre)}». <a href="index.html#busquedas">Ver mis búsquedas</a>`
+      : `Búsqueda guardada ${donde}: «${escapar(nombre)}». <a href="index.html#busquedas">Ver mis búsquedas</a>`;
     aviso.hidden = false;
     return;
   }
@@ -288,7 +288,7 @@ try {
 
 if (productos && !estancia) {
   document.getElementById("titulo").textContent = "No encontramos esa estancia";
-  zonaResultados.innerHTML = `<div class="acciones"><a class="boton boton--primario" href="planifica.html">Ver todas las estancias</a></div>`;
+  zonaResultados.innerHTML = `<div class="acciones"><a class="boton boton--primario" href="index.html">Ver todas las estancias</a></div>`;
 } else if (estancia) {
   prepararEstancia();
 }

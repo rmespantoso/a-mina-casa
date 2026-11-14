@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>A miña casa · ALI Hogar (prototipo)</title>
-  <meta name="description" content="Mide tu casa una vez y descubre qué muebles de ALI Hogar te caben. Prototipo de estudiantes.">
+  <title>Planifica tu espacio · A miña casa (prototipo)</title>
+  <meta name="description" content="Elige la estancia que quieres amueblar y mira qué muebles de ALI Hogar te caben. Prototipo de estudiantes.">
   <meta name="robots" content="noindex">
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="img/icono.svg" type="image/svg+xml">
@@ -15,42 +15,39 @@
   <a class="saltar" href="#contenido">Saltar al contenido</a>
   <header id="cabecera" class="cabecera"></header>
 
+  <!-- Pantalla de inicio = «Planifica tu espacio» (decisión del 14/11/2026):
+       lo primero que se ve son las estancias para elegir. -->
   <main id="contenido" class="pagina">
-    <p class="saludo" lang="gl">Benvido</p>
-    <h1>¿Te cabe en casa?</h1>
-    <p class="entrada">Te ayudamos a elegir muebles de ALI Hogar que caben en tu casa. Antes de comprar.</p>
+    <p class="saludo" lang="gl">A miña casa</p>
+    <h1>Planifica tu espacio</h1>
+    <p class="entrada">Elige la estancia que quieres amueblar y mira qué muebles te caben.</p>
 
-    <!-- Puerta 1 (desde la web): planificar una estancia -->
-    <h2 class="seccion">Desde casa</h2>
-    <a class="estancia" href="planifica.html">
-      <img class="estancia__foto" src="https://alihogar.es/66232-large_default/sofa-palma-efecto-chenilla-de-3-plazas.jpg" alt="" width="1000" height="1000">
-      <span class="estancia__texto">
-        <span class="estancia__titulo">Planifica tu espacio</span>
-        <span class="estancia__frase">Elige la estancia, pon las medidas de tu hueco y mira qué te cabe.</span>
-      </span>
-    </a>
+    <ul class="estancias" id="estancias" aria-live="polite" aria-label="Estancias"></ul>
+    <p class="nota">Fotos de ambientes de alihogar.es, con muebles que vende ALI Hogar.</p>
 
-    <!-- Puerta 2 (en la tienda): escanear la etiqueta -->
+    <section id="busquedas" aria-labelledby="titulo-busquedas">
+      <h2 class="seccion" id="titulo-busquedas" tabindex="-1">Tus búsquedas guardadas</h2>
+      <div id="lista-busquedas"></div>
+    </section>
+
+    <!-- La otra puerta de entrada: escanear la etiqueta en la tienda -->
     <section id="escanear" aria-labelledby="titulo-escanear">
-      <h2 class="seccion" id="titulo-escanear">En la tienda</h2>
+      <h2 class="seccion" id="titulo-escanear">¿Estás en la tienda?</h2>
       <ol class="pasos-cortos">
         <li><span class="contador" aria-hidden="true">1</span>Guarda las medidas de tus huecos</li>
         <li><span class="contador" aria-hidden="true">2</span>Apunta con la cámara del móvil al código QR de la etiqueta</li>
         <li><span class="contador" aria-hidden="true">3</span>El semáforo te dice si el mueble te cabe</li>
       </ol>
       <div class="acciones">
-        <a class="boton boton--primario" href="huecos.html">Añadir mis medidas</a>
+        <a class="boton boton--secundario" href="huecos.html">Añadir mis medidas</a>
       </div>
     </section>
     <p class="tranquilidad">Sin app. Sin registro obligatorio. Tus medidas se quedan en tu móvil.</p>
-
-    <h2 class="seccion">El semáforo</h2>
-    <ul class="leyenda" id="leyenda"></ul>
   </main>
 
   <footer id="pie" class="pie"></footer>
   <nav id="navegacion" class="navegacion" aria-label="Secciones"></nav>
 
-  <script type="module" src="js/pantallas/inicio.js"></script>
+  <script type="module" src="js/pantallas/planifica.js"></script>
 </body>
 </html>

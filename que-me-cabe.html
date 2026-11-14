@@ -12,7 +12,7 @@
   <script>
     (function () {
       var antes = new URLSearchParams(window.location.search);
-      var destino = "planifica.html";
+      var destino = "index.html";
       if (/^[a-z]{3,12}$/.test(antes.get("e") || "")) {
         var nuevos = new URLSearchParams({ e: antes.get("e") });
         ["a", "f", "h"].forEach(function (clave) { if (antes.get(clave)) nuevos.set(clave, antes.get(clave)); });
@@ -25,7 +25,7 @@
 <body>
   <main class="pagina">
     <h1>Planifica tu espacio</h1>
-    <p>«¿Qué me cabe?» ahora se llama «Planifica tu espacio». <a href="planifica.html">Ir a Planifica tu espacio</a>.</p>
+    <p>«¿Qué me cabe?» ahora se llama «Planifica tu espacio». <a href="index.html">Ir a Planifica tu espacio</a>.</p>
   </main>
 </body>
 </html>
