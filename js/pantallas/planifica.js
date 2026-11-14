@@ -32,18 +32,17 @@ function tarjetaEstancia(estancia) {
 function pintarBusquedas(estancias) {
   const busquedas = leerBusquedas();
   if (busquedas.length === 0) {
-    zonaBusquedas.innerHTML = `<p class="pendiente">Todavía no has guardado ninguna. Cuando busques en una estancia,
+    zonaBusquedas.innerHTML = `<p class="pendiente">Todavía no has guardado ninguna. Cuando filtres en una estancia,
       pulsa «Guardar esta búsqueda» y la tendrás aquí para repetirla con un toque.</p>`;
     return;
   }
-  const donde = estaRegistrado() ? "Guardadas en tu cuenta (demostración: se quedan en este móvil)." : "Guardadas en este móvil.";
+  const donde = estaRegistrado() ? "Guardadas en tu cuenta (demostración: se quedan en este navegador)." : "Guardadas en este navegador.";
   zonaBusquedas.innerHTML = `
     <p class="nota">${donde}</p>
     <ul class="busquedas">
       ${busquedas.map((busqueda, posicion) => {
         const estancia = estanciaPorId(estancias, busqueda.estancia);
-        const comoBusqueda = { ...busqueda, pared: { ancho_cm: busqueda.ancho }, precioMax: busqueda.precio };
-        const nombre = nombreBusqueda(comoBusqueda, estancia, NOMBRES_COLOR);
+        const nombre = nombreBusqueda(busqueda, estancia, NOMBRES_COLOR);
         return `<li class="busqueda">
           <p class="busqueda__nombre">${escapar(nombre)}</p>
           <div class="busqueda__acciones">

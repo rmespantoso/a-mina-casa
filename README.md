@@ -17,7 +17,7 @@ En Mac o Linux el comando es `python3 -m http.server 8000`.
 - Pruebas automáticas: http://localhost:8000/tests/
 - Muestrario de diseño: http://localhost:8000/estilo.html
 - Etiquetas con QR para imprimir (página del equipo): http://localhost:8000/etiquetas.html
-- La portada (http://localhost:8000/) es «Planifica tu espacio» · Mi plano: http://localhost:8000/plano.html
+- La portada (http://localhost:8000/) es «Planifica tu espacio» · Mi plano 3D: http://localhost:8000/plano.html
 
 ## Cómo actualizar los productos
 
@@ -50,7 +50,7 @@ El primero lee las secciones con hueco de alihogar.es (una página por segundo, 
 | `fonts/`, `img/` | Fuente Poppins y logo de ALI Hogar (usado con su permiso) |
 | `js/pantallas/` | Un archivo por pantalla |
 | `data/` | `productos.csv` (fuente), `products.json` (generado), las reglas de proporción y `ambientes.json` (conjuntos de la tienda) |
-| `js/vendor/` | `qrcode.js`: librería que dibuja los QR (qrcode-generator 1.4.4, de Kazuhiko Arase, licencia MIT) |
+| `js/vendor/` | `qrcode.js`: librería que dibuja los QR (qrcode-generator 1.4.4, de Kazuhiko Arase, licencia MIT) · `three.module.min.js`: three.js r160 para Mi plano 3D (licencia MIT) |
 | `data/estancias.json` | Las estancias de «Planifica tu espacio»: foto, frase y grupos de muebles |
 | `scripts/` | `csv_a_json.py` (CSV → JSON) e `importar_alihogar.py` (trae muebles de alihogar.es) |
 | `tests/` | Pruebas que se ejecutan en el navegador |

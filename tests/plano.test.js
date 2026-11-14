@@ -1,8 +1,9 @@
-// Pruebas del plano a escala: medidas reales, sin salirse de la habitación y avisos claros.
+// Pruebas de Mi plano 3D: medidas reales, sin salirse de la habitación y avisos claros.
 
 import { grupo, prueba, igual, cierto } from "./mini.js";
 import {
-  MAX_PIEZAS, cambiarHabitacion, crearPlano, girarPieza, huella, moverPieza, planoValido, ponerPieza, problemas, quitarPieza, sueloLibre,
+  MAX_PIEZAS, MAX_PLANOS, altoDibujo, cambiarHabitacion, coleccionValida, crearPlano, girarPieza, huella, moverPieza, nombreValido,
+  planoActivo, planoValido, ponerPieza, ponerPlano, problemas, quitarPieza, quitarPlano, sueloLibre,
 } from "../js/logica/plano.js";
 
 const CAMA = { id: "CAM-02", nombre: "Cama", ancho_cm: 156, fondo_cm: 196 };
@@ -94,4 +95,73 @@ prueba("un plano estropeado en el navegador no rompe la página", () => {
   igual(planoValido({ habitacion: { ancho_cm: "mucho" } }), null);
   const limpio = planoValido({ habitacion: { ancho_cm: 300, largo_cm: 400 }, piezas: [{ id: 1 }, null] });
   igual(limpio.piezas, []);
+});
+
+grupo("Plano 3D · datos para dibujar");
+
+prueba("el mueble guarda su tipo, su alto y su color para el 3D", () => {
+  const sofa = { id: "SOF-02", nombre: "Sofá de Madera de Pino", tipo: "sofa", ancho_cm: 180, fondo_cm: 90, alto_cm: 100, variantes: [] };
+  const pieza = ponerPieza(crearPlano(400, 400), sofa, "a").plano.piezas[0];
+  igual([pieza.tipo, pieza.alto_cm, pieza.color], ["sofa", 100, "madera"]);
+});
+
+prueba("sin alto en la web, se dibuja con un alto aproximado y se dice", () => {
+  const somier = { id: "SOM-01", nombre: "Somier", tipo: "somier", ancho_cm: 150, fondo_cm: 190, alto_cm: null };
+  const pieza = ponerPieza(crearPlano(400, 400), somier, "a").plano.piezas[0];
+  igual(altoDibujo(pieza), { alto: 30, aproximado: true });
+  igual(altoDibujo({ ...pieza, alto_cm: 32 }), { alto: 32, aproximado: false });
+});
+
+grupo("Plano 3D · varios planos guardados");
+
+const conNombre = (id, nombre) => ({ ...crearPlano(300, 300, nombre, id) });
+
+prueba("el nombre se limpia y nunca queda vacío", () => {
+  igual(nombreValido("   "), "Mi habitación");
+  igual(nombreValido("  Salón   nuevo "), "Salón nuevo");
+  igual(nombreValido("x".repeat(80)).length, 40);
+});
+
+prueba("se guardan varios planos y el último guardado queda abierto", () => {
+  let coleccion = { activo: null, planos: [] };
+  coleccion = ponerPlano(coleccion, conNombre("h1", "Dormitorio")).coleccion;
+  coleccion = ponerPlano(coleccion, conNombre("h2", "Salón")).coleccion;
+  igual(coleccion.planos.map((plano) => plano.nombre), ["Dormitorio", "Salón"]);
+  igual(planoActivo(coleccion).nombre, "Salón");
+});
+
+prueba("guardar otra vez el mismo plano lo actualiza, no lo duplica", () => {
+  let coleccion = ponerPlano({ activo: null, planos: [] }, conNombre("h1", "Dormitorio")).coleccion;
+  coleccion = ponerPlano(coleccion, { ...conNombre("h1", "Dormitorio grande"), habitacion: { ancho_cm: 400, largo_cm: 500 } }).coleccion;
+  igual(coleccion.planos.length, 1);
+  igual(coleccion.planos[0].habitacion.ancho_cm, 400);
+});
+
+prueba(`como mucho ${MAX_PLANOS} planos`, () => {
+  let coleccion = { activo: null, planos: [] };
+  for (let i = 0; i < MAX_PLANOS; i++) coleccion = ponerPlano(coleccion, conNombre(`h${i}`, `Plano ${i}`)).coleccion;
+  const salida = ponerPlano(coleccion, conNombre("otro", "Uno más"));
+  igual(salida.ok, false);
+  igual(salida.motivo, "lleno");
+});
+
+prueba("al borrar el plano abierto, se abre otro", () => {
+  let coleccion = ponerPlano({ activo: null, planos: [] }, conNombre("h1", "A")).coleccion;
+  coleccion = ponerPlano(coleccion, conNombre("h2", "B")).coleccion;
+  coleccion = quitarPlano(coleccion, "h2");
+  igual(coleccion.activo, "h1");
+  igual(quitarPlano(coleccion, "h1"), { activo: null, planos: [] });
+});
+
+prueba("el plano único de antes se recupera como primer plano guardado", () => {
+  const antiguo = { habitacion: { ancho_cm: 320, largo_cm: 380 }, piezas: [] };
+  const coleccion = coleccionValida(null, antiguo);
+  igual(coleccion.planos.length, 1);
+  igual(coleccion.planos[0].nombre, "Mi habitación");
+  igual(coleccion.activo, coleccion.planos[0].id);
+});
+
+prueba("una colección estropeada en el navegador no rompe la página", () => {
+  igual(coleccionValida("basura"), { activo: null, planos: [] });
+  igual(coleccionValida({ activo: "x", planos: [null, { id: "h1", habitacion: { ancho_cm: -3 } }] }), { activo: null, planos: [] });
 });

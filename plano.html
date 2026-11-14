@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mi plano · A miña casa (prototipo)</title>
+  <title>Mi plano 3D · A miña casa (prototipo)</title>
   <meta name="robots" content="noindex">
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="img/icono.svg" type="image/svg+xml">
@@ -14,58 +14,84 @@
   <a class="saltar" href="#contenido">Saltar al contenido</a>
   <header id="cabecera" class="cabecera"></header>
 
-  <main id="contenido" class="pagina">
+  <main id="contenido" class="pagina pagina--ancha">
     <p class="saludo" lang="gl">A miña casa</p>
-    <h1>Mi plano</h1>
-    <p class="entrada">Dibuja tu habitación vista desde arriba y coloca los muebles a su tamaño real. Verás si caben y cuánto espacio te queda.</p>
+    <h1>Mi plano 3D</h1>
+    <p class="entrada">Crea tu habitación con sus medidas, coloca los muebles a su tamaño real y mira cómo quedan en 3D. Puedes guardar varios planos.</p>
 
-    <!-- Paso 1: la habitación -->
+    <!-- Planos guardados -->
+    <section id="mis-planos" aria-labelledby="titulo-mis-planos">
+      <h2 class="seccion" id="titulo-mis-planos" tabindex="-1">Mis planos</h2>
+      <div id="lista-planos"></div>
+      <p class="mensaje" id="aviso-planos" role="status" hidden></p>
+    </section>
+
+    <!-- La habitación del plano abierto (o de uno nuevo) -->
     <form class="formulario" id="formulario-habitacion" novalidate>
       <fieldset class="grupo-campos">
-        <legend class="paso-titulo"><span class="contador" aria-hidden="true">1</span>Tu habitación</legend>
-        <div class="campo" data-campo="ancho">
-          <label class="campo__etiqueta" for="hab-ancho">Ancho</label>
-          <span class="campo__ayuda" id="ayuda-hab-ancho">De pared a pared, en centímetros.</span>
+        <legend class="paso-titulo" id="titulo-formulario"><span class="contador" aria-hidden="true">1</span>Tu habitación</legend>
+        <div class="campo">
+          <label class="campo__etiqueta" for="hab-nombre">Nombre del plano <span class="campo__opcional">(opcional)</span></label>
+          <span class="campo__ayuda" id="ayuda-hab-nombre">Por ejemplo, «Dormitorio» o «Salón nuevo». Máximo 40 letras.</span>
           <div class="campo__caja">
-            <input class="campo__entrada" id="hab-ancho" name="ancho" type="text" inputmode="decimal" autocomplete="off"
-              aria-describedby="ayuda-hab-ancho error-hab-ancho">
-            <span class="campo__unidad" aria-hidden="true">cm</span>
+            <input class="campo__entrada" id="hab-nombre" name="nombre" type="text" maxlength="40" autocomplete="off"
+              aria-describedby="ayuda-hab-nombre">
           </div>
-          <div class="campo__error" id="error-hab-ancho" hidden></div>
         </div>
-        <div class="campo" data-campo="largo">
-          <label class="campo__etiqueta" for="hab-largo">Largo</label>
-          <span class="campo__ayuda" id="ayuda-hab-largo">De la puerta a la pared de enfrente, en centímetros.</span>
-          <div class="campo__caja">
-            <input class="campo__entrada" id="hab-largo" name="largo" type="text" inputmode="decimal" autocomplete="off"
-              aria-describedby="ayuda-hab-largo error-hab-largo">
-            <span class="campo__unidad" aria-hidden="true">cm</span>
+        <div class="medidas-fila medidas-fila--dos">
+          <div class="campo" data-campo="ancho">
+            <label class="campo__etiqueta" for="hab-ancho">Ancho</label>
+            <div class="campo__caja">
+              <input class="campo__entrada" id="hab-ancho" name="ancho" type="text" inputmode="decimal" autocomplete="off"
+                aria-describedby="ayuda-hab-medidas error-hab-ancho">
+              <span class="campo__unidad" aria-hidden="true">cm</span>
+            </div>
+            <div class="campo__error" id="error-hab-ancho" hidden></div>
           </div>
-          <div class="campo__error" id="error-hab-largo" hidden></div>
+          <div class="campo" data-campo="largo">
+            <label class="campo__etiqueta" for="hab-largo">Largo</label>
+            <div class="campo__caja">
+              <input class="campo__entrada" id="hab-largo" name="largo" type="text" inputmode="decimal" autocomplete="off"
+                aria-describedby="ayuda-hab-medidas error-hab-largo">
+              <span class="campo__unidad" aria-hidden="true">cm</span>
+            </div>
+            <div class="campo__error" id="error-hab-largo" hidden></div>
+          </div>
         </div>
+        <p class="campo__ayuda" id="ayuda-hab-medidas">De pared a pared, en centímetros. El largo va de la pared del fondo a la de la puerta.</p>
         <div class="acciones">
-          <button class="boton boton--primario" type="submit" id="dibujar">Dibujar mi habitación</button>
+          <button class="boton boton--primario" type="submit" id="crear">Crear mi plano</button>
         </div>
       </fieldset>
     </form>
 
-    <!-- Paso 2: el plano y los muebles -->
+    <!-- La habitación en 3D y los muebles -->
     <section id="zona-plano" hidden aria-labelledby="titulo-plano">
-      <h2 class="paso-titulo seccion" id="titulo-plano" tabindex="-1"><span class="contador" aria-hidden="true">2</span>Coloca tus muebles</h2>
-      <p>Arrastra cada mueble con el dedo, o tócalo y usa los botones de abajo. La cuadrícula marca cada 50 cm.</p>
-      <div class="plano" id="plano"></div>
+      <h2 class="paso-titulo seccion" id="titulo-plano" tabindex="-1"><span class="contador" aria-hidden="true">2</span><span id="nombre-plano">Coloca tus muebles</span></h2>
+      <p class="nota" id="guardado" role="status"></p>
+      <p>Arrastra un mueble para moverlo. Arrastra el suelo o el fondo para girar la vista; acerca con dos dedos o con la rueda del ratón.</p>
+
+      <div class="escena" id="escena"></div>
+      <div class="escena__botones" role="group" aria-label="Cámara">
+        <button class="boton boton--secundario" type="button" data-camara="3d" aria-pressed="true">Vista 3D</button>
+        <button class="boton boton--secundario" type="button" data-camara="arriba" aria-pressed="false">Desde arriba</button>
+        <button class="boton boton--secundario" type="button" data-camara="izquierda">Girar ⟲</button>
+        <button class="boton boton--secundario" type="button" data-camara="derecha">Girar ⟳</button>
+        <button class="boton boton--secundario" type="button" data-camara="acercar">Acercar</button>
+        <button class="boton boton--secundario" type="button" data-camara="alejar">Alejar</button>
+      </div>
       <p class="mensaje" id="estado-plano" role="status"></p>
 
       <div id="controles" hidden>
-        <p class="plano__elegida" id="elegida"></p>
-        <div class="plano__flechas" role="group" aria-label="Mover el mueble elegido">
-          <button class="boton boton--secundario" type="button" data-mover="0,-10">Arriba</button>
+        <div class="elegido" id="elegido"></div>
+        <div class="plano__flechas" role="group" aria-label="Mover el mueble elegido (10 cm cada toque)">
+          <button class="boton boton--secundario" type="button" data-mover="0,-10">Al fondo</button>
           <button class="boton boton--secundario" type="button" data-mover="-10,0">Izquierda</button>
           <button class="boton boton--secundario" type="button" data-mover="10,0">Derecha</button>
-          <button class="boton boton--secundario" type="button" data-mover="0,10">Abajo</button>
+          <button class="boton boton--secundario" type="button" data-mover="0,10">Hacia la puerta</button>
         </div>
         <div class="acciones acciones--pareja">
-          <button class="boton boton--secundario" type="button" id="girar">Girar</button>
+          <button class="boton boton--secundario" type="button" id="girar">Girar el mueble</button>
           <button class="boton boton--secundario" type="button" id="quitar">Quitar del plano</button>
         </div>
       </div>
@@ -75,12 +101,15 @@
 
       <h3 class="seccion">Añadir de mi lista</h3>
       <div id="de-mi-lista"></div>
-      <p class="nota">Las medidas son las de alihogar.es (ancho × fondo). Resultado orientativo: mide siempre antes de comprar.</p>
+      <div class="aviso">
+        <p><strong>Cómo leer el 3D.</strong> Cada mueble tiene su ancho, fondo y alto reales de alihogar.es y su color.
+          La forma es una aproximación según el tipo de mueble: para ver el modelo exacto hace falta un 3D de cada producto
+          (fase 2). Resultado orientativo: mide siempre antes de comprar.</p>
+      </div>
     </section>
   </main>
 
   <footer id="pie" class="pie"></footer>
-  <nav id="navegacion" class="navegacion" aria-label="Secciones"></nav>
 
   <script type="module" src="js/pantallas/plano.js"></script>
 </body>

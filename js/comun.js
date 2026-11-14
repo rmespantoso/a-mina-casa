@@ -1,4 +1,4 @@
-// Lo que comparten todas las pantallas: cabecera, navegación inferior,
+// Lo que comparten todas las pantallas: cabecera (con la navegación),
 // botón de WhatsApp y pie. Está en un solo sitio para no repetirlo en cada HTML.
 //
 // La herramienta está pensada para ir dentro de alihogar.es: por eso la cabecera
@@ -12,25 +12,27 @@ import { icono } from "./dibujos.js";
 import { enlaceAsesor, enlaceTienda } from "./enlaces.js";
 import { estaRegistrado } from "./sesion.js";
 
-// Los cuatro botones de la barra de abajo.
+// Navegación 100 % web (decisión del 14/11/2026): sin barra de iconos abajo, que es cosa
+// de app. En el ordenador estos enlaces se ven en la cabecera, en horizontal; en el
+// móvil están dentro del menú ☰, como en la web móvil de alihogar.es.
 const NAVEGACION = [
-  { id: "planifica", texto: "Planifica", icono: "casa", enlace: "index.html" },
-  { id: "plano", texto: "Mi plano", icono: "plano", enlace: "plano.html" },
-  { id: "huecos", texto: "Mis medidas", icono: "regla", enlace: "huecos.html" },
-  { id: "lista", texto: "Mi lista", icono: "corazon", enlace: "lista.html" },
+  { id: "planifica", texto: "Planifica tu espacio", enlace: "index.html" },
+  { id: "plano", texto: "Mi plano 3D", enlace: "plano.html" },
+  { id: "huecos", texto: "Mis medidas", enlace: "huecos.html" },
+  { id: "lista", texto: "Mi lista", enlace: "lista.html" },
 ];
 
 // Menú de las tres rayas, arriba a la izquierda, como en la web móvil de alihogar.es.
 // Dentro de alihogar.es, «Planifica tu espacio» sería una línea más de su menú.
-function opcionesMenu() {
+function opcionesMenu(activa) {
   const cuenta = estaRegistrado() ? "Mi cuenta" : "Entrar o crear cuenta";
   const tienda = enlaceTienda("https://alihogar.es/");
   return `
-    <li><a class="menu__enlace menu__enlace--destacado" href="index.html">Planifica tu espacio<small>Elige una estancia y mira qué te cabe</small></a></li>
+    <li><a class="menu__enlace menu__enlace--destacado" href="index.html"${actual("planifica", activa)}>Planifica tu espacio<small>Elige una estancia y mira qué te cabe</small></a></li>
     <li><a class="menu__enlace" href="index.html#busquedas">Mis búsquedas guardadas</a></li>
-    <li><a class="menu__enlace" href="plano.html">Mi plano<small>Coloca tus muebles a escala</small></a></li>
-    <li><a class="menu__enlace" href="huecos.html">Mis medidas</a></li>
-    <li><a class="menu__enlace" href="lista.html">Mi lista</a></li>
+    <li><a class="menu__enlace" href="plano.html"${actual("plano", activa)}>Mi plano 3D<small>Mira cómo quedan tus muebles en tu habitación</small></a></li>
+    <li><a class="menu__enlace" href="huecos.html"${actual("huecos", activa)}>Mis medidas<small>Tus huecos, para el semáforo de la tienda</small></a></li>
+    <li><a class="menu__enlace" href="lista.html"${actual("lista", activa)}>Mi lista</a></li>
     <li><a class="menu__enlace" href="index.html#escanear">Escanea en la tienda</a></li>
     <li><a class="menu__enlace" href="acceso.html">${cuenta}</a></li>
     <li><a class="menu__enlace" href="${tienda}" target="_blank" rel="noopener">Ir a alihogar.es<span class="solo-lector"> (se abre en otra pestaña)</span></a></li>`;
@@ -69,7 +71,9 @@ function prepararMenu() {
   });
 }
 
-function pintarCabecera() {
+const actual = (id, activa) => (id === activa ? ' aria-current="page"' : "");
+
+function pintarCabecera(activa) {
   const cuenta = estaRegistrado() ? "Mi cuenta" : "Entrar";
   document.getElementById("cabecera").innerHTML = `
     <div class="cabecera__dentro">
@@ -80,6 +84,9 @@ function pintarCabecera() {
         <img class="marca__logo" src="img/logo-ali-hogar.png" alt="ALI Hogar" width="48" height="48">
         <span class="marca__nombre" lang="gl">A miña casa</span>
       </a>
+      <nav class="cabecera__nav" aria-label="Secciones">
+        <ul>${NAVEGACION.map((enlace) => `<li><a href="${enlace.enlace}"${actual(enlace.id, activa)}>${enlace.texto}</a></li>`).join("")}</ul>
+      </nav>
       <a class="cuenta" href="acceso.html">${icono("usuario")}<span>${cuenta}</span></a>
     </div>
     <div class="menu-fondo" id="menu-fondo" hidden></div>
@@ -88,20 +95,9 @@ function pintarCabecera() {
         <p class="menu__titulo">Menú</p>
         <button class="menu__cerrar boton-icono" type="button">${icono("cerrar")}<span class="solo-lector">Cerrar el menú</span></button>
       </div>
-      <ul class="menu__lista">${opcionesMenu()}</ul>
+      <ul class="menu__lista">${opcionesMenu(activa)}</ul>
     </nav>`;
   prepararMenu();
-}
-
-function pintarNavegacion(activa) {
-  const enlaces = NAVEGACION.map(
-    (boton) => `<li>
-      <a class="navegacion__enlace" href="${boton.enlace}"${boton.id === activa ? ' aria-current="page"' : ""}>
-        ${icono(boton.icono)}<span>${boton.texto}</span>
-      </a>
-    </li>`
-  ).join("");
-  document.getElementById("navegacion").innerHTML = `<ul class="navegacion__lista">${enlaces}</ul>`;
 }
 
 // Botón redondo para escribir al asesor de ALI. Solo aquí aparece el teléfono
@@ -136,12 +132,11 @@ function pintarPie() {
 }
 
 /**
- * Arranca una pantalla. `activa` es el botón de la barra que se marca
+ * Arranca una pantalla. `activa` es la sección de la cabecera que se marca
  * ("planifica", "plano", "huecos", "lista") o null si no es ninguno.
  */
 export function iniciarPagina(activa = null) {
-  pintarCabecera();
-  pintarNavegacion(activa);
+  pintarCabecera(activa);
   pintarWhatsapp();
   pintarPie();
   // GA4 solo arranca si el cliente ya dijo que sí en una visita anterior.

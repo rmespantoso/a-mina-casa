@@ -1,32 +1,33 @@
-// Pruebas de «Planifica tu espacio»: colores, precio, búsqueda por estancia y búsquedas guardadas.
+// Pruebas de «Planifica tu espacio»: colores, precio, filtro por estancia y búsquedas guardadas.
 
 import { grupo, prueba, igual, cierto } from "./mini.js";
 import { cargarDatos, cargarEstancias } from "../js/datos.js";
 import { NOMBRE_ESTANCIA, NOMBRE_TIPO } from "../js/textos.js";
 import { coloresDe, limpiarColores } from "../js/logica/colores.js";
 import {
-  MAX_BUSQUEDAS, buscarEnEstancia, enlaceBusqueda, nombreBusqueda, paraGuardar, ponerBusqueda, quitarBusqueda, validarPlan,
+  MAX_BUSQUEDAS, PRECIO_TOPE, buscarEnEstancia, enlaceBusqueda, leerPrecio, nombreBusqueda, paraGuardar, ponerBusqueda, quitarBusqueda,
+  validarPlan,
 } from "../js/logica/planificador.js";
 
-const REGLAS = {
-  max_resultados: 6,
-  tipos: { comoda: { estancias: ["dormitorio"], ocupacion_min: 0.3, ocupacion_max: 0.6 } },
+const DORMITORIO = {
+  id: "dormitorio",
+  nombre: "Dormitorio",
+  grupos: [{ id: "comodas", nombre: "Cómodas", tipos: ["comoda"] }, { id: "armarios", nombre: "Armarios", tipos: ["armario"] }],
 };
-const DORMITORIO = { id: "dormitorio", nombre: "Dormitorio", grupos: [{ id: "comodas", nombre: "Cómodas", tipos: ["comoda"] }] };
 const comoda = (id, ancho, precio, nombre = "Cómoda", variantes = []) =>
   ({ id, nombre, tipo: "comoda", estancias: ["dormitorio"], ancho_cm: ancho, fondo_cm: 40, alto_cm: 80, precio_eur: precio, variantes });
-const pared = (ancho) => ({ ancho_cm: ancho, fondo_cm: null, alto_cm: null });
+const medidas = (ancho) => ({ ancho_cm: ancho, fondo_cm: null, alto_cm: null });
 
 grupo("Planifica · colores");
 
 prueba("el color sale de las variantes y del nombre", () => {
-  igual(coloresDe({ nombre: "Cómoda Strait", variantes: ["Blanco", "Nogal"] }), ["blanco", "nogal"]);
+  igual(coloresDe({ nombre: "Cómoda Strait", variantes: ["Blanco", "Nogal"] }).sort(), ["blanco", "nogal"]);
   igual(coloresDe({ nombre: "Mesa de Madera de Roble", variantes: [] }), ["madera"]);
 });
 
 prueba("reconoce palabras con tilde (bambú, marrón)", () => {
   igual(coloresDe({ nombre: "Estantería de Bambú", variantes: [] }), ["madera"]);
-  igual(coloresDe({ nombre: "Sillón Marrón", variantes: [] }), ["marron"]);
+  igual(coloresDe({ nombre: "Sillón Marrón", variantes: [] }), ["nogal"]); // «Madera oscura y marrón»
 });
 
 prueba("no adivina: sin palabra de color, sin color", () => {
@@ -40,30 +41,38 @@ prueba("no confunde trozos de palabras (Grisalla no es gris; Rosales no es rosa)
 prueba("los colores que llegan de fuera se limpian", () => {
   igual(limpiarColores(["blanco", "<script>", "blanco", "gris"]), ["blanco", "gris"]);
   igual(limpiarColores("blanco"), []);
+  igual(limpiarColores(["rojo", "amarillo"]), ["vivos"]); // familias antiguas que se juntaron
 });
 
 grupo("Planifica · formulario");
 
-prueba("sin elegir mueble ni ancho, pide las dos cosas", () => {
-  const revision = validarPlan({ ancho: "" }, DORMITORIO);
-  igual(revision.ok, false);
-  cierto(revision.errores.grupo && revision.errores.ancho, JSON.stringify(revision.errores));
+prueba("todo es opcional: sin rellenar nada, busca todos los muebles de la estancia", () => {
+  const revision = validarPlan({}, DORMITORIO);
+  igual(revision.ok, true);
+  igual(revision.busqueda.grupo, null);
+  igual(revision.busqueda.tipos, ["comoda", "armario"]);
+  igual(revision.busqueda.precioMax, null);
 });
 
-prueba("con mueble y ancho vale; precio y colores son opcionales", () => {
+prueba("con tipo, medidas, precio y colores", () => {
   const revision = validarPlan({ grupo: "comodas", ancho: "120", precio: "300", colores: ["blanco"] }, DORMITORIO);
   igual(revision.ok, true);
   igual(revision.busqueda.tipos, ["comoda"]);
+  igual(revision.busqueda.medidas, { ancho_cm: 120, fondo_cm: null, alto_cm: null });
   igual(revision.busqueda.precioMax, 300);
   igual(revision.busqueda.colores, ["blanco"]);
 });
 
-prueba("un precio que no está en la lista se trata como «sin límite»", () => {
-  igual(validarPlan({ grupo: "comodas", ancho: "120", precio: "7" }, DORMITORIO).busqueda.precioMax, null);
+prueba(`la barra del precio: en el tope (${PRECIO_TOPE} €) o sin número es «sin límite»`, () => {
+  igual(leerPrecio(String(PRECIO_TOPE)), null);
+  igual(leerPrecio("abc"), null);
+  igual(leerPrecio("-5"), null);
+  igual(leerPrecio("0"), 0);
+  igual(leerPrecio("410"), 400);
 });
 
-prueba("un ancho en metros se pregunta, no se corrige solo", () => {
-  const revision = validarPlan({ grupo: "comodas", ancho: "1,2" }, DORMITORIO);
+prueba("una medida en metros se pregunta, no se corrige sola", () => {
+  const revision = validarPlan({ ancho: "1,2" }, DORMITORIO);
   igual(revision.ok, false);
   igual(revision.sugerencias.ancho, 120);
 });
@@ -76,46 +85,57 @@ const CATALOGO = [
   comoda("COM-03", 98, 150, "Cómoda de Roble"),
   comoda("COM-04", 130, 90, "Cómoda Blanca"),
   comoda("COM-05", 35, null, "Cómoda Blanca"),
+  { ...comoda("ARM-01", 100, 300, "Armario"), tipo: "armario", alto_cm: null },
 ];
+const solo = (salida) => salida.resultados.map((producto) => producto.id);
 
-prueba("nunca sale un mueble que no cabe", () => {
-  const { resultados } = buscarEnEstancia(CATALOGO, REGLAS, { tipos: ["comoda"], pared: pared(100) });
-  cierto(resultados.every((r) => r.producto.ancho_cm <= 100), resultados.map((r) => r.producto.id).join());
-  cierto(!resultados.some((r) => r.producto.id === "COM-04"), "COM-04 mide 130 y no cabe");
+prueba("las medidas son «como mucho»: nunca sale uno más grande", () => {
+  const salida = buscarEnEstancia(CATALOGO, { tipos: ["comoda"], medidas: medidas(100) });
+  cierto(salida.resultados.every((p) => p.ancho_cm <= 100), solo(salida).join());
+  igual(salida.porMedida, 1);
+});
+
+prueba("con medidas, primero el que más se acerca a lo pedido", () => {
+  igual(solo(buscarEnEstancia(CATALOGO, { tipos: ["comoda"], medidas: medidas(100) }))[0], "COM-03");
+});
+
+prueba("sin medidas, de menor a mayor precio (sin precio, al final)", () => {
+  igual(solo(buscarEnEstancia(CATALOGO, { tipos: ["comoda"] })), ["COM-04", "COM-01", "COM-03", "COM-02", "COM-05"]);
+});
+
+prueba("si el mueble no tiene la medida pedida en la web, no sale (no se adivina)", () => {
+  const salida = buscarEnEstancia(CATALOGO, { tipos: ["armario"], medidas: { alto_cm: 200 } });
+  igual(salida.total, 0);
+  igual(salida.porMedida, 1);
 });
 
 prueba("el precio máximo deja fuera lo caro y lo sin precio, y lo cuenta", () => {
-  const salida = buscarEnEstancia(CATALOGO, REGLAS, { tipos: ["comoda"], pared: pared(100), precioMax: 200 });
-  igual(salida.resultados.map((r) => r.producto.id).sort(), ["COM-01", "COM-03"]);
+  const salida = buscarEnEstancia(CATALOGO, { tipos: ["comoda"], medidas: medidas(100), precioMax: 200 });
+  igual(solo(salida).sort(), ["COM-01", "COM-03"]);
   igual(salida.porPrecio, 2);
 });
 
 prueba("el color deja fuera lo que no es de ese color, y lo cuenta", () => {
-  const salida = buscarEnEstancia(CATALOGO, REGLAS, { tipos: ["comoda"], pared: pared(100), colores: ["blanco"] });
-  igual(salida.resultados.map((r) => r.producto.id).sort(), ["COM-01", "COM-02", "COM-05"]);
+  const salida = buscarEnEstancia(CATALOGO, { tipos: ["comoda"], medidas: medidas(100), colores: ["blanco"] });
+  igual(solo(salida).sort(), ["COM-01", "COM-02", "COM-05"]);
   igual(salida.porColor, 1);
 });
 
-prueba("primero el que queda mejor de proporción", () => {
-  const { resultados } = buscarEnEstancia(CATALOGO, REGLAS, { tipos: ["comoda"], pared: pared(100) });
-  igual(resultados[0].producto.id, "COM-01");
-  igual(resultados[0].etiqueta, "Encaja perfecto");
-  igual(resultados.at(-1).etiqueta, "Justo");
-});
-
-prueba("sin ancho no hay resultados", () => {
-  igual(buscarEnEstancia(CATALOGO, REGLAS, { tipos: ["comoda"], pared: pared(null) }).total, 0);
+prueba("«Todos los muebles» junta los tipos de la estancia", () => {
+  igual(buscarEnEstancia(CATALOGO, validarPlan({}, DORMITORIO).busqueda).total, 6);
 });
 
 grupo("Planifica · búsquedas guardadas");
 
-const busqueda = validarPlan({ grupo: "comodas", ancho: "120", precio: "300", colores: ["blanco"] }, DORMITORIO).busqueda;
+const busqueda = validarPlan({ grupo: "comodas", ancho: "120", fondo: "45", precio: "300", colores: ["blanco"] }, DORMITORIO).busqueda;
 
-prueba("el nombre resume la búsqueda", () => {
-  igual(nombreBusqueda(busqueda, DORMITORIO, { blanco: "Blanco" }), "Dormitorio · Cómodas · 120 cm · hasta 300 € · Blanco");
+prueba("el nombre resume el filtro completo", () => {
+  igual(nombreBusqueda(paraGuardar(busqueda), DORMITORIO, { blanco: "Blanco" }),
+    "Dormitorio · Cómodas · hasta 120 cm de ancho, 45 de fondo · hasta 300 € · Blanco");
+  igual(nombreBusqueda(paraGuardar(validarPlan({}, DORMITORIO).busqueda), DORMITORIO), "Dormitorio · Todos los muebles");
 });
 
-prueba("solo se guarda la búsqueda, nada personal", () => {
+prueba("solo se guarda el filtro, nada personal", () => {
   igual(Object.keys(paraGuardar(busqueda, new Date("2026-11-14"))).sort(),
     ["alto", "ancho", "colores", "estancia", "fecha", "fondo", "grupo", "precio"]);
 });
@@ -136,13 +156,21 @@ prueba(`se recuerdan como mucho ${MAX_BUSQUEDAS} y se olvida la más antigua`, (
   igual(quitarBusqueda(lista, 0).length, MAX_BUSQUEDAS - 1);
 });
 
-prueba("el enlace para repetirla lleva estancia, mueble, medidas, precio y colores", () => {
+prueba("el enlace para repetirla lleva todo el filtro y se busca al abrir", () => {
   const enlace = new URL(enlaceBusqueda(paraGuardar(busqueda)), "https://ejemplo.test/");
   igual(enlace.pathname, "/espacio.html");
+  igual(enlace.searchParams.get("b"), "1");
   igual(enlace.searchParams.get("g"), "comodas");
   igual(enlace.searchParams.get("a"), "120");
+  igual(enlace.searchParams.get("f"), "45");
+  igual(enlace.searchParams.has("h"), false);
   igual(enlace.searchParams.get("p"), "300");
   igual(enlace.searchParams.get("c"), "blanco");
+});
+
+prueba("una búsqueda guardada con colores antiguos (marrón, rosa) sigue valiendo", () => {
+  const enlace = new URL(enlaceBusqueda({ estancia: "salon", grupo: null, colores: ["marron", "rosa"] }), "https://ejemplo.test/");
+  igual(enlace.searchParams.get("c"), "nogal.vivos");
 });
 
 grupo("Planifica · estancias de verdad");

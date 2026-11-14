@@ -142,46 +142,60 @@
   text-decoration: none;
 }
 
-/* ---------- Navegación inferior (siempre a mano del pulgar) ---------- */
-.navegacion {
-  position: fixed;
-  inset: auto 0 0 0;
-  z-index: 10;
-  min-height: var(--alto-nav);
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-  background: var(--fondo);
-  border-top: 1px solid var(--borde);
+/* ---------- Navegación en la cabecera (web, no app) ----------
+   En el móvil se oculta y los enlaces están en el menú ☰.
+   Desde 60rem (ordenador) se ven en horizontal y el ☰ desaparece. */
+.cabecera__nav {
+  display: none;
 }
 
-.navegacion__lista {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  max-width: 34rem;
-  margin: 0 auto;
-  padding: 0;
-  list-style: none;
+@media (min-width: 60rem) {
+  .cabecera__dentro {
+    max-width: 72rem;
+  }
+
+  .menu-boton {
+    display: none;
+  }
+
+  .cabecera__nav {
+    display: block;
+  }
+
+  .cabecera__nav ul {
+    display: flex;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .cabecera__nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 3rem;
+    padding: 0 0.85rem;
+    border-bottom: 3px solid transparent;
+    color: var(--titulo);
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  .cabecera__nav a:hover {
+    color: var(--marca);
+  }
+
+  .cabecera__nav a[aria-current="page"] {
+    color: var(--marca);
+    border-bottom-color: var(--marca);
+  }
 }
 
-.navegacion__enlace {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.1rem;
-  min-height: var(--alto-nav);
-  padding: 0.35rem 0.1rem;
-  border-top: 3px solid transparent;
-  color: var(--titulo);
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.15;
-  text-align: center;
-  text-decoration: none;
-}
-
-.navegacion__enlace[aria-current="page"] {
-  color: var(--marca);
-  border-top-color: var(--marca);
+.menu__enlace[aria-current="page"]:not(.menu__enlace--destacado) {
+  border-left: 6px solid var(--marca);
 }
 
 .icono {
@@ -199,7 +213,7 @@
 .whatsapp {
   position: fixed;
   right: max(1rem, calc(50% - 16rem));
-  bottom: calc(var(--alto-nav) + 0.9rem + env(safe-area-inset-bottom, 0px));
+  bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
   z-index: 11;
   display: grid;
   place-items: center;
@@ -1503,4 +1517,305 @@ ol.piezas .pieza__nombre::before {
 .pieza--sin {
   cursor: default;
   background: var(--gris-claro);
+}
+
+/* ---------- Filtro de la estancia (14/11/2026) ---------- */
+.medidas-fila {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.medidas-fila .campo {
+  margin: 0;
+}
+
+.paso-titulo .contador {
+  margin-right: 0.5rem;
+}
+
+/* Barra del precio: pulgar grande (fácil con el dedo) y tramo elegido en magenta. */
+.precio-valor {
+  display: block;
+  margin: 0.25rem 0 0.5rem;
+  color: var(--titulo);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.barra {
+  --relleno: 100%;
+  width: 100%;
+  height: 3rem;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.barra::-webkit-slider-runnable-track {
+  height: 0.5rem;
+  background: linear-gradient(90deg, var(--marca) var(--relleno), var(--borde-campo) var(--relleno));
+}
+
+.barra::-moz-range-track {
+  height: 0.5rem;
+  background: var(--borde-campo);
+}
+
+.barra::-moz-range-progress {
+  height: 0.5rem;
+  background: var(--marca);
+}
+
+.barra::-webkit-slider-thumb {
+  width: 2rem;
+  height: 2rem;
+  margin-top: -0.75rem;
+  background: var(--fondo);
+  border: 3px solid var(--marca);
+  border-radius: 50%;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.barra::-moz-range-thumb {
+  width: 1.6rem;
+  height: 1.6rem;
+  background: var(--fondo);
+  border: 3px solid var(--marca);
+  border-radius: 50%;
+}
+
+.barra:focus-visible {
+  outline: 3px solid var(--foco);
+  outline-offset: 4px;
+}
+
+.barra__extremos {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+}
+
+/* Desplegable de colores: se abre como un selector y deja marcar varios. */
+.desplegable {
+  position: relative;
+}
+
+.desplegable__boton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-height: 3rem;
+  padding: 0.5rem 0.85rem;
+  background: var(--fondo);
+  border: 1px solid var(--borde-campo);
+  color: var(--titulo);
+  cursor: pointer;
+  list-style: none;
+}
+
+.desplegable__boton::-webkit-details-marker {
+  display: none;
+}
+
+.desplegable__boton::after {
+  content: "";
+  flex: none;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg) translateY(-25%);
+}
+
+.desplegable[open] .desplegable__boton::after {
+  transform: rotate(-135deg);
+}
+
+.desplegable__boton:focus-visible {
+  outline: 3px solid var(--foco);
+  outline-offset: 2px;
+}
+
+.desplegable__panel {
+  margin: 0;
+  padding: 0.25rem 0;
+  border: 1px solid var(--borde-campo);
+  border-top: 0;
+  background: var(--fondo);
+}
+
+.casilla-color {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 3rem;
+  padding: 0.25rem 0.85rem;
+  color: var(--titulo);
+  cursor: pointer;
+}
+
+.casilla-color:hover {
+  background: var(--gris-claro);
+}
+
+.casilla-color input {
+  width: 1.4rem;
+  height: 1.4rem;
+  margin: 0;
+  accent-color: var(--marca);
+}
+
+.casilla-color__muestra {
+  flex: none;
+  width: 1.6rem;
+  height: 1.6rem;
+  border: 1px solid var(--borde-campo);
+  border-radius: 50%;
+}
+
+.boton-enlace {
+  min-height: 3rem;
+  margin: 0 0.85rem;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--marca);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ---------- Mi plano 3D (14/11/2026) ---------- */
+.pagina--ancha {
+  max-width: 60rem;
+}
+
+.medidas-fila--dos {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.planos {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0 0 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 40rem) {
+  .planos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.plano-guardado {
+  padding: 0.85rem 1rem;
+  background: var(--gris-claro);
+  border: 1px solid var(--borde);
+}
+
+.plano-guardado--abierto {
+  border-left: 6px solid var(--marca);
+}
+
+.plano-guardado__nombre {
+  margin: 0;
+  color: var(--titulo);
+  font-weight: 700;
+}
+
+.plano-guardado__marca {
+  color: var(--texto);
+  font-weight: 400;
+}
+
+.plano-guardado__datos {
+  margin: 0 0 0.5rem;
+}
+
+/* La caja del 3D: alta en el móvil y apaisada en el ordenador. */
+.escena {
+  position: relative;
+  width: 100%;
+  height: min(70vh, 30rem);
+  margin: 0.75rem 0;
+  overflow: hidden;
+  background: #f3f1ee;
+  border: 1px solid var(--borde);
+}
+
+@media (min-width: 60rem) {
+  .escena {
+    height: 34rem;
+  }
+}
+
+.escena--sin {
+  display: grid;
+  place-items: center;
+  height: auto;
+  padding: 1rem;
+}
+
+.escena__lienzo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none; /* el dedo mueve muebles y cámara, no la página */
+  cursor: grab;
+}
+
+.escena__lienzo:active {
+  cursor: grabbing;
+}
+
+.escena__botones {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+@media (min-width: 40rem) {
+  .escena__botones {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+.escena__botones .boton[aria-pressed="true"] {
+  background: var(--marca);
+  border-color: var(--marca);
+  color: var(--sobre-marca);
+}
+
+.elegido {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  gap: 0.85rem;
+  margin: 0.75rem 0;
+  padding: 0.85rem;
+  background: var(--gris-claro);
+  border-left: 6px solid var(--marca);
+}
+
+.elegido p {
+  margin: 0 0 0.25rem;
+}
+
+.elegido__foto img,
+.elegido__foto .marcador-foto {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+  background: var(--fondo);
+}
+
+.elegido__nombre {
+  color: var(--titulo);
+  font-weight: 700;
 }

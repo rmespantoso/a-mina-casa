@@ -18,79 +18,73 @@
     <p><a class="enlace-volver" href="index.html">← Otras estancias</a></p>
     <div class="portada-estancia" id="portada"></div>
     <h1 id="titulo">Planifica tu espacio</h1>
-    <p class="entrada">Dinos qué buscas y cuánto mide tu hueco. Te enseñamos solo lo que cabe.</p>
+    <p class="entrada">Dinos qué buscas, qué medidas quieres, tu precio y tus colores. Te enseñamos los muebles que encajan.</p>
 
     <form class="formulario" id="formulario-plan" novalidate hidden>
-      <!-- Paso 1: qué mueble -->
-      <fieldset class="grupo-campos" data-campo="grupo">
-        <legend class="paso-titulo"><span class="contador" aria-hidden="true">1</span>¿Qué buscas?</legend>
-        <div class="opciones" id="grupos"></div>
-        <div class="campo__error" id="error-plan-grupo" hidden></div>
-      </fieldset>
+      <p class="nota">Todo es opcional: rellena solo lo que te importe y pulsa «Ver qué me cabe».</p>
 
-      <!-- Paso 2: medidas del hueco -->
+      <!-- 1: qué mueble (desplegable; «Todos los muebles» si no elige) -->
+      <div class="campo">
+        <label class="campo__etiqueta paso-titulo" for="plan-grupo"><span class="contador" aria-hidden="true">1</span>¿Qué buscas?</label>
+        <div class="campo__caja">
+          <select class="campo__entrada" id="plan-grupo" name="grupo"></select>
+        </div>
+      </div>
+
+      <!-- 2: medidas del mueble (como mucho) -->
       <fieldset class="grupo-campos">
-        <legend class="paso-titulo"><span class="contador" aria-hidden="true">2</span>Tu hueco</legend>
-
-        <div class="campo" id="zona-hueco" hidden>
-          <label class="campo__etiqueta" for="hueco-guardado">Usar una de mis medidas <span class="campo__opcional">(opcional)</span></label>
-          <span class="campo__ayuda" id="ayuda-hueco-guardado">Rellena las medidas por ti. Luego puedes cambiarlas.</span>
-          <div class="campo__caja">
-            <select class="campo__entrada" id="hueco-guardado" aria-describedby="ayuda-hueco-guardado"></select>
+        <legend class="paso-titulo"><span class="contador" aria-hidden="true">2</span>Medidas</legend>
+        <p class="campo__ayuda" id="ayuda-medidas">Las medidas máximas que quieres que tenga el mueble, en centímetros.</p>
+        <div class="medidas-fila">
+          <div class="campo" data-campo="ancho">
+            <label class="campo__etiqueta" for="plan-ancho">Ancho</label>
+            <div class="campo__caja">
+              <input class="campo__entrada" id="plan-ancho" name="ancho" type="text" inputmode="decimal" autocomplete="off"
+                aria-describedby="ayuda-medidas error-plan-ancho">
+              <span class="campo__unidad" aria-hidden="true">cm</span>
+            </div>
+            <div class="campo__error" id="error-plan-ancho" hidden></div>
+          </div>
+          <div class="campo" data-campo="fondo">
+            <label class="campo__etiqueta" for="plan-fondo">Fondo</label>
+            <div class="campo__caja">
+              <input class="campo__entrada" id="plan-fondo" name="fondo" type="text" inputmode="decimal" autocomplete="off"
+                aria-describedby="ayuda-medidas error-plan-fondo">
+              <span class="campo__unidad" aria-hidden="true">cm</span>
+            </div>
+            <div class="campo__error" id="error-plan-fondo" hidden></div>
+          </div>
+          <div class="campo" data-campo="alto">
+            <label class="campo__etiqueta" for="plan-alto">Alto</label>
+            <div class="campo__caja">
+              <input class="campo__entrada" id="plan-alto" name="alto" type="text" inputmode="decimal" autocomplete="off"
+                aria-describedby="ayuda-medidas error-plan-alto">
+              <span class="campo__unidad" aria-hidden="true">cm</span>
+            </div>
+            <div class="campo__error" id="error-plan-alto" hidden></div>
           </div>
         </div>
-
-        <div class="campo" data-campo="ancho">
-          <label class="campo__etiqueta" for="plan-ancho">Ancho del hueco</label>
-          <span class="campo__ayuda" id="ayuda-plan-ancho">De lado a lado de la pared, en centímetros. Es obligatorio.</span>
-          <div class="campo__caja">
-            <input class="campo__entrada" id="plan-ancho" name="ancho" type="text" inputmode="decimal" autocomplete="off"
-              aria-describedby="ayuda-plan-ancho error-plan-ancho">
-            <span class="campo__unidad" aria-hidden="true">cm</span>
-          </div>
-          <div class="campo__error" id="error-plan-ancho" hidden></div>
-        </div>
-
-        <div class="campo" data-campo="fondo">
-          <label class="campo__etiqueta" for="plan-fondo">Fondo <span class="campo__opcional">(opcional)</span></label>
-          <span class="campo__ayuda" id="ayuda-plan-fondo">Lo que puede salir el mueble desde la pared, en centímetros.</span>
-          <div class="campo__caja">
-            <input class="campo__entrada" id="plan-fondo" name="fondo" type="text" inputmode="decimal" autocomplete="off"
-              aria-describedby="ayuda-plan-fondo error-plan-fondo">
-            <span class="campo__unidad" aria-hidden="true">cm</span>
-          </div>
-          <div class="campo__error" id="error-plan-fondo" hidden></div>
-        </div>
-
-        <div class="campo" data-campo="alto">
-          <label class="campo__etiqueta" for="plan-alto">Alto <span class="campo__opcional">(opcional)</span></label>
-          <span class="campo__ayuda" id="ayuda-plan-alto">Hasta el techo, una ventana o una balda, en centímetros.</span>
-          <div class="campo__caja">
-            <input class="campo__entrada" id="plan-alto" name="alto" type="text" inputmode="decimal" autocomplete="off"
-              aria-describedby="ayuda-plan-alto error-plan-alto">
-            <span class="campo__unidad" aria-hidden="true">cm</span>
-          </div>
-          <div class="campo__error" id="error-plan-alto" hidden></div>
-        </div>
-        <p class="nota">¿No sabes cómo medir? <a href="huecos.html#guia">Mira la guía en 2 pasos</a>.</p>
       </fieldset>
 
-      <!-- Paso 3: precio y color -->
-      <fieldset class="grupo-campos">
-        <legend class="paso-titulo"><span class="contador" aria-hidden="true">3</span>Afina tu búsqueda <span class="campo__opcional">(opcional)</span></legend>
+      <!-- 3: precio (barra de 0 a 2.000 €; al final, sin límite) -->
+      <div class="campo">
+        <label class="campo__etiqueta paso-titulo" for="plan-precio"><span class="contador" aria-hidden="true">3</span>Precio máximo</label>
+        <output class="precio-valor" id="precio-valor" for="plan-precio">Sin límite</output>
+        <input class="barra" id="plan-precio" name="precio" type="range" min="0" max="2000" step="25" value="2000">
+        <div class="barra__extremos" aria-hidden="true"><span>0 €</span><span>2.000 €</span></div>
+      </div>
 
-        <div class="campo">
-          <label class="campo__etiqueta" for="plan-precio">Precio máximo</label>
-          <div class="campo__caja">
-            <select class="campo__entrada" id="plan-precio" name="precio"></select>
-          </div>
-        </div>
-
-        <fieldset class="grupo-campos">
-          <legend>Color <span class="campo__opcional">(puedes elegir varios)</span></legend>
-          <div class="opciones" id="colores"></div>
-        </fieldset>
-      </fieldset>
+      <!-- 4: color (desplegable con casillas: varios o ninguno) -->
+      <div class="campo">
+        <p class="campo__etiqueta paso-titulo" id="titulo-colores"><span class="contador" aria-hidden="true">4</span>Color</p>
+        <details class="desplegable" id="desplegable-colores">
+          <summary class="desplegable__boton" aria-describedby="titulo-colores"><span id="resumen-colores">Todos los colores</span></summary>
+          <fieldset class="desplegable__panel">
+            <legend class="solo-lector">Colores (puedes elegir varios o ninguno)</legend>
+            <div id="colores"></div>
+          </fieldset>
+        </details>
+      </div>
 
       <div class="acciones">
         <button class="boton boton--primario" type="submit">Ver qué me cabe</button>
@@ -102,7 +96,6 @@
   </main>
 
   <footer id="pie" class="pie"></footer>
-  <nav id="navegacion" class="navegacion" aria-label="Secciones"></nav>
 
   <script type="module" src="js/pantallas/espacio.js"></script>
 </body>

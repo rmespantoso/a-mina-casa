@@ -11,7 +11,7 @@ const CLAVE = "busquedas";
 /** Las búsquedas guardadas, la más reciente primero. */
 export function leerBusquedas() {
   const lista = leer(CLAVE, []);
-  return Array.isArray(lista) ? lista.filter((busqueda) => busqueda && busqueda.estancia && busqueda.grupo) : [];
+  return Array.isArray(lista) ? lista.filter((busqueda) => busqueda && typeof busqueda.estancia === "string") : []; // grupo null = «Todos los muebles»
 }
 
 /** Guarda una búsqueda. Devuelve { ok, repetida, total }. */

@@ -1,16 +1,39 @@
-// Plano de la habitación (vista desde arriba, a escala). Es lógica pura (sin pantalla).
+// Planos de la habitación (Mi plano 3D). Es lógica pura (sin pantalla).
 //
-// La habitación es un rectángulo de ancho × largo en centímetros. Cada mueble es otro
-// rectángulo con su ancho y su fondo REALES (los de products.json): nunca se inventa
+// La habitación es un rectángulo de ancho × largo en centímetros. Cada mueble es una
+// caja con su ancho, su fondo y su alto REALES (los de products.json): nunca se inventa
 // una medida. Si a un mueble le falta el ancho o el fondo, no se puede poner en el plano.
-// El origen (0, 0) es la esquina de arriba a la izquierda; x va hacia la derecha e y hacia abajo.
+// Si solo le falta el alto, se dibuja con una altura aproximada de su tipo y se avisa.
+// El origen (0, 0) es la esquina del fondo a la izquierda; x va hacia la derecha e y hacia
+// la puerta. La pantalla 3D convierte esto a metros.
+//
+// El cliente puede guardar varios planos con nombre (hasta MAX_PLANOS), cada uno con
+// su habitación y la posición de cada mueble (desde el 14/11/2026).
+
+import { coloresDe } from "./colores.js";
 
 export const PASO_CM = 5;        // los muebles se mueven de 5 en 5 cm
 export const MAX_PIEZAS = 20;
+export const MAX_PLANOS = 10;
+export const LARGO_NOMBRE = 40;
+
+/** Alturas aproximadas para dibujar un mueble cuya web no da el alto (solo para el dibujo). */
+export const ALTO_APROXIMADO = {
+  somier: 30, cama_canape: 35, cabecero: 120, sofa: 85, sofa_cama: 85, chaise_longue: 85, butaca: 90,
+  silla: 85, silla_oficina: 100, banqueta: 45, mesa_centro: 45, mesa_comedor: 76, mesa_cocina: 76, escritorio: 75,
+  consola: 80, mesita_noche: 55, comoda: 85, aparador: 85, mueble_tv: 50, vitrina: 180, estanteria: 180, armario: 200,
+  zapatero: 100, recibidor: 85, mueble_cocina: 90, mueble_bano: 60,
+};
 
 /** Un plano nuevo y vacío. */
-export function crearPlano(ancho, largo) {
-  return { habitacion: { ancho_cm: ancho, largo_cm: largo }, piezas: [] };
+export function crearPlano(ancho, largo, nombre = "", id = "") {
+  return { id, nombre: nombreValido(nombre), habitacion: { ancho_cm: ancho, largo_cm: largo }, piezas: [] };
+}
+
+/** Nombre limpio para un plano: sin espacios de más, corto y nunca vacío. */
+export function nombreValido(nombre) {
+  const limpio = String(nombre ?? "").replace(/\s+/g, " ").trim().slice(0, LARGO_NOMBRE);
+  return limpio || "Mi habitación";
 }
 
 /** ¿Se puede poner este mueble en el plano? (necesita ancho y fondo) */
@@ -54,6 +77,7 @@ function sitioLibre(plano, pieza) {
 
 /**
  * Añade un mueble al plano en el primer sitio libre.
+ * Guarda también su tipo, su alto y su color (para dibujarlo en 3D) y su foto y precio.
  * Devuelve { ok, plano, motivo }: motivo "sin-medidas" o "lleno" si no se ha podido.
  */
 export function ponerPieza(plano, producto, idNuevo) {
@@ -63,14 +87,23 @@ export function ponerPieza(plano, producto, idNuevo) {
     id: idNuevo,
     producto: producto.id,
     nombre: producto.nombre,
+    tipo: producto.tipo ?? "",
     ancho_cm: producto.ancho_cm,
     fondo_cm: producto.fondo_cm,
+    alto_cm: producto.alto_cm > 0 ? producto.alto_cm : null,
+    color: coloresDe(producto)[0] ?? null,
     giro: 0,
     x: 0,
     y: 0,
   };
   const sitio = sitioLibre(plano, pieza);
   return { ok: true, plano: { ...plano, piezas: [...plano.piezas, { ...pieza, ...sitio }] }, motivo: null };
+}
+
+/** Alto con el que se dibuja la pieza: el real, o el aproximado de su tipo (y se dice). */
+export function altoDibujo(pieza) {
+  if (pieza.alto_cm > 0) return { alto: pieza.alto_cm, aproximado: false };
+  return { alto: ALTO_APROXIMADO[pieza.tipo] ?? 80, aproximado: true };
 }
 
 /** Mueve una pieza a (x, y), redondeando a 5 cm y sin salirse de la habitación. */
@@ -96,12 +129,12 @@ export function quitarPieza(plano, id) {
 /** Cambia el tamaño de la habitación y recoloca las piezas para que no se salgan. */
 export function cambiarHabitacion(plano, ancho, largo) {
   const habitacion = { ancho_cm: ancho, largo_cm: largo };
-  return { habitacion, piezas: plano.piezas.map((pieza) => dentro(pieza, habitacion)) };
+  return { ...plano, habitacion, piezas: plano.piezas.map((pieza) => dentro(pieza, habitacion)) };
 }
 
 /**
  * Lo que hay que avisar al cliente:
- * - noCaben: piezas más grandes que la habitación (ni girándolas, o tal como están);
+ * - noCaben: piezas más grandes que la habitación (tal como están);
  * - pisadas: parejas de piezas que se pisan.
  */
 export function problemas(plano) {
@@ -126,6 +159,8 @@ export function sueloLibre(plano) {
   return Math.max(0, Math.round((total - ocupado) / 1000) / 10);
 }
 
+const texto = (valor, largo) => (typeof valor === "string" ? valor.slice(0, largo) : "");
+
 /** Revisa un plano leído del navegador: si está estropeado, devuelve null. */
 export function planoValido(plano) {
   const numero = (valor) => typeof valor === "number" && valor > 0 && valor <= 3000;
@@ -133,5 +168,56 @@ export function planoValido(plano) {
   const piezas = Array.isArray(plano.piezas) ? plano.piezas.filter((pieza) =>
     pieza && typeof pieza.id === "string" && typeof pieza.producto === "string" &&
     numero(pieza.ancho_cm) && numero(pieza.fondo_cm) && typeof pieza.x === "number" && typeof pieza.y === "number") : [];
-  return { habitacion: plano.habitacion, piezas: piezas.slice(0, MAX_PIEZAS).map((pieza) => ({ ...pieza, giro: pieza.giro === 90 ? 90 : 0 })) };
+  return {
+    id: texto(plano.id, 40),
+    nombre: nombreValido(plano.nombre),
+    fecha: texto(plano.fecha, 10),
+    habitacion: { ancho_cm: plano.habitacion.ancho_cm, largo_cm: plano.habitacion.largo_cm },
+    piezas: piezas.slice(0, MAX_PIEZAS).map((pieza) => ({
+      ...pieza,
+      nombre: texto(pieza.nombre, 200),
+      tipo: texto(pieza.tipo, 40),
+      alto_cm: numero(pieza.alto_cm) ? pieza.alto_cm : null,
+      color: texto(pieza.color, 20) || null,
+      giro: pieza.giro === 90 ? 90 : 0,
+    })),
+  };
+}
+
+// ---------- Varios planos guardados ----------
+// La colección es { activo: id del plano abierto, planos: [plano, plano…] }.
+
+/** Revisa la colección leída del navegador. Acepta también el plano único de antes. */
+export function coleccionValida(datos, planoAntiguo = null) {
+  let planos = Array.isArray(datos?.planos) ? datos.planos.map(planoValido).filter((plano) => plano && plano.id) : [];
+  if (planos.length === 0) {
+    const antiguo = planoValido(planoAntiguo);
+    if (antiguo) planos = [{ ...antiguo, id: antiguo.id || "plano-1" }];
+  }
+  planos = planos.slice(0, MAX_PLANOS);
+  const activo = planos.some((plano) => plano.id === datos?.activo) ? datos.activo : planos[0]?.id ?? null;
+  return { activo, planos };
+}
+
+/** Guarda (o actualiza) un plano en la colección. Devuelve { ok, coleccion, motivo }. */
+export function ponerPlano(coleccion, plano, ahora = new Date()) {
+  const fechado = { ...plano, nombre: nombreValido(plano.nombre), fecha: ahora.toISOString().slice(0, 10) };
+  const existe = coleccion.planos.some((actual) => actual.id === plano.id);
+  if (!existe && coleccion.planos.length >= MAX_PLANOS) return { ok: false, coleccion, motivo: "lleno" };
+  const planos = existe
+    ? coleccion.planos.map((actual) => (actual.id === plano.id ? fechado : actual))
+    : [...coleccion.planos, fechado];
+  return { ok: true, coleccion: { activo: plano.id, planos }, motivo: null };
+}
+
+/** Borra un plano. Si era el abierto, se abre el primero que quede (o ninguno). */
+export function quitarPlano(coleccion, id) {
+  const planos = coleccion.planos.filter((plano) => plano.id !== id);
+  const activo = coleccion.activo === id ? planos[0]?.id ?? null : coleccion.activo;
+  return { activo, planos };
+}
+
+/** El plano abierto, o null. */
+export function planoActivo(coleccion) {
+  return coleccion.planos.find((plano) => plano.id === coleccion.activo) ?? null;
 }

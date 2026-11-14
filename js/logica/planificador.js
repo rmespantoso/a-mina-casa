@@ -1,144 +1,184 @@
-// «Planifica tu espacio»: la búsqueda dentro de una estancia. Es lógica pura (sin pantalla).
+// «Planifica tu espacio»: el filtro dentro de una estancia. Es lógica pura (sin pantalla).
 //
-// El cliente elige una estancia (dormitorio), un grupo de muebles (canapés), las medidas
-// de su hueco y, si quiere, un precio máximo y unos colores. Se aplican las mismas reglas
-// que en el recomendador: solo entra lo que cabe (verde o ámbar), nunca lo que no cabe,
-// y se ordena por proporción con la pared.
+// Desde el 14/11/2026 es un FILTRO de recomendación, no un hueco: el cliente dice, si
+// quiere, qué tipo de mueble busca, las medidas que quiere que tenga el mueble (como
+// mucho), un precio máximo y unos colores. Todo es opcional. Salen los muebles de la
+// estancia que cumplen todo lo que haya elegido.
+//
+// Las medidas se leen como «como mucho»: si pide 160 cm de ancho, salen los de 160 o
+// menos, primero los que más se acercan a lo que pidió. Si el mueble no tiene esa
+// medida en la web, no sale (no se adivina). El semáforo de los huecos (QR) no cambia.
 
-import { evaluarEncaje } from "./semaforo.js";
 import { leerMedida } from "./huecos.js";
 import { coloresDe, limpiarColores } from "./colores.js";
 
-/** Precios máximos que se ofrecen (en euros). null = sin límite. */
-export const PRECIOS = [null, 100, 200, 300, 500, 750, 1000, 1500];
+/** Barra del precio: de 0 a PRECIO_TOPE euros, de PASO_PRECIO en PASO_PRECIO. El tope = sin límite. */
+export const PRECIO_TOPE = 2000;
+export const PASO_PRECIO = 25;
 
 /** Cuántas búsquedas guardadas se recuerdan como mucho. */
 export const MAX_BUSQUEDAS = 10;
+
+/** Cuántos muebles se enseñan de cada vez (luego, «Ver más»). */
+export const POR_PAGINA = 12;
+
+const MEDIDAS = ["ancho", "fondo", "alto"];
 
 /** Busca una estancia por su id en la lista de data/estancias.json. */
 export function estanciaPorId(estancias, id) {
   return estancias.find((estancia) => estancia.id === id) ?? null;
 }
 
+/** Todos los tipos de mueble de una estancia, sin repetir. */
+export function tiposDeEstancia(estancia) {
+  return [...new Set((estancia?.grupos ?? []).flatMap((grupo) => grupo.tipos))];
+}
+
+/** Lee el precio de la barra. Fuera de rango, sin número o en el tope: sin límite (null). */
+export function leerPrecio(valor) {
+  if (valor === "" || valor == null) return null;
+  const numero = Number(valor);
+  if (!Number.isFinite(numero) || numero < 0 || numero >= PRECIO_TOPE) return null;
+  return Math.round(numero / PASO_PRECIO) * PASO_PRECIO;
+}
+
 /**
- * Revisa el formulario de una estancia. Solo el ancho del hueco es obligatorio.
- * Devuelve { ok, busqueda, errores, sugerencias }.
+ * Revisa el formulario de una estancia. Nada es obligatorio: solo se avisa si una
+ * medida está mal escrita. Devuelve { ok, busqueda, errores, sugerencias }.
  */
 export function validarPlan(datos = {}, estancia) {
   const errores = {};
   const sugerencias = {};
-  const pared = {};
+  const medidas = {};
 
-  const grupo = estancia?.grupos.find((actual) => actual.id === datos.grupo);
-  if (!grupo) errores.grupo = "Elige qué mueble buscas.";
+  const grupo = estancia?.grupos.find((actual) => actual.id === datos.grupo) ?? null;
 
-  for (const nombre of ["ancho", "fondo", "alto"]) {
+  for (const nombre of MEDIDAS) {
     const leida = leerMedida(datos[nombre]);
     if (leida.estado === "ok") {
-      pared[`${nombre}_cm`] = leida.valor;
+      medidas[`${nombre}_cm`] = leida.valor;
     } else if (leida.estado === "vacia") {
-      pared[`${nombre}_cm`] = null;
-      if (nombre === "ancho") errores.ancho = "Falta el ancho del hueco. Es la única medida obligatoria.";
+      medidas[`${nombre}_cm`] = null;
     } else {
       errores[nombre] = leida.mensaje;
       if (leida.estado === "metros") sugerencias[nombre] = leida.sugerencia;
     }
   }
 
-  const precio = Number(datos.precio);
-  const precioMax = PRECIOS.includes(precio) ? precio : null;
-  const colores = limpiarColores(datos.colores);
-
-  const ok = Object.keys(errores).length === 0;
-  const busqueda = ok ? { estancia: estancia.id, grupo: grupo.id, tipos: grupo.tipos, pared, precioMax, colores } : null;
+  const ok = Object.keys(errores).length === 0 && Boolean(estancia);
+  const busqueda = ok
+    ? {
+        estancia: estancia.id,
+        grupo: grupo?.id ?? null,
+        tipos: grupo ? grupo.tipos : tiposDeEstancia(estancia),
+        medidas,
+        precioMax: leerPrecio(datos.precio),
+        colores: limpiarColores(datos.colores),
+      }
+    : null;
   return { ok, busqueda, errores, sugerencias };
 }
 
-// Lo lejos que queda una ocupación del rango ideal (0 si está dentro).
-function fueraDelRango(ocupacion, regla) {
-  if (ocupacion < regla.ocupacion_min) return regla.ocupacion_min - ocupacion;
-  if (ocupacion > regla.ocupacion_max) return ocupacion - regla.ocupacion_max;
-  return 0;
+// ¿Cumple el mueble las medidas pedidas (como mucho)? Sin la medida en la web, no.
+function cumpleMedidas(producto, medidas) {
+  return MEDIDAS.every((nombre) => {
+    const pedida = medidas[`${nombre}_cm`];
+    if (pedida == null) return true;
+    const suya = producto[`${nombre}_cm`];
+    return suya != null && suya <= pedida;
+  });
+}
+
+// Lo lejos que queda el mueble de lo que pidió el cliente (0 = justo lo pedido).
+function distancia(producto, medidas) {
+  let suma = 0;
+  for (const nombre of MEDIDAS) {
+    const pedida = medidas[`${nombre}_cm`];
+    if (pedida) suma += (pedida - producto[`${nombre}_cm`]) / pedida;
+  }
+  return suma;
 }
 
 /**
- * Busca los muebles de un grupo que caben en el hueco y cumplen precio y color.
- * Orden: verdes dentro de su rango (el más centrado delante), verdes fuera de rango
- * (el que menos se aleja delante) y al final los ámbar. Cada mueble se compara con
- * el rango de SU tipo en reglas_proporcion.json.
+ * Busca los muebles de la estancia que cumplen el filtro.
+ * Orden: si hay medidas, primero los que más se acercan a lo pedido; si no, de menor a
+ * mayor precio (los que no tienen precio, al final).
  *
- * Devuelve { resultados, total, caben, porPrecio, porColor }:
- * - resultados: como mucho `max_resultados`;
- * - total: cuántos cumplen todo;
- * - caben: cuántos caben sin mirar precio ni color;
- * - porPrecio / porColor: cuántos de los que caben se quedan fuera por cada filtro.
+ * Devuelve { resultados, total, delTipo, porMedida, porPrecio, porColor }:
+ * - resultados: todos los que cumplen, ya ordenados;
+ * - delTipo: cuántos muebles hay de ese tipo en la estancia, sin filtrar;
+ * - porMedida / porPrecio / porColor: cuántos se quedan fuera en cada paso, por orden.
  */
-export function buscarEnEstancia(productos, reglas, { tipos, pared, precioMax = null, colores = [] }) {
-  if (!pared || pared.ancho_cm == null || !Array.isArray(tipos)) {
-    return { resultados: [], total: 0, caben: 0, porPrecio: 0, porColor: 0 };
-  }
+export function buscarEnEstancia(productos, { tipos, medidas = {}, precioMax = null, colores = [] }) {
+  const vacio = { resultados: [], total: 0, delTipo: 0, porMedida: 0, porPrecio: 0, porColor: 0 };
+  if (!Array.isArray(tipos) || tipos.length === 0) return vacio;
 
-  const queCaben = productos
-    .filter((producto) => tipos.includes(producto.tipo) && reglas.tipos[producto.tipo] && producto.ancho_cm != null)
-    .map((producto) => {
-      const regla = reglas.tipos[producto.tipo];
-      const encaje = evaluarEncaje(producto, pared);
-      const ocupacion = producto.ancho_cm / pared.ancho_cm;
-      const lejos = fueraDelRango(ocupacion, regla);
-      const dentro = lejos === 0;
-      let etiqueta = "Justo";
-      if (encaje.estado === "verde") etiqueta = dentro ? "Encaja perfecto" : "Encaja";
-      const grupo = encaje.estado === "verde" ? (dentro ? 0 : 1) : 2;
-      const centro = (regla.ocupacion_min + regla.ocupacion_max) / 2;
-      const distancia = grupo === 1 ? lejos : Math.abs(ocupacion - centro);
-      return { producto, regla, encaje, ocupacion, dentro, etiqueta, grupo, distancia };
-    })
-    .filter((candidato) => candidato.encaje.estado === "verde" || candidato.encaje.estado === "ambar");
+  const hayMedidas = MEDIDAS.some((nombre) => medidas[`${nombre}_cm`] != null);
+  const pasaPrecio = (producto) => precioMax == null || (producto.precio_eur != null && producto.precio_eur <= precioMax);
+  const pasaColor = (producto) => colores.length === 0 || coloresDe(producto).some((color) => colores.includes(color));
 
-  const pasaPrecio = (candidato) => precioMax == null || (candidato.producto.precio_eur != null && candidato.producto.precio_eur <= precioMax);
-  const pasaColor = (candidato) => colores.length === 0 || coloresDe(candidato.producto).some((color) => colores.includes(color));
+  const delTipo = productos.filter((producto) => tipos.includes(producto.tipo));
+  const conMedida = delTipo.filter((producto) => cumpleMedidas(producto, medidas));
+  const conPrecio = conMedida.filter(pasaPrecio);
+  const finales = conPrecio.filter(pasaColor);
 
-  const finales = queCaben
-    .filter((candidato) => pasaPrecio(candidato) && pasaColor(candidato))
-    .sort((a, b) => a.grupo - b.grupo || a.distancia - b.distancia || a.producto.id.localeCompare(b.producto.id));
+  const precio = (producto) => producto.precio_eur ?? Infinity;
+  finales.sort((a, b) =>
+    (hayMedidas ? distancia(a, medidas) - distancia(b, medidas) : 0) || precio(a) - precio(b) || a.id.localeCompare(b.id));
 
   return {
-    resultados: finales.slice(0, reglas.max_resultados),
+    resultados: finales,
     total: finales.length,
-    caben: queCaben.length,
-    porPrecio: queCaben.filter((candidato) => !pasaPrecio(candidato)).length,
-    porColor: queCaben.filter((candidato) => pasaPrecio(candidato) && !pasaColor(candidato)).length,
+    delTipo: delTipo.length,
+    porMedida: delTipo.length - conMedida.length,
+    porPrecio: conMedida.length - conPrecio.length,
+    porColor: conPrecio.length - finales.length,
   };
 }
 
 // ---------- Búsquedas guardadas ----------
 
-/** Nombre corto de una búsqueda: «Dormitorio · Canapés · 170 cm · hasta 500 €». */
-export function nombreBusqueda(busqueda, estancia, nombresColor = {}) {
-  const grupo = estancia?.grupos.find((actual) => actual.id === busqueda.grupo);
-  const partes = [estancia?.nombre ?? busqueda.estancia, grupo?.nombre ?? busqueda.grupo, `${busqueda.pared.ancho_cm} cm`];
-  if (busqueda.precioMax) partes.push(`hasta ${busqueda.precioMax} €`);
-  if (busqueda.colores?.length) partes.push(busqueda.colores.map((id) => nombresColor[id] ?? id).join(", "));
-  return partes.join(" · ");
-}
-
-/** Lo que se guarda de una búsqueda: solo la búsqueda, nada personal. */
+/** Lo que se guarda de una búsqueda: solo el filtro, nada personal. */
 export function paraGuardar(busqueda, ahora = new Date()) {
   return {
     estancia: busqueda.estancia,
     grupo: busqueda.grupo,
-    ancho: busqueda.pared.ancho_cm,
-    fondo: busqueda.pared.fondo_cm,
-    alto: busqueda.pared.alto_cm,
+    ancho: busqueda.medidas.ancho_cm,
+    fondo: busqueda.medidas.fondo_cm,
+    alto: busqueda.medidas.alto_cm,
     precio: busqueda.precioMax,
     colores: busqueda.colores,
     fecha: ahora.toISOString().slice(0, 10),
   };
 }
 
+/** Las medidas pedidas, en texto: «160 cm de ancho, 45 de fondo». "" si no hay. */
+export function textoMedidas(guardada) {
+  const partes = [];
+  for (const nombre of MEDIDAS) {
+    if (guardada[nombre] != null) partes.push(`${String(guardada[nombre]).replace(".", ",")}${partes.length ? "" : " cm"} de ${nombre}`);
+  }
+  return partes.join(", ");
+}
+
+/**
+ * Nombre corto de una búsqueda guardada:
+ * «Dormitorio · Canapés · hasta 160 cm de ancho · hasta 500 € · Blanco».
+ */
+export function nombreBusqueda(guardada, estancia, nombresColor = {}) {
+  const grupo = estancia?.grupos.find((actual) => actual.id === guardada.grupo);
+  const partes = [estancia?.nombre ?? guardada.estancia, grupo?.nombre ?? "Todos los muebles"];
+  const medidas = textoMedidas(guardada);
+  if (medidas) partes.push(`hasta ${medidas}`);
+  if (guardada.precio != null) partes.push(`hasta ${guardada.precio} €`);
+  const colores = limpiarColores(guardada.colores);
+  if (colores.length) partes.push(colores.map((id) => nombresColor[id] ?? id).join(", "));
+  return partes.join(" · ");
+}
+
 /** ¿Son la misma búsqueda (sin mirar la fecha)? */
 function mismaBusqueda(a, b) {
-  return a.estancia === b.estancia && a.grupo === b.grupo && a.ancho === b.ancho && a.fondo === b.fondo &&
+  return a.estancia === b.estancia && (a.grupo ?? null) === (b.grupo ?? null) && a.ancho === b.ancho && a.fondo === b.fondo &&
     a.alto === b.alto && a.precio === b.precio && [...(a.colores ?? [])].sort().join() === [...(b.colores ?? [])].sort().join();
 }
 
@@ -158,12 +198,18 @@ export function quitarBusqueda(lista, posicion) {
   return lista.filter((_, indice) => indice !== posicion);
 }
 
-/** Dirección para repetir una búsqueda guardada: espacio.html?e=…&g=…&a=… */
+/**
+ * Dirección de una búsqueda: espacio.html?e=…&b=1&g=…&a=…&f=…&h=…&p=…&c=…
+ * `b=1` dice «haz la búsqueda al abrir». Sirve para las guardadas y para volver de una ficha.
+ */
 export function enlaceBusqueda(guardada) {
-  const parametros = new URLSearchParams({ e: guardada.estancia, g: guardada.grupo, a: String(guardada.ancho) });
+  const parametros = new URLSearchParams({ e: guardada.estancia, b: "1" });
+  if (guardada.grupo) parametros.set("g", guardada.grupo);
+  if (guardada.ancho != null) parametros.set("a", String(guardada.ancho));
   if (guardada.fondo != null) parametros.set("f", String(guardada.fondo));
   if (guardada.alto != null) parametros.set("h", String(guardada.alto));
   if (guardada.precio != null) parametros.set("p", String(guardada.precio));
-  if (guardada.colores?.length) parametros.set("c", guardada.colores.join("."));
+  const colores = limpiarColores(guardada.colores);
+  if (colores.length) parametros.set("c", colores.join("."));
   return `espacio.html?${parametros}`;
 }
