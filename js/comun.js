@@ -28,6 +28,7 @@ function opcionesMenu() {
   return `
     <li><a class="menu__enlace menu__enlace--destacado" href="planifica.html">Planifica tu espacio<small>Elige una estancia y mira qué te cabe</small></a></li>
     <li><a class="menu__enlace" href="planifica.html#busquedas">Mis búsquedas guardadas</a></li>
+    <li><a class="menu__enlace" href="plano.html">Mi plano<small>Coloca tus muebles a escala</small></a></li>
     <li><a class="menu__enlace" href="huecos.html">Mis medidas</a></li>
     <li><a class="menu__enlace" href="lista.html">Mi lista</a></li>
     <li><a class="menu__enlace" href="index.html#escanear">Escanea en la tienda</a></li>

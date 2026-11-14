@@ -1370,3 +1370,137 @@ select.campo__entrada:disabled {
 .menu__enlace--destacado small {
   text-transform: none;
 }
+
+/* =========================================================================
+   MI PLANO (vista desde arriba, a escala)
+   ========================================================================= */
+
+.plano {
+  margin: 0.5rem 0;
+  touch-action: none; /* para poder arrastrar con el dedo sin mover la página */
+}
+
+.plano__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 70vh;
+  user-select: none;
+}
+
+.plano__suelo {
+  fill: #f4ece2;
+}
+
+.plano__rejilla line {
+  stroke: #dccfbf;
+  stroke-width: 0.6;
+}
+
+.plano__paredes {
+  fill: none;
+  stroke: var(--titulo);
+  stroke-width: 4;
+}
+
+.plano__cota {
+  fill: var(--titulo);
+  font-weight: 600;
+}
+
+.plano__pieza {
+  cursor: grab;
+}
+
+.plano__pieza rect {
+  fill: #ffffff;
+  stroke: var(--texto);
+  stroke-width: 1.5;
+}
+
+.plano__pieza circle {
+  fill: var(--marca);
+}
+
+.plano__pieza text {
+  fill: #ffffff;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.plano__pieza--elegida rect {
+  fill: var(--rosa-claro);
+  stroke: var(--marca);
+  stroke-width: 3;
+}
+
+/* Aviso (se pisan o no caben): borde discontinuo; sin colores del semáforo. */
+.plano__pieza--aviso rect {
+  stroke: var(--titulo);
+  stroke-dasharray: 6 4;
+  stroke-width: 3;
+}
+
+.mensaje--aviso {
+  border-left-color: var(--titulo);
+  font-weight: 600;
+}
+
+.plano__elegida {
+  margin: 0.5rem 0;
+  color: var(--titulo);
+  font-weight: 700;
+}
+
+.plano__flechas {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.piezas {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+ol.piezas {
+  counter-reset: pieza;
+}
+
+.pieza {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 3.5rem;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--borde-campo);
+  background: var(--fondo);
+  color: var(--texto);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+ol.piezas .pieza__nombre::before {
+  counter-increment: pieza;
+  content: counter(pieza) " · ";
+  color: var(--marca);
+}
+
+.pieza__nombre {
+  color: var(--titulo);
+  font-weight: 600;
+}
+
+.pieza--elegida {
+  border: 3px solid var(--marca);
+}
+
+.pieza--sin {
+  cursor: default;
+  background: var(--gris-claro);
+}

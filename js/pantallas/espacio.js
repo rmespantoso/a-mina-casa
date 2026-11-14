@@ -153,9 +153,13 @@ function tarjetaResultado(resultado, busqueda) {
   } else if (accion === "elegir") {
     principales = enlace("Elegir opción y comprar", "boton--primario");
   }
+  const plano = producto.fondo_cm
+    ? `<a class="boton boton--secundario" href="plano.html?p=${encodeURIComponent(producto.id)}">Probar en mi plano</a>`
+    : "";
   const botones = `<div class="acciones">
       ${principales}
       <button class="boton boton--secundario" type="button" data-guardar aria-pressed="${estaGuardado(producto.id)}">${textoGuardar(producto.id)}</button>
+      ${plano}
     </div>`;
   return `<li data-producto="${escapar(producto.id)}">${tarjetaProducto(producto, extra, botones)}</li>`;
 }

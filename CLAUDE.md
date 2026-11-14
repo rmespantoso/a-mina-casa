@@ -16,7 +16,7 @@ Las dos entradas acaban en la misma **Mi lista**. La lista se puede compartir po
 ## Invitado y registrado (decisión del 12/11/2026)
 
 - **Invitado (sin cuenta):** escanea QR, mete medidas de sus huecos, ve el semáforo, abre la ficha de producto y guarda productos en Mi lista. Todo se queda en su móvil.
-- **Registrado:** lo mismo, guardado en su cuenta (sin límite de tiempo y en otros dispositivos), y además el recomendador "¿Qué me cabe?".
+- **Registrado:** lo mismo, guardado en su cuenta (sin límite de tiempo y en otros dispositivos). Desde el 14/11/2026 el buscador «Planifica tu espacio» está abierto también al invitado (ver «Planifica tu espacio»).
 - Compartir la lista por WhatsApp y escribir al asesor están abiertos a todos.
 - Al invitado se le propone registrarse, sin obligar, al guardar su primer hueco y cuando ya tiene productos en la lista.
 - La cuenta sería la de alihogar.es. **En el prototipo el registro es simulado:** un botón de "cuenta de demostración", sin pedir correo ni contraseña y sin enviar datos a ningún sitio. Nunca publiques un formulario que pida credenciales reales con la marca de ALI.
@@ -25,7 +25,7 @@ Las dos entradas acaban en la misma **Mi lista**. La lista se puede compartir po
 
 ## Pantallas
 
-Son 8: Inicio · Mis huecos · ¿Qué me cabe? · Ficha viva · Mi lista · Ambiente (QR del conjunto) · Encuesta CES · Tu cuenta (acceso). El detalle de cada una está en la sección 6 de la propuesta.
+Inicio · Planifica tu espacio (estancias) · Estancia (buscador) · Mi plano · Mis huecos · Ficha viva · Mi lista · Ambiente (QR del conjunto) · Encuesta CES · Tu cuenta (acceso). «¿Qué me cabe?» (`que-me-cabe.html`) solo reenvía los enlaces antiguos a «Planifica tu espacio». El detalle original está en la sección 6 de la propuesta.
 
 ## Reglas técnicas
 
@@ -88,6 +88,8 @@ Son 8: Inicio · Mis huecos · ¿Qué me cabe? · Ficha viva · Mi lista · Ambi
 - **Ambientes y QR (12/11/2026):** los ambientes están en `data/ambientes.json`; los dos actuales son ejemplos del equipo (`"estado": "ejemplo"`) y hay que sustituirlos por los conjuntos reales de ALI. Las etiquetas con QR se generan en `etiquetas.html` (página del equipo) con la librería `js/vendor/qrcode.js` (MIT), la única dependencia externa del proyecto. Las etiquetas no llevan precio.
 - **Consentimiento (13/11/2026):** el aviso de medición está en `js/consentimiento.js` y solo aparece si hay ID de GA4 en `js/config.js`. Dos botones iguales (Rechazar / Aceptar); GA4 no se carga hasta que el cliente acepta y se puede cambiar la decisión desde el pie. A GA4 nunca viaja la dirección completa: `direccionLimpia` quita medidas, nombres de huecos y listas compartidas.
 - **Catálogo completo (13/11/2026):** solo las secciones donde se mide un hueco (salón, comedor, dormitorio, descanso, sofás, entrada y estudio); fuera sillas, puffs, percheros, colchones, cocina, baño, terraza y patas sueltas. El importador nunca toca las filas que ya están en el CSV, solo guarda una medida si la ficha da una única medida clara de tres números y marca «Revisar» lo raro sin corregirlo. Canapés: una fila por tamaño, sin medida exterior salvo que la web la dé. Somieres: medida del colchón con aviso. Los sillones de la sección «Sofás» pasan a butaca. Las dudas van a `docs/informe_importacion.csv` (no se publica). Los ids admiten 3 cifras (`MCE-120`). Hay estancia «Estudio». Los rangos de los tipos nuevos en `reglas_proporcion.json` son una propuesta sin validar.
+- **Planifica tu espacio (14/11/2026):** tras las pruebas con clientes (les costaba entender la herramienta), el recomendador se reorganiza por estancias. Menú ☰ arriba a la izquierda, como en la web móvil de ALI, con «Planifica tu espacio» destacado. Estancias en `data/estancias.json` (salón, comedor, dormitorio, estudio, entrada, cocina y baño; sin terraza), cada una con una foto real de ambiente sacada de la galería de un producto de alihogar.es (no ilustraciones: el equipo pidió realismo) y sus grupos de muebles. Filtros: medidas del hueco (solo el ancho obligatorio), precio máximo y color. El color se lee de las variantes y del nombre (`js/logica/colores.js`); si no aparece, el mueble queda sin color y no se adivina. Abierto a todos, sin cuenta. «Guardar esta búsqueda» guarda hasta 10 búsquedas en el navegador (nada personal). Se importaron también cocina, baño, sillas y sillas de oficina (1.127 productos). La portada queda con dos puertas: desde casa y en la tienda.
+- **Mi plano (14/11/2026):** plano 2D a escala (vista desde arriba) con las medidas reales de ancho y fondo; se arrastra con el dedo o con botones, se gira y avisa si dos muebles se pisan o si uno no cabe. Es el paso previo al 3D: el 3D realista tipo IKEA necesita un modelo 3D de cada mueble y se presenta como fase 2, no se construye en el prototipo.
 - **Tests:** se abren en `http://localhost:8000/tests/`. No hace falta instalar nada.
 - **Publicación:** `docs/` y `PROMPT_INICIAL.md` están en `.gitignore` porque el repositorio de GitHub Pages es público.
 

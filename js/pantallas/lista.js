@@ -156,7 +156,8 @@ function pintarMia() {
     ${productos.length
       ? `<ul class="articulos">${productos.map((producto) => articulo(producto, huecos, true)).join("")}</ul>
          ${huecos.length ? avisoOrientativo() : '<p class="nota">¿Quieres saber si te caben? <a href="huecos.html?volver=lista">Añade tus medidas</a>.</p>'}
-         ${bloqueTotal(productos)}`
+         ${bloqueTotal(productos)}
+         <div class="acciones"><a class="boton boton--secundario" href="plano.html">Colocar mis muebles en un plano</a></div>`
       : '<p class="pendiente">No queda ningún mueble en tu lista.</p>'}
 
     ${productos.length ? `
