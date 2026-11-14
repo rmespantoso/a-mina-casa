@@ -5,6 +5,8 @@
 const ICONOS = {
   casa: '<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/><path d="M10 19.5v-5h4v5"/>',
   regla: '<rect x="2.5" y="8" width="19" height="8" rx="1.5"/><path d="M6.5 8v3M10 8v4M13.5 8v3M17 8v4"/>',
+  menu: '<path d="M4 6.5h16M4 12h16M4 17.5h16"/>',
+  cerrar: '<path d="M6 6l12 12M18 6 6 18"/>',
   lupa: '<circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.3-4.3"/>',
   corazon: '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>',
   // Semáforo: tres formas distintas para que no dependa solo del color.

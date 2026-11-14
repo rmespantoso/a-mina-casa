@@ -3,114 +3,29 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>¿Qué me cabe? · A miña casa (prototipo)</title>
+  <title>Planifica tu espacio · A miña casa (prototipo)</title>
   <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="img/icono.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/componentes.css">
+  <!-- «¿Qué me cabe?» se ha convertido en «Planifica tu espacio» (14/11/2026).
+       Esta página solo reenvía los enlaces antiguos: si traen estancia y medidas, las conserva. -->
+  <script>
+    (function () {
+      var antes = new URLSearchParams(window.location.search);
+      var destino = "planifica.html";
+      if (/^[a-z]{3,12}$/.test(antes.get("e") || "")) {
+        var nuevos = new URLSearchParams({ e: antes.get("e") });
+        ["a", "f", "h"].forEach(function (clave) { if (antes.get(clave)) nuevos.set(clave, antes.get(clave)); });
+        destino = "espacio.html?" + nuevos.toString();
+      }
+      window.location.replace(destino);
+    })();
+  </script>
 </head>
 <body>
-  <a class="saltar" href="#contenido">Saltar al contenido</a>
-  <header id="cabecera" class="cabecera"></header>
-
-  <main id="contenido" class="pagina">
-    <h1>¿Qué me cabe?</h1>
-    <p class="entrada">Dinos cuánto mide tu pared y te enseñamos solo los muebles que caben.</p>
-
-    <!-- Invitado: se explica que esta función es para clientes con cuenta -->
-    <section id="solo-registrados" hidden>
-      <div class="pendiente">
-        <p><strong>Esta función es para clientes con cuenta.</strong></p>
-        <p>Así guardamos tus medidas en tu cuenta y las tienes siempre a mano.</p>
-      </div>
-      <div class="acciones">
-        <a class="boton boton--primario" href="acceso.html?volver=que-me-cabe">Entrar o crear cuenta</a>
-      </div>
-      <h2 class="seccion">Sin cuenta también puedes</h2>
-      <ul class="ventajas">
-        <li>Guardar las medidas de tus huecos en este móvil.</li>
-        <li>Escanear cualquier etiqueta de la tienda y ver si el mueble te cabe.</li>
-        <li>Guardar en tu lista lo que te guste.</li>
-      </ul>
-      <div class="acciones">
-        <a class="boton boton--secundario" href="huecos.html">Añadir mis medidas</a>
-      </div>
-    </section>
-
-    <!-- Registrado: el recomendador -->
-    <section id="recomendador" hidden>
-      <form class="formulario" id="formulario-busqueda" novalidate>
-        <div class="campo" id="zona-hueco" hidden>
-          <label class="campo__etiqueta" for="hueco-guardado">Usar uno de mis huecos <span class="campo__opcional">(opcional)</span></label>
-          <span class="campo__ayuda" id="ayuda-hueco-guardado">Rellena las medidas por ti. Luego puedes cambiarlas.</span>
-          <div class="campo__caja">
-            <select class="campo__entrada" id="hueco-guardado" aria-describedby="ayuda-hueco-guardado"></select>
-          </div>
-        </div>
-
-        <div class="campo" data-campo="estancia">
-          <label class="campo__etiqueta" for="busqueda-estancia">¿En qué estancia?</label>
-          <div class="campo__caja">
-            <select class="campo__entrada" id="busqueda-estancia" name="estancia" aria-describedby="error-busqueda-estancia"></select>
-          </div>
-          <div class="campo__error" id="error-busqueda-estancia" hidden></div>
-        </div>
-
-        <div class="campo" data-campo="tipo">
-          <label class="campo__etiqueta" for="busqueda-tipo">¿Qué mueble buscas?</label>
-          <div class="campo__caja">
-            <select class="campo__entrada" id="busqueda-tipo" name="tipo" aria-describedby="error-busqueda-tipo"></select>
-          </div>
-          <div class="campo__error" id="error-busqueda-tipo" hidden></div>
-        </div>
-
-        <div class="campo" data-campo="ancho">
-          <label class="campo__etiqueta" for="busqueda-ancho">Ancho de la pared</label>
-          <span class="campo__ayuda" id="ayuda-busqueda-ancho">De lado a lado, en centímetros. Es obligatorio.</span>
-          <div class="campo__caja">
-            <input class="campo__entrada" id="busqueda-ancho" name="ancho" type="text" inputmode="decimal" autocomplete="off"
-              aria-describedby="ayuda-busqueda-ancho error-busqueda-ancho">
-            <span class="campo__unidad" aria-hidden="true">cm</span>
-          </div>
-          <div class="campo__error" id="error-busqueda-ancho" hidden></div>
-        </div>
-
-        <div class="campo" data-campo="fondo">
-          <label class="campo__etiqueta" for="busqueda-fondo">Fondo <span class="campo__opcional">(opcional)</span></label>
-          <span class="campo__ayuda" id="ayuda-busqueda-fondo">Lo que puede salir el mueble desde la pared, en centímetros.</span>
-          <div class="campo__caja">
-            <input class="campo__entrada" id="busqueda-fondo" name="fondo" type="text" inputmode="decimal" autocomplete="off"
-              aria-describedby="ayuda-busqueda-fondo error-busqueda-fondo">
-            <span class="campo__unidad" aria-hidden="true">cm</span>
-          </div>
-          <div class="campo__error" id="error-busqueda-fondo" hidden></div>
-        </div>
-
-        <div class="campo" data-campo="alto">
-          <label class="campo__etiqueta" for="busqueda-alto">Alto <span class="campo__opcional">(opcional)</span></label>
-          <span class="campo__ayuda" id="ayuda-busqueda-alto">Hasta el techo, una ventana o una balda, en centímetros.</span>
-          <div class="campo__caja">
-            <input class="campo__entrada" id="busqueda-alto" name="alto" type="text" inputmode="decimal" autocomplete="off"
-              aria-describedby="ayuda-busqueda-alto error-busqueda-alto">
-            <span class="campo__unidad" aria-hidden="true">cm</span>
-          </div>
-          <div class="campo__error" id="error-busqueda-alto" hidden></div>
-        </div>
-
-        <div class="acciones">
-          <button class="boton boton--primario" type="submit">Ver qué me cabe</button>
-        </div>
-      </form>
-
-      <!-- Aquí se pintan los muebles recomendados -->
-      <section id="resultados" aria-live="polite"></section>
-    </section>
+  <main class="pagina">
+    <h1>Planifica tu espacio</h1>
+    <p>«¿Qué me cabe?» ahora se llama «Planifica tu espacio». <a href="planifica.html">Ir a Planifica tu espacio</a>.</p>
   </main>
-
-  <footer id="pie" class="pie"></footer>
-  <nav id="navegacion" class="navegacion" aria-label="Secciones"></nav>
-
-  <script type="module" src="js/pantallas/que-me-cabe.js"></script>
 </body>
 </html>

@@ -194,3 +194,12 @@ document.getElementById("invitacion-no").addEventListener("click", () => {
 });
 
 pintarHuecos();
+
+// Si se llega desde «¿No sabes cómo medir?» (huecos.html#guia), la guía se abre sola.
+if (window.location.hash === "#guia") {
+  const guia = document.getElementById("guia");
+  if (guia) {
+    guia.open = true;
+    guia.scrollIntoView({ block: "start" });
+  }
+}

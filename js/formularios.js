@@ -12,7 +12,8 @@ export function pintarErrores(formulario, errores = {}, sugerencias = {}) {
   let primero = null;
   for (const campo of formulario.querySelectorAll("[data-campo]")) {
     const nombre = campo.dataset.campo;
-    const entrada = campo.querySelector(".campo__entrada");
+    // En un grupo de botones (por ejemplo «¿Qué buscas?») no hay caja de texto: se usa el primero.
+    const entrada = campo.querySelector(".campo__entrada") ?? campo.querySelector("input");
     const caja = campo.querySelector(".campo__error");
     const texto = errores[nombre];
 

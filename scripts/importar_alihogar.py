@@ -74,6 +74,13 @@ SECCIONES = [
     ("22-zapateros", "zapatero", "recibidor", "ZAP"),
     ("25-escritorios", "escritorio", "estudio|dormitorio", "ESC"),
     ("27-estanterias-y-librerias", "estanteria", "salon|estudio|dormitorio", "EST"),
+    # Añadidas el 14/11/2026 para «Planifica tu espacio» (cocina, baño, sillas).
+    ("26-sillas-de-oficina", "silla_oficina", "estudio", "SIO"),
+    ("11-sillas", "silla", "comedor|cocina", "SIL"),
+    ("31-sillas-taburetes-bancos", "silla", "cocina|comedor", "SIL"),
+    ("29-mesas", "mesa_cocina", "cocina", "MCO"),
+    ("34-muebles-auxiliares", "mueble_cocina", "cocina", "MCA"),
+    ("35-bano", "mueble_bano", "bano", "MBA"),
 ]
 
 COLUMNAS = [

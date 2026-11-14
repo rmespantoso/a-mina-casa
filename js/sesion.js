@@ -12,7 +12,9 @@ import { borrar, guardar, leer } from "./almacen.js";
 import { medir } from "./medicion.js";
 
 // Funciones que solo puede usar quien tiene cuenta. El resto está abierto a todos.
-export const SOLO_REGISTRADOS = ["recomendador"];
+// Desde el 14/11/2026 «Planifica tu espacio» (el antiguo recomendador) está abierto a todos:
+// en las pruebas con clientes, pedir cuenta para buscar confundía. La lista queda vacía.
+export const SOLO_REGISTRADOS = [];
 
 const INVITADO = { tipo: "invitado" };
 
@@ -57,7 +59,7 @@ export function salir() {
 
 // Páginas a las que se puede volver después de entrar. Es una lista cerrada para
 // que nadie pueda usar el enlace de acceso para mandar al cliente a otra web.
-const DESTINOS = ["index", "huecos", "que-me-cabe", "lista", "ficha", "ambiente"];
+const DESTINOS = ["index", "huecos", "planifica", "lista", "ficha", "ambiente"];
 
 /** Convierte el parámetro ?volver= en una dirección segura dentro de la herramienta. */
 export function destinoSeguro(volver, producto = null, ambiente = null) {

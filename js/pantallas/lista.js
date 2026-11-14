@@ -101,7 +101,7 @@ function pintarVacia() {
       <p>Guarda aquí los muebles que te gusten para compararlos con calma y decidir.</p>
     </div>
     <div class="acciones">
-      <a class="boton boton--primario" href="que-me-cabe.html">Buscar qué me cabe</a>
+      <a class="boton boton--primario" href="planifica.html">Planifica tu espacio</a>
       <a class="boton boton--secundario" href="huecos.html">Añadir mis medidas</a>
     </div>`;
 }

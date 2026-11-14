@@ -1,0 +1,103 @@
+{
+  "_aviso": "Estancias de «Planifica tu espacio». Cada grupo dice qué tipos de mueble (los de reglas_proporcion.json) se buscan al pulsarlo. Las fotos son de alihogar.es (galerías de sus productos), usadas con permiso de ALI Hogar; «foto_de» es el producto del que sale cada foto.",
+  "estancias": [
+    {
+      "id": "salon",
+      "nombre": "Salón",
+      "titulo": "Planifica tu salón",
+      "frase": "Sofás, muebles de TV, mesas de centro y estanterías.",
+      "foto": "https://alihogar.es/66232-large_default/sofa-palma-efecto-chenilla-de-3-plazas.jpg",
+      "foto_de": "https://alihogar.es/sofas/13373-15092-sofa-palma-efecto-chenilla-de-3-plazas.html",
+      "grupos": [
+        { "id": "sofas", "nombre": "Sofás", "tipos": ["sofa", "chaise_longue"] },
+        { "id": "sofas-cama", "nombre": "Sofás cama", "tipos": ["sofa_cama"] },
+        { "id": "butacas", "nombre": "Butacas y sillones", "tipos": ["butaca"] },
+        { "id": "tv", "nombre": "Muebles de TV", "tipos": ["mueble_tv"] },
+        { "id": "mesas-centro", "nombre": "Mesas de centro", "tipos": ["mesa_centro"] },
+        { "id": "estanterias", "nombre": "Estanterías", "tipos": ["estanteria"] },
+        { "id": "aparadores", "nombre": "Aparadores y vitrinas", "tipos": ["aparador", "vitrina"] }
+      ]
+    },
+    {
+      "id": "comedor",
+      "nombre": "Comedor",
+      "titulo": "Planifica tu comedor",
+      "frase": "Mesas, sillas, aparadores y vitrinas.",
+      "foto": "https://alihogar.es/94537-large_default/silla-reno-con-patas-metalicas-.jpg",
+      "foto_de": "https://alihogar.es/sillas/19069-silla-reno-con-patas-metalicas--8420327618870.html",
+      "grupos": [
+        { "id": "mesas", "nombre": "Mesas de comedor", "tipos": ["mesa_comedor"] },
+        { "id": "sillas", "nombre": "Sillas", "tipos": ["silla"] },
+        { "id": "aparadores", "nombre": "Aparadores", "tipos": ["aparador"] },
+        { "id": "vitrinas", "nombre": "Vitrinas", "tipos": ["vitrina"] }
+      ]
+    },
+    {
+      "id": "dormitorio",
+      "nombre": "Dormitorio",
+      "titulo": "Planifica tu dormitorio",
+      "frase": "Canapés, camas, cabeceros, armarios y mesitas.",
+      "foto": "https://alihogar.es/87456-large_default/canape-strait-con-pata-alta-de-melamina-y-mdf.jpg",
+      "foto_de": "https://alihogar.es/canapes/17578-18728-canape-strait-con-pata-alta-de-melamina-y-mdf.html",
+      "grupos": [
+        { "id": "canapes", "nombre": "Canapés", "tipos": ["cama_canape"] },
+        { "id": "camas", "nombre": "Camas y somieres", "tipos": ["somier"] },
+        { "id": "cabeceros", "nombre": "Cabeceros", "tipos": ["cabecero"] },
+        { "id": "armarios", "nombre": "Armarios", "tipos": ["armario"] },
+        { "id": "comodas", "nombre": "Cómodas", "tipos": ["comoda"] },
+        { "id": "mesitas", "nombre": "Mesitas de noche", "tipos": ["mesita_noche"] },
+        { "id": "banquetas", "nombre": "Banquetas", "tipos": ["banqueta"] }
+      ]
+    },
+    {
+      "id": "estudio",
+      "nombre": "Estudio",
+      "titulo": "Planifica tu estudio",
+      "frase": "Escritorios, sillas de oficina y estanterías.",
+      "foto": "https://alihogar.es/87765-large_default/escritorio-soft.jpg",
+      "foto_de": "https://alihogar.es/escritorios/17649-escritorio-soft-8428006069579.html",
+      "grupos": [
+        { "id": "escritorios", "nombre": "Escritorios", "tipos": ["escritorio"] },
+        { "id": "sillas", "nombre": "Sillas de oficina", "tipos": ["silla_oficina"] },
+        { "id": "estanterias", "nombre": "Estanterías", "tipos": ["estanteria"] }
+      ]
+    },
+    {
+      "id": "recibidor",
+      "nombre": "Entrada",
+      "titulo": "Planifica tu entrada",
+      "frase": "Recibidores, consolas y zapateros.",
+      "foto": "https://alihogar.es/86618-large_default/recibidor-ethna-de-melamina-con-espejo.jpg",
+      "foto_de": "https://alihogar.es/recibidores/17385-recibidor-ethna-de-melamina-con-espejo-8423490268316.html",
+      "grupos": [
+        { "id": "recibidores", "nombre": "Recibidores", "tipos": ["recibidor"] },
+        { "id": "consolas", "nombre": "Consolas", "tipos": ["consola"] },
+        { "id": "zapateros", "nombre": "Zapateros", "tipos": ["zapatero"] }
+      ]
+    },
+    {
+      "id": "cocina",
+      "nombre": "Cocina",
+      "titulo": "Planifica tu cocina",
+      "frase": "Mesas, sillas, taburetes y armarios auxiliares.",
+      "foto": "https://alihogar.es/84935-large_default/silla-alta-de-bar-dario-con-patas-de-hierro.jpg",
+      "foto_de": "https://alihogar.es/sillas-taburetes-bancos/17084-18153-silla-alta-de-bar-dario-con-patas-de-hierro.html",
+      "grupos": [
+        { "id": "mesas", "nombre": "Mesas", "tipos": ["mesa_cocina", "mesa_comedor"] },
+        { "id": "sillas", "nombre": "Sillas y taburetes", "tipos": ["silla"] },
+        { "id": "armarios", "nombre": "Armarios y alacenas", "tipos": ["mueble_cocina"] }
+      ]
+    },
+    {
+      "id": "bano",
+      "nombre": "Baño",
+      "titulo": "Planifica tu baño",
+      "frase": "Muebles auxiliares, estantes y cajoneras.",
+      "foto": "https://alihogar.es/87570-large_default/mueble-cajonero-con-3-cestas-de-algodon-y-madera.jpg",
+      "foto_de": "https://alihogar.es/bano/17574-mueble-cajonero-con-3-cestas-de-algodon-y-madera-8420327615718.html",
+      "grupos": [
+        { "id": "muebles", "nombre": "Muebles de baño", "tipos": ["mueble_bano"] }
+      ]
+    }
+  ]
+}

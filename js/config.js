@@ -18,7 +18,7 @@ export const CONFIG = {
   urlEncuesta: "",
 
   // Fecha en la que se consultaron precios y medidas en alihogar.es.
-  fechaDatos: "10/11/2026",
+  fechaDatos: "10-14/11/2026",
 
   // UTM de los enlaces que SALEN hacia alihogar.es.
   // El "medium" (qr o web) lo decide medicion.js según por dónde entró el cliente.

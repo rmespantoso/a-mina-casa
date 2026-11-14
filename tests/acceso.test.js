@@ -26,14 +26,14 @@ prueba("sin haber entrado, se es invitado", conSesionLimpia(() => {
   igual(estaRegistrado(), false);
 }));
 
-prueba("el invitado puede usar huecos, semáforo y lista, pero no el recomendador", conSesionLimpia(() => {
+prueba("el invitado puede usarlo todo, también «Planifica tu espacio» (desde el 14/11/2026)", conSesionLimpia(() => {
   igual(puedeUsar("huecos"), true);
   igual(puedeUsar("semaforo"), true);
   igual(puedeUsar("lista"), true);
-  igual(puedeUsar("recomendador"), false);
+  igual(puedeUsar("recomendador"), true);
 }));
 
-prueba("al entrar con la cuenta de demostración se desbloquea el recomendador", conSesionLimpia(() => {
+prueba("con la cuenta de demostración sigue pudiendo usarlo todo", conSesionLimpia(() => {
   entrarConDemo({ esNueva: true });
   igual(estaRegistrado(), true);
   igual(puedeUsar("recomendador"), true);
@@ -63,7 +63,8 @@ prueba("una sesión estropeada o manipulada se trata como invitado", conSesionLi
 }));
 
 prueba("después de entrar solo se vuelve a páginas de la herramienta", () => {
-  igual(destinoSeguro("que-me-cabe"), "que-me-cabe.html");
+  igual(destinoSeguro("planifica"), "planifica.html");
+  igual(destinoSeguro("que-me-cabe"), "index.html", "la pantalla antigua ya no es un destino");
   igual(destinoSeguro("ficha", "SOF-01"), "ficha.html?p=SOF-01");
   igual(destinoSeguro("ficha", "<script>"), "ficha.html");
   igual(destinoSeguro("ambiente", null, "AMB-01"), "ambiente.html?a=AMB-01");

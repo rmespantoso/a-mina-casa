@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Planifica tu espacio · A miña casa (prototipo)</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="img/icono.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/componentes.css">
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+  <header id="cabecera" class="cabecera"></header>
+
+  <main id="contenido" class="pagina">
+    <p><a class="enlace-volver" href="planifica.html">← Otras estancias</a></p>
+    <div class="portada-estancia" id="portada"></div>
+    <h1 id="titulo">Planifica tu espacio</h1>
+    <p class="entrada">Dinos qué buscas y cuánto mide tu hueco. Te enseñamos solo lo que cabe.</p>
+
+    <form class="formulario" id="formulario-plan" novalidate hidden>
+      <!-- Paso 1: qué mueble -->
+      <fieldset class="grupo-campos" data-campo="grupo">
+        <legend class="paso-titulo"><span class="contador" aria-hidden="true">1</span>¿Qué buscas?</legend>
+        <div class="opciones" id="grupos"></div>
+        <div class="campo__error" id="error-plan-grupo" hidden></div>
+      </fieldset>
+
+      <!-- Paso 2: medidas del hueco -->
+      <fieldset class="grupo-campos">
+        <legend class="paso-titulo"><span class="contador" aria-hidden="true">2</span>Tu hueco</legend>
+
+        <div class="campo" id="zona-hueco" hidden>
+          <label class="campo__etiqueta" for="hueco-guardado">Usar una de mis medidas <span class="campo__opcional">(opcional)</span></label>
+          <span class="campo__ayuda" id="ayuda-hueco-guardado">Rellena las medidas por ti. Luego puedes cambiarlas.</span>
+          <div class="campo__caja">
+            <select class="campo__entrada" id="hueco-guardado" aria-describedby="ayuda-hueco-guardado"></select>
+          </div>
+        </div>
+
+        <div class="campo" data-campo="ancho">
+          <label class="campo__etiqueta" for="plan-ancho">Ancho del hueco</label>
+          <span class="campo__ayuda" id="ayuda-plan-ancho">De lado a lado de la pared, en centímetros. Es obligatorio.</span>
+          <div class="campo__caja">
+            <input class="campo__entrada" id="plan-ancho" name="ancho" type="text" inputmode="decimal" autocomplete="off"
+              aria-describedby="ayuda-plan-ancho error-plan-ancho">
+            <span class="campo__unidad" aria-hidden="true">cm</span>
+          </div>
+          <div class="campo__error" id="error-plan-ancho" hidden></div>
+        </div>
+
+        <div class="campo" data-campo="fondo">
+          <label class="campo__etiqueta" for="plan-fondo">Fondo <span class="campo__opcional">(opcional)</span></label>
+          <span class="campo__ayuda" id="ayuda-plan-fondo">Lo que puede salir el mueble desde la pared, en centímetros.</span>
+          <div class="campo__caja">
+            <input class="campo__entrada" id="plan-fondo" name="fondo" type="text" inputmode="decimal" autocomplete="off"
+              aria-describedby="ayuda-plan-fondo error-plan-fondo">
+            <span class="campo__unidad" aria-hidden="true">cm</span>
+          </div>
+          <div class="campo__error" id="error-plan-fondo" hidden></div>
+        </div>
+
+        <div class="campo" data-campo="alto">
+          <label class="campo__etiqueta" for="plan-alto">Alto <span class="campo__opcional">(opcional)</span></label>
+          <span class="campo__ayuda" id="ayuda-plan-alto">Hasta el techo, una ventana o una balda, en centímetros.</span>
+          <div class="campo__caja">
+            <input class="campo__entrada" id="plan-alto" name="alto" type="text" inputmode="decimal" autocomplete="off"
+              aria-describedby="ayuda-plan-alto error-plan-alto">
+            <span class="campo__unidad" aria-hidden="true">cm</span>
+          </div>
+          <div class="campo__error" id="error-plan-alto" hidden></div>
+        </div>
+        <p class="nota">¿No sabes cómo medir? <a href="huecos.html#guia">Mira la guía en 2 pasos</a>.</p>
+      </fieldset>
+
+      <!-- Paso 3: precio y color -->
+      <fieldset class="grupo-campos">
+        <legend class="paso-titulo"><span class="contador" aria-hidden="true">3</span>Afina tu búsqueda <span class="campo__opcional">(opcional)</span></legend>
+
+        <div class="campo">
+          <label class="campo__etiqueta" for="plan-precio">Precio máximo</label>
+          <div class="campo__caja">
+            <select class="campo__entrada" id="plan-precio" name="precio"></select>
+          </div>
+        </div>
+
+        <fieldset class="grupo-campos">
+          <legend>Color <span class="campo__opcional">(puedes elegir varios)</span></legend>
+          <div class="opciones" id="colores"></div>
+        </fieldset>
+      </fieldset>
+
+      <div class="acciones">
+        <button class="boton boton--primario" type="submit">Ver qué me cabe</button>
+      </div>
+    </form>
+
+    <!-- Aquí se pintan los muebles que caben -->
+    <section id="resultados" aria-live="polite"></section>
+  </main>
+
+  <footer id="pie" class="pie"></footer>
+  <nav id="navegacion" class="navegacion" aria-label="Secciones"></nav>
+
+  <script type="module" src="js/pantallas/espacio.js"></script>
+</body>
+</html>

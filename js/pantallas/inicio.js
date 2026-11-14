@@ -1,9 +1,9 @@
-// Pantalla de Inicio: las dos puertas de entrada, los 3 pasos, la leyenda del
-// semáforo y cuatro muebles reales de la tienda.
+// Pantalla de Inicio: las dos puertas de entrada (planificar desde casa o escanear en la
+// tienda) y la leyenda del semáforo. Desde el 14/11/2026 es más sencilla: en las pruebas
+// con clientes, tantas opciones en la portada confundían.
 
 import { iniciarPagina } from "../comun.js";
-import { cargarDatos } from "../datos.js";
-import { chipSemaforo, tarjetaProducto } from "../componentes.js";
+import { chipSemaforo } from "../componentes.js";
 
 iniciarPagina("inicio");
 
@@ -16,20 +16,3 @@ const LEYENDA = [
 document.getElementById("leyenda").innerHTML = LEYENDA.map(
   ([estado, texto]) => `<li>${chipSemaforo(estado)}<span>${texto}</span></li>`
 ).join("");
-
-// Muebles de la tienda: el primero de cada uno de los cuatro primeros tipos del catálogo.
-// Salen de products.json: no hay ningún producto escrito a mano.
-const destacados = document.getElementById("destacados");
-try {
-  const { productos } = await cargarDatos();
-  const vistos = new Set();
-  const elegidos = productos.filter((producto) => {
-    if (vistos.has(producto.tipo) || vistos.size >= 4) return false;
-    vistos.add(producto.tipo);
-    return true;
-  });
-  destacados.innerHTML = elegidos.map((producto) => `<li>${tarjetaProducto(producto)}</li>`).join("");
-} catch (error) {
-  console.error(error);
-  destacados.innerHTML = `<li class="pendiente"><p>No hemos podido cargar los muebles. Recarga la página.</p></li>`;
-}

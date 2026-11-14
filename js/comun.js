@@ -9,27 +9,87 @@ import { hayAlmacen } from "./almacen.js";
 import { activarMedicion, decisionMedicion, medir, registrarEntrada } from "./medicion.js";
 import { pintarConsentimiento } from "./consentimiento.js";
 import { icono } from "./dibujos.js";
-import { enlaceAsesor } from "./enlaces.js";
+import { enlaceAsesor, enlaceTienda } from "./enlaces.js";
 import { estaRegistrado } from "./sesion.js";
 
 // Los cuatro botones de la barra de abajo.
 const NAVEGACION = [
   { id: "inicio", texto: "Inicio", icono: "casa", enlace: "index.html" },
   { id: "huecos", texto: "Mis huecos", icono: "regla", enlace: "huecos.html" },
-  { id: "que-me-cabe", texto: "¿Me cabe?", icono: "lupa", enlace: "que-me-cabe.html" },
+  { id: "planifica", texto: "Planifica", icono: "lupa", enlace: "planifica.html" },
   { id: "lista", texto: "Mi lista", icono: "corazon", enlace: "lista.html" },
 ];
+
+// Menú de las tres rayas, arriba a la izquierda, como en la web móvil de alihogar.es.
+// Dentro de alihogar.es, «Planifica tu espacio» sería una línea más de su menú.
+function opcionesMenu() {
+  const cuenta = estaRegistrado() ? "Mi cuenta" : "Entrar o crear cuenta";
+  const tienda = enlaceTienda("https://alihogar.es/");
+  return `
+    <li><a class="menu__enlace menu__enlace--destacado" href="planifica.html">Planifica tu espacio<small>Elige una estancia y mira qué te cabe</small></a></li>
+    <li><a class="menu__enlace" href="planifica.html#busquedas">Mis búsquedas guardadas</a></li>
+    <li><a class="menu__enlace" href="huecos.html">Mis medidas</a></li>
+    <li><a class="menu__enlace" href="lista.html">Mi lista</a></li>
+    <li><a class="menu__enlace" href="index.html#escanear">Escanea en la tienda</a></li>
+    <li><a class="menu__enlace" href="acceso.html">${cuenta}</a></li>
+    <li><a class="menu__enlace" href="${tienda}" target="_blank" rel="noopener">Ir a alihogar.es<span class="solo-lector"> (se abre en otra pestaña)</span></a></li>`;
+}
+
+function prepararMenu() {
+  const boton = document.getElementById("abrir-menu");
+  const menu = document.getElementById("menu");
+  const fondo = document.getElementById("menu-fondo");
+  const abrir = () => {
+    menu.hidden = false;
+    fondo.hidden = false;
+    boton.setAttribute("aria-expanded", "true");
+    menu.querySelector(".menu__cerrar").focus();
+  };
+  const cerrar = () => {
+    if (menu.hidden) return;
+    menu.hidden = true;
+    fondo.hidden = true;
+    boton.setAttribute("aria-expanded", "false");
+    boton.focus();
+  };
+  boton.addEventListener("click", () => (menu.hidden ? abrir() : cerrar()));
+  menu.querySelector(".menu__cerrar").addEventListener("click", cerrar);
+  fondo.addEventListener("click", cerrar);
+  document.addEventListener("keydown", (evento) => {
+    if (evento.key === "Escape") cerrar();
+  });
+  // Un enlace a otra parte de la misma página (#busquedas) también cierra el menú.
+  menu.addEventListener("click", (evento) => {
+    if (evento.target.closest("a")) {
+      menu.hidden = true;
+      fondo.hidden = true;
+      boton.setAttribute("aria-expanded", "false");
+    }
+  });
+}
 
 function pintarCabecera() {
   const cuenta = estaRegistrado() ? "Mi cuenta" : "Entrar";
   document.getElementById("cabecera").innerHTML = `
     <div class="cabecera__dentro">
+      <button class="menu-boton" id="abrir-menu" type="button" aria-expanded="false" aria-controls="menu">
+        ${icono("menu")}<span class="solo-lector">Abrir el menú</span>
+      </button>
       <a class="marca" href="index.html">
         <img class="marca__logo" src="img/logo-ali-hogar.png" alt="ALI Hogar" width="48" height="48">
         <span class="marca__nombre" lang="gl">A miña casa</span>
       </a>
       <a class="cuenta" href="acceso.html">${icono("usuario")}<span>${cuenta}</span></a>
-    </div>`;
+    </div>
+    <div class="menu-fondo" id="menu-fondo" hidden></div>
+    <nav class="menu" id="menu" aria-label="Menú" hidden>
+      <div class="menu__cabeza">
+        <p class="menu__titulo">Menú</p>
+        <button class="menu__cerrar boton-icono" type="button">${icono("cerrar")}<span class="solo-lector">Cerrar el menú</span></button>
+      </div>
+      <ul class="menu__lista">${opcionesMenu()}</ul>
+    </nav>`;
+  prepararMenu();
 }
 
 function pintarNavegacion(activa) {
@@ -76,7 +136,7 @@ function pintarPie() {
 
 /**
  * Arranca una pantalla. `activa` es el botón de la barra que se marca
- * ("inicio", "huecos", "que-me-cabe", "lista") o null si no es ninguno.
+ * ("inicio", "huecos", "planifica", "lista") o null si no es ninguno.
  */
 export function iniciarPagina(activa = null) {
   pintarCabecera();

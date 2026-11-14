@@ -6,7 +6,7 @@ import { destinoSeguro, entrarConDemo, estaRegistrado, salir, sesion } from "../
 
 iniciarPagina(null);
 
-// Si se llegó aquí desde otra pantalla (?volver=que-me-cabe), al terminar se vuelve a ella.
+// Si se llegó aquí desde otra pantalla (?volver=planifica), al terminar se vuelve a ella.
 const parametros = new URLSearchParams(window.location.search);
 const destino = destinoSeguro(parametros.get("volver"), parametros.get("p"));
 

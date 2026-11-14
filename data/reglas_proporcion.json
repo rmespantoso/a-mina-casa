@@ -1,5 +1,5 @@
 {
-  "_aviso": "Reglas ORIENTATIVAS de decoración para el prototipo. Hay que validarlas con el personal de ALI Hogar antes del piloto. ocupacion_min y ocupacion_max son el porcentaje del ancho de la pared que debería ocupar el mueble. Los tipos añadidos el 13/11/2026 (de chaise_longue en adelante) son una propuesta del equipo sin validar; mesa_centro y mesita_noche son los más orientativos, porque no se apoyan en la pared de la misma forma.",
+  "_aviso": "Reglas ORIENTATIVAS de decoración para el prototipo. Hay que validarlas con el personal de ALI Hogar antes del piloto. ocupacion_min y ocupacion_max son el porcentaje del ancho de la pared que debería ocupar el mueble. Los tipos añadidos el 13/11/2026 (de chaise_longue en adelante) y los del 14/11/2026 (silla, silla_oficina, mesa_cocina, mueble_cocina y mueble_bano) son una propuesta del equipo sin validar; mesa_centro y mesita_noche son los más orientativos, porque no se apoyan en la pared de la misma forma.",
   "margen_verde_cm": 5,
   "max_resultados": 6,
   "tipos": {
@@ -23,6 +23,11 @@
     "banqueta":      { "estancias": ["dormitorio"],                    "ocupacion_min": 0.25, "ocupacion_max": 0.50 },
     "consola":       { "estancias": ["recibidor", "salon"],            "ocupacion_min": 0.30, "ocupacion_max": 0.60 },
     "zapatero":      { "estancias": ["recibidor"],                     "ocupacion_min": 0.25, "ocupacion_max": 0.55 },
-    "escritorio":    { "estancias": ["estudio", "dormitorio"],         "ocupacion_min": 0.30, "ocupacion_max": 0.60 }
+    "escritorio":    { "estancias": ["estudio", "dormitorio"],         "ocupacion_min": 0.30, "ocupacion_max": 0.60 },
+    "silla":         { "estancias": ["comedor", "cocina"],             "ocupacion_min": 0.05, "ocupacion_max": 0.30 },
+    "silla_oficina": { "estancias": ["estudio"],                       "ocupacion_min": 0.05, "ocupacion_max": 0.30 },
+    "mesa_cocina":   { "estancias": ["cocina"],                        "ocupacion_min": 0.30, "ocupacion_max": 0.60 },
+    "mueble_cocina": { "estancias": ["cocina"],                        "ocupacion_min": 0.20, "ocupacion_max": 0.50 },
+    "mueble_bano":   { "estancias": ["bano"],                          "ocupacion_min": 0.15, "ocupacion_max": 0.45 }
   }
 }

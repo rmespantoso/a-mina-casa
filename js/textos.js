@@ -26,6 +26,11 @@ export const NOMBRE_TIPO = {
   consola: "Consola",
   zapatero: "Zapatero",
   escritorio: "Escritorio",
+  silla: "Silla o taburete",
+  silla_oficina: "Silla de oficina",
+  mesa_cocina: "Mesa de cocina",
+  mueble_cocina: "Armario de cocina",
+  mueble_bano: "Mueble de baño",
 };
 
 export const NOMBRE_ESTANCIA = {
@@ -34,6 +39,8 @@ export const NOMBRE_ESTANCIA = {
   dormitorio: "Dormitorio",
   recibidor: "Recibidor",
   estudio: "Estudio",
+  cocina: "Cocina",
+  bano: "Baño",
 };
 
 const formatoNumero = new Intl.NumberFormat("es-ES", { maximumFractionDigits: 1 });
