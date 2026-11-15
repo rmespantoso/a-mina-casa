@@ -6,15 +6,18 @@
 //   - dos recuadros con el ancho y el largo de la habitación, que se cambian al momento;
 //   - el mueble elegido (foto, medidas, precio, girar y quitar);
 //   - «Guardar como nuevo plano» con un nombre (medidas y muebles incluidos);
+//   - «Escanea un código QR» (15/11/2026): abre la cámara, lee el QR de la etiqueta y enseña
+//     la ficha compacta con «+ Añadir a mi plano 3D», que mete el mueble en el plano abierto;
 //   - Mis planos (abrir y borrar) y «Añadir de mi lista».
 // Todo se mueve con el dedo o el ratón: no hay botones de cámara.
 //
 // Se guarda en este navegador (localStorage, con try/catch dentro de almacen.js) y no se
 // pide ningún dato personal. Los planos guardados guardan solos cada cambio.
 
+import { CONFIG } from "../config.js";
 import { iniciarPagina } from "../comun.js";
 import { leer, guardar } from "../almacen.js";
-import { cargarDatos, cargarEstancias } from "../datos.js";
+import { cargarAmbientes, cargarComplementos, cargarDatos, cargarEstancias } from "../datos.js";
 import { htmlFiltro, montarFiltro } from "../filtro.js";
 import { medir } from "../medicion.js";
 import { comoTexto, pintarErrores } from "../formularios.js";
@@ -31,6 +34,9 @@ import {
 } from "../logica/plano.js";
 import { leerLista } from "../mi-lista.js";
 import { crearEscena, hayWebGL } from "../escena3d.js";
+import { crearEscaner, motivoError } from "../escaner-qr.js";
+import { montarFichaCompacta } from "../ficha-compacta.js";
+import { leerCodigoQr, leerReferencia, prepararAmbientes } from "../logica/qr.js";
 
 iniciarPagina("plano");
 
@@ -49,6 +55,7 @@ let plano = planoActivo(coleccion);
 let elegida = null;
 let catalogo = [];
 let estancias = [];
+let complementos = {};
 let escena = null;
 
 const nuevoId = (letra) => `${letra}${Date.now().toString(36)}${Math.random().toString(36).slice(2, 5)}`;
@@ -450,6 +457,177 @@ resultadosAnadir.addEventListener("click", (evento) => {
   document.getElementById("escena").scrollIntoView({ behavior: "smooth", block: "center" });
 });
 
+// ---------- Escanea un código QR (15/11/2026) ----------
+// En la tienda, el cliente con su plano abierto escanea la etiqueta de un mueble y lo añade
+// sin perder lo que ya tenía. Solo se aceptan los QR de este prototipo (leerCodigoQr): de
+// ellos se saca el mueble y la dirección leída nunca se abre.
+
+const zonaEscanear = document.getElementById("escanear");
+const botonEscaner = document.getElementById("abrir-escaner");
+const zonaCamara = document.getElementById("zona-camara");
+const avisoCamara = document.getElementById("aviso-camara");
+const avisoEscaner = document.getElementById("aviso-escaner");
+const fichaEscaneada = document.getElementById("ficha-escaneada");
+const ambienteEscaneado = document.getElementById("ambiente-escaneado");
+const escanearOtro = document.getElementById("escanear-otro");
+const BASES_QR = [CONFIG.urlPublicada, new URL(".", window.location.href).href];
+let escaner = null;
+
+botonEscaner.addEventListener("click", () => {
+  const abrirlo = zonaEscanear.hidden;
+  zonaEscanear.hidden = !abrirlo;
+  botonEscaner.setAttribute("aria-expanded", String(abrirlo));
+  document.getElementById("texto-escaner").textContent = abrirlo ? "Cerrar el escáner" : "Escanea un código QR";
+  if (!abrirlo) {
+    escaner?.cerrar();
+    return;
+  }
+  document.getElementById("titulo-escanear").focus();
+  empezarAEscanear();
+});
+
+function limpiarEscaneado() {
+  avisoEscaner.hidden = true;
+  fichaEscaneada.innerHTML = "";
+  fichaEscaneada.onclick = null;
+  ambienteEscaneado.innerHTML = "";
+  escanearOtro.hidden = true;
+}
+
+async function empezarAEscanear() {
+  limpiarEscaneado();
+  zonaCamara.hidden = false;
+  avisoCamara.hidden = true;
+  document.getElementById("reintentar-camara").hidden = true;
+  escaner ??= crearEscaner(document.getElementById("video-qr"), {
+    alLeer: alLeerQr,
+    alApagar() {
+      avisoCamara.textContent = "La cámara se ha apagado al salir de la página.";
+      avisoCamara.hidden = false;
+      document.getElementById("reintentar-camara").hidden = false;
+    },
+  });
+  try {
+    await escaner.abrir();
+  } catch (error) {
+    console.info("[escáner]", error?.name ?? error);
+    avisoCamara.textContent = motivoError(error);
+    avisoCamara.hidden = false;
+    document.getElementById("reintentar-camara").hidden = false;
+  }
+}
+
+document.getElementById("boton-reintentar").addEventListener("click", empezarAEscanear);
+document.getElementById("boton-escanear-otro").addEventListener("click", () => {
+  empezarAEscanear();
+  document.getElementById("titulo-escanear").focus();
+});
+
+function alLeerQr(texto) {
+  const leido = leerCodigoQr(texto, BASES_QR);
+  zonaCamara.hidden = true;
+  escanearOtro.hidden = false;
+  if (leido?.tipo === "producto") {
+    const producto = catalogo.find((actual) => actual.id === leido.id);
+    if (producto) {
+      medir("qr_scan", { desde: "plano", producto: producto.id });
+      mostrarEscaneado(producto);
+      return;
+    }
+  }
+  if (leido?.tipo === "ambiente") {
+    medir("qr_scan", { desde: "plano", ambiente: leido.id });
+    mostrarAmbiente(leido.id);
+    return;
+  }
+  avisoEscaner.textContent = leido
+    ? "Este mueble ya no está en el catálogo. Pregunta a un empleado."
+    : "Este código no es de un mueble de ALI Hogar. Prueba con el QR de la etiqueta.";
+  avisoEscaner.hidden = false;
+}
+
+/** Pone en el plano un mueble escaneado y devuelve lo que se le dice al cliente. */
+function anadirEscaneado(producto) {
+  if (!poner(producto.id)) return estado.textContent;
+  medir("plan_try", { producto: producto.id, desde: "escanear_qr" });
+  guardarCambios();
+  dibujar();
+  return `Añadido a tu plano: «${producto.nombre}». Ya está en el 3D y en «En el plano».`;
+}
+
+/** La ficha compacta del mueble, con «+ Añadir a mi plano 3D». */
+function mostrarEscaneado(producto) {
+  limpiarEscaneado();
+  zonaCamara.hidden = true;
+  escanearOtro.hidden = false;
+  montarFichaCompacta(fichaEscaneada, producto, {
+    productos: catalogo,
+    config: complementos,
+    enPlano: true,
+    nivel: 4,
+    desde: "plano_qr",
+    alAnadir: anadirEscaneado,
+    alVer: (otro) => {
+      if (!otro) return;
+      mostrarEscaneado(otro);
+      fichaEscaneada.querySelector(".ficha-qr__nombre")?.focus();
+    },
+  });
+  fichaEscaneada.querySelector(".ficha-qr__nombre")?.focus();
+}
+
+// Si se guarda o se quita de la lista desde la ficha, «Añadir de mi lista» se pone al día.
+fichaEscaneada.addEventListener("click", (evento) => {
+  if (evento.target.closest('[data-accion="lista"]')) setTimeout(pintarDeMiLista);
+});
+
+/** QR de un conjunto montado en la tienda: sus muebles, cada uno con «+ Añadir al plano». */
+async function mostrarAmbiente(id) {
+  limpiarEscaneado();
+  zonaCamara.hidden = true;
+  escanearOtro.hidden = false;
+  try {
+    const ambiente = prepararAmbientes(await cargarAmbientes(), catalogo).find((actual) => actual.id === id);
+    if (!ambiente || ambiente.productos.length === 0) throw new Error("ambiente vacío");
+    ambienteEscaneado.innerHTML = `<h4 class="anadir__cuantos" tabindex="-1">${escapar(ambiente.nombre)}</h4>
+      <p>Añade al plano los muebles de este conjunto que quieras probar.</p>
+      <ul class="resultados-mini">${ambiente.productos.map(tarjetaMini).join("")}</ul>`;
+    ambienteEscaneado.querySelector("h4").focus();
+  } catch {
+    avisoEscaner.textContent = "No encontramos este conjunto. Pregunta a un empleado.";
+    avisoEscaner.hidden = false;
+  }
+}
+
+ambienteEscaneado.addEventListener("click", (evento) => {
+  const boton = evento.target.closest("[data-anadir]");
+  if (!boton) return;
+  const producto = catalogo.find((actual) => actual.id === boton.dataset.anadir);
+  const texto = anadirEscaneado(producto);
+  boton.closest(".resultado-mini").outerHTML = tarjetaMini(producto);
+  avisoEscaner.textContent = texto;
+  avisoEscaner.hidden = false;
+});
+
+document.getElementById("formulario-referencia").addEventListener("submit", (evento) => {
+  evento.preventDefault();
+  const campo = document.getElementById("referencia");
+  const id = leerReferencia(campo.value);
+  const producto = id ? catalogo.find((actual) => actual.id === id) : null;
+  if (!producto) {
+    limpiarEscaneado();
+    avisoEscaner.textContent = id
+      ? `No encontramos ningún mueble con la referencia ${id}. Revísala en la etiqueta.`
+      : "Escribe la referencia como viene en la etiqueta, por ejemplo SOF-02.";
+    avisoEscaner.hidden = false;
+    campo.focus();
+    return;
+  }
+  escaner?.cerrar();
+  campo.value = "";
+  mostrarEscaneado(producto);
+});
+
 // ---------- Ayuda «?» del 3D ----------
 // La ayuda sale al entrar y se va al primer toque. El botón «?» la vuelve a enseñar: al pasar
 // el ratón por encima (se va al quitarlo) o al tocarlo (se queda hasta tocar otra vez o fuera).
@@ -536,9 +714,10 @@ function prepararEscena() {
 // ---------- Arranque ----------
 
 try {
-  const [datos, todas] = await Promise.all([cargarDatos(), cargarEstancias()]);
+  const [datos, todas, reglas] = await Promise.all([cargarDatos(), cargarEstancias(), cargarComplementos()]);
   catalogo = datos.productos;
   estancias = todas;
+  complementos = reglas;
 } catch (error) {
   console.error(error);
   estado.textContent = "No hemos podido cargar los muebles. Recarga la página.";

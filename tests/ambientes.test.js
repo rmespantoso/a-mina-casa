@@ -5,7 +5,7 @@ import { CONFIG } from "../js/config.js";
 import { borrar, guardar, leer } from "../js/almacen.js";
 import { cargarAmbientes, cargarDatos } from "../js/datos.js";
 import { registrarEntrada } from "../js/medicion.js";
-import { enlaceQrAmbiente, enlaceQrProducto, esDePrueba, prepararAmbientes } from "../js/logica/qr.js";
+import { enlaceQrAmbiente, enlaceQrProducto, esDePrueba, leerCodigoQr, leerReferencia, prepararAmbientes } from "../js/logica/qr.js";
 import { guardarVarios, leerLista } from "../js/mi-lista.js";
 
 const BASE = "https://ejemplo.test/amicasa/";
@@ -131,3 +131,36 @@ prueba("si la lista se llena, guarda los que caben y dice cuántos se quedan fue
   igual(guardarVarios(["TV-01", "TV-02", "TV-03"]), { anadidos: 2, repetidos: 0, sinSitio: 1 });
   igual(leerLista().productos.length, 20);
 }));
+
+grupo("QR · leer un código desde Mi plano 3D");
+
+const BASES = ["https://ejemplo.test/amicasa/", "http://localhost:8000/"];
+
+prueba("un QR de etiqueta da el mueble y uno de ambiente da el conjunto", () => {
+  igual(leerCodigoQr(enlaceQrProducto(BASES[0], "SOF-02", UTM), BASES), { tipo: "producto", id: "SOF-02" });
+  igual(leerCodigoQr(enlaceQrAmbiente(BASES[0], "AMB-01", UTM), BASES), { tipo: "ambiente", id: "AMB-01" });
+  igual(leerCodigoQr("http://localhost:8000/ficha.html?p=MCE-120", BASES), { tipo: "producto", id: "MCE-120" });
+  igual(leerCodigoQr("  https://ejemplo.test/amicasa/ficha.html?p=TV-04  ", BASES), { tipo: "producto", id: "TV-04" });
+});
+
+prueba("los códigos que no son de este prototipo no valen (y nunca se abren)", () => {
+  igual(leerCodigoQr("https://otra-web.test/amicasa/ficha.html?p=SOF-02", BASES), null, "otra web");
+  igual(leerCodigoQr("https://ejemplo.test/otra/ficha.html?p=SOF-02", BASES), null, "otra carpeta");
+  igual(leerCodigoQr("https://ejemplo.test/amicasa/lista.html?v=1", BASES), null, "otra página");
+  igual(leerCodigoQr("https://ejemplo.test/amicasa/ficha.html?p=<script>", BASES), null, "id raro");
+  igual(leerCodigoQr("javascript:alert(1)", BASES), null);
+  igual(leerCodigoQr("Hola, esto es un texto", BASES), null);
+  igual(leerCodigoQr("", BASES), null);
+  igual(leerCodigoQr(null, BASES), null);
+});
+
+prueba("la referencia escrita a mano se entiende aunque se escriba de varias formas", () => {
+  igual(leerReferencia("SOF-02"), "SOF-02");
+  igual(leerReferencia(" sof-02 "), "SOF-02");
+  igual(leerReferencia("sof02"), "SOF-02");
+  igual(leerReferencia("Sof 02"), "SOF-02");
+  igual(leerReferencia("mce-120"), "MCE-120");
+  igual(leerReferencia("SOFA-2"), null);
+  igual(leerReferencia("12345"), null);
+  igual(leerReferencia(""), null);
+});

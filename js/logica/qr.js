@@ -64,3 +64,47 @@ export function prepararAmbientes(ambientes, productos) {
       };
     });
 }
+
+// ---------- Leer un QR desde Mi plano 3D (15/11/2026) ----------
+// «Escanea un código QR» del plano lee el texto del código y aquí se decide qué es.
+// Solo valen las direcciones de este prototipo (la publicada o la carpeta desde la que se
+// usa): de ellas se saca el mueble o el ambiente y NUNCA se abre la dirección leída.
+
+/**
+ * Qué hay dentro de un QR leído. `bases`: carpetas válidas del prototipo, acabadas en «/».
+ * Devuelve { tipo: "producto", id } · { tipo: "ambiente", id } · null (no es nuestro).
+ */
+export function leerCodigoQr(texto, bases) {
+  let enlace;
+  try {
+    enlace = new URL(String(texto ?? "").trim());
+  } catch {
+    return null;
+  }
+  if (enlace.protocol !== "https:" && enlace.protocol !== "http:") return null;
+  const base = bases.filter(Boolean).map((actual) => new URL(actual))
+    .find((actual) => actual.origin === enlace.origin && enlace.pathname.startsWith(actual.pathname));
+  if (!base) return null;
+  const pagina = enlace.pathname.slice(base.pathname.length);
+  if (pagina === "ficha.html") {
+    const id = enlace.searchParams.get("p") ?? "";
+    return FORMA_PRODUCTO.test(id) ? { tipo: "producto", id } : null;
+  }
+  if (pagina === "ambiente.html") {
+    const id = enlace.searchParams.get("a") ?? "";
+    return FORMA_AMBIENTE.test(id) ? { tipo: "ambiente", id } : null;
+  }
+  return null;
+}
+
+/**
+ * La referencia escrita a mano (la que va impresa en la etiqueta). Acepta «sof-02»,
+ * «SOF 02» o «sof02» y devuelve "SOF-02"; si no tiene esa forma, null.
+ */
+export function leerReferencia(texto) {
+  const limpio = String(texto ?? "").trim().toUpperCase().replace(/[\s_.]+/g, "-");
+  const partes = limpio.match(/^([A-Z]{2,4})-?(\d{2,3})$/);
+  if (!partes) return null;
+  const id = `${partes[1]}-${partes[2]}`;
+  return FORMA_PRODUCTO.test(id) ? id : null;
+}

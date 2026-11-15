@@ -84,6 +84,44 @@
         <p class="mensaje" id="aviso-anadir" role="status" hidden></p>
         <div id="resultados-anadir" aria-live="polite"></div>
       </section>
+
+      <!-- Escanea un código QR (15/11/2026): en la tienda, el mueble de la etiqueta va al plano abierto -->
+      <div class="acciones">
+        <button class="boton boton--secundario" type="button" id="abrir-escaner" aria-expanded="false" aria-controls="escanear">
+          <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 8h4l1.5-2.5h6L16.5 8h4v11h-17z"/><circle cx="12" cy="13.2" r="3.5"/></svg>
+          <span id="texto-escaner">Escanea un código QR</span></button>
+      </div>
+      <section class="anadir escanear" id="escanear" hidden aria-labelledby="titulo-escanear">
+        <h3 class="anadir__titulo" id="titulo-escanear" tabindex="-1">Escanea un código QR</h3>
+        <div id="zona-camara">
+          <p>Apunta la cámara al código QR de la etiqueta del mueble.</p>
+          <div class="camara">
+            <video class="camara__video" id="video-qr" playsinline muted aria-label="Imagen de la cámara"></video>
+            <div class="camara__marco" aria-hidden="true"></div>
+          </div>
+          <p class="nota">La imagen se mira en tu móvil: no se guarda ni se envía a ningún sitio.</p>
+          <p class="mensaje" id="aviso-camara" role="status" hidden></p>
+          <div class="acciones" id="reintentar-camara" hidden>
+            <button class="boton boton--primario" type="button" id="boton-reintentar">Volver a abrir la cámara</button>
+          </div>
+        </div>
+        <p class="mensaje mensaje--aviso" id="aviso-escaner" role="status" hidden></p>
+        <div id="ficha-escaneada" aria-live="polite"></div>
+        <div id="ambiente-escaneado" aria-live="polite"></div>
+        <div class="acciones" id="escanear-otro" hidden>
+          <button class="boton boton--primario" type="button" id="boton-escanear-otro">Escanear otro</button>
+        </div>
+        <form class="referencia" id="formulario-referencia" novalidate>
+          <label class="campo__etiqueta" for="referencia">¿No puedes escanear? Escribe la referencia de la etiqueta</label>
+          <div class="guardar-plano__fila">
+            <div class="campo__caja">
+              <input class="campo__entrada" id="referencia" name="referencia" type="text" autocomplete="off" autocapitalize="characters"
+                placeholder="SOF-02" maxlength="10">
+            </div>
+            <button class="boton boton--secundario" type="submit">Buscar</button>
+          </div>
+        </form>
+      </section>
     </section>
 
     <!-- 4. Guardar como nuevo plano -->

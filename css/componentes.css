@@ -2359,6 +2359,7 @@ body.con-navegacion .whatsapp {
 
 .ficha-qr__nombre {
   margin: 0 0 0.3rem;
+  color: var(--titulo);
   font-size: 1.2rem;
   line-height: 1.3;
 }
@@ -2460,6 +2461,7 @@ body.con-navegacion .whatsapp {
 }
 
 .fila-qr__lista {
+  position: relative; /* para que el texto solo-lector de las tarjetas no ensanche la página */
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 9.5rem;
@@ -2536,4 +2538,49 @@ body.con-navegacion .whatsapp {
 .mini-qr .boton-mini {
   justify-content: center;
   margin-top: auto;
+}
+
+/* ---------- Mi plano 3D: «Escanea un código QR» (15/11/2026) ---------- */
+#abrir-escaner .icono {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.camara {
+  position: relative;
+  overflow: hidden;
+  max-width: 24rem;
+  margin: 0 auto;
+  aspect-ratio: 1;
+  background: var(--titulo);
+}
+
+.camara__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Recuadro guía: dónde poner el código. */
+.camara__marco {
+  position: absolute;
+  inset: 18%;
+  border: 3px solid var(--sobre-marca);
+  box-shadow: 0 0 0 100vmax rgb(0 0 0 / 35%);
+  pointer-events: none;
+}
+
+.escanear .ficha-qr__cabeza {
+  margin-top: 0;
+}
+
+.escanear .fila-qr__titulo {
+  color: var(--titulo);
+}
+
+.referencia {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--borde);
 }
