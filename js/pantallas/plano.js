@@ -23,7 +23,7 @@ import { fotoProducto } from "../componentes.js";
 import { icono } from "../dibujos.js";
 import { leerMedida } from "../logica/medidas.js";
 import { FAMILIAS } from "../logica/colores.js";
-import { POR_PAGINA, buscarEnEstancia, estanciaPorId } from "../logica/planificador.js";
+import { POR_PAGINA, buscarEnEstancia, busquedaDeDireccion, estanciaPorId } from "../logica/planificador.js";
 import {
   MAX_PIEZAS, MAX_PLANOS, PRUEBA, abrirPlano, abrirPrueba, actualizarPlano, altoDibujo, cambiarHabitacion, coleccionValida,
   girarPieza, guardarComoNuevo, huella, moverPieza, planoActivo, planoDePruebaVacio, ponerPieza, problemas, quitarPieza,
@@ -212,7 +212,10 @@ function dibujar({ soloEscena = false } = {}) {
   escena?.dibujar(plano, { elegida, conAviso });
   if (soloEscena) return;
 
-  document.getElementById("escena").setAttribute("aria-label",
+  // La etiqueta va en el dibujo (canvas), no en la caja, que también lleva el botón «?».
+  const lienzo = document.querySelector("#escena canvas");
+  lienzo?.setAttribute("role", "img");
+  lienzo?.setAttribute("aria-label",
     `Habitación en 3D de ${cm(plano.habitacion.ancho_cm)} por ${cm(plano.habitacion.largo_cm)} con ${plano.piezas.length} muebles`);
 
   const avisos = [
@@ -344,7 +347,7 @@ document.getElementById("de-mi-lista").addEventListener("click", (evento) => {
 function leerBusquedaDeVuelta() {
   try {
     const destino = sessionStorage.getItem("amicasa:volver-plano");
-    return destino && /^espacio\.html\?[\w=&.%-]*$/.test(destino) ? destino : null;
+    return destino && /^(resultados|espacio)\.html\?[\w=&.%-]*$/.test(destino) ? destino : null;
   } catch {
     return null;
   }
@@ -381,16 +384,13 @@ botonAnadir.addEventListener("click", () => {
 function prepararAnadir() {
   if (filtroAnadir || estancias.length === 0) return;
   const formulario = document.getElementById("filtro-anadir");
-  formulario.innerHTML = htmlFiltro("anadir", { conEstancia: true, textoBoton: "Buscar muebles" });
+  formulario.innerHTML = htmlFiltro("anadir", { conEstancia: true });
   // Se empieza por la estancia y los filtros de la última búsqueda, si se viene de una.
   const vuelta = new URLSearchParams((leerBusquedaDeVuelta() ?? "").split("?")[1] ?? "");
   const estancia = estanciaPorId(estancias, vuelta.get("e")) ?? estancias[0];
   filtroAnadir = montarFiltro(formulario, { prefijo: "anadir", estancias, estancia, alBuscar: buscarParaPlano });
   if (vuelta.get("e")) {
-    filtroAnadir.rellenar({
-      grupo: vuelta.get("g"), ancho: vuelta.get("a"), fondo: vuelta.get("f"), alto: vuelta.get("h"),
-      precio: vuelta.get("p"), colores: (vuelta.get("c") ?? "").split("."),
-    });
+    filtroAnadir.rellenar(busquedaDeDireccion(vuelta));
   }
 }
 
@@ -457,20 +457,53 @@ resultadosAnadir.addEventListener("click", (evento) => {
   document.getElementById("escena").scrollIntoView({ behavior: "smooth", block: "center" });
 });
 
+// ---------- Ayuda «?» del 3D ----------
+// La ayuda sale al entrar y se va al primer toque. El botón «?» la vuelve a enseñar: al pasar
+// el ratón por encima (se va al quitarlo) o al tocarlo (se queda hasta tocar otra vez o fuera).
+
+const botonAyuda = document.getElementById("boton-ayuda");
+const cajaAyuda = document.getElementById("ayuda-escena");
+let ayudaFija = false;
+
+function mostrarAyuda(fija) {
+  ayudaFija = fija;
+  cajaAyuda.hidden = false;
+  document.getElementById("ayuda-cierre").textContent = "Pulsa «?» otra vez o toca el plano para cerrar";
+  botonAyuda.setAttribute("aria-expanded", "true");
+}
+
+function ocultarAyuda() {
+  ayudaFija = false;
+  cajaAyuda.hidden = true;
+  botonAyuda.setAttribute("aria-expanded", "false");
+}
+
+botonAyuda.addEventListener("mouseenter", () => {
+  if (cajaAyuda.hidden) mostrarAyuda(false);
+});
+botonAyuda.addEventListener("mouseleave", () => {
+  if (!ayudaFija) ocultarAyuda();
+});
+botonAyuda.addEventListener("click", () => {
+  if (ayudaFija) ocultarAyuda();
+  else mostrarAyuda(true);
+});
+document.addEventListener("keydown", (evento) => {
+  if (evento.key === "Escape" && !cajaAyuda.hidden) ocultarAyuda();
+});
+
 // ---------- La escena 3D ----------
 
 function prepararEscena() {
   const caja = document.getElementById("escena");
-  const ayuda = document.getElementById("ayuda-escena");
   if (!hayWebGL()) {
     caja.classList.add("escena--sin");
     caja.innerHTML = '<p class="pendiente">Tu navegador no puede mostrar el 3D. Puedes seguir colocando los muebles con la lista.</p>';
     return;
   }
-  caja.setAttribute("role", "img");
   escena = crearEscena(caja, {
     alTocar() {
-      ayuda.hidden = true;
+      ocultarAyuda();
     },
     alElegir(id) {
       if (id === elegida) return;

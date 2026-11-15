@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Muebles para ti · A miña casa (prototipo)</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="img/icono.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/componentes.css">
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+  <header id="cabecera" class="cabecera"></header>
+
+  <!-- Resultados de una búsqueda de «Planifica tu espacio» (15/11/2026): página aparte del
+       filtro, para que el cliente vea solo los muebles. La búsqueda viaja en la dirección. -->
+  <main id="contenido" class="pagina">
+    <p><a class="enlace-volver" id="volver" href="index.html">← Volver a la búsqueda</a></p>
+    <p class="saludo" id="estancia-resultados" lang="gl">A miña casa</p>
+    <h1 id="titulo-resultados" tabindex="-1">Muebles para ti</h1>
+    <section id="resultados" aria-live="polite">
+      <p role="status">Buscando muebles…</p>
+    </section>
+  </main>
+
+  <footer id="pie" class="pie"></footer>
+
+  <script type="module" src="js/pantallas/resultados.js"></script>
+</body>
+</html>

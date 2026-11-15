@@ -5,7 +5,8 @@
 //   (Estancia: solo en Mi plano 3D, donde no se viene de una estancia concreta.)
 //   1. ¿Qué buscas? → desplegable con los tipos de mueble de la estancia.
 //   2. Medidas → ancho, fondo y alto MÁXIMOS del mueble.
-//   3. Precio máximo → barra de 0 a 2.000 € (al final, sin límite).
+//   3. Precio → barra de 0 a 2.000 € con dos tiradores (mínimo y máximo) y los recuadros
+//      «Desde» y «Hasta» para escribirlo a mano (desde el 15/11/2026).
 //   4. Color → desplegable con casillas: varios o ninguno.
 //
 // `prefijo` hace únicos los id de los campos, por si hubiera dos filtros en una página.
@@ -13,7 +14,7 @@
 import { pintarErrores } from "./formularios.js";
 import { escapar } from "./textos.js";
 import { FAMILIAS, limpiarColores } from "./logica/colores.js";
-import { PASO_PRECIO, PRECIO_TOPE, estanciaPorId, leerPrecio, validarPlan } from "./logica/planificador.js";
+import { PASO_PRECIO, PRECIO_TOPE, estanciaPorId, leerPrecio, leerPrecioMin, validarPlan } from "./logica/planificador.js";
 
 const NOMBRES_COLOR = Object.fromEntries(FAMILIAS.map((familia) => [familia.id, familia.nombre]));
 
@@ -29,8 +30,51 @@ function campoMedida(prefijo, nombre, etiqueta) {
     </div>`;
 }
 
+// Dibujo que explica qué es el ancho, el fondo y el alto: un sofá con tres flechas de punta
+// a punta. Hecho por nosotros con líneas sencillas; cada flecha lleva su palabra.
+function dibujoMedidas(prefijo) {
+  const flecha = `${prefijo}-flecha`;
+  return `<svg class="dibujo-medidas" viewBox="0 55 330 148" role="img"
+      aria-label="Cómo se mide un mueble: el ancho va de lado a lado, el fondo de delante hacia atrás y el alto del suelo a lo más alto.">
+    <defs>
+      <marker id="${flecha}" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0 0 10 5 0 10z" class="dibujo-medidas__punta"/>
+      </marker>
+    </defs>
+    <!-- Respaldo (detrás), asiento con dos cojines y dos brazos -->
+    <path class="dibujo-medidas__sofa dibujo-medidas__sofa--arriba" d="M83 80h180l12-8H95z"/>
+    <path class="dibujo-medidas__sofa dibujo-medidas__sofa--atras" d="M83 80h180v24H83z"/>
+    <path class="dibujo-medidas__sofa dibujo-medidas__sofa--arriba" d="M80 122h130l28-18H108z"/>
+    <path class="dibujo-medidas__sofa" d="M80 122h130v38H80z"/>
+    <path class="dibujo-medidas__linea" d="M145 122v38M145 122l28-18"/>
+    <path class="dibujo-medidas__sofa dibujo-medidas__sofa--arriba" d="M55 95h25l40-26H95z"/>
+    <path class="dibujo-medidas__sofa" d="M55 95h25v65H55z"/>
+    <path class="dibujo-medidas__sofa dibujo-medidas__sofa--lado" d="M235 95l40-26v65l-40 26z"/>
+    <path class="dibujo-medidas__sofa dibujo-medidas__sofa--arriba" d="M210 95h25l40-26h-25z"/>
+    <path class="dibujo-medidas__sofa" d="M210 95h25v65h-25z"/>
+    <path class="dibujo-medidas__suelo" d="M20 160h220"/>
+    <path class="dibujo-medidas__flecha" d="M57 182h176" marker-start="url(#${flecha})" marker-end="url(#${flecha})"/>
+    <text class="dibujo-medidas__texto" x="145" y="198" text-anchor="middle">Ancho</text>
+    <path class="dibujo-medidas__flecha" d="M246 168l38-25" marker-start="url(#${flecha})" marker-end="url(#${flecha})"/>
+    <text class="dibujo-medidas__texto" x="268" y="186">Fondo</text>
+    <path class="dibujo-medidas__flecha" d="M32 158V74" marker-start="url(#${flecha})" marker-end="url(#${flecha})"/>
+    <text class="dibujo-medidas__texto" x="18" y="116" text-anchor="middle" transform="rotate(-90 18 116)">Alto</text>
+  </svg>`;
+}
+
+function campoPrecio(prefijo, nombre, etiqueta, ejemplo) {
+  return `<div class="campo">
+      <label class="campo__etiqueta" for="${prefijo}-${nombre}">${etiqueta}</label>
+      <div class="campo__caja">
+        <input class="campo__entrada" id="${prefijo}-${nombre}" name="${nombre}" type="text" inputmode="numeric" autocomplete="off"
+          placeholder="${ejemplo}">
+        <span class="campo__unidad" aria-hidden="true">€</span>
+      </div>
+    </div>`;
+}
+
 /** HTML de los campos del filtro (va dentro de un <form>). Con `conEstancia`, empieza por la estancia. */
-export function htmlFiltro(prefijo, { conEstancia = false, textoBoton = "Ver qué me cabe" } = {}) {
+export function htmlFiltro(prefijo, { conEstancia = false, textoBoton = "Buscar artículos" } = {}) {
   const paso = (numero) => `<span class="contador" aria-hidden="true">${numero}</span>`;
   const estancia = conEstancia
     ? `<div class="campo">
@@ -49,6 +93,7 @@ export function htmlFiltro(prefijo, { conEstancia = false, textoBoton = "Ver qu�
     <fieldset class="grupo-campos">
       <legend class="paso-titulo">${paso(2)}Medidas</legend>
       <p class="campo__ayuda" id="${prefijo}-ayuda-medidas">Las medidas máximas que quieres que tenga el mueble, en centímetros.</p>
+      ${dibujoMedidas(prefijo)}
       <div class="medidas-fila">
         ${campoMedida(prefijo, "ancho", "Ancho")}
         ${campoMedida(prefijo, "fondo", "Fondo")}
@@ -56,12 +101,22 @@ export function htmlFiltro(prefijo, { conEstancia = false, textoBoton = "Ver qu�
       </div>
     </fieldset>
 
-    <div class="campo">
-      <label class="campo__etiqueta paso-titulo" for="${prefijo}-precio">${paso(3)}Precio máximo</label>
-      <output class="precio-valor" id="${prefijo}-precio-valor" for="${prefijo}-precio">Sin límite</output>
-      <input class="barra" id="${prefijo}-precio" name="precio" type="range" min="0" max="${PRECIO_TOPE}" step="${PASO_PRECIO}" value="${PRECIO_TOPE}">
-      <div class="barra__extremos" aria-hidden="true"><span>0 €</span><span>${String(PRECIO_TOPE).replace(/\B(?=(\d{3})+$)/g, ".")} €</span></div>
-    </div>
+    <fieldset class="grupo-campos">
+      <legend class="paso-titulo">${paso(3)}Precio</legend>
+      <output class="precio-valor" data-precio-valor>Cualquier precio</output>
+      <!-- Barra con dos tiradores (mínimo y máximo). Los recuadros de debajo dicen lo mismo y se pueden escribir. -->
+      <div class="barra-doble" data-barra-doble>
+        <input class="barra barra--doble" type="range" min="0" max="${PRECIO_TOPE}" step="${PASO_PRECIO}" value="0"
+          aria-label="Precio mínimo" data-barra-min>
+        <input class="barra barra--doble" type="range" min="0" max="${PRECIO_TOPE}" step="${PASO_PRECIO}" value="${PRECIO_TOPE}"
+          aria-label="Precio máximo" data-barra-max>
+      </div>
+      <div class="barra__extremos" aria-hidden="true"><span>0 €</span><span>2.000 €</span></div>
+      <div class="medidas-fila medidas-fila--dos">
+        ${campoPrecio(prefijo, "precio_min", "Desde", "0")}
+        ${campoPrecio(prefijo, "precio", "Hasta", "Sin límite")}
+      </div>
+    </fieldset>
 
     <div class="campo">
       <p class="campo__etiqueta paso-titulo" id="${prefijo}-titulo-colores">${paso(4)}Color</p>
@@ -90,17 +145,47 @@ export function htmlFiltro(prefijo, { conEstancia = false, textoBoton = "Ver qu�
  */
 export function montarFiltro(formulario, { prefijo, estancias, estancia, alBuscar }) {
   let actual = estancia ?? estancias[0];
-  const barra = formulario.elements.precio;
-  const valorPrecio = document.getElementById(`${prefijo}-precio-valor`);
+  const barraMin = formulario.querySelector("[data-barra-min]");
+  const barraMax = formulario.querySelector("[data-barra-max]");
+  const textoMin = formulario.elements.precio_min;
+  const textoMax = formulario.elements.precio;
+  const valorPrecio = formulario.querySelector("[data-precio-valor]");
   const desplegable = formulario.querySelector("[data-colores]");
   const casillas = () => [...formulario.querySelectorAll('input[name="colores"]')];
 
+  // El texto de arriba y el tramo magenta de la barra salen de los recuadros (lo que cuenta al buscar).
   function pintarPrecio() {
-    const precio = leerPrecio(barra.value);
-    const texto = precio == null ? "Sin límite" : `Hasta ${precio} €`;
+    const desde = leerPrecioMin(textoMin.value);
+    const hasta = leerPrecio(textoMax.value);
+    let texto = "Cualquier precio";
+    if (desde != null && hasta != null) texto = `De ${desde} € a ${hasta} €`;
+    else if (desde != null) texto = `Desde ${desde} €`;
+    else if (hasta != null) texto = `Hasta ${hasta} €`;
     valorPrecio.textContent = texto;
-    barra.setAttribute("aria-valuetext", texto);
-    barra.style.setProperty("--relleno", `${(Number(barra.value) / PRECIO_TOPE) * 100}%`);
+    barraMin.setAttribute("aria-valuetext", desde == null ? "Sin mínimo" : `${desde} €`);
+    barraMax.setAttribute("aria-valuetext", hasta == null ? "Sin límite" : `${hasta} €`);
+    const caja = formulario.querySelector("[data-barra-doble]");
+    caja.style.setProperty("--desde", `${(Number(barraMin.value) / PRECIO_TOPE) * 100}%`);
+    caja.style.setProperty("--hasta", `${(Number(barraMax.value) / PRECIO_TOPE) * 100}%`);
+  }
+
+  // Barra -> recuadros. Un tirador no puede pasar al otro.
+  function alMoverBarra(evento) {
+    if (Number(barraMin.value) > Number(barraMax.value)) {
+      if (evento.target === barraMin) barraMin.value = barraMax.value;
+      else barraMax.value = barraMin.value;
+    }
+    // Solo se reescribe el recuadro del tirador que se mueve (lo tecleado en el otro se respeta).
+    if (evento.target === barraMin) textoMin.value = Number(barraMin.value) > 0 ? barraMin.value : "";
+    else textoMax.value = Number(barraMax.value) < PRECIO_TOPE ? barraMax.value : "";
+    pintarPrecio();
+  }
+
+  // Recuadros -> barra (lo escrito se respeta tal cual; la barra se acerca al tramo de 25 €).
+  function alEscribirPrecio() {
+    barraMin.value = leerPrecioMin(textoMin.value) ?? 0;
+    barraMax.value = leerPrecio(textoMax.value) ?? PRECIO_TOPE;
+    pintarPrecio();
   }
 
   function pintarResumen() {
@@ -128,7 +213,10 @@ export function montarFiltro(formulario, { prefijo, estancias, estancia, alBusca
   }
   pintarGrupos();
 
-  barra.addEventListener("input", pintarPrecio);
+  barraMin.addEventListener("input", alMoverBarra);
+  barraMax.addEventListener("input", alMoverBarra);
+  textoMin.addEventListener("input", alEscribirPrecio);
+  textoMax.addEventListener("input", alEscribirPrecio);
   desplegable.addEventListener("change", pintarResumen);
   formulario.querySelector("[data-quitar-colores]").addEventListener("click", () => {
     for (const casilla of casillas()) casilla.checked = false;
@@ -153,11 +241,14 @@ export function montarFiltro(formulario, { prefijo, estancias, estancia, alBusca
   pintarResumen();
 
   return {
-    /** Rellena el filtro con una búsqueda guardada ({ grupo, ancho, fondo, alto, precio, colores }). */
+    /** Rellena el filtro con una búsqueda guardada ({ grupo, ancho, fondo, alto, precio_min, precio, colores }). */
     rellenar(guardada) {
       formulario.elements.grupo.value = actual.grupos.some((grupo) => grupo.id === guardada.grupo) ? guardada.grupo : "";
-      for (const nombre of ["ancho", "fondo", "alto"]) formulario.elements[nombre].value = guardada[nombre] ?? "";
-      barra.value = leerPrecio(guardada.precio) ?? PRECIO_TOPE;
+      // Con coma decimal, como lo escribe el cliente («245,5»).
+      for (const nombre of ["ancho", "fondo", "alto"]) formulario.elements[nombre].value = String(guardada[nombre] ?? "").replace(".", ",");
+      textoMin.value = leerPrecioMin(guardada.precio_min) ?? "";
+      textoMax.value = leerPrecio(guardada.precio) ?? "";
+      alEscribirPrecio();
       const elegidos = limpiarColores(guardada.colores ?? []);
       for (const casilla of casillas()) casilla.checked = elegidos.includes(casilla.value);
       pintarPrecio();

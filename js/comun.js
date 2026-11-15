@@ -12,14 +12,25 @@ import { icono } from "./dibujos.js";
 import { enlaceAsesor, enlaceTienda } from "./enlaces.js";
 import { estaRegistrado } from "./sesion.js";
 
-// Navegación 100 % web (decisión del 14/11/2026): sin barra de iconos abajo, que es cosa
-// de app. En el ordenador estos enlaces se ven en la cabecera, en horizontal; en el
-// móvil están dentro del menú ☰, como en la web móvil de alihogar.es.
+// Navegación. En el ordenador, estos enlaces van en la cabecera, en horizontal. En el móvil
+// están en el menú ☰ y, desde el 15/11/2026, también en una barra fija abajo con icono y
+// texto (el CSS la oculta en pantallas grandes, donde parecería de app).
 const NAVEGACION = [
-  { id: "planifica", texto: "Planifica tu espacio", enlace: "index.html" },
-  { id: "plano", texto: "Mi plano 3D", enlace: "plano.html" },
-  { id: "lista", texto: "Mi lista", enlace: "lista.html" },
+  { id: "planifica", texto: "Planifica tu espacio", corto: "Planifica", icono: "casa", enlace: "index.html" },
+  { id: "plano", texto: "Mi plano 3D", corto: "Mi plano 3D", icono: "plano", enlace: "plano.html" },
+  { id: "lista", texto: "Mi lista", corto: "Mi lista", icono: "corazon", enlace: "lista.html" },
 ];
+
+function pintarNavegacionInferior(activa) {
+  const barra = document.createElement("nav");
+  barra.className = "navegacion";
+  barra.setAttribute("aria-label", "Secciones (abajo)");
+  barra.innerHTML = `<ul class="navegacion__lista">${NAVEGACION.map((enlace) => `<li>
+      <a class="navegacion__enlace" href="${enlace.enlace}"${actual(enlace.id, activa)}>${icono(enlace.icono)}<span>${enlace.corto}</span></a>
+    </li>`).join("")}</ul>`;
+  document.body.append(barra);
+  document.body.classList.add("con-navegacion");
+}
 
 // Menú de las tres rayas, arriba a la izquierda, como en la web móvil de alihogar.es.
 // Dentro de alihogar.es, «Planifica tu espacio» sería una línea más de su menú.
@@ -135,6 +146,7 @@ function pintarPie() {
  */
 export function iniciarPagina(activa = null) {
   pintarCabecera(activa);
+  pintarNavegacionInferior(activa);
   pintarWhatsapp();
   pintarPie();
   // GA4 solo arranca si el cliente ya dijo que sí en una visita anterior.

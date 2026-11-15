@@ -25,6 +25,9 @@
 
     <!-- 1. La habitación en 3D -->
     <div class="escena" id="escena">
+      <!-- «?»: vuelve a enseñar la ayuda al pasar el ratón por encima o al tocarlo (15/11/2026) -->
+      <button class="escena__boton-ayuda" id="boton-ayuda" type="button" aria-expanded="true" aria-controls="ayuda-escena"
+        title="Cómo moverte por el plano">?<span class="solo-lector"> Cómo moverte por el plano</span></button>
       <div class="escena__ayuda" id="ayuda-escena">
         <p><strong>Muévete con el dedo o el ratón</strong></p>
         <ul>
@@ -32,7 +35,7 @@
           <li>👆 Desliza el suelo para girar la vista</li>
           <li>🤏 Pellizca (o rueda del ratón) para el zoom</li>
         </ul>
-        <p class="escena__ayuda-cierre">Toca el plano para empezar</p>
+        <p class="escena__ayuda-cierre" id="ayuda-cierre">Toca el plano para empezar</p>
       </div>
     </div>
     <p class="escena__pista">Arrastra los muebles · desliza para girar · pellizca para hacer zoom</p>

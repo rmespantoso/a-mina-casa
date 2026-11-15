@@ -12,7 +12,8 @@
 import { leerMedida } from "./medidas.js";
 import { coloresDe, limpiarColores } from "./colores.js";
 
-/** Barra del precio: de 0 a PRECIO_TOPE euros, de PASO_PRECIO en PASO_PRECIO. El tope = sin límite. */
+/** Barra del precio: de 0 a PRECIO_TOPE euros, de PASO_PRECIO en PASO_PRECIO. El tope = sin límite.
+ *  Los recuadros «Desde» y «Hasta» admiten cualquier cifra en euros enteros. */
 export const PRECIO_TOPE = 2000;
 export const PASO_PRECIO = 25;
 
@@ -34,12 +35,24 @@ export function tiposDeEstancia(estancia) {
   return [...new Set((estancia?.grupos ?? []).flatMap((grupo) => grupo.tipos))];
 }
 
-/** Lee el precio de la barra. Fuera de rango, sin número o en el tope: sin límite (null). */
-export function leerPrecio(valor) {
+const numeroPrecio = (valor) => {
   if (valor === "" || valor == null) return null;
-  const numero = Number(valor);
-  if (!Number.isFinite(numero) || numero < 0 || numero >= PRECIO_TOPE) return null;
-  return Math.round(numero / PASO_PRECIO) * PASO_PRECIO;
+  const numero = Number(String(valor).replace(",", ".").replace(/\s*€$/, ""));
+  return Number.isFinite(numero) ? Math.round(numero) : null;
+};
+
+/** Precio máximo. Sin número, negativo o en el tope (2.000 € o más): sin límite (null). */
+export function leerPrecio(valor) {
+  const numero = numeroPrecio(valor);
+  if (numero == null || numero < 0 || numero >= PRECIO_TOPE) return null;
+  return numero;
+}
+
+/** Precio mínimo. Sin número, 0 o menos: sin mínimo (null). */
+export function leerPrecioMin(valor) {
+  const numero = numeroPrecio(valor);
+  if (numero == null || numero <= 0) return null;
+  return Math.min(numero, PRECIO_TOPE);
 }
 
 /**
@@ -65,6 +78,11 @@ export function validarPlan(datos = {}, estancia) {
     }
   }
 
+  // Si el mínimo queda por encima del máximo, se dan la vuelta (no se pide al cliente que lo corrija).
+  let precioMin = leerPrecioMin(datos.precio_min);
+  let precioMax = leerPrecio(datos.precio);
+  if (precioMin != null && precioMax != null && precioMin > precioMax) [precioMin, precioMax] = [precioMax, precioMin];
+
   const ok = Object.keys(errores).length === 0 && Boolean(estancia);
   const busqueda = ok
     ? {
@@ -72,7 +90,8 @@ export function validarPlan(datos = {}, estancia) {
         grupo: grupo?.id ?? null,
         tipos: grupo ? grupo.tipos : tiposDeEstancia(estancia),
         medidas,
-        precioMax: leerPrecio(datos.precio),
+        precioMin,
+        precioMax,
         colores: limpiarColores(datos.colores),
       }
     : null;
@@ -109,12 +128,13 @@ function distancia(producto, medidas) {
  * - delTipo: cuántos muebles hay de ese tipo en la estancia, sin filtrar;
  * - porMedida / porPrecio / porColor: cuántos se quedan fuera en cada paso, por orden.
  */
-export function buscarEnEstancia(productos, { tipos, medidas = {}, precioMax = null, colores = [] }) {
+export function buscarEnEstancia(productos, { tipos, medidas = {}, precioMin = null, precioMax = null, colores = [] }) {
   const vacio = { resultados: [], total: 0, delTipo: 0, porMedida: 0, porPrecio: 0, porColor: 0 };
   if (!Array.isArray(tipos) || tipos.length === 0) return vacio;
 
   const hayMedidas = MEDIDAS.some((nombre) => medidas[`${nombre}_cm`] != null);
-  const pasaPrecio = (producto) => precioMax == null || (producto.precio_eur != null && producto.precio_eur <= precioMax);
+  const pasaPrecio = (producto) => (precioMin == null && precioMax == null) || (producto.precio_eur != null &&
+    (precioMin == null || producto.precio_eur >= precioMin) && (precioMax == null || producto.precio_eur <= precioMax));
   const pasaColor = (producto) => colores.length === 0 || coloresDe(producto).some((color) => colores.includes(color));
 
   const delTipo = productos.filter((producto) => tipos.includes(producto.tipo));
@@ -146,6 +166,7 @@ export function paraGuardar(busqueda, ahora = new Date()) {
     ancho: busqueda.medidas.ancho_cm,
     fondo: busqueda.medidas.fondo_cm,
     alto: busqueda.medidas.alto_cm,
+    precio_min: busqueda.precioMin ?? null,
     precio: busqueda.precioMax,
     colores: busqueda.colores,
     fecha: ahora.toISOString().slice(0, 10),
@@ -170,7 +191,10 @@ export function nombreBusqueda(guardada, estancia, nombresColor = {}) {
   const partes = [estancia?.nombre ?? guardada.estancia, grupo?.nombre ?? "Todos los muebles"];
   const medidas = textoMedidas(guardada);
   if (medidas) partes.push(`hasta ${medidas}`);
-  if (guardada.precio != null) partes.push(`hasta ${guardada.precio} €`);
+  const desde = guardada.precio_min ?? null;
+  if (desde != null && guardada.precio != null) partes.push(`de ${desde} a ${guardada.precio} €`);
+  else if (desde != null) partes.push(`desde ${desde} €`);
+  else if (guardada.precio != null) partes.push(`hasta ${guardada.precio} €`);
   const colores = limpiarColores(guardada.colores);
   if (colores.length) partes.push(colores.map((id) => nombresColor[id] ?? id).join(", "));
   return partes.join(" · ");
@@ -179,7 +203,7 @@ export function nombreBusqueda(guardada, estancia, nombresColor = {}) {
 /** ¿Son la misma búsqueda (sin mirar la fecha)? */
 function mismaBusqueda(a, b) {
   return a.estancia === b.estancia && (a.grupo ?? null) === (b.grupo ?? null) && a.ancho === b.ancho && a.fondo === b.fondo &&
-    a.alto === b.alto && a.precio === b.precio && [...(a.colores ?? [])].sort().join() === [...(b.colores ?? [])].sort().join();
+    a.alto === b.alto && a.precio === b.precio && (a.precio_min ?? null) === (b.precio_min ?? null) && [...(a.colores ?? [])].sort().join() === [...(b.colores ?? [])].sort().join();
 }
 
 /**
@@ -198,18 +222,42 @@ export function quitarBusqueda(lista, posicion) {
   return lista.filter((_, indice) => indice !== posicion);
 }
 
-/**
- * Dirección de una búsqueda: espacio.html?e=…&b=1&g=…&a=…&f=…&h=…&p=…&c=…
- * `b=1` dice «haz la búsqueda al abrir». Sirve para las guardadas y para volver de una ficha.
- */
-export function enlaceBusqueda(guardada) {
-  const parametros = new URLSearchParams({ e: guardada.estancia, b: "1" });
+// Parámetros de una búsqueda en la dirección: e (estancia), g, a, f, h, pm (precio mínimo), p, c.
+function parametrosBusqueda(guardada) {
+  const parametros = new URLSearchParams({ e: guardada.estancia });
   if (guardada.grupo) parametros.set("g", guardada.grupo);
   if (guardada.ancho != null) parametros.set("a", String(guardada.ancho));
   if (guardada.fondo != null) parametros.set("f", String(guardada.fondo));
   if (guardada.alto != null) parametros.set("h", String(guardada.alto));
+  if (guardada.precio_min != null) parametros.set("pm", String(guardada.precio_min));
   if (guardada.precio != null) parametros.set("p", String(guardada.precio));
   const colores = limpiarColores(guardada.colores);
   if (colores.length) parametros.set("c", colores.join("."));
-  return `espacio.html?${parametros}`;
+  return parametros;
+}
+
+/** Página de resultados de una búsqueda (desde el 15/11/2026, aparte del filtro). */
+export function enlaceBusqueda(guardada) {
+  return `resultados.html?${parametrosBusqueda(guardada)}`;
+}
+
+/** El filtro de la estancia con esa búsqueda ya rellena («← Volver a la búsqueda»). */
+export function enlaceFiltro(guardada) {
+  return `espacio.html?${parametrosBusqueda(guardada)}`;
+}
+
+/** Lee una búsqueda de la dirección (lo contrario de parametrosBusqueda). */
+export function busquedaDeDireccion(busqueda) {
+  const parametros = new URLSearchParams(busqueda);
+  const numero = (clave) => (parametros.get(clave) ?? "");
+  return {
+    estancia: parametros.get("e"),
+    grupo: parametros.get("g"),
+    ancho: numero("a"),
+    fondo: numero("f"),
+    alto: numero("h"),
+    precio_min: numero("pm"),
+    precio: numero("p"),
+    colores: (parametros.get("c") ?? "").split("."),
+  };
 }

@@ -2061,3 +2061,232 @@ ol.piezas .pieza__nombre::before {
   background: var(--marca-fuerte);
   color: var(--sobre-marca);
 }
+
+/* =========================================================================
+   15/11/2026: dibujo de medidas, precio doble, ayuda «?» y menú inferior
+   ========================================================================= */
+
+/* Medidas en el móvil: ancho y fondo arriba, alto debajo, para que un número de tres
+   cifras con decimal («245,5») se vea entero. Desde 40rem, las tres en una fila. */
+.medidas-fila {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 40rem) {
+  .medidas-fila:not(.medidas-fila--dos) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.medidas-fila .campo__entrada {
+  padding-right: 0.4rem;
+  padding-left: 0.75rem;
+}
+
+.medidas-fila .campo__unidad {
+  padding: 0 0.75rem 0 0.25rem;
+}
+
+/* Dibujo del sofá con flechas de ancho, fondo y alto. */
+.dibujo-medidas {
+  display: block;
+  width: 100%;
+  max-width: 22rem;
+  height: auto;
+  margin: 0.25rem auto 0.75rem;
+}
+
+.dibujo-medidas__sofa {
+  fill: var(--gris-claro);
+  stroke: var(--titulo);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.dibujo-medidas__sofa--atras {
+  fill: #ececec;
+}
+
+.dibujo-medidas__sofa--lado {
+  fill: #dcdcdc;
+}
+
+.dibujo-medidas__sofa--arriba {
+  fill: #ffffff;
+}
+
+.dibujo-medidas__linea,
+.dibujo-medidas__suelo {
+  fill: none;
+  stroke: var(--titulo);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.dibujo-medidas__suelo {
+  stroke: var(--borde-campo);
+  stroke-dasharray: 4 4;
+}
+
+.dibujo-medidas__flecha {
+  fill: none;
+  stroke: var(--marca);
+  stroke-width: 3;
+}
+
+.dibujo-medidas__punta {
+  fill: var(--marca);
+}
+
+.dibujo-medidas__texto {
+  fill: var(--titulo);
+  font-family: var(--fuente);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* Barra de precio con dos tiradores: dos barras una encima de otra. Solo los tiradores
+   reciben el dedo; el tramo elegido (entre --desde y --hasta) se pinta en magenta. */
+.barra-doble {
+  --desde: 0%;
+  --hasta: 100%;
+  position: relative;
+  height: 3rem;
+}
+
+.barra-doble::before {
+  content: "";
+  position: absolute;
+  inset: 50% 0 auto;
+  height: 0.5rem;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg,
+    var(--borde-campo) var(--desde), var(--marca) var(--desde),
+    var(--marca) var(--hasta), var(--borde-campo) var(--hasta));
+}
+
+.barra--doble {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.barra--doble::-webkit-slider-runnable-track {
+  background: transparent;
+}
+
+.barra--doble::-moz-range-track,
+.barra--doble::-moz-range-progress {
+  background: transparent;
+}
+
+.barra--doble::-webkit-slider-thumb {
+  position: relative;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+.barra--doble::-moz-range-thumb {
+  pointer-events: auto;
+}
+
+/* Botón «?» del 3D: redondo, como los contadores. */
+.escena__boton-ayuda {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  background: var(--fondo);
+  border: 2px solid var(--marca);
+  border-radius: 50%;
+  box-shadow: var(--sombra);
+  color: var(--marca);
+  font: inherit;
+  font-size: 1.4rem;
+  font-weight: 700;
+  cursor: help;
+}
+
+.escena__boton-ayuda[aria-expanded="true"] {
+  background: var(--marca);
+  color: var(--sobre-marca);
+}
+
+.escena__boton-ayuda:focus-visible {
+  outline: 3px solid var(--foco);
+  outline-offset: 2px;
+}
+
+/* Menú inferior: solo en el móvil (en el ordenador están los enlaces de la cabecera). */
+.navegacion {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 10;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: var(--fondo);
+  border-top: 1px solid var(--borde);
+}
+
+.navegacion__lista {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 34rem;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.navegacion__enlace {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  min-height: 4.25rem;
+  padding: 0.35rem 0.1rem;
+  border-top: 3px solid transparent;
+  color: var(--titulo);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.15;
+  text-align: center;
+  text-decoration: none;
+}
+
+.navegacion__enlace[aria-current="page"] {
+  color: var(--marca);
+  border-top-color: var(--marca);
+}
+
+body.con-navegacion {
+  padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
+}
+
+body.con-navegacion .whatsapp {
+  bottom: calc(5.25rem + env(safe-area-inset-bottom, 0px));
+}
+
+@media (min-width: 60rem) {
+  .navegacion {
+    display: none;
+  }
+
+  body.con-navegacion {
+    padding-bottom: 0;
+  }
+
+  body.con-navegacion .whatsapp {
+    bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+@media print {
+  .navegacion {
+    display: none;
+  }
+}
