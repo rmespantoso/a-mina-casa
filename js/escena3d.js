@@ -288,6 +288,160 @@ function construirMueble(pieza) {
   return { grupo, alto: H, W, D };
 }
 
+// ---------- Vista «Foto real»: lámina recortada (prueba del 15/11/2026) ----------
+// La foto del producto (copia en img/fotos-3d/) se recorta aquí mismo: se quita el fondo claro
+// de la foto rellenando desde los bordes, como el «bote de pintura» de un programa de dibujo.
+// La lámina queda de pie, a su alto real, y gira para mirar siempre a la cámara. En el suelo
+// se dibuja la huella real (ancho × fondo) para ver lo que ocupa.
+
+const texturasFoto = new Map(); // url -> Promise<{ textura, aspecto } | null>
+
+export function recortarFoto(imagen) {
+  const LADO = 640; // se reduce para que vaya rápido en el móvil
+  const escala = Math.min(1, LADO / Math.max(imagen.width, imagen.height));
+  const w = Math.round(imagen.width * escala);
+  const h = Math.round(imagen.height * escala);
+  const lienzo = document.createElement("canvas");
+  lienzo.width = w;
+  lienzo.height = h;
+  const ctx = lienzo.getContext("2d", { willReadFrequently: true });
+  ctx.drawImage(imagen, 0, 0, w, h);
+  const datos = ctx.getImageData(0, 0, w, h);
+  const p = datos.data;
+
+  // Relleno desde todos los bordes, de píxel en píxel: avanza mientras el color cambie muy poco
+  // respecto al píxel de al lado y siga siendo claro (fondo). Así se para en el contorno del
+  // mueble aunque el mueble sea blanco, porque en la foto siempre hay una línea o una sombra.
+  const PASO = 7;      // diferencia máxima entre dos píxeles vecinos del fondo
+  const CLARO = 205;   // el fondo de las fotos de ALI es casi blanco
+  const color = (i) => [p[i * 4], p[i * 4 + 1], p[i * 4 + 2]];
+  const diferencia = (a, b) => Math.hypot(p[a * 4] - p[b * 4], p[a * 4 + 1] - p[b * 4 + 1], p[a * 4 + 2] - p[b * 4 + 2]);
+  const esClaro = (i) => Math.min(...color(i)) >= CLARO;
+  // Color del fondo, tomado dentro del marco blanco de la foto (arriba a la izquierda, al 5 %).
+  const ref = (Math.round(h * 0.05) * w + Math.round(w * 0.05)) * 4;
+  const pareceFondo = (i) => Math.hypot(p[i * 4] - p[ref], p[i * 4 + 1] - p[ref + 1], p[i * 4 + 2] - p[ref + 2]) < 13;
+  const MARCO = Math.max(4, Math.round(Math.min(w, h) * 0.02)); // el marco blanco del borde de la foto
+  const enMarco = (i) => {
+    const x = i % w;
+    const y = (i - x) / w;
+    return x < MARCO || y < MARCO || x >= w - MARCO || y >= h - MARCO;
+  };
+  const visto = new Uint8Array(w * h);
+  const cola = [];
+  const sembrar = (i) => {
+    if (!visto[i] && esClaro(i)) {
+      visto[i] = 1;
+      cola.push(i);
+    }
+  };
+  for (let x = 0; x < w; x++) {
+    sembrar(x);
+    sembrar((h - 1) * w + x);
+  }
+  for (let y = 0; y < h; y++) {
+    sembrar(y * w);
+    sembrar(y * w + w - 1);
+  }
+  while (cola.length) {
+    const i = cola.pop();
+    const x = i % w;
+    const vecinos = [];
+    if (x > 0) vecinos.push(i - 1);
+    if (x < w - 1) vecinos.push(i + 1);
+    if (i >= w) vecinos.push(i - w);
+    if (i < w * (h - 1)) vecinos.push(i + w);
+    for (const v of vecinos) {
+      if (visto[v] || !esClaro(v) || diferencia(i, v) > PASO) continue;
+      if (!enMarco(v) && !pareceFondo(v)) continue; // el blanco del mueble no se borra
+      visto[v] = 1;
+      cola.push(v);
+    }
+  }
+  const TOLERANCIA = 24; // para suavizar el borde
+  const fondoMedio = [0, 1, 2].map((c) => p[(Math.floor(h / 2) * w + 2) * 4 + c]);
+  const distancia = (i) => Math.hypot(p[i * 4] - fondoMedio[0], p[i * 4 + 1] - fondoMedio[1], p[i * 4 + 2] - fondoMedio[2]);
+
+  // Transparente lo borrado; borde suave en la frontera. Se calcula el recuadro del mueble.
+  let minX = w, minY = h, maxX = -1, maxY = -1;
+  for (let i = 0; i < w * h; i++) {
+    if (visto[i]) {
+      p[i * 4 + 3] = 0;
+      continue;
+    }
+    const x = i % w;
+    const y = (i - x) / w;
+    const vecinoBorrado = (x > 0 && visto[i - 1]) || (x < w - 1 && visto[i + 1]) || (y > 0 && visto[i - w]) || (y < h - 1 && visto[i + w]);
+    if (vecinoBorrado) p[i * 4 + 3] = Math.min(255, Math.round((distancia(i) / (TOLERANCIA * 2)) * 255));
+    if (x < minX) minX = x;
+    if (x > maxX) maxX = x;
+    if (y < minY) minY = y;
+    if (y > maxY) maxY = y;
+  }
+  if (maxX < 0) return null;
+  ctx.putImageData(datos, 0, 0);
+
+  const recorte = document.createElement("canvas");
+  recorte.width = maxX - minX + 1;
+  recorte.height = maxY - minY + 1;
+  recorte.getContext("2d").drawImage(lienzo, minX, minY, recorte.width, recorte.height, 0, 0, recorte.width, recorte.height);
+  return recorte;
+}
+
+function cargarFoto(url) {
+  if (!texturasFoto.has(url)) {
+    texturasFoto.set(url, new Promise((resolver) => {
+      const imagen = new Image();
+      imagen.onload = () => {
+        const recorte = recortarFoto(imagen);
+        if (!recorte) return resolver(null);
+        const textura = new THREE.CanvasTexture(recorte);
+        textura.colorSpace = THREE.SRGBColorSpace;
+        resolver({ textura, aspecto: recorte.width / recorte.height });
+      };
+      imagen.onerror = () => resolver(null);
+      imagen.src = url;
+    }));
+  }
+  return texturasFoto.get(url);
+}
+
+/** Mueble en vista «Foto real»: huella en el suelo + lámina con la foto (llega al cargar). */
+function construirLamina(pieza, url, alCargar) {
+  const grupo = new THREE.Group();
+  const W = pieza.ancho_cm * CM;
+  const D = pieza.fondo_cm * CM;
+  const H = altoDibujo(pieza).alto * CM;
+
+  const huella = new THREE.Mesh(
+    new THREE.PlaneGeometry(W, D),
+    new THREE.MeshBasicMaterial({ color: 0x54595f, transparent: true, opacity: 0.18, depthWrite: false }),
+  );
+  huella.rotation.x = -Math.PI / 2;
+  huella.position.y = 0.003;
+  grupo.add(huella);
+  const borde = new THREE.LineSegments(
+    new THREE.EdgesGeometry(new THREE.PlaneGeometry(W, D)),
+    new THREE.LineBasicMaterial({ color: 0x54595f }),
+  );
+  borde.rotation.x = -Math.PI / 2;
+  borde.position.y = 0.004;
+  grupo.add(borde);
+
+  cargarFoto(url).then((foto) => {
+    if (!foto) return;
+    const ancho = H * foto.aspecto;
+    const lamina = new THREE.Mesh(
+      new THREE.PlaneGeometry(ancho, H),
+      new THREE.MeshBasicMaterial({ map: foto.textura, transparent: true, alphaTest: 0.35, side: THREE.DoubleSide }),
+    );
+    lamina.position.y = H / 2;
+    lamina.userData.lamina = true;
+    grupo.add(lamina);
+    alCargar();
+  });
+  return { grupo, alto: H, W, D };
+}
+
 // Caja de líneas alrededor del mueble: magenta si está elegido, negra a trazos si hay un aviso.
 function contorno(W, H, D, estilo) {
   const geometria = new THREE.EdgesGeometry(new THREE.BoxGeometry(W + 0.03, H + 0.03, D + 0.03));
@@ -350,10 +504,23 @@ export function crearEscena(contenedor, { alElegir, alMover, alSoltar, alTocar =
     pendiente = true;
     requestAnimationFrame(() => {
       pendiente = false;
+      orientarLaminas();
       renderer.render(escena, camara);
       alPintar();
     });
   };
+
+  // Cada lámina gira solo sobre el eje vertical para mirar a la cámara (como un cartel).
+  const posicionMundo = new THREE.Vector3();
+  function orientarLaminas() {
+    for (const datos of piezas3d.values()) {
+      const lamina = datos.grupo.children.find((hijo) => hijo.userData.lamina);
+      if (!lamina) continue;
+      datos.grupo.getWorldPosition(posicionMundo);
+      const angulo = Math.atan2(camara.position.x - posicionMundo.x, camara.position.z - posicionMundo.z);
+      lamina.rotation.y = angulo - datos.grupo.rotation.y;
+    }
+  }
 
   function colocarCamara() {
     vista.phi = Math.min(Math.max(vista.phi, 0.0001), 1.45);
@@ -433,7 +600,8 @@ export function crearEscena(contenedor, { alElegir, alMover, alSoltar, alTocar =
   }
 
   /** Dibuja un plano: la habitación y sus muebles. Solo reconstruye lo que ha cambiado. */
-  function dibujar(plano, { elegida = null, conAviso = new Set() } = {}) {
+  // `fotos`: Map id de producto -> dirección de su foto. Si un mueble está en él, se dibuja como lámina.
+  function dibujar(plano, { elegida = null, conAviso = new Set(), fotos = new Map() } = {}) {
     ultimoPlano = plano;
     const W = plano.habitacion.ancho_cm * CM;
     const L = plano.habitacion.largo_cm * CM;
@@ -447,11 +615,12 @@ export function crearEscena(contenedor, { alElegir, alMover, alSoltar, alTocar =
     const vivos = new Set();
     plano.piezas.forEach((pieza, indice) => {
       vivos.add(pieza.id);
-      const clave = [pieza.tipo, pieza.ancho_cm, pieza.fondo_cm, pieza.alto_cm, pieza.color].join("|");
+      const foto = fotos.get(pieza.producto) ?? null;
+      const clave = [pieza.tipo, pieza.ancho_cm, pieza.fondo_cm, pieza.alto_cm, pieza.color, foto].join("|");
       let datos = piezas3d.get(pieza.id);
       if (!datos || datos.clave !== clave) {
         if (datos) muebles.remove(datos.grupo);
-        const { grupo, alto, W: ancho, D } = construirMueble(pieza);
+        const { grupo, alto, W: ancho, D } = foto ? construirLamina(pieza, foto, pintar) : construirMueble(pieza);
         grupo.userData.id = pieza.id;
         datos = { grupo, clave, alto, W: ancho, D, numero: null, contorno: null, estilo: null, indice: -1 };
         piezas3d.set(pieza.id, datos);

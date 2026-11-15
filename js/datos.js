@@ -45,3 +45,19 @@ export async function cargarAmbientes() {
 export async function cargarEstancias() {
   return (await pedirJson(URL_ESTANCIAS)).estancias;
 }
+
+const URL_FOTOS_3D = new URL("../data/fotos_3d.json", import.meta.url);
+
+/** Ids de los muebles que tienen copia de su foto para la vista «Foto real» de Mi plano 3D. */
+export async function cargarFotos3d() {
+  try {
+    return new Set((await pedirJson(URL_FOTOS_3D)).fotos);
+  } catch {
+    return new Set(); // sin el archivo, todos los muebles se ven con su forma
+  }
+}
+
+/** Dirección de la copia de la foto de un mueble (img/fotos-3d/ID.jpg). */
+export function urlFoto3d(id) {
+  return new URL(`../img/fotos-3d/${encodeURIComponent(id)}.jpg`, import.meta.url).href;
+}

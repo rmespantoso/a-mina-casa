@@ -14,7 +14,7 @@
 
 import { iniciarPagina } from "../comun.js";
 import { leer, guardar } from "../almacen.js";
-import { cargarDatos, cargarEstancias } from "../datos.js";
+import { cargarDatos, cargarEstancias, cargarFotos3d, urlFoto3d } from "../datos.js";
 import { htmlFiltro, montarFiltro } from "../filtro.js";
 import { medir } from "../medicion.js";
 import { comoTexto, pintarErrores } from "../formularios.js";
@@ -49,6 +49,8 @@ let plano = planoActivo(coleccion);
 let elegida = null;
 let catalogo = [];
 let estancias = [];
+let fotos3d = new Set(); // muebles con foto recortada para la vista «Foto real»
+let vista = leer("vista-plano", "forma") === "foto" ? "foto" : "forma"; // comodidad: se recuerda en este navegador
 let escena = null;
 
 const nuevoId = (letra) => `${letra}${Date.now().toString(36)}${Math.random().toString(36).slice(2, 5)}`;
@@ -206,7 +208,11 @@ formularioGuardar.addEventListener("submit", (evento) => {
 function dibujar({ soloEscena = false } = {}) {
   const { noCaben, pisadas } = problemas(plano);
   const conAviso = new Set([...noCaben.map((pieza) => pieza.id), ...pisadas.flat().map((pieza) => pieza.id)]);
-  escena?.dibujar(plano, { elegida, conAviso });
+  const fotos = new Map();
+  if (vista === "foto") {
+    for (const pieza of plano.piezas) if (fotos3d.has(pieza.producto)) fotos.set(pieza.producto, urlFoto3d(pieza.producto));
+  }
+  escena?.dibujar(plano, { elegida, conAviso, fotos });
   if (soloEscena) return;
 
   // La etiqueta va en el dibujo (canvas), no en la caja, que también lleva el botón «?».
@@ -485,6 +491,22 @@ document.addEventListener("keydown", (evento) => {
   if (evento.key === "Escape" && !cajaAyuda.hidden) ocultarAyuda();
 });
 
+// ---------- Vista: «Forma» o «Foto real» ----------
+
+function pintarVista() {
+  for (const boton of document.querySelectorAll("[data-vista]")) boton.setAttribute("aria-pressed", String(boton.dataset.vista === vista));
+  document.getElementById("nota-vista").hidden = vista !== "foto";
+}
+
+document.querySelector(".vista-3d__botones").addEventListener("click", (evento) => {
+  const boton = evento.target.closest("[data-vista]");
+  if (!boton || boton.dataset.vista === vista) return;
+  vista = boton.dataset.vista;
+  guardar("vista-plano", vista);
+  pintarVista();
+  dibujar({ soloEscena: true });
+});
+
 // ---------- Girar: flecha ↻ encima del mueble elegido ----------
 
 const botonGirar = document.getElementById("girar-elegido");
@@ -536,9 +558,10 @@ function prepararEscena() {
 // ---------- Arranque ----------
 
 try {
-  const [datos, todas] = await Promise.all([cargarDatos(), cargarEstancias()]);
+  const [datos, todas, conFoto] = await Promise.all([cargarDatos(), cargarEstancias(), cargarFotos3d()]);
   catalogo = datos.productos;
   estancias = todas;
+  fotos3d = conFoto;
 } catch (error) {
   console.error(error);
   estado.textContent = "No hemos podido cargar los muebles. Recarga la página.";
@@ -565,6 +588,7 @@ if (pedidos.length) {
 }
 
 prepararVolver();
+pintarVista();
 prepararEscena();
 pintarTodo();
 pintarDeMiLista();

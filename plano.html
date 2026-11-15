@@ -42,6 +42,14 @@
       </div>
     </div>
     <p class="escena__pista">Arrastra los muebles · toca uno y pulsa ↻ para girarlo · pellizca para el zoom</p>
+    <!-- Vista de los muebles: forma aproximada o foto real recortada (prueba del 15/11/2026) -->
+    <div class="vista-3d">
+      <div class="vista-3d__botones" role="group" aria-label="Cómo ver los muebles">
+        <button class="vista-3d__boton" type="button" data-vista="forma" aria-pressed="true">Forma</button>
+        <button class="vista-3d__boton" type="button" data-vista="foto" aria-pressed="false">Foto real</button>
+      </div>
+      <p class="nota" id="nota-vista" hidden>«Foto real» es una prueba: de momento solo la tienen el sofá Turin (SOF-02), el mueble de TV Kioto (TV-04) y la cómoda Vesly (COM-03). El resto se ve con su forma.</p>
+    </div>
     <p class="mensaje" id="estado-plano" role="status"></p>
 
     <!-- 2. Medidas de la habitación: editables, se aplican al momento -->

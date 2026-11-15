@@ -2326,3 +2326,39 @@ body.con-navegacion .whatsapp {
   outline: 3px solid var(--foco);
   outline-offset: 2px;
 }
+
+/* Vista de los muebles en Mi plano 3D: «Forma | Foto real» (interruptor de dos botones). */
+.vista-3d {
+  margin: 0.25rem 0 0.75rem;
+}
+
+.vista-3d__botones {
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  border: 2px solid var(--marca);
+}
+
+.vista-3d__boton {
+  min-width: 7.5rem;
+  min-height: 3rem;
+  padding: 0 1rem;
+  background: var(--fondo);
+  border: 0;
+  color: var(--marca);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.vista-3d__boton[aria-pressed="true"] {
+  background: var(--marca);
+  color: var(--sobre-marca);
+}
+
+.vista-3d__boton:focus-visible {
+  outline: 3px solid var(--foco);
+  outline-offset: 2px;
+}
