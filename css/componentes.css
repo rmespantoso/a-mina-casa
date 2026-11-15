@@ -2290,3 +2290,39 @@ body.con-navegacion .whatsapp {
     display: none;
   }
 }
+
+/* Flecha ↻ encima del mueble elegido en el 3D (la coloca plano.js con transform). */
+.escena__girar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  padding: 0;
+  background: var(--marca);
+  border: 3px solid var(--fondo);
+  border-radius: 50%;
+  box-shadow: var(--sombra);
+  color: var(--sobre-marca);
+  font: inherit;
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.escena__girar[hidden] {
+  display: none;
+}
+
+.escena__girar:hover {
+  background: var(--marca-fuerte);
+}
+
+.escena__girar:focus-visible {
+  outline: 3px solid var(--foco);
+  outline-offset: 2px;
+}

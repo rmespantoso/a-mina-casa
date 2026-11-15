@@ -160,19 +160,15 @@ prueba("el total suma bien y avisa si falta algún precio", () => {
   igual(totalLista([]), { total: 0, sinPrecio: 0 });
 });
 
-prueba("el texto de WhatsApp lleva los muebles, el código y el enlace, y nada más", () => {
+prueba("el texto de WhatsApp lleva los muebles y el enlace, y nada más (sin el código)", () => {
   const productos = [{ nombre: "Sofá Ejemplo", precio_eur: 299.99 }, { nombre: "Mesa Ejemplo", precio_eur: null }];
   const texto = textoCompartir({ lista: LISTA, productos, enlace: "https://ejemplo.test/lista.html?v=1" });
   const lineas = texto.split("\n");
   igual(lineas.length, 5);
-  cierto(lineas[0].includes("ALI-7K3F"), lineas[0]);
+  igual(lineas[0], "Mira esta lista de muebles de ALI Hogar:");
+  cierto(!texto.includes("ALI-7K3F"), "el código ya no va en el mensaje");
   cierto(lineas[1].startsWith("• Sofá Ejemplo — 299,99"), lineas[1]);
   igual(lineas[2], "• Mesa Ejemplo — Consultar en tienda");
   cierto(lineas[3].includes("sin contar 1"), lineas[3]);
   igual(lineas[4], "Ver la lista: https://ejemplo.test/lista.html?v=1");
-});
-
-prueba("el mensaje para el asesor saluda y pide ayuda", () => {
-  const texto = textoCompartir({ lista: LISTA, productos: [], enlace: "x", paraAsesor: true });
-  cierto(texto.startsWith("Hola, os envío mi lista de A Miña Casa (código ALI-7K3F)"), texto);
 });

@@ -2,8 +2,8 @@
 //
 // Desde el 15/11/2026 los resultados van en una página aparte del filtro, para que el cliente
 // tenga menos distracciones. Arriba a la izquierda, «← Volver a la búsqueda» lleva al filtro
-// de la estancia con lo que había elegido. Aquí se puede guardar la búsqueda, guardar muebles
-// en la lista, ir a comprar y «Probar en mi plano 3D».
+// de la estancia con lo que había elegido. Aquí se pueden guardar muebles en la lista, ir a
+// comprar y «Probar en mi plano 3D». (Desde el 15/11/2026, sin «Guardar esta búsqueda» ni resumen.)
 
 import { iniciarPagina } from "../comun.js";
 import { cargarDatos, cargarEstancias } from "../datos.js";
@@ -13,19 +13,15 @@ import { tarjetaProducto } from "../componentes.js";
 import { icono } from "../dibujos.js";
 import { escapar } from "../textos.js";
 import { accionCompra } from "../logica/recomendador.js";
-import { FAMILIAS } from "../logica/colores.js";
 import {
-  POR_PAGINA, buscarEnEstancia, busquedaDeDireccion, enlaceBusqueda, enlaceFiltro, estanciaPorId, nombreBusqueda, paraGuardar,
-  textoMedidas, validarPlan,
+  POR_PAGINA, buscarEnEstancia, busquedaDeDireccion, enlaceBusqueda, enlaceFiltro, estanciaPorId, paraGuardar, textoMedidas,
+  validarPlan,
 } from "../logica/planificador.js";
-import { guardarBusqueda } from "../mis-busquedas.js";
 import { estaGuardado, guardarProducto, quitarProducto } from "../mi-lista.js";
-import { estaRegistrado } from "../sesion.js";
 
 iniciarPagina("planifica");
 
 const zona = document.getElementById("resultados");
-const NOMBRES_COLOR = Object.fromEntries(FAMILIAS.map((familia) => [familia.id, familia.nombre]));
 
 let estancia = null;
 let busqueda = null; // la búsqueda de esta página
@@ -81,12 +77,10 @@ function pintarMas() {
 }
 
 function pintarResultados(productos) {
-  const { resultados, total, delTipo, porMedida, porPrecio, porColor } = buscarEnEstancia(productos, busqueda);
+  const { resultados, total, delTipo } = buscarEnEstancia(productos, busqueda);
   const guardada = paraGuardar(busqueda);
   const grupo = estancia.grupos.find((actual) => actual.id === busqueda.grupo);
   const queBusca = (grupo?.nombre ?? "muebles").toLowerCase();
-  // Resumen del filtro en una frase: «Sofás · hasta 220 cm de ancho · de 100 a 600 € · Gris».
-  const resumen = nombreBusqueda(guardada, estancia, NOMBRES_COLOR).split(" · ").slice(1).join(" · ");
 
   medir("recommend_view", {
     estancia: busqueda.estancia,
@@ -98,19 +92,6 @@ function pintarResultados(productos) {
     resultados: total,
   });
 
-  // Por qué hay menos: se dice claro cuántos se quedan fuera en cada filtro.
-  const fuera = [];
-  if (porMedida) fuera.push(`${porMedida} no ${porMedida === 1 ? "cumple" : "cumplen"} tus medidas (o la web no da esa medida)`);
-  if (porPrecio) fuera.push(`${porPrecio} ${porPrecio === 1 ? "queda" : "quedan"} fuera de tu precio (o no tienen precio en la web)`);
-  if (porColor) fuera.push(`${porColor} no ${porColor === 1 ? "es" : "son"} del color elegido (o la web no dice su color)`);
-  const textoFuera = fuera.length ? `<p class="nota">Se quedan fuera: ${escapar(fuera.join("; "))}.</p>` : "";
-
-  const guardar = `
-    <div class="acciones">
-      <button class="boton boton--secundario" type="button" id="guardar-busqueda">Guardar esta búsqueda</button>
-    </div>
-    <p class="mensaje" id="aviso-busqueda" role="status" hidden></p>`;
-
   const titulo = document.getElementById("titulo-resultados");
   if (total === 0) {
     titulo.textContent = "No hemos encontrado ninguno";
@@ -120,27 +101,19 @@ function pintarResultados(productos) {
       ? "Esta herramienta todavía no tiene muebles de este tipo."
       : "Ningún mueble cumple todo lo que has elegido. Vuelve a la búsqueda y prueba a quitar algún filtro o a cambiar el precio.";
     zona.innerHTML = `
-      <p>${escapar(resumen)}.</p>
       <div class="pendiente"><p>${motivo}</p><p>El asesor de ALI Hogar puede buscarte otras opciones.</p></div>
-      ${textoFuera}
       <div class="acciones">
         <a class="boton boton--primario" id="asesor-sin-resultados" href="${escapar(enlaceAsesor(texto))}" target="_blank" rel="noopener">
           ${icono("whatsapp")}Preguntar al asesor</a>
         <a class="boton boton--secundario" href="${escapar(enlaceFiltro(guardada))}">Cambiar la búsqueda</a>
-      </div>
-      ${guardar}`;
+      </div>`;
     document.getElementById("asesor-sin-resultados")
       .addEventListener("click", () => medir("whatsapp_advisor", { desde: "planifica_sin_resultados", tipo: busqueda.grupo ?? "todos" }));
     return;
   }
 
   titulo.textContent = total === 1 ? "1 mueble para ti" : `${total} muebles para ti`;
-  const hayMedidas = Object.values(busqueda.medidas).some((valor) => valor != null);
   zona.innerHTML = `
-    <p>${escapar(resumen)}.
-      ${hayMedidas ? "Primero, los que más se acercan a tus medidas." : "Ordenados de menor a mayor precio."}</p>
-    ${textoFuera}
-    ${guardar}
     <ul class="resultados-lista" id="lista-resultados"></ul>
     <p class="nota" id="cuantos-ves" aria-live="polite"></p>
     <div class="acciones"><button class="boton boton--secundario" type="button" id="ver-mas">Ver más</button></div>
@@ -156,19 +129,6 @@ zona.addEventListener("click", (evento) => {
     pintarMas();
     // El foco pasa al primer mueble nuevo, para no perderse.
     document.querySelectorAll("#lista-resultados > li")[primero]?.querySelector("a, button")?.focus();
-    return;
-  }
-
-  // Guardar el filtro completo para repetirlo otro día.
-  if (evento.target.closest("#guardar-busqueda")) {
-    const aviso = document.getElementById("aviso-busqueda");
-    const resultado = guardarBusqueda(paraGuardar(busqueda));
-    const nombre = nombreBusqueda(paraGuardar(busqueda), estancia, NOMBRES_COLOR);
-    const donde = estaRegistrado() ? "en tu cuenta (demostración: se queda en este navegador)" : "en este navegador";
-    aviso.innerHTML = resultado.repetida
-      ? `Ya la tenías guardada: «${escapar(nombre)}». <a href="index.html#busquedas">Ver mis búsquedas</a>`
-      : `Búsqueda guardada ${donde}: «${escapar(nombre)}». <a href="index.html#busquedas">Ver mis búsquedas</a>`;
-    aviso.hidden = false;
     return;
   }
 

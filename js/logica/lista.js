@@ -95,14 +95,14 @@ export function totalLista(productos) {
  * Texto que se manda por WhatsApp. Solo lleva muebles, precios, el código y el enlace:
  * ningún dato personal. Con `paraAsesor`, saluda y pide ayuda al asesor de ALI.
  */
-export function textoCompartir({ lista, productos, enlace, paraAsesor = false }) {
+// Desde el 15/11/2026 el código de la lista no se enseña al cliente ni va en el mensaje
+// (sigue viajando dentro del enlace, para reconocer la lista). Ya no hay «Enviar al asesor».
+export function textoCompartir({ productos, enlace }) {
   const { total, sinPrecio } = totalLista(productos);
   const lineas = productos.map((producto) => `• ${producto.nombre} — ${euros(producto.precio_eur)}`);
   const notaTotal = sinPrecio ? ` (sin contar ${sinPrecio} con precio a consultar)` : "";
   return [
-    paraAsesor
-      ? `Hola, os envío mi lista de A Miña Casa (código ${lista.codigo}). ¿Me ayudáis con ella?`
-      : `Mira esta lista de muebles de ALI Hogar (código ${lista.codigo}):`,
+    "Mira esta lista de muebles de ALI Hogar:",
     ...lineas,
     `Total orientativo: ${euros(total)}${notaTotal}`,
     `Ver la lista: ${enlace}`,

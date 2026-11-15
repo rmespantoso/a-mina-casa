@@ -39,7 +39,6 @@ function opcionesMenu(activa) {
   const tienda = enlaceTienda("https://alihogar.es/");
   return `
     <li><a class="menu__enlace menu__enlace--destacado" href="index.html"${actual("planifica", activa)}>Planifica tu espacio<small>Elige una estancia y mira qué te cabe</small></a></li>
-    <li><a class="menu__enlace" href="index.html#busquedas">Mis búsquedas guardadas</a></li>
     <li><a class="menu__enlace" href="plano.html"${actual("plano", activa)}>Mi plano 3D<small>Mira cómo quedan tus muebles en tu habitación</small></a></li>
     <li><a class="menu__enlace" href="lista.html"${actual("lista", activa)}>Mi lista</a></li>
     <li><a class="menu__enlace" href="index.html#escanear">Escanea en la tienda</a></li>
@@ -70,7 +69,7 @@ function prepararMenu() {
   document.addEventListener("keydown", (evento) => {
     if (evento.key === "Escape") cerrar();
   });
-  // Un enlace a otra parte de la misma página (#busquedas) también cierra el menú.
+  // Un enlace a otra parte de la misma página (#escanear) también cierra el menú.
   menu.addEventListener("click", (evento) => {
     if (evento.target.closest("a")) {
       menu.hidden = true;

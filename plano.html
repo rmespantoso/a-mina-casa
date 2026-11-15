@@ -28,17 +28,20 @@
       <!-- «?»: vuelve a enseñar la ayuda al pasar el ratón por encima o al tocarlo (15/11/2026) -->
       <button class="escena__boton-ayuda" id="boton-ayuda" type="button" aria-expanded="true" aria-controls="ayuda-escena"
         title="Cómo moverte por el plano">?<span class="solo-lector"> Cómo moverte por el plano</span></button>
+      <!-- ↻ encima del mueble elegido: cada toque lo gira 90° (15/11/2026) -->
+      <button class="escena__girar" id="girar-elegido" type="button" hidden>↻<span class="solo-lector"> Girar el mueble elegido</span></button>
       <div class="escena__ayuda" id="ayuda-escena">
         <p><strong>Muévete con el dedo o el ratón</strong></p>
         <ul>
           <li>☝️ Arrastra un mueble para moverlo</li>
+          <li>↻ Toca un mueble y pulsa la flecha para girarlo</li>
           <li>👆 Desliza el suelo para girar la vista</li>
           <li>🤏 Pellizca (o rueda del ratón) para el zoom</li>
         </ul>
         <p class="escena__ayuda-cierre" id="ayuda-cierre">Toca el plano para empezar</p>
       </div>
     </div>
-    <p class="escena__pista">Arrastra los muebles · desliza para girar · pellizca para hacer zoom</p>
+    <p class="escena__pista">Arrastra los muebles · toca uno y pulsa ↻ para girarlo · pellizca para el zoom</p>
     <p class="mensaje" id="estado-plano" role="status"></p>
 
     <!-- 2. Medidas de la habitación: editables, se aplican al momento -->

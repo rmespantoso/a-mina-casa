@@ -17,9 +17,6 @@ import { coloresDe, limpiarColores } from "./colores.js";
 export const PRECIO_TOPE = 2000;
 export const PASO_PRECIO = 25;
 
-/** Cuántas búsquedas guardadas se recuerdan como mucho. */
-export const MAX_BUSQUEDAS = 10;
-
 /** Cuántos muebles se enseñan de cada vez (luego, «Ver más»). */
 export const POR_PAGINA = 12;
 
@@ -156,9 +153,9 @@ export function buscarEnEstancia(productos, { tipos, medidas = {}, precioMin = n
   };
 }
 
-// ---------- Búsquedas guardadas ----------
+// ---------- La búsqueda en la dirección ----------
 
-/** Lo que se guarda de una búsqueda: solo el filtro, nada personal. */
+/** La búsqueda en forma sencilla (para la dirección): solo el filtro, nada personal. */
 export function paraGuardar(busqueda, ahora = new Date()) {
   return {
     estancia: busqueda.estancia,
@@ -180,46 +177,6 @@ export function textoMedidas(guardada) {
     if (guardada[nombre] != null) partes.push(`${String(guardada[nombre]).replace(".", ",")}${partes.length ? "" : " cm"} de ${nombre}`);
   }
   return partes.join(", ");
-}
-
-/**
- * Nombre corto de una búsqueda guardada:
- * «Dormitorio · Canapés · hasta 160 cm de ancho · hasta 500 € · Blanco».
- */
-export function nombreBusqueda(guardada, estancia, nombresColor = {}) {
-  const grupo = estancia?.grupos.find((actual) => actual.id === guardada.grupo);
-  const partes = [estancia?.nombre ?? guardada.estancia, grupo?.nombre ?? "Todos los muebles"];
-  const medidas = textoMedidas(guardada);
-  if (medidas) partes.push(`hasta ${medidas}`);
-  const desde = guardada.precio_min ?? null;
-  if (desde != null && guardada.precio != null) partes.push(`de ${desde} a ${guardada.precio} €`);
-  else if (desde != null) partes.push(`desde ${desde} €`);
-  else if (guardada.precio != null) partes.push(`hasta ${guardada.precio} €`);
-  const colores = limpiarColores(guardada.colores);
-  if (colores.length) partes.push(colores.map((id) => nombresColor[id] ?? id).join(", "));
-  return partes.join(" · ");
-}
-
-/** ¿Son la misma búsqueda (sin mirar la fecha)? */
-function mismaBusqueda(a, b) {
-  return a.estancia === b.estancia && (a.grupo ?? null) === (b.grupo ?? null) && a.ancho === b.ancho && a.fondo === b.fondo &&
-    a.alto === b.alto && a.precio === b.precio && (a.precio_min ?? null) === (b.precio_min ?? null) && [...(a.colores ?? [])].sort().join() === [...(b.colores ?? [])].sort().join();
-}
-
-/**
- * Añade una búsqueda guardada (la más reciente, la primera). Si ya estaba, la sube arriba
- * sin duplicarla. Si se pasa de MAX_BUSQUEDAS, se olvida la más antigua.
- * Devuelve { lista, repetida }.
- */
-export function ponerBusqueda(lista, nueva) {
-  const repetida = lista.some((actual) => mismaBusqueda(actual, nueva));
-  const resto = lista.filter((actual) => !mismaBusqueda(actual, nueva));
-  return { lista: [nueva, ...resto].slice(0, MAX_BUSQUEDAS), repetida };
-}
-
-/** Quita la búsqueda de la posición indicada. */
-export function quitarBusqueda(lista, posicion) {
-  return lista.filter((_, indice) => indice !== posicion);
 }
 
 // Parámetros de una búsqueda en la dirección: e (estancia), g, a, f, h, pm (precio mínimo), p, c.

@@ -7,8 +7,8 @@ import { guardar, leer } from "../almacen.js";
 import { cargarDatos } from "../datos.js";
 import { medir } from "../medicion.js";
 import { estaRegistrado } from "../sesion.js";
-import { enlaceAsesor, enlaceTienda } from "../enlaces.js";
-import { avisoOrientativo, fotoProducto } from "../componentes.js";
+import { enlaceTienda } from "../enlaces.js";
+import { fotoProducto } from "../componentes.js";
 import { icono } from "../dibujos.js";
 import { NOMBRE_TIPO, escapar, euros, medidas } from "../textos.js";
 import { crearEnlace, leerEnlace, textoCompartir, totalLista } from "../logica/lista.js";
@@ -121,11 +121,6 @@ function pintarMia() {
 
   contenido.innerHTML = `
     <h1>Mi lista</h1>
-    <div class="codigo">
-      <p class="codigo__etiqueta">Código de tu lista</p>
-      <p class="codigo__valor">${escapar(lista.codigo)}</p>
-      <p class="codigo__ayuda">Dilo en caja o al asesor y sabrán qué muebles te interesan.</p>
-    </div>
     <p class="nota">${estaRegistrado()
       ? "Guardada en tu cuenta (demostración: en este prototipo se queda en este móvil)."
       : "Se guarda solo en este móvil."}</p>
@@ -145,17 +140,15 @@ function pintarMia() {
     <h2 class="seccion">${productos.length === 1 ? "1 mueble guardado" : `${productos.length} muebles guardados`}</h2>
     ${productos.length
       ? `<ul class="articulos">${productos.map((producto) => articulo(producto, true)).join("")}</ul>
-         ${avisoOrientativo()}
          ${bloqueTotal(productos)}
          <div class="acciones"><a class="boton boton--secundario" href="plano.html">Ver mis muebles en mi plano 3D</a></div>`
       : '<p class="pendiente">No queda ningún mueble en tu lista.</p>'}
 
     ${productos.length ? `
     <h2 class="seccion">Compartir</h2>
-    <p>Envía tu lista a quien quieras o al asesor de ALI Hogar. El mensaje solo lleva los muebles, el código y un enlace.</p>
+    <p>Envía tu lista a quien quieras. El mensaje solo lleva los muebles y un enlace.</p>
     <div class="acciones">
       <a class="boton boton--primario" id="compartir" target="_blank" rel="noopener" href="#">${icono("whatsapp")}Compartir por WhatsApp</a>
-      <a class="boton boton--secundario" id="al-asesor" target="_blank" rel="noopener" href="#">Enviar al asesor de ALI</a>
       <button class="boton boton--secundario" type="button" id="copiar">Copiar enlace</button>
     </div>
     <p class="mensaje" id="aviso-compartir" role="status" hidden></p>
@@ -170,9 +163,7 @@ function pintarMia() {
 
   function prepararEnlaces() {
     const enlace = crearEnlace(BASE, lista);
-    const texto = (paraAsesor) => textoCompartir({ lista, productos, enlace, paraAsesor });
-    document.getElementById("compartir").href = `https://wa.me/?text=${encodeURIComponent(texto(false))}`;
-    document.getElementById("al-asesor").href = enlaceAsesor(texto(true));
+    document.getElementById("compartir").href = `https://wa.me/?text=${encodeURIComponent(textoCompartir({ productos, enlace }))}`;
     return enlace;
   }
   prepararEnlaces();
@@ -184,10 +175,6 @@ function pintarMia() {
   }
 
   document.getElementById("compartir").addEventListener("click", () => trasCompartir("whatsapp", "Se ha abierto WhatsApp con tu lista."));
-  document.getElementById("al-asesor").addEventListener("click", () => {
-    medir("whatsapp_advisor", { desde: "lista", productos: productos.length });
-    trasCompartir("asesor", "Se ha abierto WhatsApp con el asesor de ALI Hogar.");
-  });
   document.getElementById("copiar").addEventListener("click", async () => {
     const enlace = prepararEnlaces();
     try {
@@ -255,10 +242,6 @@ function pintarRecibida(recibida) {
   contenido.innerHTML = `
     <h1>Lista recibida</h1>
     <div class="aviso">${icono("info")}<p><strong>Esta lista te la han enviado.</strong> Todavía no es tuya: puedes mirarla o guardarla.</p></div>
-    <div class="codigo">
-      <p class="codigo__etiqueta">Código de la lista</p>
-      <p class="codigo__valor">${escapar(recibida.lista.codigo)}</p>
-    </div>
     ${avisoPerdidos(perdidos)}
 
     <h2 class="seccion">${productos.length === 1 ? "1 mueble" : `${productos.length} muebles`}</h2>

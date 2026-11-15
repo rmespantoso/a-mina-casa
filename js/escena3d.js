@@ -308,8 +308,9 @@ function contorno(W, H, D, estilo) {
  * `alElegir(id | null)` se llama al tocar un mueble (o el suelo vacío).
  * `alMover(id, x_cm, y_cm)` se llama al arrastrar un mueble; `alSoltar()` al terminar.
  * `alTocar()` se llama la primera vez que el cliente toca la escena (para quitar la ayuda).
+ * `alPintar()` se llama después de cada dibujo (para colocar la flecha ↻ encima del mueble elegido).
  */
-export function crearEscena(contenedor, { alElegir, alMover, alSoltar, alTocar = () => {} }) {
+export function crearEscena(contenedor, { alElegir, alMover, alSoltar, alTocar = () => {}, alPintar = () => {} }) {
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.shadowMap.enabled = true;
@@ -350,6 +351,7 @@ export function crearEscena(contenedor, { alElegir, alMover, alSoltar, alTocar =
     requestAnimationFrame(() => {
       pendiente = false;
       renderer.render(escena, camara);
+      alPintar();
     });
   };
 
@@ -582,6 +584,22 @@ export function crearEscena(contenedor, { alElegir, alMover, alSoltar, alTocar =
 
   return {
     dibujar,
+    /**
+     * Dónde se ve un mueble en la caja del 3D, en píxeles: el punto encima de su centro.
+     * null si no existe o queda detrás de la cámara.
+     */
+    posicionEnPantalla(id) {
+      const datos = piezas3d.get(id);
+      if (!datos) return null;
+      const punto = new THREE.Vector3(0, datos.alto + 0.5, 0); // por encima del número
+      datos.grupo.localToWorld(punto);
+      punto.project(camara);
+      if (punto.z > 1) return null;
+      return {
+        x: ((punto.x + 1) / 2) * lienzo.clientWidth,
+        y: ((1 - punto.y) / 2) * lienzo.clientHeight,
+      };
+    },
     /** Vista inclinada (3D), la de entrada. */
     vista3D() {
       cambiarAngulo(45);

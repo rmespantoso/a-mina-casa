@@ -5,8 +5,8 @@ import { cargarDatos, cargarEstancias } from "../js/datos.js";
 import { NOMBRE_ESTANCIA, NOMBRE_TIPO } from "../js/textos.js";
 import { coloresDe, limpiarColores } from "../js/logica/colores.js";
 import {
-  MAX_BUSQUEDAS, PRECIO_TOPE, buscarEnEstancia, busquedaDeDireccion, enlaceBusqueda, enlaceFiltro, leerPrecio, leerPrecioMin,
-  nombreBusqueda, paraGuardar, ponerBusqueda, quitarBusqueda, validarPlan,
+  PRECIO_TOPE, buscarEnEstancia, busquedaDeDireccion, enlaceBusqueda, enlaceFiltro, leerPrecio, leerPrecioMin, paraGuardar,
+  validarPlan,
 } from "../js/logica/planificador.js";
 
 const DORMITORIO = {
@@ -138,35 +138,13 @@ prueba("«Todos los muebles» junta los tipos de la estancia", () => {
   igual(buscarEnEstancia(CATALOGO, validarPlan({}, DORMITORIO).busqueda).total, 6);
 });
 
-grupo("Planifica · búsquedas guardadas");
+grupo("Planifica · la búsqueda en la dirección");
 
 const busqueda = validarPlan({ grupo: "comodas", ancho: "120", fondo: "45", precio: "300", colores: ["blanco"] }, DORMITORIO).busqueda;
 
-prueba("el nombre resume el filtro completo", () => {
-  igual(nombreBusqueda(paraGuardar(busqueda), DORMITORIO, { blanco: "Blanco" }),
-    "Dormitorio · Cómodas · hasta 120 cm de ancho, 45 de fondo · hasta 300 € · Blanco");
-  igual(nombreBusqueda(paraGuardar(validarPlan({}, DORMITORIO).busqueda), DORMITORIO), "Dormitorio · Todos los muebles");
-});
-
-prueba("solo se guarda el filtro, nada personal", () => {
+prueba("en la dirección solo va el filtro, nada personal", () => {
   igual(Object.keys(paraGuardar(busqueda, new Date("2026-11-14"))).sort(),
     ["alto", "ancho", "colores", "estancia", "fecha", "fondo", "grupo", "precio", "precio_min"]);
-});
-
-prueba("guardar la misma búsqueda dos veces no la duplica", () => {
-  const una = paraGuardar(busqueda);
-  const { lista } = ponerBusqueda([], una);
-  const otra = ponerBusqueda(lista, { ...una, fecha: "2030-01-01" });
-  igual(otra.lista.length, 1);
-  igual(otra.repetida, true);
-});
-
-prueba(`se recuerdan como mucho ${MAX_BUSQUEDAS} y se olvida la más antigua`, () => {
-  let lista = [];
-  for (let ancho = 100; ancho < 100 + MAX_BUSQUEDAS + 2; ancho++) lista = ponerBusqueda(lista, { ...paraGuardar(busqueda), ancho }).lista;
-  igual(lista.length, MAX_BUSQUEDAS);
-  igual(lista[0].ancho, 100 + MAX_BUSQUEDAS + 1);
-  igual(quitarBusqueda(lista, 0).length, MAX_BUSQUEDAS - 1);
 });
 
 prueba("el enlace para repetirla abre la página de resultados con todo el filtro", () => {
@@ -188,7 +166,7 @@ prueba("«Volver a la búsqueda» lleva al filtro con lo mismo, y se puede leer 
   igual([leida.estancia, leida.grupo, leida.ancho, leida.precio_min, leida.precio], ["dormitorio", "comodas", "120", "100", "300"]);
 });
 
-prueba("una búsqueda guardada con colores antiguos (marrón, rosa) sigue valiendo", () => {
+prueba("un enlace antiguo con colores ya juntados (marrón, rosa) sigue valiendo", () => {
   const enlace = new URL(enlaceBusqueda({ estancia: "salon", grupo: null, colores: ["marron", "rosa"] }), "https://ejemplo.test/");
   igual(enlace.searchParams.get("c"), "nogal.vivos");
 });

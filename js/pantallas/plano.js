@@ -103,7 +103,6 @@ function pintarPlanos() {
         </li>`;
       }).join("")}
     </ul>
-    ${esPrueba() ? "" : '<div class="acciones"><button class="boton boton--secundario" type="button" id="ir-prueba">Volver al plano de prueba</button></div>'}
     ${vacio}`;
 }
 
@@ -129,8 +128,6 @@ document.getElementById("lista-planos").addEventListener("click", (evento) => {
     avisoPlanos.textContent = `Plano «${guardado.nombre}» borrado.`;
     avisoPlanos.hidden = false;
     document.getElementById("titulo-mis-planos").focus();
-  } else if (evento.target.closest("#ir-prueba")) {
-    abrir(abrirPrueba(coleccion));
   } else if (evento.target.closest("#plano-vacio")) {
     if (esPrueba() && plano.piezas.length && !window.confirm("¿Vaciar el plano de prueba? Los muebles que no hayas guardado se quitarán del plano.")) return;
     abrir({ ...coleccion, activo: PRUEBA, prueba: planoDePruebaVacio() });
@@ -260,7 +257,6 @@ function pintarPiezas(conAviso) {
         <p class="nota">En el suelo: ${cm(w)} × ${cm(h)}${pieza.giro ? " (girado)" : ""}</p>
         ${notas.length ? `<p class="nota">${escapar(notas.join(" "))}</p>` : ""}
         <div class="elegido__botones">
-          <button class="boton-mini" type="button" data-girar>↻ Girar<span class="solo-lector"> ${nombre}</span></button>
           <button class="boton-mini" type="button" data-quitar>${icono("papelera")}Quitar<span class="solo-lector"> ${nombre}</span></button>
           <a class="boton-mini" href="ficha.html?p=${encodeURIComponent(pieza.producto)}">Ver ficha<span class="solo-lector"> de ${nombre}</span></a>
         </div>
@@ -317,10 +313,7 @@ document.getElementById("piezas").addEventListener("click", (evento) => {
   const tarjeta = evento.target.closest("[data-pieza]");
   if (!tarjeta) return;
   const id = tarjeta.dataset.pieza;
-  if (evento.target.closest("[data-girar]")) {
-    plano = girarPieza(plano, id);
-    elegida = id;
-  } else if (evento.target.closest("[data-quitar]")) {
+  if (evento.target.closest("[data-quitar]")) {
     plano = quitarPieza(plano, id);
     if (elegida === id) elegida = null;
   } else if (evento.target.closest("[data-elegir]")) {
@@ -341,7 +334,7 @@ document.getElementById("de-mi-lista").addEventListener("click", (evento) => {
 });
 
 // ---------- Volver a la búsqueda ----------
-// Si se ha llegado con «Probar en mi plano 3D», la estancia dejó su búsqueda en sessionStorage
+// Si se ha llegado con «Probar en mi plano 3D», «Muebles para ti» dejó su búsqueda en sessionStorage
 // (solo estancia y filtros, nada personal). Si no, se vuelve a las estancias.
 
 function leerBusquedaDeVuelta() {
@@ -358,7 +351,7 @@ function prepararVolver() {
   if (!destino) return;
   const enlace = document.getElementById("volver");
   enlace.href = destino;
-  enlace.textContent = "← Volver a la búsqueda";
+  enlace.textContent = "← Muebles para ti";
 }
 
 // ---------- Añadir artículo: el filtro de las estancias, dentro del plano ----------
@@ -492,6 +485,24 @@ document.addEventListener("keydown", (evento) => {
   if (evento.key === "Escape" && !cajaAyuda.hidden) ocultarAyuda();
 });
 
+// ---------- Girar: flecha ↻ encima del mueble elegido ----------
+
+const botonGirar = document.getElementById("girar-elegido");
+
+// Se llama cada vez que se dibuja el 3D: la flecha sigue al mueble al moverlo o al girar la vista.
+function colocarGirar() {
+  const posicion = elegida && escena ? escena.posicionEnPantalla(elegida) : null;
+  botonGirar.hidden = !posicion;
+  if (posicion) botonGirar.style.transform = `translate(${posicion.x}px, ${posicion.y}px) translate(-50%, -50%)`;
+}
+
+botonGirar.addEventListener("click", () => {
+  if (!elegida) return;
+  plano = girarPieza(plano, elegida);
+  guardarCambios();
+  dibujar();
+});
+
 // ---------- La escena 3D ----------
 
 function prepararEscena() {
@@ -505,6 +516,7 @@ function prepararEscena() {
     alTocar() {
       ocultarAyuda();
     },
+    alPintar: colocarGirar,
     alElegir(id) {
       if (id === elegida) return;
       elegida = id;
