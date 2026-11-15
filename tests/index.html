@@ -42,6 +42,7 @@
       await import("./medicion.test.js");
       await import("./planificador.test.js");
       await import("./plano.test.js");
+      await import("./relacionados.test.js");
 
       const resultados = await ejecutar();
       const bien = resultados.filter((r) => r.ok).length;

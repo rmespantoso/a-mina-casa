@@ -10,6 +10,11 @@ const ICONOS = {
   cerrar: '<path d="M6 6l12 12M18 6 6 18"/>',
   lupa: '<circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.3-4.3"/>',
   corazon: '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>',
+  // Ficha del QR (15/11/2026): carrito, ficha en alihogar.es, plano 3D y cámara.
+  carrito: '<path d="M2.5 4h2.6l2.3 10.5h10.8L20.5 7H6.3"/><circle cx="9.5" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/>',
+  ficha: '<path d="M6 3.5h8.5l3.5 3.5v13.5H6z"/><path d="M14.5 3.5V7H18M9 11.5h6M9 15h6"/>',
+  cubo: '<path d="M12 3 20 7.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/>',
+  camara: '<path d="M3.5 8h4l1.5-2.5h6L16.5 8h4v11h-17z"/><circle cx="12" cy="13.2" r="3.5"/>',
   // Semáforo: tres formas distintas para que no dependa solo del color.
   cabe: '<circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.8 2.8L16.2 9.5"/>',
   justo: '<path d="M12 3.5 21.5 20h-19z"/><path d="M12 10v4.5M12 17.2v.3"/>',

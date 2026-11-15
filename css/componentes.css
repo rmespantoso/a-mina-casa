@@ -2326,3 +2326,214 @@ body.con-navegacion .whatsapp {
   outline: 3px solid var(--foco);
   outline-offset: 2px;
 }
+
+/* =========================================================================
+   Ficha compacta del QR (15/11/2026): ficha.html y «Escanea un código QR» del plano
+   ========================================================================= */
+.ficha-qr__cabeza {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: 0.9rem;
+  align-items: start;
+  margin-top: 0.5rem;
+}
+
+.ficha-qr__foto img,
+.ficha-qr__foto .marcador-foto {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 8 / 9;
+  object-fit: contain;
+  background: var(--fondo);
+  border: 1px solid var(--borde);
+}
+
+.ficha-qr__foto .marcador-foto__nota {
+  display: none;
+}
+
+.ficha-qr__tipo {
+  margin: 0;
+}
+
+.ficha-qr__nombre {
+  margin: 0 0 0.3rem;
+  font-size: 1.2rem;
+  line-height: 1.3;
+}
+
+.ficha-qr__precio {
+  margin: 0;
+  color: var(--titulo);
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.ficha-qr__medidas {
+  margin: 0.15rem 0 0;
+}
+
+@media (min-width: 40rem) {
+  .ficha-qr__cabeza {
+    grid-template-columns: 11rem 1fr;
+  }
+
+  .ficha-qr__nombre {
+    font-size: 1.45rem;
+  }
+}
+
+/* Las acciones van en una fila: icono encima y palabra corta debajo (48 px o más). */
+.acciones-qr {
+  display: grid;
+  grid-template-columns: repeat(var(--columnas, 4), minmax(0, 1fr));
+  gap: 0.4rem;
+  margin: 1rem 0 0.75rem;
+}
+
+.accion-qr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  min-height: 4.25rem;
+  min-width: 0;
+  padding: 0.45rem 0;
+  background: var(--fondo);
+  border: 1px solid var(--titulo);
+  color: var(--titulo);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.accion-qr:hover,
+.accion-qr:active {
+  border-color: var(--marca);
+  color: var(--marca);
+}
+
+.accion-qr:focus-visible {
+  outline: 3px solid var(--foco);
+  outline-offset: 2px;
+}
+
+.accion-qr .icono {
+  width: 1.7rem;
+  height: 1.7rem;
+}
+
+/* Guardado: corazón relleno en magenta (además del texto «Guardado»). */
+.accion-qr[aria-pressed="true"] {
+  border-color: var(--marca);
+  color: var(--marca);
+}
+
+.accion-qr[aria-pressed="true"] .icono {
+  fill: currentColor;
+}
+
+.ficha-qr__anadir {
+  margin-top: 1rem;
+}
+
+.ficha-qr .mensaje {
+  margin-top: 0;
+}
+
+/* Filas de recomendados: se deslizan de lado, con un trozo de la siguiente tarjeta a la vista. */
+.fila-qr {
+  margin-top: 1.25rem;
+}
+
+.fila-qr__titulo {
+  margin: 0 0 0.5rem;
+  font-size: 1.15rem;
+}
+
+.fila-qr__lista {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 9.5rem;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0 0 0.6rem;
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+}
+
+.mini-qr {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  scroll-snap-align: start;
+}
+
+.mini-qr__abrir {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0;
+  background: var(--fondo);
+  border: 0;
+  color: var(--texto);
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.mini-qr__abrir:focus-visible {
+  outline: 3px solid var(--foco);
+  outline-offset: 2px;
+}
+
+.mini-qr__foto img,
+.mini-qr__foto .marcador-foto {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+  background: var(--fondo);
+  border: 1px solid var(--borde);
+}
+
+.mini-qr__foto .marcador-foto__nota {
+  display: none;
+}
+
+.mini-qr__nombre {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--titulo);
+  font-weight: 600;
+  line-height: 1.3;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.mini-qr__abrir:hover .mini-qr__nombre {
+  color: var(--marca);
+  text-decoration: underline;
+}
+
+.mini-qr__precio {
+  color: var(--titulo);
+  font-weight: 600;
+}
+
+.mini-qr .boton-mini {
+  justify-content: center;
+  margin-top: auto;
+}

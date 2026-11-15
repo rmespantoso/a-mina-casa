@@ -8,7 +8,7 @@ La actuación propuesta se llama **A Miña Casa ALI**: una herramienta web, sin 
 
 ## Las dos puertas de entrada (las dos son obligatorias)
 
-1. **Desde la tienda:** el cliente escanea el QR de la etiqueta de un mueble y abre su *ficha viva*. (El semáforo de huecos se quitó el 14/11/2026. El rediseño de la ficha está pendiente: acciones compactas —ver ficha, carrito, lista con corazón, probar en plano 3D— y debajo productos similares y complementos. No se construye hasta que el equipo lo pida.)
+1. **Desde la tienda:** el cliente escanea el QR de la etiqueta de un mueble y abre su *ficha viva*. (El semáforo de huecos se quitó el 14/11/2026.) **Rediseño del 15/11/2026:** el mueble arriba (foto, nombre, precio, medidas) con cuatro acciones compactas en una fila —Ficha (alihogar.es), Carrito (demostración; «Elegir» si tiene variantes), Guardar (corazón) y Plano 3D— y debajo tres filas que se deslizan de lado: Parecidos (mismo tipo y estancia, precio y medidas cercanos), Combina con (tipos que van juntos, en `data/complementos.json`) y De la colección X (mismo nombre de colección: Turin, Strait…; las palabras que no son colección también están en ese JSON). Sin repetir muebles entre filas. La ficha está en `js/ficha-compacta.js` y la lógica en `js/logica/relacionados.js`. Sin botón de asesor: está el redondo de WhatsApp.
 2. **Desde alihogar.es:** el cliente entra en «Planifica tu espacio», elige una estancia y filtra los muebles (ver «Planifica tu espacio»).
 
 Las dos entradas acaban en la misma **Mi lista** y en **Mi plano 3D**. La lista se puede compartir por WhatsApp (o copiando el enlace) o usar para comprar online o con recogida en tienda (Click & Collect). El asesor de ALI (WhatsApp 604 06 57 88) está en el botón redondo de todas las pantallas.

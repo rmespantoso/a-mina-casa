@@ -41,6 +41,14 @@ export async function cargarAmbientes() {
   return (await pedirJson(URL_AMBIENTES)).ambientes;
 }
 
+const URL_COMPLEMENTOS = new URL("../data/complementos.json", import.meta.url);
+
+/** Reglas de los recomendados de la ficha (data/complementos.json): { combina_con, no_es_coleccion }. */
+export async function cargarComplementos() {
+  const { combina_con: combina = {}, no_es_coleccion: noEs = [] } = await pedirJson(URL_COMPLEMENTOS);
+  return { combina_con: combina, no_es_coleccion: noEs };
+}
+
 /** Devuelve las estancias de «Planifica tu espacio» (data/estancias.json). */
 export async function cargarEstancias() {
   return (await pedirJson(URL_ESTANCIAS)).estancias;
