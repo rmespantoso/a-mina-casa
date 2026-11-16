@@ -923,7 +923,11 @@
         "Roble"
       ],
       "medidas_origen": "140/190 x 90 x 78 cm",
-      "aviso_cliente": "Extensible: 140 cm cerrada, 190 cm abierta"
+      "aviso_cliente": "Extensible: 140 cm cerrada, 190 cm abierta",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/86678-large_default/mesa-de-comedor-kendra-bicolor-extensible-de-melamina.jpg",
+        "Roble": "https://alihogar.es/86645-large_default/mesa-de-comedor-kendra-bicolor-extensible-de-melamina.jpg"
+      }
     },
     {
       "id": "MES-03",
@@ -969,7 +973,12 @@
         "Roble"
       ],
       "medidas_origen": "Medidas: 140 - 180 - 220 x 80 x 77 cm",
-      "aviso_cliente": "Plazo de entrega 30 días hábiles. Extensible: 140 cm cerrada, hasta 220 cm abierta"
+      "aviso_cliente": "Plazo de entrega 30 días hábiles. Extensible: 140 cm cerrada, hasta 220 cm abierta",
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/79816-large_default/mesa-de-comedor-roma-extensible-de-madera-de-roble.jpg",
+        "Negro": "https://alihogar.es/79814-large_default/mesa-de-comedor-roma-extensible-de-madera-de-roble.jpg",
+        "Roble": "https://alihogar.es/79817-large_default/mesa-de-comedor-roma-extensible-de-madera-de-roble.jpg"
+      }
     },
     {
       "id": "MES-05",
@@ -1126,7 +1135,14 @@
         "Aqua Blue"
       ],
       "medidas_origen": "o y patas metálicas. Medidas: 180 x 90 x 100 cm | lidad. Dimensiones: tamaño de 189 x 90 x 100 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/85512-large_default/sofa-turin-de-3-plazas-tavira-de-madera-de-pino.jpg",
+        "Verde": "https://alihogar.es/85510-large_default/sofa-turin-de-3-plazas-tavira-de-madera-de-pino.jpg",
+        "Azul Oscuro": "https://alihogar.es/85514-large_default/sofa-turin-de-3-plazas-tavira-de-madera-de-pino.jpg",
+        "Camel": "https://alihogar.es/85511-large_default/sofa-turin-de-3-plazas-tavira-de-madera-de-pino.jpg",
+        "Aqua Blue": "https://alihogar.es/85513-large_default/sofa-turin-de-3-plazas-tavira-de-madera-de-pino.jpg"
+      }
     },
     {
       "id": "SOF-11",
@@ -1150,7 +1166,11 @@
         "Gris"
       ],
       "medidas_origen": "stencia al desgaste. Medidas: 140 x 99 x 88 cm",
-      "aviso_cliente": "Mesa extensible: la medida abierta, consultar en tienda"
+      "aviso_cliente": "Mesa extensible: la medida abierta, consultar en tienda",
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/78795-large_default/sofa-cama-divan-corduroy-con-respaldo-reclinable.jpg",
+        "Gris": "https://alihogar.es/78800-large_default/sofa-cama-divan-corduroy-con-respaldo-reclinable.jpg"
+      }
     },
     {
       "id": "SOF-12",
@@ -1174,7 +1194,11 @@
         "Marrón"
       ],
       "medidas_origen": "industriales. Sus medidas son 205 x 82 x 72 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Negro": "https://alihogar.es/78821-large_default/sofa-chesterfield-de-3-plazas-con-simil-piel-y-acabado-capitone.jpg",
+        "Marrón": "https://alihogar.es/78818-large_default/sofa-chesterfield-de-3-plazas-con-simil-piel-y-acabado-capitone.jpg"
+      }
     },
     {
       "id": "SOF-13",
@@ -1199,7 +1223,12 @@
         "Verde"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/80264-large_default/sofa-chaise-longue-modular-solka-de-3-plazas-de-espuma-y-poliester.jpg",
+        "Naranja": "https://alihogar.es/70979-large_default/sofa-chaise-longue-modular-solka-de-3-plazas-de-espuma-y-poliester.jpg",
+        "Verde": "https://alihogar.es/70984-large_default/sofa-chaise-longue-modular-solka-de-3-plazas-de-espuma-y-poliester.jpg"
+      }
     },
     {
       "id": "SOF-14",
@@ -1244,7 +1273,11 @@
         "Gris Oscuro"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris Claro": "https://alihogar.es/77747-large_default/sofa-chaise-longue-tavira-con-puff-individual.jpg",
+        "Gris Oscuro": "https://alihogar.es/77751-large_default/sofa-chaise-longue-tavira-con-puff-individual.jpg"
+      }
     },
     {
       "id": "SOF-16",
@@ -1268,7 +1301,11 @@
         "Marrón"
       ],
       "medidas_origen": "momentos en familia. Medidas: 180 x 85 x 100 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/85979-large_default/sofa-ruben-de-3-plazas-magnol-de-madera-de-pino-y-aglomerado.jpg",
+        "Marrón": "https://alihogar.es/85975-large_default/sofa-ruben-de-3-plazas-magnol-de-madera-de-pino-y-aglomerado.jpg"
+      }
     },
     {
       "id": "SOF-17",
@@ -1292,7 +1329,11 @@
         "Marrón"
       ],
       "medidas_origen": "ajante. Su tamaño compacto de 140 x 85 x 100 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/56556-large_default/sofa-ruben-de-2-plazas.jpg",
+        "Marrón": "https://alihogar.es/56455-large_default/sofa-ruben-de-2-plazas.jpg"
+      }
     },
     {
       "id": "SOF-18",
@@ -1337,7 +1378,11 @@
         "Crema"
       ],
       "medidas_origen": "ad de mantenimiento. Medidas: 220 x 158 x 91 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Verde": "https://alihogar.es/50386-large_default/sofa-modular-de-poliester.jpg",
+        "Crema": "https://alihogar.es/50387-large_default/sofa-modular-de-poliester.jpg"
+      }
     },
     {
       "id": "BUT-46",
@@ -1362,7 +1407,11 @@
         "Beige"
       ],
       "medidas_origen": "al tacto. Sus dimensiones son 93 x 78 x 103 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/45142-large_default/sillon-relax-elevable-condal-power-lift.jpg",
+        "Beige": "https://alihogar.es/45146-large_default/sillon-relax-elevable-condal-power-lift.jpg"
+      }
     },
     {
       "id": "SOF-21",
@@ -1386,7 +1435,11 @@
         "Camel"
       ],
       "medidas_origen": "ísticas del producto Medidas: 180x104x100cm",
-      "aviso_cliente": "Mesa extensible: la medida abierta, consultar en tienda"
+      "aviso_cliente": "Mesa extensible: la medida abierta, consultar en tienda",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/21107-large_default/sofa-golf-2-plazas.jpg",
+        "Camel": "https://alihogar.es/21098-large_default/sofa-golf-2-plazas.jpg"
+      }
     },
     {
       "id": "SOF-22",
@@ -1599,7 +1652,11 @@
         "Camel"
       ],
       "medidas_origen": "y mantas. Sus dimensiones de 200 x 145 x 100 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/85515-large_default/sofa-chaise-longe-turin-reversible-de-3-plazas-tavira-de-madera-de-pino.jpg",
+        "Camel": "https://alihogar.es/85516-large_default/sofa-chaise-longe-turin-reversible-de-3-plazas-tavira-de-madera-de-pino.jpg"
+      }
     },
     {
       "id": "CHL-09",
@@ -1646,7 +1703,13 @@
         "Izquierdo"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/77810-large_default/sofa-chaise-longue-lyon-con-asientos-deslizantes-de-carro.jpg",
+        "Beige": "https://alihogar.es/77813-large_default/sofa-chaise-longue-lyon-con-asientos-deslizantes-de-carro.jpg",
+        "Derecho": "https://alihogar.es/77812-large_default/sofa-chaise-longue-lyon-con-asientos-deslizantes-de-carro.jpg",
+        "Izquierdo": "https://alihogar.es/77810-large_default/sofa-chaise-longue-lyon-con-asientos-deslizantes-de-carro.jpg"
+      }
     },
     {
       "id": "CHL-11",
@@ -1672,7 +1735,13 @@
         "Izquierdo"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/80119-large_default/sofa-chaise-longue-munich-con-arcon-y-asientos-deslizantes-de-carro.jpg",
+        "Camel": "https://alihogar.es/80121-large_default/sofa-chaise-longue-munich-con-arcon-y-asientos-deslizantes-de-carro.jpg",
+        "Derecho": "https://alihogar.es/80124-large_default/sofa-chaise-longue-munich-con-arcon-y-asientos-deslizantes-de-carro.jpg",
+        "Izquierdo": "https://alihogar.es/80119-large_default/sofa-chaise-longue-munich-con-arcon-y-asientos-deslizantes-de-carro.jpg"
+      }
     },
     {
       "id": "CHL-12",
@@ -1698,7 +1767,13 @@
         "Izquierdo"
       ],
       "medidas_origen": "abatible en chaise longue de 76 x 163 x 21 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/77801-large_default/sofa-chaise-longue-sena-con-arcon-y-asientos-deslizantes-de-carro.jpg",
+        "Gris": "https://alihogar.es/77802-large_default/sofa-chaise-longue-sena-con-arcon-y-asientos-deslizantes-de-carro.jpg",
+        "Derecho": "https://alihogar.es/77803-large_default/sofa-chaise-longue-sena-con-arcon-y-asientos-deslizantes-de-carro.jpg",
+        "Izquierdo": "https://alihogar.es/77801-large_default/sofa-chaise-longue-sena-con-arcon-y-asientos-deslizantes-de-carro.jpg"
+      }
     },
     {
       "id": "CHL-13",
@@ -1809,7 +1884,11 @@
         "Beige"
       ],
       "medidas_origen": "os o leer. Medidas como sofá: 189 x 89 x 91 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/78840-large_default/sofa-cama-lounge-xl-con-apertura-de-libro-de-madera.jpg",
+        "Beige": "https://alihogar.es/78847-large_default/sofa-cama-lounge-xl-con-apertura-de-libro-de-madera.jpg"
+      }
     },
     {
       "id": "SCA-04",
@@ -1834,7 +1913,11 @@
         "Mostaza"
       ],
       "medidas_origen": "para el hogar. Medidas: Sofa: 183 x 86,5 x 81 cm | x 86,5 x 81 cm Medidas: Cama: 108 x 183 x 42 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/78834-large_default/sofa-cama-cushion-con-apertura-en-libro-de-madera-.jpg",
+        "Mostaza": "https://alihogar.es/78827-large_default/sofa-cama-cushion-con-apertura-en-libro-de-madera-.jpg"
+      }
     },
     {
       "id": "SCA-05",
@@ -1859,7 +1942,11 @@
         "Gris"
       ],
       "medidas_origen": "e acogedor y actual. Medidas: 99 x 99 x 88 cm",
-      "aviso_cliente": "Mesa extensible: la medida abierta, consultar en tienda"
+      "aviso_cliente": "Mesa extensible: la medida abierta, consultar en tienda",
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/78774-large_default/sillon-cama-divan-corduroy-con-respaldo-reclinable.jpg",
+        "Gris": "https://alihogar.es/78773-large_default/sillon-cama-divan-corduroy-con-respaldo-reclinable.jpg"
+      }
     },
     {
       "id": "SCA-06",
@@ -1906,7 +1993,11 @@
         "Gris"
       ],
       "medidas_origen": "funcionalidad. Tamaño: Puff: 70 x 70 x 44 cm | Puff: 70 x 70 x 44 cm. Cama: 70 x 194 x 44 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/57145-large_default/puff-sofa-cama-barney-de-acero-con-cojin.jpg",
+        "Gris": "https://alihogar.es/57149-large_default/puff-sofa-cama-barney-de-acero-con-cojin.jpg"
+      }
     },
     {
       "id": "SCA-08",
@@ -1997,7 +2088,11 @@
         "Beige"
       ],
       "medidas_origen": "ción. Sus medidas plegado son 70 x 76 x 60 cm | lla). Medida Aprox extendido: 70 x 218 x 10 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Rosa": "https://alihogar.es/34449-large_default/sofa-cama.jpg",
+        "Beige": "https://alihogar.es/34446-large_default/sofa-cama.jpg"
+      }
     },
     {
       "id": "SCA-12",
@@ -2044,7 +2139,11 @@
         "Beige"
       ],
       "medidas_origen": "a de comodidad. Medidas sofá: 130 x 87 x 96 cm | 0 x 87 x 96 cm. Medidas cama: 115 x 87 x 183 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris Oscuro": "https://alihogar.es/22225-large_default/sofa-cama-bilbao-cbrazos-.jpg",
+        "Beige": "https://alihogar.es/22224-large_default/sofa-cama-bilbao-cbrazos-.jpg"
+      }
     },
     {
       "id": "SCA-14",
@@ -2113,7 +2212,11 @@
         "Azul"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/8559-large_default/sofa-cama-unai-.jpg",
+        "Azul": "https://alihogar.es/8558-large_default/sofa-cama-unai-.jpg"
+      }
     },
     {
       "id": "SCA-17",
@@ -2138,7 +2241,11 @@
         "Rosa"
       ],
       "medidas_origen": "90x196x33 cm · Medidas cojín: 75x22x44 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/5947-large_default/sofa-cama-de-poliester-con-patas-metalicas.jpg",
+        "Rosa": "https://alihogar.es/5937-large_default/sofa-cama-de-poliester-con-patas-metalicas.jpg"
+      }
     },
     {
       "id": "SCA-18",
@@ -2163,7 +2270,11 @@
         "Mostaza"
       ],
       "medidas_origen": "l producto Medidas de sillón: 75 x 65 x 65 cm | 65 x 65 cm. Medidas de cama: 65 x 10 x 209 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/3283-large_default/sillon-cama-individual-clic-clac-plegable.jpg",
+        "Mostaza": "https://alihogar.es/3279-large_default/sillon-cama-individual-clic-clac-plegable.jpg"
+      }
     },
     {
       "id": "SCA-19",
@@ -2188,7 +2299,11 @@
         "Beige"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/1788-large_default/sofa-cama-terra-abatible-con-sistema-clic-clac.jpg",
+        "Beige": "https://alihogar.es/1791-large_default/sofa-cama-terra-abatible-con-sistema-clic-clac.jpg"
+      }
     },
     {
       "id": "BUT-01",
@@ -2235,7 +2350,11 @@
         "Beige"
       ],
       "medidas_origen": "didad y durabilidad. Medidas: 89 x 75 x 106 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/90902-large_default/sillon-relax-elevable-nepal-powerlift-con-extension-electrica.jpg",
+        "Beige": "https://alihogar.es/90906-large_default/sillon-relax-elevable-nepal-powerlift-con-extension-electrica.jpg"
+      }
     },
     {
       "id": "BUT-03",
@@ -2260,7 +2379,11 @@
         "Beige"
       ],
       "medidas_origen": "zan un apoyo óptimo. Medidas: 66 x 89 x 105 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/90824-large_default/sillon-relax-nova-manual-con-3-posiciones-de-palanca.jpg",
+        "Beige": "https://alihogar.es/90821-large_default/sillon-relax-nova-manual-con-3-posiciones-de-palanca.jpg"
+      }
     },
     {
       "id": "BUT-04",
@@ -2307,7 +2430,11 @@
         "Beige"
       ],
       "medidas_origen": "y fácil de limpiar. Medidas: 73 x 90 x 110 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/90978-large_default/sillon-relax-elevable-astra-powerlift-con-extension-electrica.jpg",
+        "Beige": "https://alihogar.es/90817-large_default/sillon-relax-elevable-astra-powerlift-con-extension-electrica.jpg"
+      }
     },
     {
       "id": "BUT-06",
@@ -2332,7 +2459,11 @@
         "Beige"
       ],
       "medidas_origen": "onfort y decoración. Medidas: 74 x 68 x 76 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Verde": "https://alihogar.es/89448-large_default/sillon-a-rayas-de-madera-de-caucho-y-poliester.jpg",
+        "Beige": "https://alihogar.es/89446-large_default/sillon-a-rayas-de-madera-de-caucho-y-poliester.jpg"
+      }
     },
     {
       "id": "BUT-07",
@@ -2360,7 +2491,14 @@
         "Aqua Blue"
       ],
       "medidas_origen": "dad de acabados. Dimensiones: 70 x 75 x 107 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/85505-large_default/butaca-orejera-tavira-de-madera-de-pino-con-patas.jpg",
+        "Verde": "https://alihogar.es/85504-large_default/butaca-orejera-tavira-de-madera-de-pino-con-patas.jpg",
+        "Azul": "https://alihogar.es/85506-large_default/butaca-orejera-tavira-de-madera-de-pino-con-patas.jpg",
+        "Camel": "https://alihogar.es/85503-large_default/butaca-orejera-tavira-de-madera-de-pino-con-patas.jpg",
+        "Aqua Blue": "https://alihogar.es/85507-large_default/butaca-orejera-tavira-de-madera-de-pino-con-patas.jpg"
+      }
     },
     {
       "id": "BUT-08",
@@ -2386,7 +2524,12 @@
         "Beige"
       ],
       "medidas_origen": "er decoración. Con medidas de 70 x 75 x 107 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/85106-large_default/butaca-orejera-sintra-de-madera-de-pino-con-patas-.jpg",
+        "Gris Oscuro": "https://alihogar.es/85102-large_default/butaca-orejera-sintra-de-madera-de-pino-con-patas-.jpg",
+        "Beige": "https://alihogar.es/85110-large_default/butaca-orejera-sintra-de-madera-de-pino-con-patas-.jpg"
+      }
     },
     {
       "id": "BUT-09",
@@ -2411,7 +2554,11 @@
         "Vison"
       ],
       "medidas_origen": "y ergonómica. Con medidas de 70 x 75 x 107 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/85502-large_default/butaca-orejera-kioto-de-madera-de-pino-con-patas.jpg",
+        "Vison": "https://alihogar.es/85501-large_default/butaca-orejera-kioto-de-madera-de-pino-con-patas.jpg"
+      }
     },
     {
       "id": "BUT-10",
@@ -2459,7 +2606,12 @@
         "Beige"
       ],
       "medidas_origen": "e decoración. Sus medidas son 89 x 92 x 80 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/81119-large_default/sillon-puff-teddy-de-poliester-y-espuma.jpg",
+        "Verde": "https://alihogar.es/81122-large_default/sillon-puff-teddy-de-poliester-y-espuma.jpg",
+        "Beige": "https://alihogar.es/81116-large_default/sillon-puff-teddy-de-poliester-y-espuma.jpg"
+      }
     },
     {
       "id": "BUT-12",
@@ -2484,7 +2636,11 @@
         "Beige"
       ],
       "medidas_origen": "mplemente relajarse. Medidas: 64 x 93 x 104 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/78724-large_default/sillon-relax-elevable-life-con-extension-electrica.jpg",
+        "Beige": "https://alihogar.es/78729-large_default/sillon-relax-elevable-life-con-extension-electrica.jpg"
+      }
     },
     {
       "id": "BUT-13",
@@ -2509,7 +2665,11 @@
         "Amarillo"
       ],
       "medidas_origen": "uncionalidad. Sus medidas son 77.5 x 85.5 x 100.5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/78699-large_default/sillon-munich-giratoria-con-mecanismo-basculante.jpg",
+        "Amarillo": "https://alihogar.es/78697-large_default/sillon-munich-giratoria-con-mecanismo-basculante.jpg"
+      }
     },
     {
       "id": "BUT-14",
@@ -2534,7 +2694,11 @@
         "Beige"
       ],
       "medidas_origen": "lemente desconectar. Medidas: 72 x 90 x 107 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/78680-large_default/sillon-sintra-con-respaldo-alto-y-estructura-metalica.jpg",
+        "Beige": "https://alihogar.es/78683-large_default/sillon-sintra-con-respaldo-alto-y-estructura-metalica.jpg"
+      }
     },
     {
       "id": "BUT-15",
@@ -2560,7 +2724,12 @@
         "Azul"
       ],
       "medidas_origen": "faltar en tu lista. Medidas: 71 x 75 x 95 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/78660-large_default/sillon-voss-con-botones-decorativos-de-madera-maciza.jpg",
+        "Amarillo": "https://alihogar.es/78657-large_default/sillon-voss-con-botones-decorativos-de-madera-maciza.jpg",
+        "Azul": "https://alihogar.es/78663-large_default/sillon-voss-con-botones-decorativos-de-madera-maciza.jpg"
+      }
     },
     {
       "id": "BUT-16",
@@ -2607,7 +2776,11 @@
         "Gris"
       ],
       "medidas_origen": "on niños o mascotas. Medidas: 65 x 83 x 72 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/78641-large_default/sillon-tokio-de-madera-maciza-y-microfibra.jpg",
+        "Gris": "https://alihogar.es/78637-large_default/sillon-tokio-de-madera-maciza-y-microfibra.jpg"
+      }
     },
     {
       "id": "BUT-18",
@@ -2654,7 +2827,11 @@
         "Gris"
       ],
       "medidas_origen": "estilos y espacios. Medidas: 66 x 64 x 70 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/78621-large_default/sillon-melrose-de-linen-con-patas-de-metal.jpg",
+        "Gris": "https://alihogar.es/78617-large_default/sillon-melrose-de-linen-con-patas-de-metal.jpg"
+      }
     },
     {
       "id": "BUT-20",
@@ -2679,7 +2856,11 @@
         "Gris"
       ],
       "medidas_origen": "ort superior. Sus medidas son 73.5 x 78 x 76 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/78612-large_default/sillon.jpg",
+        "Gris": "https://alihogar.es/78603-large_default/sillon.jpg"
+      }
     },
     {
       "id": "BUT-21",
@@ -2771,7 +2952,12 @@
         "Azul"
       ],
       "medidas_origen": "madera contrachapada. Tamaño: 76 x 67 x 73 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Naranja": "https://alihogar.es/65669-large_default/sillon-evan-con-efecto-terciopelo-de-acero-y-madera.jpg",
+        "Mostaza": "https://alihogar.es/65671-large_default/sillon-evan-con-efecto-terciopelo-de-acero-y-madera.jpg",
+        "Azul": "https://alihogar.es/65670-large_default/sillon-evan-con-efecto-terciopelo-de-acero-y-madera.jpg"
+      }
     },
     {
       "id": "BUT-25",
@@ -2796,7 +2982,11 @@
         "Gris"
       ],
       "medidas_origen": "y el cuello. Con un tamaño de 76 x 38 x 106 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/65677-large_default/sillon-giratorio-fluff-de-poliester-y-acero.jpg",
+        "Gris": "https://alihogar.es/65659-large_default/sillon-giratorio-fluff-de-poliester-y-acero.jpg"
+      }
     },
     {
       "id": "BUT-26",
@@ -2865,7 +3055,11 @@
         "Beige"
       ],
       "medidas_origen": "e lectura y descanso. Tamaño: 109 x 83 x 96 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/74245-large_default/mecedora-paopao-de-acero-y-poliester.jpg",
+        "Beige": "https://alihogar.es/74247-large_default/mecedora-paopao-de-acero-y-poliester.jpg"
+      }
     },
     {
       "id": "BUT-29",
@@ -2890,7 +3084,11 @@
         "Beige"
       ],
       "medidas_origen": "corativos. Con dimensiones de 92 x 89 x 61 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Verde": "https://alihogar.es/60870-large_default/sillon-fleur-de-borreguillo-y-madera.jpg",
+        "Beige": "https://alihogar.es/60872-large_default/sillon-fleur-de-borreguillo-y-madera.jpg"
+      }
     },
     {
       "id": "BUT-30",
@@ -3004,7 +3202,12 @@
         "Cerezo"
       ],
       "medidas_origen": "mporáneo. Sus dimensiones son 57 x 70 x 74 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Verde Negruzco": "https://alihogar.es/45474-large_default/sillon-gary-de-poliester.jpg",
+        "Beige": "https://alihogar.es/45476-large_default/sillon-gary-de-poliester.jpg",
+        "Cerezo": "https://alihogar.es/45475-large_default/sillon-gary-de-poliester.jpg"
+      }
     },
     {
       "id": "BUT-35",
@@ -3029,7 +3232,11 @@
         "Verde"
       ],
       "medidas_origen": "estabilidad. Sus medidas son 78 x 72 x 71 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/45062-large_default/sillon-naova-de-terciopelo-.jpg",
+        "Verde": "https://alihogar.es/45064-large_default/sillon-naova-de-terciopelo-.jpg"
+      }
     },
     {
       "id": "BUT-36",
@@ -3167,7 +3374,14 @@
         "Turquesa"
       ],
       "medidas_origen": "ísticas del producto Medidas: 74 x 70 x 78 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/11829-large_default/sillon-74x70x78-cm-terciopelo-.jpg",
+        "Negro": "https://alihogar.es/11816-large_default/sillon-74x70x78-cm-terciopelo-.jpg",
+        "Amarillo": "https://alihogar.es/11825-large_default/sillon-74x70x78-cm-terciopelo-.jpg",
+        "Verde": "https://alihogar.es/27545-large_default/sillon-74x70x78-cm-terciopelo-.jpg",
+        "Turquesa": "https://alihogar.es/27548-large_default/sillon-74x70x78-cm-terciopelo-.jpg"
+      }
     },
     {
       "id": "BUT-42",
@@ -3193,7 +3407,12 @@
         "Beige"
       ],
       "medidas_origen": "escojas, con unas medidas de 61x64x80 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Terracota": "https://alihogar.es/11807-large_default/sillon-65x71x68-cm-leone.jpg",
+        "Verde Oscuro": "https://alihogar.es/11803-large_default/sillon-65x71x68-cm-leone.jpg",
+        "Beige": "https://alihogar.es/11812-large_default/sillon-65x71x68-cm-leone.jpg"
+      }
     },
     {
       "id": "BUT-43",
@@ -3262,7 +3481,11 @@
         "Beige"
       ],
       "medidas_origen": "cional del producto: Medidas: 53x72x77 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/3473-large_default/sillon-nudos-de-terciopelo-con-pata-dorada.jpg",
+        "Beige": "https://alihogar.es/3472-large_default/sillon-nudos-de-terciopelo-con-pata-dorada.jpg"
+      }
     },
     {
       "id": "TV-07",
@@ -3286,7 +3509,11 @@
         "Roble"
       ],
       "medidas_origen": "u hogar. Sus dimensiones son: 200 x 41 x 43 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris Claro": "https://alihogar.es/84930-large_default/composicion-de-salon-alida-de-melamina-de-3-piezas.jpg",
+        "Roble": "https://alihogar.es/84926-large_default/composicion-de-salon-alida-de-melamina-de-3-piezas.jpg"
+      }
     },
     {
       "id": "TV-08",
@@ -3436,7 +3663,11 @@
         "Roble"
       ],
       "medidas_origen": "otal: 200 cm Medidas bajo TV: 200x39,6x46 cm | ,6x46 cm Medidas módulo alto: 104,8x28,2x34,7 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/2949-large_default/composicion-de-salon-tres-piezas-dimas.jpg",
+        "Roble": "https://alihogar.es/2952-large_default/composicion-de-salon-tres-piezas-dimas.jpg"
+      }
     },
     {
       "id": "TV-15",
@@ -3502,7 +3733,11 @@
         "Roble"
       ],
       "medidas_origen": "ultimedia. Con dimensiones de 180 x 42 x 50 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/82601-large_default/mueble-de-tv-turin-con-2-puertas.jpg",
+        "Roble": "https://alihogar.es/82598-large_default/mueble-de-tv-turin-con-2-puertas.jpg"
+      }
     },
     {
       "id": "TV-18",
@@ -3526,7 +3761,11 @@
         "Roble"
       ],
       "medidas_origen": "de alta calidad. Dimensiones: 140 x 42 x 50 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/82595-large_default/mueble-de-tv-turin-clasico-con-1-puerta.jpg",
+        "Roble": "https://alihogar.es/82592-large_default/mueble-de-tv-turin-clasico-con-1-puerta.jpg"
+      }
     },
     {
       "id": "TV-19",
@@ -3781,7 +4020,11 @@
         "Roble"
       ],
       "medidas_origen": "resistencia. Con un tamaño de 183.1 x 29.7 x 53.8 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/39771-large_default/mueble-de-tv-.jpg",
+        "Roble": "https://alihogar.es/39773-large_default/mueble-de-tv-.jpg"
+      }
     },
     {
       "id": "TV-31",
@@ -3847,7 +4090,11 @@
         "Roble"
       ],
       "medidas_origen": "sala de estar. Con medidas de 80 x 40 x 56 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/31775-large_default/mueble-para-tv.jpg",
+        "Roble": "https://alihogar.es/31771-large_default/mueble-para-tv.jpg"
+      }
     },
     {
       "id": "TV-34",
@@ -3913,7 +4160,11 @@
         "Gris"
       ],
       "medidas_origen": "ustez. Con sus dimensiones de 160X38X49 CM",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/11648-large_default/mesa-de-tv-cabimas-blanca.jpg",
+        "Gris": "https://alihogar.es/11653-large_default/mesa-de-tv-cabimas-blanca.jpg"
+      }
     },
     {
       "id": "TV-37",
@@ -3959,7 +4210,12 @@
         "Amarillo"
       ],
       "medidas_origen": "onal del producto: · Medidas: 120 x40x58 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/7651-large_default/mueble-tv-cambridge.jpg",
+        "Negro": "https://alihogar.es/7524-large_default/mueble-tv-cambridge.jpg",
+        "Amarillo": "https://alihogar.es/7521-large_default/mueble-tv-cambridge.jpg"
+      }
     },
     {
       "id": "TV-39",
@@ -4025,7 +4281,11 @@
         "Roble"
       ],
       "medidas_origen": "cional del producto: Medidas: 180 x 43 x 50 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/3345-large_default/mueble-de-tv-con-tres-puertas-modelo-viena.jpg",
+        "Roble": "https://alihogar.es/3346-large_default/mueble-de-tv-con-tres-puertas-modelo-viena.jpg"
+      }
     },
     {
       "id": "TV-42",
@@ -4489,7 +4749,11 @@
         "Rosa"
       ],
       "medidas_origen": "iere montaje. Sus medidas son 80 x 35 x 102 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/33744-large_default/aparador-locker-de-metal.jpg",
+        "Rosa": "https://alihogar.es/33741-large_default/aparador-locker-de-metal.jpg"
+      }
     },
     {
       "id": "APA-27",
@@ -4514,7 +4778,11 @@
         "Rosa"
       ],
       "medidas_origen": "r decoración. Sus medidas son 80 x 35 x 102 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/33725-large_default/aparador-taquillas.jpg",
+        "Rosa": "https://alihogar.es/33721-large_default/aparador-taquillas.jpg"
+      }
     },
     {
       "id": "APA-28",
@@ -4627,7 +4895,11 @@
         "Roble"
       ],
       "medidas_origen": "Roble y Nogal, con medidas de 80 x 43 x 190 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Nogal": "https://alihogar.es/87436-large_default/vitrina-strait-con-2-puertas-de-cristal-y-melamina.jpg",
+        "Roble": "https://alihogar.es/87438-large_default/vitrina-strait-con-2-puertas-de-cristal-y-melamina.jpg"
+      }
     },
     {
       "id": "VIT-02",
@@ -4652,7 +4924,11 @@
         "Roble"
       ],
       "medidas_origen": "mantenimiento. Con medidas de 60 x 43 x 190 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Nogal": "https://alihogar.es/87424-large_default/vitrina-strait-con-puertas-de-cristal-y-melamina.jpg",
+        "Roble": "https://alihogar.es/87422-large_default/vitrina-strait-con-puertas-de-cristal-y-melamina.jpg"
+      }
     },
     {
       "id": "VIT-03",
@@ -4677,7 +4953,11 @@
         "Roble"
       ],
       "medidas_origen": "ara tu hogar. Sus medidas son 90 x 43 x 130 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Nogal": "https://alihogar.es/87212-large_default/bodeguero-strait-con-2-puertas.jpg",
+        "Roble": "https://alihogar.es/87211-large_default/bodeguero-strait-con-2-puertas.jpg"
+      }
     },
     {
       "id": "VIT-04",
@@ -4702,7 +4982,11 @@
         "Roble"
       ],
       "medidas_origen": "tilos de decoración. Medidas: 70 x 43 x 140 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Nogal": "https://alihogar.es/87194-large_default/mueble-vajillero-strait-con-puerta-y-estantes-de-melamina.jpg",
+        "Roble": "https://alihogar.es/87197-large_default/mueble-vajillero-strait-con-puerta-y-estantes-de-melamina.jpg"
+      }
     },
     {
       "id": "VIT-05",
@@ -4727,7 +5011,11 @@
         "Roble"
       ],
       "medidas_origen": "ina de alta calidad. Medidas: 140 x 43 x 140 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Nogal": "https://alihogar.es/87175-large_default/mueble-vajillero-strait-de-melamina.jpg",
+        "Roble": "https://alihogar.es/87179-large_default/mueble-vajillero-strait-de-melamina.jpg"
+      }
     },
     {
       "id": "VIT-06",
@@ -4774,7 +5062,11 @@
         "Roble"
       ],
       "medidas_origen": "para uso diario. Dimensiones: 80 x 42 x 190 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/82703-large_default/vitrina-con-2-puertas-de-cristal-y-2-cajones-con-sistema-de-freno.jpg",
+        "Roble": "https://alihogar.es/82701-large_default/vitrina-con-2-puertas-de-cristal-y-2-cajones-con-sistema-de-freno.jpg"
+      }
     },
     {
       "id": "VIT-08",
@@ -4865,7 +5157,11 @@
         "Roble"
       ],
       "medidas_origen": "ier hogar. Con sus medidas de 55 x 30 x 50 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/7965-large_default/modulo-55cm-modelo-puzzle-en-roble-o-blanco.jpg",
+        "Roble": "https://alihogar.es/7964-large_default/modulo-55cm-modelo-puzzle-en-roble-o-blanco.jpg"
+      }
     },
     {
       "id": "VIT-12",
@@ -4890,7 +5186,11 @@
         "Roble"
       ],
       "medidas_origen": "ración y más. Sus medidas son 85 x 43 x 190 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/3410-large_default/vitrina-de-dos-puertas-y-dos-cajones-modelo-viena.jpg",
+        "Roble": "https://alihogar.es/3409-large_default/vitrina-de-dos-puertas-y-dos-cajones-modelo-viena.jpg"
+      }
     },
     {
       "id": "VIT-13",
@@ -4915,7 +5215,11 @@
         "Marrón"
       ],
       "medidas_origen": "uier espacio. Sus medidas son 120,9 x 39,6 x 156 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/2902-large_default/vitrina-sin-cristal-y-puertas-abatibles-soto.jpg",
+        "Marrón": "https://alihogar.es/2899-large_default/vitrina-sin-cristal-y-puertas-abatibles-soto.jpg"
+      }
     },
     {
       "id": "MES-06",
@@ -4940,7 +5244,12 @@
         "Roble"
       ],
       "medidas_origen": "corativos. Sus dimensiones de 140/190 x 90 x 78 cm",
-      "aviso_cliente": "Extensible: 140 cm cerrada, 190 cm abierta"
+      "aviso_cliente": "Extensible: 140 cm cerrada, 190 cm abierta",
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/86448-large_default/mesa-de-comedor-kendra-extensible-de-melamina.jpg",
+        "Ocre": "https://alihogar.es/86483-large_default/mesa-de-comedor-kendra-extensible-de-melamina.jpg",
+        "Roble": "https://alihogar.es/86453-large_default/mesa-de-comedor-kendra-extensible-de-melamina.jpg"
+      }
     },
     {
       "id": "MES-07",
@@ -4964,7 +5273,11 @@
         "Roble"
       ],
       "medidas_origen": "nes: posición nº1, sin abrir (51 x 78 x 90 cm | ción nº2, abierta con 1 lama (97,5 x 78 x 90 cm | ión nº3, abierta con 2 lamas (109,5 x 78 x 90 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/85334-large_default/mesa-multifuncion-extensible-con-5-posiciones-de-melamina.jpg",
+        "Roble": "https://alihogar.es/85328-large_default/mesa-multifuncion-extensible-con-5-posiciones-de-melamina.jpg"
+      }
     },
     {
       "id": "MES-08",
@@ -4990,7 +5303,13 @@
         "Roble"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/83290-large_default/mesa-de-centro-y-comedor-troya-2-en-1-elevable-y-extensible.jpg",
+        "Negro": "https://alihogar.es/83286-large_default/mesa-de-centro-y-comedor-troya-2-en-1-elevable-y-extensible.jpg",
+        "Beige": "https://alihogar.es/83291-large_default/mesa-de-centro-y-comedor-troya-2-en-1-elevable-y-extensible.jpg",
+        "Roble": "https://alihogar.es/83293-large_default/mesa-de-centro-y-comedor-troya-2-en-1-elevable-y-extensible.jpg"
+      }
     },
     {
       "id": "MES-09",
@@ -5015,7 +5334,12 @@
         "Modelo 1"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/79483-large_default/mesa-de-centro-o-comedor-up-down-elevable-y-extensible.jpg",
+        "Negro": "https://alihogar.es/79481-large_default/mesa-de-centro-o-comedor-up-down-elevable-y-extensible.jpg",
+        "Modelo 1": "https://alihogar.es/79481-large_default/mesa-de-centro-o-comedor-up-down-elevable-y-extensible.jpg"
+      }
     },
     {
       "id": "MES-10",
@@ -5124,7 +5448,12 @@
         "Roble"
       ],
       "medidas_origen": "Pequeño: 140-180-220 x 90 x 76 cm",
-      "aviso_cliente": "Extensible: 140 cm cerrada, 220 cm abierta"
+      "aviso_cliente": "Extensible: 140 cm cerrada, 220 cm abierta",
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/78544-large_default/mesa-de-comedor-xena-extensible-de-madera-de-roble.jpg",
+        "Negro": "https://alihogar.es/78541-large_default/mesa-de-comedor-xena-extensible-de-madera-de-roble.jpg",
+        "Roble": "https://alihogar.es/78546-large_default/mesa-de-comedor-xena-extensible-de-madera-de-roble.jpg"
+      }
     },
     {
       "id": "MES-15",
@@ -5149,7 +5478,12 @@
         "Roble"
       ],
       "medidas_origen": "Grande: 160-200-240 x 90 x 76 cm",
-      "aviso_cliente": "Extensible: 160 cm cerrada, 240 cm abierta"
+      "aviso_cliente": "Extensible: 160 cm cerrada, 240 cm abierta",
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/78545-large_default/mesa-de-comedor-xena-extensible-de-madera-de-roble.jpg",
+        "Negro": "https://alihogar.es/78543-large_default/mesa-de-comedor-xena-extensible-de-madera-de-roble.jpg",
+        "Roble": "https://alihogar.es/78547-large_default/mesa-de-comedor-xena-extensible-de-madera-de-roble.jpg"
+      }
     },
     {
       "id": "MES-16",
@@ -5174,7 +5508,12 @@
         "Modelo 3"
       ],
       "medidas_origen": "rdenada y armoniosa. Medidas: 140 x 80 x 76 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Modelo 1": "https://alihogar.es/78532-large_default/mesa-de-comedor-natural-fija-de-madera-de-roble.jpg",
+        "Modelo 2": "https://alihogar.es/78534-large_default/mesa-de-comedor-natural-fija-de-madera-de-roble.jpg",
+        "Modelo 3": "https://alihogar.es/78535-large_default/mesa-de-comedor-natural-fija-de-madera-de-roble.jpg"
+      }
     },
     {
       "id": "MES-17",
@@ -5198,7 +5537,11 @@
         "Negro"
       ],
       "medidas_origen": "ilo ligero y actual. Medidas: 140-180 x 80 x 76 cm",
-      "aviso_cliente": "Extensible: 140 cm cerrada, 180 cm abierta"
+      "aviso_cliente": "Extensible: 140 cm cerrada, 180 cm abierta",
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/78521-large_default/mesa-de-comedor-natural-extensible-de-madera-de-roble.jpg",
+        "Negro": "https://alihogar.es/78519-large_default/mesa-de-comedor-natural-extensible-de-madera-de-roble.jpg"
+      }
     },
     {
       "id": "MES-18",
@@ -5223,7 +5566,12 @@
         "Roble"
       ],
       "medidas_origen": "Tamaño: Pequeño",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/78503-large_default/mesa-de-comedor-loft-fija-de-madera-de-roble.jpg",
+        "Negro": "https://alihogar.es/78500-large_default/mesa-de-comedor-loft-fija-de-madera-de-roble.jpg",
+        "Roble": "https://alihogar.es/78505-large_default/mesa-de-comedor-loft-fija-de-madera-de-roble.jpg"
+      }
     },
     {
       "id": "MES-19",
@@ -5248,7 +5596,11 @@
         "Roble"
       ],
       "medidas_origen": "Tamaño: Grande",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/78504-large_default/mesa-de-comedor-loft-fija-de-madera-de-roble.jpg",
+        "Negro": "https://alihogar.es/78502-large_default/mesa-de-comedor-loft-fija-de-madera-de-roble.jpg"
+      }
     },
     {
       "id": "MES-20",
@@ -5273,7 +5625,12 @@
         "Modelo 3"
       ],
       "medidas_origen": "os o contemporáneos. Medidas: 180 x 100 x 76 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Modelo 1": "https://alihogar.es/78455-large_default/mesa-de-comedor-xena-de-madera-de-roble.jpg",
+        "Modelo 2": "https://alihogar.es/78457-large_default/mesa-de-comedor-xena-de-madera-de-roble.jpg",
+        "Modelo 3": "https://alihogar.es/78458-large_default/mesa-de-comedor-xena-de-madera-de-roble.jpg"
+      }
     },
     {
       "id": "MES-21",
@@ -5297,7 +5654,11 @@
         "Modelo 2"
       ],
       "medidas_origen": "ones especiales. Medidas: 120-160-200 x 120 x 75 cm",
-      "aviso_cliente": "Extensible: 160 cm cerrada, 200 cm abierta"
+      "aviso_cliente": "Extensible: 160 cm cerrada, 200 cm abierta",
+      "fotos_color": {
+        "Modelo 1": "https://alihogar.es/78406-large_default/mesa-de-comedor-keanu-extensible-de-mdf.jpg",
+        "Modelo 2": "https://alihogar.es/78408-large_default/mesa-de-comedor-keanu-extensible-de-mdf.jpg"
+      }
     },
     {
       "id": "MES-22",
@@ -5321,7 +5682,11 @@
         "Negro"
       ],
       "medidas_origen": "orativos. Sus medidas son 120-160-200 x 120 x 76 cm",
-      "aviso_cliente": "Extensible: 160 cm cerrada, 200 cm abierta"
+      "aviso_cliente": "Extensible: 160 cm cerrada, 200 cm abierta",
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/78391-large_default/mesa-de-comedor-brad-extensible-de-madera-de-roble.jpg",
+        "Negro": "https://alihogar.es/78393-large_default/mesa-de-comedor-brad-extensible-de-madera-de-roble.jpg"
+      }
     },
     {
       "id": "MES-23",
@@ -5387,7 +5752,11 @@
         "Modelo 2"
       ],
       "medidas_origen": "cio extra. Con medidas de 160-200-240 x 90 x 76 cm",
-      "aviso_cliente": "Extensible: 200 cm cerrada, 240 cm abierta"
+      "aviso_cliente": "Extensible: 200 cm cerrada, 240 cm abierta",
+      "fotos_color": {
+        "Modelo 1": "https://alihogar.es/78371-large_default/mesa-de-comedor-senda-extensible-de-madera.jpg",
+        "Modelo 2": "https://alihogar.es/78373-large_default/mesa-de-comedor-senda-extensible-de-madera.jpg"
+      }
     },
     {
       "id": "MES-26",
@@ -5411,7 +5780,11 @@
         "Gris"
       ],
       "medidas_origen": "limpiar y mantener. Medidas: 140 x 80 x 75 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/78361-large_default/mesa-de-comedor-berna-con-encimera-acabado-ceramico.jpg",
+        "Gris": "https://alihogar.es/78363-large_default/mesa-de-comedor-berna-con-encimera-acabado-ceramico.jpg"
+      }
     },
     {
       "id": "MES-27",
@@ -5519,7 +5892,11 @@
         "Negro"
       ],
       "medidas_origen": "ación atemporal. Medidas: 100-140-180 x 100 x 76 cm",
-      "aviso_cliente": "Extensible: 140 cm cerrada, 180 cm abierta"
+      "aviso_cliente": "Extensible: 140 cm cerrada, 180 cm abierta",
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/78256-large_default/mesa-de-comedor-berg-e-extensible-de-madera-de-roble.jpg",
+        "Negro": "https://alihogar.es/78254-large_default/mesa-de-comedor-berg-e-extensible-de-madera-de-roble.jpg"
+      }
     },
     {
       "id": "MES-32",
@@ -5543,7 +5920,11 @@
         "Negro"
       ],
       "medidas_origen": "armónico. Con medidas de 160-200-240 x 90 x 76 cm",
-      "aviso_cliente": "Extensible: 200 cm cerrada, 240 cm abierta"
+      "aviso_cliente": "Extensible: 200 cm cerrada, 240 cm abierta",
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/78249-large_default/mesa-de-comedor-leonardo-extensible-de-mdf.jpg",
+        "Negro": "https://alihogar.es/78247-large_default/mesa-de-comedor-leonardo-extensible-de-mdf.jpg"
+      }
     },
     {
       "id": "MES-33",
@@ -5567,7 +5948,11 @@
         "Negro"
       ],
       "medidas_origen": "renunciar al estilo. Medidas: 120-160 x 120 x 75 cm",
-      "aviso_cliente": "Extensible: 120 cm cerrada, 160 cm abierta"
+      "aviso_cliente": "Extensible: 120 cm cerrada, 160 cm abierta",
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/78236-large_default/mesa-de-comedor-delta-extensible-de-mdf.jpg",
+        "Negro": "https://alihogar.es/78234-large_default/mesa-de-comedor-delta-extensible-de-mdf.jpg"
+      }
     },
     {
       "id": "MES-34",
@@ -5655,7 +6040,12 @@
         "Modelo 3"
       ],
       "medidas_origen": "oránea. Sus medidas son 150 / 190 / 230 x 90 x 75 cm",
-      "aviso_cliente": "Extensible: 190 cm cerrada, 230 cm abierta"
+      "aviso_cliente": "Extensible: 190 cm cerrada, 230 cm abierta",
+      "fotos_color": {
+        "Modelo 1": "https://alihogar.es/78204-large_default/mesa-de-comedor-pietra-oval-extensible-de-mdf.jpg",
+        "Modelo 2": "https://alihogar.es/78206-large_default/mesa-de-comedor-pietra-oval-extensible-de-mdf.jpg",
+        "Modelo 3": "https://alihogar.es/78207-large_default/mesa-de-comedor-pietra-oval-extensible-de-mdf.jpg"
+      }
     },
     {
       "id": "MES-38",
@@ -5679,7 +6069,11 @@
         "Negro"
       ],
       "medidas_origen": "durante cada comida. MEdidas: 130-180 x 130 x 76 cm",
-      "aviso_cliente": "Extensible: 130 cm cerrada, 180 cm abierta"
+      "aviso_cliente": "Extensible: 130 cm cerrada, 180 cm abierta",
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/78190-large_default/mesa-de-comedor-bradley-extensible-de-mdf.jpg",
+        "Negro": "https://alihogar.es/78187-large_default/mesa-de-comedor-bradley-extensible-de-mdf.jpg"
+      }
     },
     {
       "id": "MES-39",
@@ -5704,7 +6098,12 @@
         "Roble"
       ],
       "medidas_origen": "Pequeño: 140 x 80 x 76 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/78573-large_default/mesa-de-comedor-x-loft-fija-de-madera-de-roble.jpg",
+        "Negro": "https://alihogar.es/78570-large_default/mesa-de-comedor-x-loft-fija-de-madera-de-roble.jpg",
+        "Roble": "https://alihogar.es/78575-large_default/mesa-de-comedor-x-loft-fija-de-madera-de-roble.jpg"
+      }
     },
     {
       "id": "MES-40",
@@ -5729,7 +6128,11 @@
         "Roble"
       ],
       "medidas_origen": "Grande: 160 x 90 x 76 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/78574-large_default/mesa-de-comedor-x-loft-fija-de-madera-de-roble.jpg",
+        "Negro": "https://alihogar.es/78572-large_default/mesa-de-comedor-x-loft-fija-de-madera-de-roble.jpg"
+      }
     },
     {
       "id": "MES-41",
@@ -6153,7 +6556,12 @@
         "Beige"
       ],
       "medidas_origen": "estilos decorativos. Medidas: 35 x 35 x 46 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Verde": "https://alihogar.es/87033-large_default/mesa-auxiliar-bubbles-de-fibra-de-vidrio.jpg",
+        "Rosa": "https://alihogar.es/87026-large_default/mesa-auxiliar-bubbles-de-fibra-de-vidrio.jpg",
+        "Beige": "https://alihogar.es/87031-large_default/mesa-auxiliar-bubbles-de-fibra-de-vidrio.jpg"
+      }
     },
     {
       "id": "MCE-07",
@@ -6198,7 +6606,11 @@
         "Roble"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/86633-large_default/mesa-de-centro-elevable-de-melamina-y-metal.jpg",
+        "Roble": "https://alihogar.es/86636-large_default/mesa-de-centro-elevable-de-melamina-y-metal.jpg"
+      }
     },
     {
       "id": "MCE-09",
@@ -6222,7 +6634,11 @@
         "Roble"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/86405-large_default/mesa-de-centro-elevable-nova-de-melamina.jpg",
+        "Roble": "https://alihogar.es/86408-large_default/mesa-de-centro-elevable-nova-de-melamina.jpg"
+      }
     },
     {
       "id": "MCE-10",
@@ -6329,7 +6745,10 @@
         "Verde"
       ],
       "medidas_origen": "Tamaño: Pequeño",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Verde": "https://alihogar.es/81737-large_default/mesa-auxiliar-escultorica-de-metal.jpg"
+      }
     },
     {
       "id": "MCE-15",
@@ -6375,7 +6794,10 @@
         "Verde"
       ],
       "medidas_origen": "Tamaño: Pequeño",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Verde": "https://alihogar.es/81727-large_default/mesa-auxiliar-esferas-de-madera-y-metal.jpg"
+      }
     },
     {
       "id": "MCE-17",
@@ -6549,7 +6971,12 @@
         "Roble"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/79639-large_default/mesa-de-centro-xena-elevable-con-borde-tallado-de-madera-de-roble.jpg",
+        "Negro": "https://alihogar.es/79636-large_default/mesa-de-centro-xena-elevable-con-borde-tallado-de-madera-de-roble.jpg",
+        "Roble": "https://alihogar.es/79642-large_default/mesa-de-centro-xena-elevable-con-borde-tallado-de-madera-de-roble.jpg"
+      }
     },
     {
       "id": "MCE-25",
@@ -6574,7 +7001,12 @@
         "Roble"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/79624-large_default/mesa-de-centro-steve-elevable-y-extensible.jpg",
+        "Negro": "https://alihogar.es/79621-large_default/mesa-de-centro-steve-elevable-y-extensible.jpg",
+        "Roble": "https://alihogar.es/79623-large_default/mesa-de-centro-steve-elevable-y-extensible.jpg"
+      }
     },
     {
       "id": "MCE-26",
@@ -6620,7 +7052,12 @@
         "Roble"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/79597-large_default/mesa-de-centro-loft-elevable-de-madera-de-roble.jpg",
+        "Negro": "https://alihogar.es/79599-large_default/mesa-de-centro-loft-elevable-de-madera-de-roble.jpg",
+        "Roble": "https://alihogar.es/79600-large_default/mesa-de-centro-loft-elevable-de-madera-de-roble.jpg"
+      }
     },
     {
       "id": "MCE-28",
@@ -6665,7 +7102,11 @@
         "Negro"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/79576-large_default/mesa-de-centro-loft-advance-elevable-y-extensible.jpg",
+        "Negro": "https://alihogar.es/79580-large_default/mesa-de-centro-loft-advance-elevable-y-extensible.jpg"
+      }
     },
     {
       "id": "MCE-30",
@@ -6690,7 +7131,12 @@
         "Roble"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/79516-large_default/mesa-de-centro-elevable-zoe-con-borde-tallado-de-madera-de-roble.jpg",
+        "Negro": "https://alihogar.es/79512-large_default/mesa-de-centro-elevable-zoe-con-borde-tallado-de-madera-de-roble.jpg",
+        "Roble": "https://alihogar.es/79520-large_default/mesa-de-centro-elevable-zoe-con-borde-tallado-de-madera-de-roble.jpg"
+      }
     },
     {
       "id": "MCE-31",
@@ -6714,7 +7160,11 @@
         "Negro"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/79508-large_default/mesa-de-centro-elevable-zoe-de-madera-de-roble.jpg",
+        "Negro": "https://alihogar.es/79504-large_default/mesa-de-centro-elevable-zoe-de-madera-de-roble.jpg"
+      }
     },
     {
       "id": "MCE-32",
@@ -6738,7 +7188,11 @@
         "Negro"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/79456-large_default/mesa-de-centro-o-comedor-natural-elevable-y-extensible.jpg",
+        "Negro": "https://alihogar.es/79452-large_default/mesa-de-centro-o-comedor-natural-elevable-y-extensible.jpg"
+      }
     },
     {
       "id": "MCE-33",
@@ -6783,7 +7237,11 @@
         "Negro"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/79339-large_default/mesa-de-centro-turin-electrica-elevable-y-extensible-con-mando.jpg",
+        "Negro": "https://alihogar.es/79334-large_default/mesa-de-centro-turin-electrica-elevable-y-extensible-con-mando.jpg"
+      }
     },
     {
       "id": "MCE-35",
@@ -6849,7 +7307,11 @@
         "Gris"
       ],
       "medidas_origen": "del día a día. Con medidas de 110 x 50 x 33 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/73767-large_default/puff-doble-tanya-con-bandeja-reversible-de-mdf-y-poliester.jpg",
+        "Gris": "https://alihogar.es/73771-large_default/puff-doble-tanya-con-bandeja-reversible-de-mdf-y-poliester.jpg"
+      }
     },
     {
       "id": "MCE-38",
@@ -7482,7 +7944,11 @@
         "Amarillo"
       ],
       "medidas_origen": "facilita la limpieza. Tamaño: 35 x 35 x 43 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Naranja": "https://alihogar.es/69324-large_default/mesa-auxiliar-stoneto-brillante-de-magnesia.jpg",
+        "Amarillo": "https://alihogar.es/68383-large_default/mesa-auxiliar-stoneto-brillante-de-magnesia.jpg"
+      }
     },
     {
       "id": "MCE-68",
@@ -7527,7 +7993,11 @@
         "Beige"
       ],
       "medidas_origen": "nte con acabado mate. Tamaño: 31 x 31 x 41,8 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Marrón": "https://alihogar.es/68394-large_default/mesa-auxiliar-totem-palomba-de-acero.jpg",
+        "Beige": "https://alihogar.es/68393-large_default/mesa-auxiliar-totem-palomba-de-acero.jpg"
+      }
     },
     {
       "id": "MCE-70",
@@ -7782,7 +8252,11 @@
         "Beige"
       ],
       "medidas_origen": "etos cotidianos. Dimensiones: 40 x 40 x 45 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Verde": "https://alihogar.es/57365-large_default/mesa-auxiliar-chamlo-con-2-niveles-de-mdf.jpg",
+        "Beige": "https://alihogar.es/57367-large_default/mesa-auxiliar-chamlo-con-2-niveles-de-mdf.jpg"
+      }
     },
     {
       "id": "MCE-82",
@@ -7806,7 +8280,11 @@
         "Negro"
       ],
       "medidas_origen": "limpieza. Sus dimensiones son 40 x 40 x 60.5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/57244-large_default/mesa-auxiliar-circular-haldor-de-2-niveles-de-acero.jpg",
+        "Negro": "https://alihogar.es/57242-large_default/mesa-auxiliar-circular-haldor-de-2-niveles-de-acero.jpg"
+      }
     },
     {
       "id": "MCE-83",
@@ -7830,7 +8308,11 @@
         "Beige"
       ],
       "medidas_origen": "o oficinas modernas. Tamaño: 42 x 42 x 52 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Negro": "https://alihogar.es/57236-large_default/mesa-auxiliar-circular-herdys-de-2-niveles-de-acero.jpg",
+        "Beige": "https://alihogar.es/57238-large_default/mesa-auxiliar-circular-herdys-de-2-niveles-de-acero.jpg"
+      }
     },
     {
       "id": "MCE-84",
@@ -7854,7 +8336,11 @@
         "Beige"
       ],
       "medidas_origen": "mática. Su tamaño compacto de 37.5 x 37.5 x 50.5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Negro": "https://alihogar.es/57228-large_default/mesa-auxiliar-alrik-de-2-niveles-de-acero.jpg",
+        "Beige": "https://alihogar.es/57230-large_default/mesa-auxiliar-alrik-de-2-niveles-de-acero.jpg"
+      }
     },
     {
       "id": "MCE-85",
@@ -7922,7 +8408,13 @@
         "Beige"
       ],
       "medidas_origen": "nte con acabado mate. Tamaño: 40 x 40 x 50.5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/56144-large_default/mesa-auxiliar-bloom-de-mdf.jpg",
+        "Negro": "https://alihogar.es/56141-large_default/mesa-auxiliar-bloom-de-mdf.jpg",
+        "Verde": "https://alihogar.es/56145-large_default/mesa-auxiliar-bloom-de-mdf.jpg",
+        "Beige": "https://alihogar.es/56146-large_default/mesa-auxiliar-bloom-de-mdf.jpg"
+      }
     },
     {
       "id": "MCE-88",
@@ -8010,7 +8502,12 @@
         "Dorado"
       ],
       "medidas_origen": "de estar. Con dimensiones de 40 x 40 x 41 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/48646-large_default/mesa-de-centro-kumi-de-metal.jpg",
+        "Negro": "https://alihogar.es/48647-large_default/mesa-de-centro-kumi-de-metal.jpg",
+        "Dorado": "https://alihogar.es/48648-large_default/mesa-de-centro-kumi-de-metal.jpg"
+      }
     },
     {
       "id": "MCE-92",
@@ -8055,7 +8552,11 @@
         "Negro"
       ],
       "medidas_origen": "rescante. Sus dimensiones son 38.5 x 38.5 x 35 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/46998-large_default/mesa-auxiliar-encola-con-un-compartimiento.jpg",
+        "Negro": "https://alihogar.es/47002-large_default/mesa-auxiliar-encola-con-un-compartimiento.jpg"
+      }
     },
     {
       "id": "MCE-94",
@@ -8122,7 +8623,12 @@
         "Beige"
       ],
       "medidas_origen": "e colores. Con dimensiones de 38 x 38 x 50 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/46977-large_default/mesa-auxiliar-alix-de-madera-de-pino-y-mdf.jpg",
+        "Negro": "https://alihogar.es/46983-large_default/mesa-auxiliar-alix-de-madera-de-pino-y-mdf.jpg",
+        "Beige": "https://alihogar.es/46980-large_default/mesa-auxiliar-alix-de-madera-de-pino-y-mdf.jpg"
+      }
     },
     {
       "id": "MCE-97",
@@ -8168,7 +8674,12 @@
         "Crema"
       ],
       "medidas_origen": "Con dimensiones compactas de 38 x 38 x 46.5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Negro": "https://alihogar.es/46967-large_default/mesa-auxiliar-chamlo-de-madera-de-pino-y-mdf.jpg",
+        "Verde": "https://alihogar.es/46961-large_default/mesa-auxiliar-chamlo-de-madera-de-pino-y-mdf.jpg",
+        "Crema": "https://alihogar.es/46964-large_default/mesa-auxiliar-chamlo-de-madera-de-pino-y-mdf.jpg"
+      }
     },
     {
       "id": "MCE-99",
@@ -8234,7 +8745,11 @@
         "Beige"
       ],
       "medidas_origen": "casuales y formales. Tamaño: 38 x 38 x 44 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Negro": "https://alihogar.es/46952-large_default/mesa-auxiliar-totem-de-metal.jpg",
+        "Beige": "https://alihogar.es/46949-large_default/mesa-auxiliar-totem-de-metal.jpg"
+      }
     },
     {
       "id": "MCE-102",
@@ -8321,7 +8836,11 @@
         "Crema"
       ],
       "medidas_origen": "hacen destacar. Dimensiones: 70 x 70 x 35 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Beige": "https://alihogar.es/46976-large_default/mesa-de-centro-tella-de-mdf.jpg",
+        "Crema": "https://alihogar.es/46975-large_default/mesa-de-centro-tella-de-mdf.jpg"
+      }
     },
     {
       "id": "MCE-106",
@@ -8408,7 +8927,11 @@
         "Marrón"
       ],
       "medidas_origen": "istencia. Sus dimensiones son 118 x 43.2 x 48 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Negro": "https://alihogar.es/42189-large_default/mesa-centro-kemi-de-2-niveles.jpg",
+        "Marrón": "https://alihogar.es/42186-large_default/mesa-centro-kemi-de-2-niveles.jpg"
+      }
     },
     {
       "id": "MCE-110",
@@ -8831,7 +9354,11 @@
         "Marrón"
       ],
       "medidas_origen": "dad a su diseño. Dimensiones: 120 x 60 x 45 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Negro": "https://alihogar.es/11884-large_default/mesa-de-centro-isana-de.jpg",
+        "Marrón": "https://alihogar.es/46422-large_default/mesa-de-centro-isana-de.jpg"
+      }
     },
     {
       "id": "MCE-130",
@@ -8918,7 +9445,11 @@
         "Roble"
       ],
       "medidas_origen": "l del producto: Medidas mesa: 48x38x65 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Negro": "https://alihogar.es/5285-large_default/mesa-plegable-de-madera-mdf-y-estructura-metalica.jpg",
+        "Roble": "https://alihogar.es/5284-large_default/mesa-plegable-de-madera-mdf-y-estructura-metalica.jpg"
+      }
     },
     {
       "id": "MCE-134",
@@ -9047,7 +9578,11 @@
         "Negro"
       ],
       "medidas_origen": "var tu salón. Sus medidas son 120 x 60 x 43,5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/79900-large_default/mesa-de-centro-industrial-de-roble-y-metal.jpg",
+        "Negro": "https://alihogar.es/79898-large_default/mesa-de-centro-industrial-de-roble-y-metal.jpg"
+      }
     },
     {
       "id": "MCE-140",
@@ -9071,7 +9606,11 @@
         "Roble"
       ],
       "medidas_origen": "cional del producto: Medidas: 90x50x46 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/3010-large_default/mesa-de-centro-con-tablero-elevable-gala.jpg",
+        "Roble": "https://alihogar.es/3013-large_default/mesa-de-centro-con-tablero-elevable-gala.jpg"
+      }
     },
     {
       "id": "MCE-141",
@@ -9096,7 +9635,12 @@
         "Roble"
       ],
       "medidas_origen": "cional del producto: Medidas: 90x50x46 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/2996-large_default/mesa-de-centro-con-tablero-elevable-con-cristal-agueda.jpg",
+        "Nogal": "https://alihogar.es/2990-large_default/mesa-de-centro-con-tablero-elevable-con-cristal-agueda.jpg",
+        "Roble": "https://alihogar.es/2993-large_default/mesa-de-centro-con-tablero-elevable-con-cristal-agueda.jpg"
+      }
     },
     {
       "id": "CAM-06",
@@ -9120,7 +9664,11 @@
         "Taupe"
       ],
       "medidas_origen": "Tamaño: 80 x 190 cm",
-      "aviso_cliente": "Para colchón de 80 x 190 cm. Medida exterior: consultar en tienda"
+      "aviso_cliente": "Para colchón de 80 x 190 cm. Medida exterior: consultar en tienda",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/73269-large_default/canape-abatible-kutimo-35-de-ecus.jpg",
+        "Taupe": "https://alihogar.es/73280-large_default/canape-abatible-kutimo-35-de-ecus.jpg"
+      }
     },
     {
       "id": "CAM-07",
@@ -9144,7 +9692,11 @@
         "Taupe"
       ],
       "medidas_origen": "Tamaño: 90 x 190 cm",
-      "aviso_cliente": "Para colchón de 90 x 190 cm. Medida exterior: consultar en tienda"
+      "aviso_cliente": "Para colchón de 90 x 190 cm. Medida exterior: consultar en tienda",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/73271-large_default/canape-abatible-kutimo-35-de-ecus.jpg",
+        "Taupe": "https://alihogar.es/73281-large_default/canape-abatible-kutimo-35-de-ecus.jpg"
+      }
     },
     {
       "id": "CAM-08",
@@ -9168,7 +9720,11 @@
         "Taupe"
       ],
       "medidas_origen": "Tamaño: 105 x 190 cm",
-      "aviso_cliente": "Para colchón de 105 x 190 cm. Medida exterior: consultar en tienda"
+      "aviso_cliente": "Para colchón de 105 x 190 cm. Medida exterior: consultar en tienda",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/73272-large_default/canape-abatible-kutimo-35-de-ecus.jpg",
+        "Taupe": "https://alihogar.es/73282-large_default/canape-abatible-kutimo-35-de-ecus.jpg"
+      }
     },
     {
       "id": "CAM-09",
@@ -9192,7 +9748,11 @@
         "Taupe"
       ],
       "medidas_origen": "Tamaño: 120 x 190 cm",
-      "aviso_cliente": "Para colchón de 120 x 190 cm. Medida exterior: consultar en tienda"
+      "aviso_cliente": "Para colchón de 120 x 190 cm. Medida exterior: consultar en tienda",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/73273-large_default/canape-abatible-kutimo-35-de-ecus.jpg",
+        "Taupe": "https://alihogar.es/73283-large_default/canape-abatible-kutimo-35-de-ecus.jpg"
+      }
     },
     {
       "id": "CAM-10",
@@ -9216,7 +9776,11 @@
         "Taupe"
       ],
       "medidas_origen": "Tamaño: 135 x 190 cm",
-      "aviso_cliente": "Para colchón de 135 x 190 cm. Medida exterior: consultar en tienda"
+      "aviso_cliente": "Para colchón de 135 x 190 cm. Medida exterior: consultar en tienda",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/73274-large_default/canape-abatible-kutimo-35-de-ecus.jpg",
+        "Taupe": "https://alihogar.es/73284-large_default/canape-abatible-kutimo-35-de-ecus.jpg"
+      }
     },
     {
       "id": "CAM-11",
@@ -9240,7 +9804,11 @@
         "Taupe"
       ],
       "medidas_origen": "Tamaño: 140 x 190 cm",
-      "aviso_cliente": "Para colchón de 140 x 190 cm. Medida exterior: consultar en tienda"
+      "aviso_cliente": "Para colchón de 140 x 190 cm. Medida exterior: consultar en tienda",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/73275-large_default/canape-abatible-kutimo-35-de-ecus.jpg",
+        "Taupe": "https://alihogar.es/73285-large_default/canape-abatible-kutimo-35-de-ecus.jpg"
+      }
     },
     {
       "id": "CAM-12",
@@ -9264,7 +9832,11 @@
         "Taupe"
       ],
       "medidas_origen": "Tamaño: 150 x 190 cm",
-      "aviso_cliente": "Para colchón de 150 x 190 cm. Medida exterior: consultar en tienda"
+      "aviso_cliente": "Para colchón de 150 x 190 cm. Medida exterior: consultar en tienda",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/73276-large_default/canape-abatible-kutimo-35-de-ecus.jpg",
+        "Taupe": "https://alihogar.es/73286-large_default/canape-abatible-kutimo-35-de-ecus.jpg"
+      }
     },
     {
       "id": "CAM-13",
@@ -9288,7 +9860,11 @@
         "Taupe"
       ],
       "medidas_origen": "Tamaño: 160 x 190 cm",
-      "aviso_cliente": "Para colchón de 160 x 190 cm. Medida exterior: consultar en tienda"
+      "aviso_cliente": "Para colchón de 160 x 190 cm. Medida exterior: consultar en tienda",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/73277-large_default/canape-abatible-kutimo-35-de-ecus.jpg",
+        "Taupe": "https://alihogar.es/73287-large_default/canape-abatible-kutimo-35-de-ecus.jpg"
+      }
     },
     {
       "id": "CAM-14",
@@ -9312,7 +9888,11 @@
         "Taupe"
       ],
       "medidas_origen": "Tamaño: 180 x 190 cm",
-      "aviso_cliente": "Para colchón de 180 x 190 cm. Medida exterior: consultar en tienda"
+      "aviso_cliente": "Para colchón de 180 x 190 cm. Medida exterior: consultar en tienda",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/73278-large_default/canape-abatible-kutimo-35-de-ecus.jpg",
+        "Taupe": "https://alihogar.es/73288-large_default/canape-abatible-kutimo-35-de-ecus.jpg"
+      }
     },
     {
       "id": "CAM-15",
@@ -9336,7 +9916,11 @@
         "Taupe"
       ],
       "medidas_origen": "Tamaño: 200 x 190 cm",
-      "aviso_cliente": "Para colchón de 200 x 190 cm. Medida exterior: consultar en tienda"
+      "aviso_cliente": "Para colchón de 200 x 190 cm. Medida exterior: consultar en tienda",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/73279-large_default/canape-abatible-kutimo-35-de-ecus.jpg",
+        "Taupe": "https://alihogar.es/73289-large_default/canape-abatible-kutimo-35-de-ecus.jpg"
+      }
     },
     {
       "id": "SOM-01",
@@ -9486,7 +10070,11 @@
         "Taupe"
       ],
       "medidas_origen": "Tamaño: 80 x 190 cm",
-      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor"
+      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/73301-large_default/base-tapizada-calm23-de-ecus.jpg",
+        "Taupe": "https://alihogar.es/73293-large_default/base-tapizada-calm23-de-ecus.jpg"
+      }
     },
     {
       "id": "SOM-09",
@@ -9510,7 +10098,11 @@
         "Taupe"
       ],
       "medidas_origen": "Tamaño: 90 x 190 cm",
-      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor"
+      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/73302-large_default/base-tapizada-calm23-de-ecus.jpg",
+        "Taupe": "https://alihogar.es/73294-large_default/base-tapizada-calm23-de-ecus.jpg"
+      }
     },
     {
       "id": "SOM-10",
@@ -9534,7 +10126,11 @@
         "Taupe"
       ],
       "medidas_origen": "Tamaño: 105 x 190 cm",
-      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor"
+      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/73303-large_default/base-tapizada-calm23-de-ecus.jpg",
+        "Taupe": "https://alihogar.es/73295-large_default/base-tapizada-calm23-de-ecus.jpg"
+      }
     },
     {
       "id": "SOM-11",
@@ -9558,7 +10154,11 @@
         "Taupe"
       ],
       "medidas_origen": "Tamaño: 120 x 190 cm",
-      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor"
+      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/73304-large_default/base-tapizada-calm23-de-ecus.jpg",
+        "Taupe": "https://alihogar.es/73296-large_default/base-tapizada-calm23-de-ecus.jpg"
+      }
     },
     {
       "id": "SOM-12",
@@ -9582,7 +10182,11 @@
         "Taupe"
       ],
       "medidas_origen": "Tamaño: 135 x 190 cm",
-      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor"
+      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/73305-large_default/base-tapizada-calm23-de-ecus.jpg",
+        "Taupe": "https://alihogar.es/73297-large_default/base-tapizada-calm23-de-ecus.jpg"
+      }
     },
     {
       "id": "SOM-13",
@@ -9606,7 +10210,11 @@
         "Taupe"
       ],
       "medidas_origen": "Tamaño: 140 x 190 cm",
-      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor"
+      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/73306-large_default/base-tapizada-calm23-de-ecus.jpg",
+        "Taupe": "https://alihogar.es/73298-large_default/base-tapizada-calm23-de-ecus.jpg"
+      }
     },
     {
       "id": "SOM-14",
@@ -9630,7 +10238,11 @@
         "Taupe"
       ],
       "medidas_origen": "Tamaño: 150 x 190 cm",
-      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor"
+      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/73307-large_default/base-tapizada-calm23-de-ecus.jpg",
+        "Taupe": "https://alihogar.es/73299-large_default/base-tapizada-calm23-de-ecus.jpg"
+      }
     },
     {
       "id": "SOM-15",
@@ -9654,7 +10266,11 @@
         "Taupe"
       ],
       "medidas_origen": "Tamaño: 160 x 190 cm",
-      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor"
+      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/73308-large_default/base-tapizada-calm23-de-ecus.jpg",
+        "Taupe": "https://alihogar.es/73300-large_default/base-tapizada-calm23-de-ecus.jpg"
+      }
     },
     {
       "id": "SOM-19",
@@ -9678,7 +10294,11 @@
         "Taupe"
       ],
       "medidas_origen": "Tamaño: 80 x 190 cm",
-      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor"
+      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/69170-large_default/base-tapizada-suydi-de-ecus.jpg",
+        "Taupe": "https://alihogar.es/69165-large_default/base-tapizada-suydi-de-ecus.jpg"
+      }
     },
     {
       "id": "SOM-20",
@@ -9702,7 +10322,11 @@
         "Taupe"
       ],
       "medidas_origen": "Tamaño: 90 x 190 cm",
-      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor"
+      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/69172-large_default/base-tapizada-suydi-de-ecus.jpg",
+        "Taupe": "https://alihogar.es/69164-large_default/base-tapizada-suydi-de-ecus.jpg"
+      }
     },
     {
       "id": "SOM-21",
@@ -9726,7 +10350,11 @@
         "Taupe"
       ],
       "medidas_origen": "Tamaño: 105 x 190 cm",
-      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor"
+      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/69173-large_default/base-tapizada-suydi-de-ecus.jpg",
+        "Taupe": "https://alihogar.es/69166-large_default/base-tapizada-suydi-de-ecus.jpg"
+      }
     },
     {
       "id": "SOM-22",
@@ -9750,7 +10378,11 @@
         "Taupe"
       ],
       "medidas_origen": "Tamaño: 120 x 190 cm",
-      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor"
+      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/69174-large_default/base-tapizada-suydi-de-ecus.jpg",
+        "Taupe": "https://alihogar.es/69167-large_default/base-tapizada-suydi-de-ecus.jpg"
+      }
     },
     {
       "id": "SOM-23",
@@ -9774,7 +10406,11 @@
         "Taupe"
       ],
       "medidas_origen": "Tamaño: 135 x 190 cm",
-      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor"
+      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/69175-large_default/base-tapizada-suydi-de-ecus.jpg",
+        "Taupe": "https://alihogar.es/69169-large_default/base-tapizada-suydi-de-ecus.jpg"
+      }
     },
     {
       "id": "SOM-24",
@@ -9798,7 +10434,11 @@
         "Taupe"
       ],
       "medidas_origen": "Tamaño: 140 x 190 cm",
-      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor"
+      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/69176-large_default/base-tapizada-suydi-de-ecus.jpg",
+        "Taupe": "https://alihogar.es/69168-large_default/base-tapizada-suydi-de-ecus.jpg"
+      }
     },
     {
       "id": "SOM-25",
@@ -9822,7 +10462,11 @@
         "Taupe"
       ],
       "medidas_origen": "Tamaño: 150 x 190 cm",
-      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor"
+      "aviso_cliente": "Medida del colchón: la base puede ser algo mayor",
+      "fotos_color": {
+        "Gris": "https://alihogar.es/69177-large_default/base-tapizada-suydi-de-ecus.jpg",
+        "Taupe": "https://alihogar.es/69171-large_default/base-tapizada-suydi-de-ecus.jpg"
+      }
     },
     {
       "id": "SOM-28",
@@ -10245,7 +10889,11 @@
         "Roble"
       ],
       "medidas_origen": "de ropa de cama. Su tamaño de 160 x 3 x 80 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/82616-large_default/cabecero-nordico-liso-de-mdf.jpg",
+        "Roble": "https://alihogar.es/82614-large_default/cabecero-nordico-liso-de-mdf.jpg"
+      }
     },
     {
       "id": "CAB-13",
@@ -10311,7 +10959,11 @@
         "Gris Oscuro"
       ],
       "medidas_origen": "icas o minimalistas. Medidas: 60 x 9 x 110 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris Claro": "https://alihogar.es/78858-large_default/cabecero-lumos-tapizado-de-poliester-y-poliuretano.jpg",
+        "Gris Oscuro": "https://alihogar.es/78856-large_default/cabecero-lumos-tapizado-de-poliester-y-poliuretano.jpg"
+      }
     },
     {
       "id": "CAB-16",
@@ -10356,7 +11008,11 @@
         "Roble"
       ],
       "medidas_origen": "ética del dormitorio. Tamaño: 165 x 2.5 x 130 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/71481-large_default/cabecero-poro-de-melamina.jpg",
+        "Roble": "https://alihogar.es/71480-large_default/cabecero-poro-de-melamina.jpg"
+      }
     },
     {
       "id": "CAB-18",
@@ -10737,7 +11393,11 @@
         "Arena"
       ],
       "medidas_origen": "Pequeño: 155 x 10,5 x 125 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/21311-large_default/cabecero-niza.jpg",
+        "Arena": "https://alihogar.es/21309-large_default/cabecero-niza.jpg"
+      }
     },
     {
       "id": "CAB-36",
@@ -10761,7 +11421,10 @@
         "Arena"
       ],
       "medidas_origen": "Grande: 165 x 2 x 110 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/21313-large_default/cabecero-niza.jpg"
+      }
     },
     {
       "id": "CAB-37",
@@ -10870,7 +11533,12 @@
         "Capuccino"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/21253-large_default/cabecero-capitone-tapizado.jpg",
+        "Negro": "https://alihogar.es/21255-large_default/cabecero-capitone-tapizado.jpg",
+        "Capuccino": "https://alihogar.es/21257-large_default/cabecero-capitone-tapizado.jpg"
+      }
     },
     {
       "id": "CAB-42",
@@ -10894,7 +11562,11 @@
         "Cambria"
       ],
       "medidas_origen": "Tamaño: Pequeño",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/21234-large_default/cabecero.jpg",
+        "Cambria": "https://alihogar.es/21231-large_default/cabecero.jpg"
+      }
     },
     {
       "id": "CAB-43",
@@ -10918,7 +11590,11 @@
         "Cambria"
       ],
       "medidas_origen": "Tamaño: Grande",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/21236-large_default/cabecero.jpg",
+        "Cambria": "https://alihogar.es/21232-large_default/cabecero.jpg"
+      }
     },
     {
       "id": "CAB-44",
@@ -10984,7 +11660,11 @@
         "Natural"
       ],
       "medidas_origen": "Tamaño: 90 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/8747-large_default/cabecero-natural-de-ratan.jpg",
+        "Natural": "https://alihogar.es/22936-large_default/cabecero-natural-de-ratan.jpg"
+      }
     },
     {
       "id": "CAB-47",
@@ -11008,7 +11688,11 @@
         "Natural"
       ],
       "medidas_origen": "Tamaño: 135 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/8747-large_default/cabecero-natural-de-ratan.jpg",
+        "Natural": "https://alihogar.es/22936-large_default/cabecero-natural-de-ratan.jpg"
+      }
     },
     {
       "id": "CAB-48",
@@ -11031,7 +11715,10 @@
         "Roble"
       ],
       "medidas_origen": "Tamaño: 105 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Roble": "https://alihogar.es/7863-large_default/cabecero-para-cama-de-matrimonio-puzzle.jpg"
+      }
     },
     {
       "id": "CAB-49",
@@ -11054,7 +11741,10 @@
         "Roble"
       ],
       "medidas_origen": "Tamaño: 150 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Roble": "https://alihogar.es/7863-large_default/cabecero-para-cama-de-matrimonio-puzzle.jpg"
+      }
     },
     {
       "id": "CAB-50",
@@ -11077,7 +11767,10 @@
         "Roble"
       ],
       "medidas_origen": "Tamaño: 180 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Roble": "https://alihogar.es/7863-large_default/cabecero-para-cama-de-matrimonio-puzzle.jpg"
+      }
     },
     {
       "id": "CAB-51",
@@ -11123,7 +11816,12 @@
         "Roble"
       ],
       "medidas_origen": "cional del producto: Medidas: 160x2x80 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/3498-large_default/cabecero-para-cama-de-matrimonio-niza.jpg",
+        "Gris": "https://alihogar.es/3497-large_default/cabecero-para-cama-de-matrimonio-niza.jpg",
+        "Roble": "https://alihogar.es/3496-large_default/cabecero-para-cama-de-matrimonio-niza.jpg"
+      }
     },
     {
       "id": "CAB-53",
@@ -11148,7 +11846,12 @@
         "Roble"
       ],
       "medidas_origen": "cional del producto: Medidas: 160x3,8x119,3 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/3485-large_default/cabecero-para-cama-de-matrimonio-lara.jpg",
+        "Gris Oscuro": "https://alihogar.es/3487-large_default/cabecero-para-cama-de-matrimonio-lara.jpg",
+        "Roble": "https://alihogar.es/3484-large_default/cabecero-para-cama-de-matrimonio-lara.jpg"
+      }
     },
     {
       "id": "ARM-01",
@@ -11382,7 +12085,11 @@
         "Roble"
       ],
       "medidas_origen": "alquier hogar. Con medidas de 235 x 60 x 232 cm | ente el espacio. Dimensiones: 235 x 60 x 235 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/39254-large_default/armario-de-luna-con-3-puertas-correderas.jpg",
+        "Roble": "https://alihogar.es/39252-large_default/armario-de-luna-con-3-puertas-correderas.jpg"
+      }
     },
     {
       "id": "ARM-12",
@@ -11511,7 +12218,11 @@
         "Roble"
       ],
       "medidas_origen": "to y moderno, este armario de 99x51,6x193 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/8062-large_default/armario-de-2-puertas-y-2-cajones-plus.jpg",
+        "Roble": "https://alihogar.es/8064-large_default/armario-de-2-puertas-y-2-cajones-plus.jpg"
+      }
     },
     {
       "id": "ARM-18",
@@ -11535,7 +12246,11 @@
         "Roble"
       ],
       "medidas_origen": "garre cómodo. Sus medidas son 195 x 98 x 64 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/8056-large_default/armario-de-3-puertas-y-2-cajones-plus.jpg",
+        "Roble": "https://alihogar.es/8058-large_default/armario-de-3-puertas-y-2-cajones-plus.jpg"
+      }
     },
     {
       "id": "ARM-19",
@@ -11580,7 +12295,11 @@
         "Gris Oscuro"
       ],
       "medidas_origen": "lquier hogar. Sus medidas son 180 x 55 x 208 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/3540-large_default/armario-de-dos-puertas-correderas-lara.jpg",
+        "Gris Oscuro": "https://alihogar.es/3541-large_default/armario-de-dos-puertas-correderas-lara.jpg"
+      }
     },
     {
       "id": "ARM-21",
@@ -11647,7 +12366,12 @@
         "Roble"
       ],
       "medidas_origen": "n uso diario. Sus medidas son 35 x 43 x 110 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/87291-large_default/sinfonier-strait-con-5-cajones-de-melamina.jpg",
+        "Nogal": "https://alihogar.es/87292-large_default/sinfonier-strait-con-5-cajones-de-melamina.jpg",
+        "Roble": "https://alihogar.es/87294-large_default/sinfonier-strait-con-5-cajones-de-melamina.jpg"
+      }
     },
     {
       "id": "COM-09",
@@ -11671,7 +12395,11 @@
         "Roble"
       ],
       "medidas_origen": "al para uso diario. Medidas : 80 x 40 x 75 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/86939-large_default/comoda-con-3-cajones-de-mdf.jpg",
+        "Roble": "https://alihogar.es/86935-large_default/comoda-con-3-cajones-de-mdf.jpg"
+      }
     },
     {
       "id": "COM-10",
@@ -11716,7 +12444,11 @@
         "Roble"
       ],
       "medidas_origen": "y fácil de mantener. Medidas: 65 x 43 x 130 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/82697-large_default/sinfonier-turin-con-6-cajones-y-sistema-de-freno.jpg",
+        "Roble": "https://alihogar.es/82694-large_default/sinfonier-turin-con-6-cajones-y-sistema-de-freno.jpg"
+      }
     },
     {
       "id": "COM-12",
@@ -11761,7 +12493,11 @@
         "Roble"
       ],
       "medidas_origen": "ambiente. Con dimensiones de 106 x 43 x 91 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/82672-large_default/comoda-turin-con-4-cajones.jpg",
+        "Roble": "https://alihogar.es/82669-large_default/comoda-turin-con-4-cajones.jpg"
+      }
     },
     {
       "id": "COM-14",
@@ -12037,7 +12773,11 @@
         "Negro"
       ],
       "medidas_origen": "e de la mano. Sus medidas son 45 x 30 x 113 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/65988-large_default/sinfonier-chrysa-de-5-cajones-de-mdf.jpg",
+        "Negro": "https://alihogar.es/65985-large_default/sinfonier-chrysa-de-5-cajones-de-mdf.jpg"
+      }
     },
     {
       "id": "COM-27",
@@ -12418,7 +13158,11 @@
         "Roble"
       ],
       "medidas_origen": "e trabajo. Con dimensiones de 45,5 x 44 x 58 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/37178-large_default/cajonera-de-3-cajones.jpg",
+        "Roble": "https://alihogar.es/37177-large_default/cajonera-de-3-cajones.jpg"
+      }
     },
     {
       "id": "COM-45",
@@ -12442,7 +13186,11 @@
         "Rosa"
       ],
       "medidas_origen": "ecoración. Con sus medidas de 80 x 35 x 102 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/33738-large_default/comoda-locker-de-metal.jpg",
+        "Rosa": "https://alihogar.es/33735-large_default/comoda-locker-de-metal.jpg"
+      }
     },
     {
       "id": "COM-46",
@@ -12592,7 +13340,11 @@
         "Roble"
       ],
       "medidas_origen": "stilo de decoración. Medidas: 102 x 54 x 41 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/7856-large_default/sinfonier-de-cinco-cajones-con-doble-tirador-puzzle.jpg",
+        "Roble": "https://alihogar.es/7857-large_default/sinfonier-de-cinco-cajones-con-doble-tirador-puzzle.jpg"
+      }
     },
     {
       "id": "COM-53",
@@ -12616,7 +13368,11 @@
         "Roble"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/7851-large_default/comoda-de-cuatro-cajones-con-doble-tirador-puzzle.jpg",
+        "Roble": "https://alihogar.es/7853-large_default/comoda-de-cuatro-cajones-con-doble-tirador-puzzle.jpg"
+      }
     },
     {
       "id": "COM-54",
@@ -12661,7 +13417,11 @@
         "Negro"
       ],
       "medidas_origen": "cional del producto: Medidas: 98x39,6x81,5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/3696-large_default/comoda-de-cuatro-cajones-con-tiradores-lara.jpg",
+        "Negro": "https://alihogar.es/3698-large_default/comoda-de-cuatro-cajones-con-tiradores-lara.jpg"
+      }
     },
     {
       "id": "COM-56",
@@ -12685,7 +13445,11 @@
         "Negro"
       ],
       "medidas_origen": "cional del producto: Medidas: 60x40x107 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/3693-large_default/sinfonier-de-cinco-cajones-con-tiradores-lara.jpg",
+        "Negro": "https://alihogar.es/3694-large_default/sinfonier-de-cinco-cajones-con-tiradores-lara.jpg"
+      }
     },
     {
       "id": "COM-57",
@@ -12710,7 +13474,12 @@
         "Roble"
       ],
       "medidas_origen": "cional del producto: Medidas: 53x42x110 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/3684-large_default/sinfonier-de-cinco-cajones-con-tiradores-niza.jpg",
+        "Gris": "https://alihogar.es/3682-large_default/sinfonier-de-cinco-cajones-con-tiradores-niza.jpg",
+        "Roble": "https://alihogar.es/3683-large_default/sinfonier-de-cinco-cajones-con-tiradores-niza.jpg"
+      }
     },
     {
       "id": "COM-58",
@@ -13029,7 +13798,12 @@
         "Roble"
       ],
       "medidas_origen": "spacios en el hogar. Medidas: 55 x 37 x 53 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/87460-large_default/mesita-de-noche-strait-con-2-cajones-de-melamina.jpg",
+        "Nogal": "https://alihogar.es/87461-large_default/mesita-de-noche-strait-con-2-cajones-de-melamina.jpg",
+        "Roble": "https://alihogar.es/87458-large_default/mesita-de-noche-strait-con-2-cajones-de-melamina.jpg"
+      }
     },
     {
       "id": "MNO-15",
@@ -13054,7 +13828,12 @@
         "Roble"
       ],
       "medidas_origen": "os lados de la cama. Medidas: 50 x 37 x 60 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/87271-large_default/mesita-de-noche-strait-con-3-cajones-de-melamina.jpg",
+        "Nogal": "https://alihogar.es/87274-large_default/mesita-de-noche-strait-con-3-cajones-de-melamina.jpg",
+        "Roble": "https://alihogar.es/87272-large_default/mesita-de-noche-strait-con-3-cajones-de-melamina.jpg"
+      }
     },
     {
       "id": "MNO-16",
@@ -13078,7 +13857,11 @@
         "Roble"
       ],
       "medidas_origen": "ica al mejor precio. Medidas: 54 x 37 x 72 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/82681-large_default/mesita-de-noche-turin-con-2-cajones-y-sistema-de-freno.jpg",
+        "Roble": "https://alihogar.es/82678-large_default/mesita-de-noche-turin-con-2-cajones-y-sistema-de-freno.jpg"
+      }
     },
     {
       "id": "MNO-17",
@@ -13333,7 +14116,11 @@
         "Roble"
       ],
       "medidas_origen": "r decoración. Sus medidas son 40 x 30 x 60 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/78905-large_default/mesita-de-noche-freya-con-un-cajon-de-ratan-y-madera.jpg",
+        "Roble": "https://alihogar.es/78904-large_default/mesita-de-noche-freya-con-un-cajon-de-ratan-y-madera.jpg"
+      }
     },
     {
       "id": "MNO-30",
@@ -13546,7 +14333,11 @@
         "Negro"
       ],
       "medidas_origen": "corativa. Sus dimensiones son 47.1 x 30 x 65.5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/66702-large_default/mesita-de-noche-chrysa-de-madera-de-pino.jpg",
+        "Negro": "https://alihogar.es/65701-large_default/mesita-de-noche-chrysa-de-madera-de-pino.jpg"
+      }
     },
     {
       "id": "MNO-40",
@@ -13843,7 +14634,11 @@
         "Natural"
       ],
       "medidas_origen": "ísticas físicas: Dimensiones: 45 x 35 x 59 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/36291-large_default/mesita-de-noche.jpg",
+        "Natural": "https://alihogar.es/36287-large_default/mesita-de-noche.jpg"
+      }
     },
     {
       "id": "MNO-54",
@@ -13867,7 +14662,11 @@
         "Rosa"
       ],
       "medidas_origen": "iere montaje. Sus medidas son 35 x 35 x 51 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/33732-large_default/mesa-d-enoche-taquilla.jpg",
+        "Rosa": "https://alihogar.es/33729-large_default/mesa-d-enoche-taquilla.jpg"
+      }
     },
     {
       "id": "MNO-55",
@@ -13996,7 +14795,11 @@
         "ROBLE"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "NIEVE": "https://alihogar.es/14867-large_default/mesita-de-noche-de-3-cajones-modelo-nordico.jpg",
+        "ROBLE": "https://alihogar.es/14868-large_default/mesita-de-noche-de-3-cajones-modelo-nordico.jpg"
+      }
     },
     {
       "id": "MNO-62",
@@ -14062,7 +14865,11 @@
         "Roble"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/7874-large_default/mesita-de-noche-con-2-cajones-modelo-puzzle.jpg",
+        "Roble": "https://alihogar.es/7876-large_default/mesita-de-noche-con-2-cajones-modelo-puzzle.jpg"
+      }
     },
     {
       "id": "MNO-65",
@@ -14086,7 +14893,11 @@
         "Roble"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/7871-large_default/mesita-de-noche-de-3-cajones-puzzle.jpg",
+        "Roble": "https://alihogar.es/7873-large_default/mesita-de-noche-de-3-cajones-puzzle.jpg"
+      }
     },
     {
       "id": "MNO-66",
@@ -14174,7 +14985,12 @@
         "Gris Oscuro"
       ],
       "medidas_origen": "cional del producto: Medidas: 50x34,6x60 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/3644-large_default/mesita-de-noche-con-tres-cajones-lara.jpg",
+        "Gris": "https://alihogar.es/3645-large_default/mesita-de-noche-con-tres-cajones-lara.jpg",
+        "Gris Oscuro": "https://alihogar.es/3646-large_default/mesita-de-noche-con-tres-cajones-lara.jpg"
+      }
     },
     {
       "id": "BAN-01",
@@ -14240,7 +15056,11 @@
         "Verde"
       ],
       "medidas_origen": "Pequeño: 96 x 34.5 x 32 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Terracota": "https://alihogar.es/55719-large_default/unimasa.jpg",
+        "Verde": "https://alihogar.es/55721-large_default/unimasa.jpg"
+      }
     },
     {
       "id": "BAN-04",
@@ -14264,7 +15084,11 @@
         "Verde"
       ],
       "medidas_origen": "Grande: 102 x 41 x 43 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Terracota": "https://alihogar.es/55720-large_default/unimasa.jpg",
+        "Verde": "https://alihogar.es/55718-large_default/unimasa.jpg"
+      }
     },
     {
       "id": "BAN-05",
@@ -14498,7 +15322,11 @@
         "Beige"
       ],
       "medidas_origen": "isualmente atractiva. Tamaño: 75 x 34 x 75 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Verde": "https://alihogar.es/57344-large_default/estanteria-chamlo-de-3-niveles-de-mdf.jpg",
+        "Beige": "https://alihogar.es/57342-large_default/estanteria-chamlo-de-3-niveles-de-mdf.jpg"
+      }
     },
     {
       "id": "REC-13",
@@ -14522,7 +15350,11 @@
         "Beige"
       ],
       "medidas_origen": "a de colores. Su tamaño es de 78 x 78 x 27 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Negro": "https://alihogar.es/57219-large_default/consola-alrik-de-2-niveles-de-acero.jpg",
+        "Beige": "https://alihogar.es/57222-large_default/consola-alrik-de-2-niveles-de-acero.jpg"
+      }
     },
     {
       "id": "REC-14",
@@ -14630,7 +15462,11 @@
         "Negro"
       ],
       "medidas_origen": "legancia. Sus dimensiones son 82 x 33 x 85 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/55356-large_default/consola-haldor-con-3-niveles-de-acero-epoxi.jpg",
+        "Negro": "https://alihogar.es/55359-large_default/consola-haldor-con-3-niveles-de-acero-epoxi.jpg"
+      }
     },
     {
       "id": "REC-19",
@@ -14654,7 +15490,11 @@
         "Natural"
       ],
       "medidas_origen": "on 2 Cajones. Sus medidas son 80 x 30 x 76 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/32581-large_default/consola.jpg",
+        "Natural": "https://alihogar.es/32583-large_default/consola.jpg"
+      }
     },
     {
       "id": "REC-20",
@@ -15085,7 +15925,11 @@
         "Roble"
       ],
       "medidas_origen": "o clásico. Con dimensiones de 60 x 22 x 113 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/87381-large_default/zapatero-almanzora-con-3-trampillas-de-melamina.jpg",
+        "Roble": "https://alihogar.es/87385-large_default/zapatero-almanzora-con-3-trampillas-de-melamina.jpg"
+      }
     },
     {
       "id": "ZAP-04",
@@ -15151,7 +15995,11 @@
         "Roble"
       ],
       "medidas_origen": "para zapatos. Con medidas de 55 x 36 x 108 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/86577-large_default/zapatero-con-2-puertas-y-6-baldas-de-melamina.jpg",
+        "Roble": "https://alihogar.es/86580-large_default/zapatero-con-2-puertas-y-6-baldas-de-melamina.jpg"
+      }
     },
     {
       "id": "ZAP-07",
@@ -15175,7 +16023,11 @@
         "Roble"
       ],
       "medidas_origen": "ción ordenada. Con medidas de 56 x 37 x 180 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/86571-large_default/armario-zapatero-multiusos-con-2-puertas-de-melamina.jpg",
+        "Roble": "https://alihogar.es/86574-large_default/armario-zapatero-multiusos-con-2-puertas-de-melamina.jpg"
+      }
     },
     {
       "id": "ZAP-08",
@@ -15220,7 +16072,11 @@
         "Roble"
       ],
       "medidas_origen": "pero de gran altura. Medidas: 50 x 22 x 180 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/85360-large_default/zapatero-kristal-de-1-puerta-con-espejo-de-melamina.jpg",
+        "Roble": "https://alihogar.es/85364-large_default/zapatero-kristal-de-1-puerta-con-espejo-de-melamina.jpg"
+      }
     },
     {
       "id": "ZAP-10",
@@ -15307,7 +16163,11 @@
         "Verde"
       ],
       "medidas_origen": "durabilidad. Sus medidas son 54,8 - 87 x 22,5 x 53,5 cm",
-      "aviso_cliente": "Extensible: 54.8 cm cerrada, 87 cm abierta"
+      "aviso_cliente": "Extensible: 54.8 cm cerrada, 87 cm abierta",
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/72145-large_default/zapatero-extensible-cassie-6-a-12-pares-de-metal.jpg",
+        "Verde": "https://alihogar.es/72141-large_default/zapatero-extensible-cassie-6-a-12-pares-de-metal.jpg"
+      }
     },
     {
       "id": "ZAP-14",
@@ -15479,7 +16339,12 @@
         "Beige"
       ],
       "medidas_origen": "vertical. Sus medidas son de 50 x 15 x 106 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/45335-large_default/zapatero-eyvin-con-3-trampones-de-metal.jpg",
+        "Negro": "https://alihogar.es/45331-large_default/zapatero-eyvin-con-3-trampones-de-metal.jpg",
+        "Beige": "https://alihogar.es/45326-large_default/zapatero-eyvin-con-3-trampones-de-metal.jpg"
+      }
     },
     {
       "id": "ZAP-22",
@@ -15734,7 +16599,11 @@
         "Natural"
       ],
       "medidas_origen": "es de zapatos. Con medidas de 73.6 x 24 x 110 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris Oscuro": "https://alihogar.es/23763-large_default/zapatero.jpg",
+        "Natural": "https://alihogar.es/23767-large_default/zapatero.jpg"
+      }
     },
     {
       "id": "ZAP-34",
@@ -15779,7 +16648,11 @@
         "Roble"
       ],
       "medidas_origen": "y a la vista. Con medidas de 8 x 60 x 25 cm | Material: melamina. Medidas: 81,6 x 60 x 25 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/21201-large_default/zapatero-blanco-de-2-compartimientos.jpg",
+        "Roble": "https://alihogar.es/21205-large_default/zapatero-blanco-de-2-compartimientos.jpg"
+      }
     },
     {
       "id": "ZAP-36",
@@ -15803,7 +16676,11 @@
         "Roble"
       ],
       "medidas_origen": "del producto Medidas BLANCO: 60 x 36 x 90 cm | x 36 x 90 cm. Medidas ROBLE: 60 x 80 x 103 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/21177-large_default/-armario-bajo-jupiter-de-2-puertas.jpg",
+        "Roble": "https://alihogar.es/21180-large_default/-armario-bajo-jupiter-de-2-puertas.jpg"
+      }
     },
     {
       "id": "ZAP-37",
@@ -15827,7 +16704,11 @@
         "Roble"
       ],
       "medidas_origen": "en kit. Medidas del artículo: 70 x 25 x 120 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/527-large_default/zapatero-con-tres-trampones-abatibles.jpg",
+        "Roble": "https://alihogar.es/530-large_default/zapatero-con-tres-trampones-abatibles.jpg"
+      }
     },
     {
       "id": "ZAP-38",
@@ -15851,7 +16732,11 @@
         "Roble"
       ],
       "medidas_origen": "zapatos. Sus dimensiones son 91 x 18 x 100 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/523-large_default/zapatero-con-cuatro-trampones-abatibles.jpg",
+        "Roble": "https://alihogar.es/526-large_default/zapatero-con-cuatro-trampones-abatibles.jpg"
+      }
     },
     {
       "id": "ESC-01",
@@ -15964,7 +16849,11 @@
         "Negro"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/79705-large_default/escritorio-stand-con-elevacion-electrica-de-madera-de-roble.jpg",
+        "Negro": "https://alihogar.es/79703-large_default/escritorio-stand-con-elevacion-electrica-de-madera-de-roble.jpg"
+      }
     },
     {
       "id": "ESC-06",
@@ -16013,7 +16902,13 @@
         "Modelo 4"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Modelo 1": "https://alihogar.es/79688-large_default/escritorio-motorizado-de-madera-y-metal.jpg",
+        "Modelo 2": "https://alihogar.es/79691-large_default/escritorio-motorizado-de-madera-y-metal.jpg",
+        "Modelo 3": "https://alihogar.es/79690-large_default/escritorio-motorizado-de-madera-y-metal.jpg",
+        "Modelo 4": "https://alihogar.es/79689-large_default/escritorio-motorizado-de-madera-y-metal.jpg"
+      }
     },
     {
       "id": "ESC-08",
@@ -16039,7 +16934,12 @@
         "Modelo 3"
       ],
       "medidas_origen": "práctica y duradera. Medidas: 120 x 60 x 73 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Modelo 1": "https://alihogar.es/78118-large_default/escritorio-natural-para-estudio-con-patas-de-madera-y-metal.jpg",
+        "Modelo 2": "https://alihogar.es/78120-large_default/escritorio-natural-para-estudio-con-patas-de-madera-y-metal.jpg",
+        "Modelo 3": "https://alihogar.es/78121-large_default/escritorio-natural-para-estudio-con-patas-de-madera-y-metal.jpg"
+      }
     },
     {
       "id": "ESC-09",
@@ -16218,7 +17118,11 @@
         "Roble"
       ],
       "medidas_origen": "do elegancia. Sus medidas son 40 x 45 x 61,8 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/71534-large_default/cajonera-teruel-con-4-cajones-de-melamina.jpg",
+        "Roble": "https://alihogar.es/71531-large_default/cajonera-teruel-con-4-cajones-de-melamina.jpg"
+      }
     },
     {
       "id": "ESC-17",
@@ -16397,7 +17301,11 @@
         "Negro"
       ],
       "medidas_origen": "a natural. Con dimensiones de 120 x 60 x 75 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/42201-large_default/escritorio-mia.jpg",
+        "Negro": "https://alihogar.es/42198-large_default/escritorio-mia.jpg"
+      }
     },
     {
       "id": "ESC-25",
@@ -16620,7 +17528,11 @@
         "Negro"
       ],
       "medidas_origen": "acenamiento, con un tamaño de 87 x 56 x 87 cm | x 87 cm. Plegable a medidas: 87 x 10 x 68 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/59529-large_default/escritorio-87x56x87-cm-plegable.jpg",
+        "Negro": "https://alihogar.es/59525-large_default/escritorio-87x56x87-cm-plegable.jpg"
+      }
     },
     {
       "id": "ESC-35",
@@ -16645,7 +17557,11 @@
         "Roble"
       ],
       "medidas_origen": "un aspecto ordenado. Tamaño: 90 x 50 x 74 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/52554-large_default/escritorio-con-cajon-en-varios-acabados.jpg",
+        "Roble": "https://alihogar.es/52556-large_default/escritorio-con-cajon-en-varios-acabados.jpg"
+      }
     },
     {
       "id": "ESC-36",
@@ -16693,7 +17609,11 @@
         "Negro"
       ],
       "medidas_origen": "cualquier estancia. Medidas: 35 x 10 x 48 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/93252-large_default/estanteria-de-pared-con-3-niveles-con-rejillas-de-metal.jpg",
+        "Negro": "https://alihogar.es/93250-large_default/estanteria-de-pared-con-3-niveles-con-rejillas-de-metal.jpg"
+      }
     },
     {
       "id": "EST-07",
@@ -16949,7 +17869,11 @@
         "Rosa"
       ],
       "medidas_origen": "to agradable. Sus medidas son 63.6 x 30 x 63.6 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Verde": "https://alihogar.es/71960-large_default/estanteria-mix-n-modul-color-de-4-modulos.jpg",
+        "Rosa": "https://alihogar.es/71957-large_default/estanteria-mix-n-modul-color-de-4-modulos.jpg"
+      }
     },
     {
       "id": "EST-18",
@@ -16975,7 +17899,11 @@
         "Rosa"
       ],
       "medidas_origen": "libros y decoración. Medidas: 34,5 x 32 x 100,5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Verde": "https://alihogar.es/82007-large_default/estanteria-mix-n-modul-color-de-3-modulos.jpg",
+        "Rosa": "https://alihogar.es/82006-large_default/estanteria-mix-n-modul-color-de-3-modulos.jpg"
+      }
     },
     {
       "id": "EST-19",
@@ -17277,7 +18205,11 @@
         "Beige"
       ],
       "medidas_origen": "y duradero. Tamaños: Pequeño: 24 x 12 x 24 cm | ño: 24 x 12 x 24 cm. Mediano: 27 x 12 x 27 cm | ano: 27 x 12 x 27 cm. Grande: 30 x 12 x 30 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/68685-large_default/set-de-3-estantes-cubos-fixy-para-pared-de-mdf.jpg",
+        "Beige": "https://alihogar.es/68683-large_default/set-de-3-estantes-cubos-fixy-para-pared-de-mdf.jpg"
+      }
     },
     {
       "id": "EST-32",
@@ -17717,7 +18649,11 @@
         "Negro"
       ],
       "medidas_origen": "para hogar u oficina. Tamaño: 60,5 x 36 x 150 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/55366-large_default/estanteria-haldor-con-4-niveles-de-acero-epoxi.jpg",
+        "Negro": "https://alihogar.es/55364-large_default/estanteria-haldor-con-4-niveles-de-acero-epoxi.jpg"
+      }
     },
     {
       "id": "EST-51",
@@ -17767,7 +18703,12 @@
         "Marrón"
       ],
       "medidas_origen": "orativos. De tamaño compacto (38 x 29 x 73,5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/50818-large_default/estanteria-rectangular-3-alturas-lombok-de-plastico.jpg",
+        "Gris": "https://alihogar.es/50819-large_default/estanteria-rectangular-3-alturas-lombok-de-plastico.jpg",
+        "Marrón": "https://alihogar.es/50817-large_default/estanteria-rectangular-3-alturas-lombok-de-plastico.jpg"
+      }
     },
     {
       "id": "EST-53",
@@ -17817,7 +18758,12 @@
         "Marrón"
       ],
       "medidas_origen": "sistente y duradera. Tamaños: 33 x 33 x 100 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/50771-large_default/estanteria-de-esquina-4-alturas-lombok-de-plastico.jpg",
+        "Gris": "https://alihogar.es/50772-large_default/estanteria-de-esquina-4-alturas-lombok-de-plastico.jpg",
+        "Marrón": "https://alihogar.es/50770-large_default/estanteria-de-esquina-4-alturas-lombok-de-plastico.jpg"
+      }
     },
     {
       "id": "EST-55",
@@ -17844,7 +18790,12 @@
         "Roble"
       ],
       "medidas_origen": "l entorno. Con dimensiones de 32 x 32 x 1.2 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/48816-large_default/balda-para-estanterias-mix-n-modul.jpg",
+        "Gris": "https://alihogar.es/48813-large_default/balda-para-estanterias-mix-n-modul.jpg",
+        "Roble": "https://alihogar.es/48809-large_default/balda-para-estanterias-mix-n-modul.jpg"
+      }
     },
     {
       "id": "EST-56",
@@ -17965,7 +18916,14 @@
         "Natural"
       ],
       "medidas_origen": "nto es sencillo. Dimensiones: 67.6 x 32 x 100.5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/40354-large_default/estanteria-mix-n-modul-de-6-modulos.jpg",
+        "Marfil": "https://alihogar.es/89875-large_default/estanteria-mix-n-modul-de-6-modulos.jpg",
+        "Gris": "https://alihogar.es/40350-large_default/estanteria-mix-n-modul-de-6-modulos.jpg",
+        "Marrón": "https://alihogar.es/89874-large_default/estanteria-mix-n-modul-de-6-modulos.jpg",
+        "Natural": "https://alihogar.es/40347-large_default/estanteria-mix-n-modul-de-6-modulos.jpg"
+      }
     },
     {
       "id": "EST-61",
@@ -18037,7 +18995,11 @@
         "Natural"
       ],
       "medidas_origen": "ecoración. Sus dimensiones de 34,5 x 32 x 67,5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/49567-large_default/estanteria-mix-n-modul-de-21-modulos.jpg",
+        "Natural": "https://alihogar.es/49566-large_default/estanteria-mix-n-modul-de-21-modulos.jpg"
+      }
     },
     {
       "id": "EST-64",
@@ -18155,7 +19117,11 @@
         "Roble"
       ],
       "medidas_origen": "Tamaño: Pequeño",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/31752-large_default/estanteria.jpg",
+        "Roble": "https://alihogar.es/31749-large_default/estanteria.jpg"
+      }
     },
     {
       "id": "EST-69",
@@ -18181,7 +19147,10 @@
         "Roble"
       ],
       "medidas_origen": "Tamaño: Grande",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/31756-large_default/estanteria.jpg"
+      }
     },
     {
       "id": "EST-70",
@@ -18301,7 +19270,13 @@
         "Roble"
       ],
       "medidas_origen": "60 cm: 60 x 23.5 cm x 3.8 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/40363-large_default/estante-flotante-80cm.jpg",
+        "Gris": "https://alihogar.es/40366-large_default/estante-flotante-80cm.jpg",
+        "Negro": "https://alihogar.es/40359-large_default/estante-flotante-80cm.jpg",
+        "Roble": "https://alihogar.es/40357-large_default/estante-flotante-80cm.jpg"
+      }
     },
     {
       "id": "EST-75",
@@ -18329,7 +19304,13 @@
         "Roble"
       ],
       "medidas_origen": "80 cm: 80 x 23.5 x 3.8 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/40364-large_default/estante-flotante-80cm.jpg",
+        "Gris": "https://alihogar.es/40367-large_default/estante-flotante-80cm.jpg",
+        "Negro": "https://alihogar.es/40361-large_default/estante-flotante-80cm.jpg",
+        "Roble": "https://alihogar.es/40358-large_default/estante-flotante-80cm.jpg"
+      }
     },
     {
       "id": "EST-76",
@@ -18380,7 +19361,13 @@
         "Natural"
       ],
       "medidas_origen": "el orden con estilo. Tamaño: 34.5 x 32 x 100.5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/36681-large_default/estanteria-modular-con-22-compartimentos-.jpg",
+        "Gris": "https://alihogar.es/36678-large_default/estanteria-modular-con-22-compartimentos-.jpg",
+        "Marrón": "https://alihogar.es/89892-large_default/estanteria-modular-con-22-compartimentos-.jpg",
+        "Natural": "https://alihogar.es/36674-large_default/estanteria-modular-con-22-compartimentos-.jpg"
+      }
     },
     {
       "id": "EST-78",
@@ -18408,7 +19395,13 @@
         "Natural"
       ],
       "medidas_origen": "r paredes completas. Medidas: 100.5 x 32 x 100.5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/36688-large_default/estanteria-modular-9-compartimentos-.jpg",
+        "Gris": "https://alihogar.es/36692-large_default/estanteria-modular-9-compartimentos-.jpg",
+        "Marrón": "https://alihogar.es/89854-large_default/estanteria-modular-9-compartimentos-.jpg",
+        "Natural": "https://alihogar.es/36691-large_default/estanteria-modular-9-compartimentos-.jpg"
+      }
     },
     {
       "id": "EST-79",
@@ -18457,7 +19450,11 @@
         "Marrón"
       ],
       "medidas_origen": "claras y sencillas. Medidas: 70 x 22 x 160 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Negro": "https://alihogar.es/20949-large_default/estante-alargado-de-madera-westwood-.jpg",
+        "Marrón": "https://alihogar.es/20954-large_default/estante-alargado-de-madera-westwood-.jpg"
+      }
     },
     {
       "id": "EST-81",
@@ -18483,7 +19480,11 @@
         "Marrón"
       ],
       "medidas_origen": "tante de Madera Westwood mide 100x100x23cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Negro": "https://alihogar.es/20933-large_default/estante-de-madera-3-baldas-westwood.jpg",
+        "Marrón": "https://alihogar.es/20937-large_default/estante-de-madera-3-baldas-westwood.jpg"
+      }
     },
     {
       "id": "EST-82",
@@ -18510,7 +19511,12 @@
         "Roble"
       ],
       "medidas_origen": "tivos favoritos. Dimensiones: 34.5 x 134 x 32 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/36653-large_default/estanteria-345x32x134-cm-4b-mix-blanca-173686c.jpg",
+        "Gris": "https://alihogar.es/36650-large_default/estanteria-345x32x134-cm-4b-mix-blanca-173686c.jpg",
+        "Roble": "https://alihogar.es/36646-large_default/estanteria-345x32x134-cm-4b-mix-blanca-173686c.jpg"
+      }
     },
     {
       "id": "EST-83",
@@ -18560,7 +19566,12 @@
         "Roble"
       ],
       "medidas_origen": "Con dimensiones compactas de 34.5 x 34.5 x 32 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/43739-large_default/estante-345x32x345-cubo-blanco-138966c.jpg",
+        "Gris": "https://alihogar.es/43740-large_default/estante-345x32x345-cubo-blanco-138966c.jpg",
+        "Roble": "https://alihogar.es/43741-large_default/estante-345x32x345-cubo-blanco-138966c.jpg"
+      }
     },
     {
       "id": "EST-85",
@@ -18612,7 +19623,14 @@
         "Roble"
       ],
       "medidas_origen": "ios comerciales. Dimensiones: 34.5 x 32 x 68 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/36712-large_default/estanteria-mix-n-modul-de-2-modulos.jpg",
+        "Gris": "https://alihogar.es/36709-large_default/estanteria-mix-n-modul-de-2-modulos.jpg",
+        "Marrón": "https://alihogar.es/89834-large_default/estanteria-mix-n-modul-de-2-modulos.jpg",
+        "Ártico": "https://alihogar.es/89839-large_default/estanteria-mix-n-modul-de-2-modulos.jpg",
+        "Roble": "https://alihogar.es/36706-large_default/estanteria-mix-n-modul-de-2-modulos.jpg"
+      }
     },
     {
       "id": "EST-87",
@@ -18641,7 +19659,14 @@
         "Ártico"
       ],
       "medidas_origen": "a todos los objetos. Tamaño: 67.6 x 32 x 67.6 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/36699-large_default/estanteria-676x32x676-4c-blanca-138908c.jpg",
+        "Gris": "https://alihogar.es/36702-large_default/estanteria-676x32x676-4c-blanca-138908c.jpg",
+        "Marrón": "https://alihogar.es/89860-large_default/estanteria-676x32x676-4c-blanca-138908c.jpg",
+        "Natural": "https://alihogar.es/36695-large_default/estanteria-676x32x676-4c-blanca-138908c.jpg",
+        "Ártico": "https://alihogar.es/89858-large_default/estanteria-676x32x676-4c-blanca-138908c.jpg"
+      }
     },
     {
       "id": "EST-88",
@@ -18670,7 +19695,14 @@
         "Roble"
       ],
       "medidas_origen": "ambiente. Sus dimensiones son 34.5 x 32 x 100.5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/36726-large_default/estanteria-345x32x1005-3-b-mix-gris-138907a.jpg",
+        "Marfil": "https://alihogar.es/89886-large_default/estanteria-345x32x1005-3-b-mix-gris-138907a.jpg",
+        "Gris": "https://alihogar.es/36723-large_default/estanteria-345x32x1005-3-b-mix-gris-138907a.jpg",
+        "Marrón": "https://alihogar.es/89885-large_default/estanteria-345x32x1005-3-b-mix-gris-138907a.jpg",
+        "Roble": "https://alihogar.es/36719-large_default/estanteria-345x32x1005-3-b-mix-gris-138907a.jpg"
+      }
     },
     {
       "id": "EST-89",
@@ -18698,7 +19730,13 @@
         "Natural"
       ],
       "medidas_origen": "calidad-precio. Dimensiones: 67.5 x 32 x 134 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/37414-large_default/estanteria-675x32x134-cm-blanco-8-cubos-160478c.jpg",
+        "Gris": "https://alihogar.es/37411-large_default/estanteria-675x32x134-cm-blanco-8-cubos-160478c.jpg",
+        "Marrón": "https://alihogar.es/89866-large_default/estanteria-675x32x134-cm-blanco-8-cubos-160478c.jpg",
+        "Natural": "https://alihogar.es/89870-large_default/estanteria-675x32x134-cm-blanco-8-cubos-160478c.jpg"
+      }
     },
     {
       "id": "EST-90",
@@ -18794,7 +19832,12 @@
         "Roble"
       ],
       "medidas_origen": "es tamaños. El tamaño grande: 25x9x25cm | 25x9x25cm. El tamaño mediano: 20x9x20cm | 0x9x20cm y el tamaño pequeño: 15x9x15 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/8379-large_default/set-de-3-estanterias-cubo.jpg",
+        "Negro": "https://alihogar.es/8378-large_default/set-de-3-estanterias-cubo.jpg",
+        "Roble": "https://alihogar.es/8377-large_default/set-de-3-estanterias-cubo.jpg"
+      }
     },
     {
       "id": "EST-94",
@@ -18973,7 +20016,11 @@
         "Negro"
       ],
       "medidas_origen": "litan el movimiento. Medidas: 57.5 x 59 x 95 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/88231-large_default/silla-de-oficina-roman-de-nylon-y-poliester.jpg",
+        "Negro": "https://alihogar.es/88227-large_default/silla-de-oficina-roman-de-nylon-y-poliester.jpg"
+      }
     },
     {
       "id": "SIO-03",
@@ -19082,7 +20129,12 @@
         "Azul"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/79856-large_default/silla-de-oficina-vita-giratoria-con-tejido-3-d-transpirable.jpg",
+        "Negro": "https://alihogar.es/79853-large_default/silla-de-oficina-vita-giratoria-con-tejido-3-d-transpirable.jpg",
+        "Azul": "https://alihogar.es/79850-large_default/silla-de-oficina-vita-giratoria-con-tejido-3-d-transpirable.jpg"
+      }
     },
     {
       "id": "SIO-08",
@@ -19106,7 +20158,11 @@
         "Negro"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/79782-large_default/silla-de-oficina-atlas-de-simil-piel.jpg",
+        "Negro": "https://alihogar.es/79786-large_default/silla-de-oficina-atlas-de-simil-piel.jpg"
+      }
     },
     {
       "id": "SIO-09",
@@ -19130,7 +20186,11 @@
         "Negro"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/78068-large_default/silla-gamer-giratoria-xtr-junior-de-polipiel.jpg",
+        "Negro": "https://alihogar.es/78066-large_default/silla-gamer-giratoria-xtr-junior-de-polipiel.jpg"
+      }
     },
     {
       "id": "SIO-10",
@@ -19154,7 +20214,11 @@
         "Modelo 2"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Modelo 1": "https://alihogar.es/78010-large_default/silla-giratoria-henry-para-despacho.jpg",
+        "Modelo 2": "https://alihogar.es/78012-large_default/silla-giratoria-henry-para-despacho.jpg"
+      }
     },
     {
       "id": "SIO-11",
@@ -19179,7 +20243,12 @@
         "Modelo 3"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Modelo 1": "https://alihogar.es/77998-large_default/silla-giratoria-genesis-para-despacho-tapizada.jpg",
+        "Modelo 2": "https://alihogar.es/78000-large_default/silla-giratoria-genesis-para-despacho-tapizada.jpg",
+        "Modelo 3": "https://alihogar.es/78001-large_default/silla-giratoria-genesis-para-despacho-tapizada.jpg"
+      }
     },
     {
       "id": "SIO-12",
@@ -19205,7 +20274,13 @@
         "Rosa"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/77981-large_default/silla-giratoria-kneck-con-reposacabezas-y-red-transpirable.jpg",
+        "Negro": "https://alihogar.es/77979-large_default/silla-giratoria-kneck-con-reposacabezas-y-red-transpirable.jpg",
+        "Azul": "https://alihogar.es/77982-large_default/silla-giratoria-kneck-con-reposacabezas-y-red-transpirable.jpg",
+        "Rosa": "https://alihogar.es/77983-large_default/silla-giratoria-kneck-con-reposacabezas-y-red-transpirable.jpg"
+      }
     },
     {
       "id": "SIO-13",
@@ -19229,7 +20304,11 @@
         "Negro"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/77939-large_default/silla-giratoria-aero-con-reposacabezas-y-red-transpirable.jpg",
+        "Negro": "https://alihogar.es/77937-large_default/silla-giratoria-aero-con-reposacabezas-y-red-transpirable.jpg"
+      }
     },
     {
       "id": "SIO-14",
@@ -19254,7 +20333,12 @@
         "Modelo 3"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Modelo 1": "https://alihogar.es/77928-large_default/silla-giratoria-ergo-con-red-traspirable-.jpg",
+        "Modelo 2": "https://alihogar.es/77930-large_default/silla-giratoria-ergo-con-red-traspirable-.jpg",
+        "Modelo 3": "https://alihogar.es/77931-large_default/silla-giratoria-ergo-con-red-traspirable-.jpg"
+      }
     },
     {
       "id": "SIO-15",
@@ -19278,7 +20362,11 @@
         "Negro"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/77906-large_default/silla-giratoria-letter-alta-de-polipiel.jpg",
+        "Negro": "https://alihogar.es/77904-large_default/silla-giratoria-letter-alta-de-polipiel.jpg"
+      }
     },
     {
       "id": "SIO-16",
@@ -19302,7 +20390,11 @@
         "Negro"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/77893-large_default/silla-giratoria-lucy-para-oficina-de-polipiel.jpg",
+        "Negro": "https://alihogar.es/77891-large_default/silla-giratoria-lucy-para-oficina-de-polipiel.jpg"
+      }
     },
     {
       "id": "SIO-17",
@@ -19494,7 +20586,11 @@
         "Negro"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/79790-large_default/silla-de-oficina-lexi-giratoria-con-soporte-lumbar-y-asiento-transpirable.jpg",
+        "Negro": "https://alihogar.es/59912-large_default/silla-de-oficina-lexi-giratoria-con-soporte-lumbar-y-asiento-transpirable.jpg"
+      }
     },
     {
       "id": "SIO-26",
@@ -19518,7 +20614,11 @@
         "Gris"
       ],
       "medidas_origen": "a espacios reducidos. Tamaño: 64 x 74,5 x 87 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/58260-large_default/silla-giratoria-harper-de-acero-y-poliester.jpg",
+        "Gris": "https://alihogar.es/58262-large_default/silla-giratoria-harper-de-acero-y-poliester.jpg"
+      }
     },
     {
       "id": "SIO-27",
@@ -19542,7 +20642,11 @@
         "Mostaza"
       ],
       "medidas_origen": "y previene molestias. Tamaño: 57,5 x 54 x 89 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/58161-large_default/jja.jpg",
+        "Mostaza": "https://alihogar.es/58158-large_default/jja.jpg"
+      }
     },
     {
       "id": "SIO-28",
@@ -19587,7 +20691,11 @@
         "Negro"
       ],
       "medidas_origen": "estabilidad. Con un tamaño de 61 x 58 x 109 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/57261-large_default/silla-de-oficina-giratoria-kempton-ergonomica.jpg",
+        "Negro": "https://alihogar.es/57259-large_default/silla-de-oficina-giratoria-kempton-ergonomica.jpg"
+      }
     },
     {
       "id": "SIO-30",
@@ -19653,7 +20761,11 @@
         "Verde"
       ],
       "medidas_origen": "sabrazos: 21 cm. Dimensiones: 57 x 60,5 x 85 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/47940-large_default/silla-de-oficina-70s-con-tapizado-en-simil-piel.jpg",
+        "Verde": "https://alihogar.es/47935-large_default/silla-de-oficina-70s-con-tapizado-en-simil-piel.jpg"
+      }
     },
     {
       "id": "SIO-33",
@@ -19719,7 +20831,11 @@
         "Mostaza"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Marfil": "https://alihogar.es/25984-large_default/silla-de-oficina-giratoria-en-forma-de-flor-fleur.jpg",
+        "Mostaza": "https://alihogar.es/25982-large_default/silla-de-oficina-giratoria-en-forma-de-flor-fleur.jpg"
+      }
     },
     {
       "id": "SIO-36",
@@ -19764,7 +20880,11 @@
         "Negro"
       ],
       "medidas_origen": "y asiento acolchado. Tamaño: 57,5 x 54 x 89 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/58152-large_default/silla-de-oficina-de-terciopelo-con-ruedas-geos.jpg",
+        "Negro": "https://alihogar.es/58155-large_default/silla-de-oficina-de-terciopelo-con-ruedas-geos.jpg"
+      }
     },
     {
       "id": "SIO-38",
@@ -19788,7 +20908,11 @@
         "Negro"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/3175-large_default/silla-de-escritorio-de-polipiel-con-reposabrazos-brent.jpg",
+        "Negro": "https://alihogar.es/3172-large_default/silla-de-escritorio-de-polipiel-con-reposabrazos-brent.jpg"
+      }
     },
     {
       "id": "SIO-39",
@@ -19813,7 +20937,12 @@
         "Beige"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/3158-large_default/silla-de-escritorio-de-polipiel-perth.jpg",
+        "Negro": "https://alihogar.es/3165-large_default/silla-de-escritorio-de-polipiel-perth.jpg",
+        "Beige": "https://alihogar.es/3149-large_default/silla-de-escritorio-de-polipiel-perth.jpg"
+      }
     },
     {
       "id": "SIO-40",
@@ -19837,7 +20966,11 @@
         "Gris"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/79915-large_default/silla-de-oficina-giratoria-lina.jpg",
+        "Gris": "https://alihogar.es/79912-large_default/silla-de-oficina-giratoria-lina.jpg"
+      }
     },
     {
       "id": "SIO-41",
@@ -19862,7 +20995,12 @@
         "Beige"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Azul": "https://alihogar.es/23269-large_default/silla-de-oficina-giratoria-linzey-vison.jpg",
+        "Rosa": "https://alihogar.es/23263-large_default/silla-de-oficina-giratoria-linzey-vison.jpg",
+        "Beige": "https://alihogar.es/2086-large_default/silla-de-oficina-giratoria-linzey-vison.jpg"
+      }
     },
     {
       "id": "SIL-01",
@@ -19997,7 +21135,11 @@
         "Beige"
       ],
       "medidas_origen": "y fácil de mantener. Medidas: 52 x 59.5 x 79.5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Verde": "https://alihogar.es/86191-large_default/silla-maddie-de-borreguillo-y-acero-epoxi.jpg",
+        "Beige": "https://alihogar.es/86196-large_default/silla-maddie-de-borreguillo-y-acero-epoxi.jpg"
+      }
     },
     {
       "id": "SIL-07",
@@ -20110,7 +21252,11 @@
         "Negro"
       ],
       "medidas_origen": "neos o minimalistas. Medidas: 45 x 45 x 85 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/79274-large_default/silla-tolix-de-polipropileno-imitacion-metal.jpg",
+        "Negro": "https://alihogar.es/79271-large_default/silla-tolix-de-polipropileno-imitacion-metal.jpg"
+      }
     },
     {
       "id": "SIL-12",
@@ -20158,7 +21304,12 @@
         "Negro"
       ],
       "medidas_origen": "vos. Su tamaño equilibrado de 46 x 51 x 82 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/79258-large_default/silla-paris-con-patas-de-madera-de-haya-y-metal.jpg",
+        "Gris": "https://alihogar.es/79257-large_default/silla-paris-con-patas-de-madera-de-haya-y-metal.jpg",
+        "Negro": "https://alihogar.es/79255-large_default/silla-paris-con-patas-de-madera-de-haya-y-metal.jpg"
+      }
     },
     {
       "id": "SIL-14",
@@ -20185,7 +21336,13 @@
         "Verde"
       ],
       "medidas_origen": "e decoración. Sus medidas son 48 x 54 x 84 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/79244-large_default/adec.jpg",
+        "Gris": "https://alihogar.es/79243-large_default/adec.jpg",
+        "Negro": "https://alihogar.es/79242-large_default/adec.jpg",
+        "Verde": "https://alihogar.es/79240-large_default/adec.jpg"
+      }
     },
     {
       "id": "SIL-15",
@@ -20232,7 +21389,11 @@
         "Negro"
       ],
       "medidas_origen": "o decorativo. Sus medidas son 46 x 54 x 88 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/79317-large_default/silla-cross-back-de-polipropileno.jpg",
+        "Negro": "https://alihogar.es/79314-large_default/silla-cross-back-de-polipropileno.jpg"
+      }
     },
     {
       "id": "SIL-17",
@@ -20257,7 +21418,11 @@
         "Beige"
       ],
       "medidas_origen": "apoyo lumbar. Sus medidas son 44 x 57 x 100 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/79197-large_default/silla-diana-de-tejido-y-metal-cromado.jpg",
+        "Beige": "https://alihogar.es/79199-large_default/silla-diana-de-tejido-y-metal-cromado.jpg"
+      }
     },
     {
       "id": "SIL-18",
@@ -20326,7 +21491,11 @@
         "Beige"
       ],
       "medidas_origen": "o espacios contract. Medidas: 49 x 66 x 82.5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/79169-large_default/silla-moon-con-respaldo-de-madera-y-estructura-de-metal.jpg",
+        "Beige": "https://alihogar.es/79172-large_default/silla-moon-con-respaldo-de-madera-y-estructura-de-metal.jpg"
+      }
     },
     {
       "id": "SIL-21",
@@ -20375,7 +21544,13 @@
         "Modelo 2"
       ],
       "medidas_origen": "ajo o lectura. Con medidas de 53 x 61 x 85 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/79154-large_default/silla-marlene-con-patas-metalicas-imitacion-madera.jpg",
+        "Beige": "https://alihogar.es/79157-large_default/silla-marlene-con-patas-metalicas-imitacion-madera.jpg",
+        "Modelo 1": "https://alihogar.es/79154-large_default/silla-marlene-con-patas-metalicas-imitacion-madera.jpg",
+        "Modelo 2": "https://alihogar.es/79160-large_default/silla-marlene-con-patas-metalicas-imitacion-madera.jpg"
+      }
     },
     {
       "id": "SIL-23",
@@ -20400,7 +21575,11 @@
         "Beige"
       ],
       "medidas_origen": "o decorativo. Sus medidas son 63 x 60 x 82 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/79148-large_default/silla-margot-xl-de-tejido-y-metal.jpg",
+        "Beige": "https://alihogar.es/79151-large_default/silla-margot-xl-de-tejido-y-metal.jpg"
+      }
     },
     {
       "id": "SIL-24",
@@ -20425,7 +21604,11 @@
         "Beige"
       ],
       "medidas_origen": "decorativos. Sus medidas son 44 x 55 x 87 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/79142-large_default/silla-nails-con-patas-metalicas-imitacion-madera.jpg",
+        "Beige": "https://alihogar.es/79145-large_default/silla-nails-con-patas-metalicas-imitacion-madera.jpg"
+      }
     },
     {
       "id": "SIL-25",
@@ -20472,7 +21655,11 @@
         "Marrón"
       ],
       "medidas_origen": "a un uso continuado. Medidas: 50 x 47 x 83 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/79127-large_default/silla-lis-de-simil-cuero-envejecido.jpg",
+        "Marrón": "https://alihogar.es/79125-large_default/silla-lis-de-simil-cuero-envejecido.jpg"
+      }
     },
     {
       "id": "SIL-27",
@@ -20498,7 +21685,12 @@
         "Beige"
       ],
       "medidas_origen": "mo asiento auxiliar. Medidas: 51.5 x 59 x 83 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/79119-large_default/silla-sophie-de-tejido-y-metal.jpg",
+        "Amarillo": "https://alihogar.es/79117-large_default/silla-sophie-de-tejido-y-metal.jpg",
+        "Beige": "https://alihogar.es/79120-large_default/silla-sophie-de-tejido-y-metal.jpg"
+      }
     },
     {
       "id": "SIL-28",
@@ -20523,7 +21715,11 @@
         "Beige"
       ],
       "medidas_origen": "estilos decorativos. Medidas: 48 x 54 x 84 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/79109-large_default/silla-bistro-tap-con-patas-de-madera-de-haya.jpg",
+        "Beige": "https://alihogar.es/79112-large_default/silla-bistro-tap-con-patas-de-madera-de-haya.jpg"
+      }
     },
     {
       "id": "SIL-29",
@@ -20548,7 +21744,11 @@
         "Beige"
       ],
       "medidas_origen": "pizado Beige y Gris. Medidas: 67.5 x 64 x 82 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/79103-large_default/silla-nature-con-patas-de-madera-de-haya.jpg",
+        "Beige": "https://alihogar.es/79106-large_default/silla-nature-con-patas-de-madera-de-haya.jpg"
+      }
     },
     {
       "id": "SIL-30",
@@ -20573,7 +21773,11 @@
         "Beige"
       ],
       "medidas_origen": "una imagen cuidada. Medidas: 49 x 42 x 83 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/79095-large_default/silla-shia-de-madera-maciza.jpg",
+        "Beige": "https://alihogar.es/79097-large_default/silla-shia-de-madera-maciza.jpg"
+      }
     },
     {
       "id": "SIL-31",
@@ -20600,7 +21804,13 @@
         "Modelo 2"
       ],
       "medidas_origen": "aún más tu espacio. Medidas: 48 x 45 x 79 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/79089-large_default/adec.jpg",
+        "Beige": "https://alihogar.es/79092-large_default/adec.jpg",
+        "Modelo 1": "https://alihogar.es/79083-large_default/adec.jpg",
+        "Modelo 2": "https://alihogar.es/79089-large_default/adec.jpg"
+      }
     },
     {
       "id": "SIL-32",
@@ -20625,7 +21835,11 @@
         "Beige"
       ],
       "medidas_origen": "muebles auxiliares. Medidas: 57.5 x 56.5 x 91 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/79077-large_default/silla-mireia-con-patas-metalicas-imitacion-madera.jpg",
+        "Beige": "https://alihogar.es/79080-large_default/silla-mireia-con-patas-metalicas-imitacion-madera.jpg"
+      }
     },
     {
       "id": "SIL-33",
@@ -20650,7 +21864,11 @@
         "Beige"
       ],
       "medidas_origen": "comedores dinámicos. Medidas: 60 x 55 x 87.5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/79071-large_default/silla-rimor-giratoria-de-tejido-y-madera.jpg",
+        "Beige": "https://alihogar.es/79074-large_default/silla-rimor-giratoria-de-tejido-y-madera.jpg"
+      }
     },
     {
       "id": "SIL-34",
@@ -20675,7 +21893,11 @@
         "Beige"
       ],
       "medidas_origen": "a mesa o escritorio. Medidas: 61 x 54.5 x 88.5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/79063-large_default/silla-dara-giratoria-de-tejido-y-metal.jpg",
+        "Beige": "https://alihogar.es/79065-large_default/silla-dara-giratoria-de-tejido-y-metal.jpg"
+      }
     },
     {
       "id": "SIL-35",
@@ -20700,7 +21922,11 @@
         "Beige"
       ],
       "medidas_origen": "s muebles de diseño. Medidas: 60 x 61 x 88 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/79055-large_default/silla-robert-giratoria-de-metal.jpg",
+        "Beige": "https://alihogar.es/79057-large_default/silla-robert-giratoria-de-metal.jpg"
+      }
     },
     {
       "id": "SIL-36",
@@ -20725,7 +21951,11 @@
         "Beige"
       ],
       "medidas_origen": "ra, cristal o metal. Medidas: 44.5 x 54.5 x 84 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/79187-large_default/silla-hall-de-tejido-y-metal.jpg",
+        "Beige": "https://alihogar.es/79190-large_default/silla-hall-de-tejido-y-metal.jpg"
+      }
     },
     {
       "id": "SIL-37",
@@ -20772,7 +22002,11 @@
         "Modelo 2"
       ],
       "medidas_origen": "ble. Medidas sin Apoyabrazos: 48 x 55 x 82 cm | cm. Medidas con Apoyabrazos: 57 x 55 x 82 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Modelo 1": "https://alihogar.es/79036-large_default/silla-bora-para-exterior-anti-uv-apilable-de-polipropileno.jpg",
+        "Modelo 2": "https://alihogar.es/79038-large_default/silla-bora-para-exterior-anti-uv-apilable-de-polipropileno.jpg"
+      }
     },
     {
       "id": "SIL-39",
@@ -20819,7 +22053,11 @@
         "Modelo 2"
       ],
       "medidas_origen": "o de almacenamiento. Medidas: 56,5 x 59,5 x 77 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Modelo 1": "https://alihogar.es/79007-large_default/silla-rodas-de-exterior-apilable-de-poliester-.jpg",
+        "Modelo 2": "https://alihogar.es/79009-large_default/silla-rodas-de-exterior-apilable-de-poliester-.jpg"
+      }
     },
     {
       "id": "SIL-41",
@@ -20844,7 +22082,11 @@
         "Negro"
       ],
       "medidas_origen": "el espacio exterior. Medidas: 56 x 59 x 84 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/78986-large_default/silla-sava-para-exterior-de-mimbre-y-metal.jpg",
+        "Negro": "https://alihogar.es/78984-large_default/silla-sava-para-exterior-de-mimbre-y-metal.jpg"
+      }
     },
     {
       "id": "SIL-42",
@@ -20869,7 +22111,11 @@
         "Beige"
       ],
       "medidas_origen": "dad para uso diario. Medidas: 58 x 50 x 86 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/79133-large_default/silla-venus-de-tejido-y-metal.jpg",
+        "Beige": "https://alihogar.es/79131-large_default/silla-venus-de-tejido-y-metal.jpg"
+      }
     },
     {
       "id": "SIL-43",
@@ -20894,7 +22140,11 @@
         "Beige"
       ],
       "medidas_origen": "stilizado. Con dimensiones de 45 x 55 x 84 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Marrón": "https://alihogar.es/71929-large_default/silla-sirac-con-patas-de-acero.jpg",
+        "Beige": "https://alihogar.es/71932-large_default/silla-sirac-con-patas-de-acero.jpg"
+      }
     },
     {
       "id": "SIL-44",
@@ -21074,7 +22324,12 @@
         "Beige"
       ],
       "medidas_origen": "as horas de uso. Dimensiones: 51 x 45 x 79 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/70857-large_default/silla-asan-de-polipropileno-y-patas-de-acero.jpg",
+        "Negro": "https://alihogar.es/70862-large_default/silla-asan-de-polipropileno-y-patas-de-acero.jpg",
+        "Beige": "https://alihogar.es/70853-large_default/silla-asan-de-polipropileno-y-patas-de-acero.jpg"
+      }
     },
     {
       "id": "SIL-52",
@@ -21121,7 +22376,11 @@
         "Beige"
       ],
       "medidas_origen": "te largas horas. Dimensiones: 42 x 48 x 93 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Marrón": "https://alihogar.es/69364-large_default/silla-alta-de-bar-roka-de-efecto-pana-y-acero.jpg",
+        "Beige": "https://alihogar.es/69367-large_default/silla-alta-de-bar-roka-de-efecto-pana-y-acero.jpg"
+      }
     },
     {
       "id": "SIL-54",
@@ -21168,7 +22427,11 @@
         "Azul"
       ],
       "medidas_origen": "espacio. Sus dimensiones son 44 x 46 x 78 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Verde": "https://alihogar.es/68610-large_default/silla-plegable-aqua-de-metal-y-polipiel.jpg",
+        "Azul": "https://alihogar.es/68608-large_default/silla-plegable-aqua-de-metal-y-polipiel.jpg"
+      }
     },
     {
       "id": "SIL-56",
@@ -21194,7 +22457,12 @@
         "Beige"
       ],
       "medidas_origen": "oporte y estabilidad. Tamaño: 45 x 51 x 87 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Verde": "https://alihogar.es/68451-large_default/silla-tyka-suave-de-chenilla-y-acero.jpg",
+        "Ocre": "https://alihogar.es/68454-large_default/silla-tyka-suave-de-chenilla-y-acero.jpg",
+        "Beige": "https://alihogar.es/68453-large_default/silla-tyka-suave-de-chenilla-y-acero.jpg"
+      }
     },
     {
       "id": "SIL-57",
@@ -21221,7 +22489,13 @@
         "Azul"
       ],
       "medidas_origen": "horas sentados. Dimensiones: 45 x 51 x 87 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/68440-large_default/silla-tyka-de-poliester-y-acero.jpg",
+        "Negro": "https://alihogar.es/68443-large_default/silla-tyka-de-poliester-y-acero.jpg",
+        "Mostaza": "https://alihogar.es/68442-large_default/silla-tyka-de-poliester-y-acero.jpg",
+        "Azul": "https://alihogar.es/68444-large_default/silla-tyka-de-poliester-y-acero.jpg"
+      }
     },
     {
       "id": "SIL-58",
@@ -21291,7 +22565,12 @@
         "Verde"
       ],
       "medidas_origen": "acenamiento compacto. Tamaño: 46,5 x 46,5 x 79,5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/59245-large_default/silla-plegable-jaspeada-de-acero-y-poliester.jpg",
+        "Negro": "https://alihogar.es/59242-large_default/silla-plegable-jaspeada-de-acero-y-poliester.jpg",
+        "Verde": "https://alihogar.es/59239-large_default/silla-plegable-jaspeada-de-acero-y-poliester.jpg"
+      }
     },
     {
       "id": "SIL-61",
@@ -21339,7 +22618,12 @@
         "Verde"
       ],
       "medidas_origen": "orcionan estabilidad. Tamaño: 56 x 53 x 84 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/57064-large_default/silla-plegable-estilo-director-para-exteriores-de-aluminio-y-textileno.jpg",
+        "Negro": "https://alihogar.es/57067-large_default/silla-plegable-estilo-director-para-exteriores-de-aluminio-y-textileno.jpg",
+        "Verde": "https://alihogar.es/57061-large_default/silla-plegable-estilo-director-para-exteriores-de-aluminio-y-textileno.jpg"
+      }
     },
     {
       "id": "SIL-63",
@@ -21408,7 +22692,11 @@
         "Beige"
       ],
       "medidas_origen": "con respaldo curvado. Tamaño: 44 x 56 x 81 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Verde": "https://alihogar.es/55340-large_default/silla-rina-de-pana-madera-y-acero-epoxi.jpg",
+        "Beige": "https://alihogar.es/55342-large_default/silla-rina-de-pana-madera-y-acero-epoxi.jpg"
+      }
     },
     {
       "id": "SIL-66",
@@ -21433,7 +22721,11 @@
         "Lino"
       ],
       "medidas_origen": "an un estilo moderno. Tamaño: 54 x 60 x 80 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Topo": "https://alihogar.es/54006-large_default/silla-celeste-de-pana-con-patas-con-acabado-madera.jpg",
+        "Lino": "https://alihogar.es/54007-large_default/silla-celeste-de-pana-con-patas-con-acabado-madera.jpg"
+      }
     },
     {
       "id": "SIL-67",
@@ -21461,7 +22753,14 @@
         "Ocre"
       ],
       "medidas_origen": "as de uso. Con dimensiones de 44 x 55 x 83,5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/53990-large_default/silla-acolchada-sirac-de-tela.jpg",
+        "Gris Oscuro": "https://alihogar.es/53982-large_default/silla-acolchada-sirac-de-tela.jpg",
+        "Mostaza": "https://alihogar.es/53979-large_default/silla-acolchada-sirac-de-tela.jpg",
+        "Azul": "https://alihogar.es/53985-large_default/silla-acolchada-sirac-de-tela.jpg",
+        "Ocre": "https://alihogar.es/53987-large_default/silla-acolchada-sirac-de-tela.jpg"
+      }
     },
     {
       "id": "SIL-68",
@@ -21489,7 +22788,14 @@
         "Azul"
       ],
       "medidas_origen": "eño moderno. Con un tamaño de 41 x 51 x 85,5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/53826-large_default/silla-roka-de-terciopelo-con-patas-de-madera.jpg",
+        "Topo": "https://alihogar.es/53815-large_default/silla-roka-de-terciopelo-con-patas-de-madera.jpg",
+        "Verde": "https://alihogar.es/53812-large_default/silla-roka-de-terciopelo-con-patas-de-madera.jpg",
+        "Verde azulado": "https://alihogar.es/53818-large_default/silla-roka-de-terciopelo-con-patas-de-madera.jpg",
+        "Azul": "https://alihogar.es/53813-large_default/silla-roka-de-terciopelo-con-patas-de-madera.jpg"
+      }
     },
     {
       "id": "SIL-69",
@@ -21536,7 +22842,11 @@
         "Beige"
       ],
       "medidas_origen": "rder firmeza. Sus medidas son 44 x 55 x 86 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/52995-large_default/ixia.jpg",
+        "Beige": "https://alihogar.es/52993-large_default/ixia.jpg"
+      }
     },
     {
       "id": "SIL-71",
@@ -21561,7 +22871,11 @@
         "Gris"
       ],
       "medidas_origen": "ios comerciales. Dimensiones: 46 x 42 x 78,5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/52984-large_default/ixia.jpg",
+        "Gris": "https://alihogar.es/52988-large_default/ixia.jpg"
+      }
     },
     {
       "id": "SIL-72",
@@ -21588,7 +22902,13 @@
         "Rosa"
       ],
       "medidas_origen": "reas de trabajo. Dimensiones: 43 x 42 x 79 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/52960-large_default/silla-con-respaldo-de-mariposa-de-pp.jpg",
+        "Gris": "https://alihogar.es/52968-large_default/silla-con-respaldo-de-mariposa-de-pp.jpg",
+        "Negro": "https://alihogar.es/52964-large_default/silla-con-respaldo-de-mariposa-de-pp.jpg",
+        "Rosa": "https://alihogar.es/52972-large_default/silla-con-respaldo-de-mariposa-de-pp.jpg"
+      }
     },
     {
       "id": "SIL-73",
@@ -21615,7 +22935,13 @@
         "Beige"
       ],
       "medidas_origen": "ni confort. Con un tamaño de 43 x 43 x 83.2 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/52937-large_default/silla-apilable-mattson-de-polipropileno.jpg",
+        "Gris Oscuro": "https://alihogar.es/52940-large_default/silla-apilable-mattson-de-polipropileno.jpg",
+        "Amarillo": "https://alihogar.es/52946-large_default/silla-apilable-mattson-de-polipropileno.jpg",
+        "Beige": "https://alihogar.es/52943-large_default/silla-apilable-mattson-de-polipropileno.jpg"
+      }
     },
     {
       "id": "SIL-74",
@@ -21640,7 +22966,11 @@
         "Beige"
       ],
       "medidas_origen": "tabilidad. Con dimensiones de 61,5 x 57 x 83 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Negro": "https://alihogar.es/50124-large_default/silla-visoca-de-poliester.jpg",
+        "Beige": "https://alihogar.es/50128-large_default/silla-visoca-de-poliester.jpg"
+      }
     },
     {
       "id": "SIL-75",
@@ -21687,7 +23017,11 @@
         "Marrón"
       ],
       "medidas_origen": "abilidad. Sus dimensiones son 45 x 52 x 104 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/44976-large_default/silla-alta-regulable-delek-de-acero-.jpg",
+        "Marrón": "https://alihogar.es/44977-large_default/silla-alta-regulable-delek-de-acero-.jpg"
+      }
     },
     {
       "id": "SIL-77",
@@ -21712,7 +23046,11 @@
         "Lino"
       ],
       "medidas_origen": "funcional. Con dimensiones de 55,4 x 49 x 95,8 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/39109-large_default/silla-cleo.jpg",
+        "Lino": "https://alihogar.es/39106-large_default/silla-cleo.jpg"
+      }
     },
     {
       "id": "SIL-78",
@@ -21738,7 +23076,12 @@
         "Azul"
       ],
       "medidas_origen": "ier hogar. Con dimensiones de 44 x 45 x 79 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/38926-large_default/silla-plegable-acabado-de-terciopelo-con-asiento-acolchado.jpg",
+        "Negro": "https://alihogar.es/38928-large_default/silla-plegable-acabado-de-terciopelo-con-asiento-acolchado.jpg",
+        "Azul": "https://alihogar.es/38924-large_default/silla-plegable-acabado-de-terciopelo-con-asiento-acolchado.jpg"
+      }
     },
     {
       "id": "SIL-79",
@@ -21763,7 +23106,11 @@
         "Negro"
       ],
       "medidas_origen": "sencilla. Con dimensiones de 39.5 x 50 x 79 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/34805-large_default/silla-395x50x79cm-plastico-blanca.jpg",
+        "Negro": "https://alihogar.es/71048-large_default/silla-395x50x79cm-plastico-blanca.jpg"
+      }
     },
     {
       "id": "SIL-80",
@@ -21789,7 +23136,12 @@
         "Beige"
       ],
       "medidas_origen": "macenamiento. Sus medidas son 44 x 51 x 84 cm | aldo: 41 cm. Medidas asiento: 39 x 40 x 5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/53720-large_default/silla-.jpg",
+        "Verde": "https://alihogar.es/53718-large_default/silla-.jpg",
+        "Beige": "https://alihogar.es/53719-large_default/silla-.jpg"
+      }
     },
     {
       "id": "SIL-81",
@@ -21815,7 +23167,12 @@
         "Verde"
       ],
       "medidas_origen": "inesperados. Sus medidas son 46 x 54,5 x 79 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/24290-large_default/silla-apilable.jpg",
+        "Negro": "https://alihogar.es/24294-large_default/silla-apilable.jpg",
+        "Verde": "https://alihogar.es/24292-large_default/silla-apilable.jpg"
+      }
     },
     {
       "id": "SIL-82",
@@ -21862,7 +23219,11 @@
         "Negro"
       ],
       "medidas_origen": "ísticas del producto Medidas: 44 x 44 x 74 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/18969-large_default/taburete-alto-de-madera-y-metal-rakel.jpg",
+        "Negro": "https://alihogar.es/18974-large_default/taburete-alto-de-madera-y-metal-rakel.jpg"
+      }
     },
     {
       "id": "SIL-84",
@@ -21888,7 +23249,12 @@
         "Marrón"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris Claro": "https://alihogar.es/18964-large_default/taburete-alto-sin-respaldo-regulable.jpg",
+        "Gris Oscuro": "https://alihogar.es/18960-large_default/taburete-alto-sin-respaldo-regulable.jpg",
+        "Marrón": "https://alihogar.es/18967-large_default/taburete-alto-sin-respaldo-regulable.jpg"
+      }
     },
     {
       "id": "SIL-85",
@@ -21959,7 +23325,13 @@
         "Mostaza"
       ],
       "medidas_origen": "idencial y comercial. Tamaño: 48,5 x 47 x 82 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/58249-large_default/taburete-alto-de-plastico-y-metal-otac.jpg",
+        "Gris": "https://alihogar.es/58250-large_default/taburete-alto-de-plastico-y-metal-otac.jpg",
+        "Negro": "https://alihogar.es/58247-large_default/taburete-alto-de-plastico-y-metal-otac.jpg",
+        "Mostaza": "https://alihogar.es/58251-large_default/taburete-alto-de-plastico-y-metal-otac.jpg"
+      }
     },
     {
       "id": "SIL-88",
@@ -21984,7 +23356,11 @@
         "Marrón"
       ],
       "medidas_origen": "estilo minimalista. Tamaño de 43,5 x 41,5 x 96 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/53523-large_default/taburete-alto-con-respaldo-vladi.jpg",
+        "Marrón": "https://alihogar.es/53524-large_default/taburete-alto-con-respaldo-vladi.jpg"
+      }
     },
     {
       "id": "SIL-89",
@@ -22011,7 +23387,13 @@
         "Verde"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/18910-large_default/taburete-alto-regulable-de-plastico-y-metal.jpg",
+        "Gris": "https://alihogar.es/18915-large_default/taburete-alto-regulable-de-plastico-y-metal.jpg",
+        "Negro": "https://alihogar.es/18902-large_default/taburete-alto-regulable-de-plastico-y-metal.jpg",
+        "Verde": "https://alihogar.es/18906-large_default/taburete-alto-regulable-de-plastico-y-metal.jpg"
+      }
     },
     {
       "id": "SIL-90",
@@ -22040,7 +23422,15 @@
         "Verde"
       ],
       "medidas_origen": "urabilidad y soporte. Tamaño: 39,5 x 43 x 91,5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/53912-large_default/taburete-alto-maxon-de-plastico-y-madera.jpg",
+        "Gris": "https://alihogar.es/53916-large_default/taburete-alto-maxon-de-plastico-y-madera.jpg",
+        "Negro": "https://alihogar.es/53903-large_default/taburete-alto-maxon-de-plastico-y-madera.jpg",
+        "Naranja": "https://alihogar.es/53906-large_default/taburete-alto-maxon-de-plastico-y-madera.jpg",
+        "Amarillo": "https://alihogar.es/71754-large_default/taburete-alto-maxon-de-plastico-y-madera.jpg",
+        "Verde": "https://alihogar.es/53908-large_default/taburete-alto-maxon-de-plastico-y-madera.jpg"
+      }
     },
     {
       "id": "SIL-91",
@@ -22067,7 +23457,13 @@
         "Verde"
       ],
       "medidas_origen": "ísticas del producto Medidas: 48,5 x 41 x 90 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/18472-large_default/taburete-alto-de-plastico-y-metal.jpg",
+        "Negro": "https://alihogar.es/18483-large_default/taburete-alto-de-plastico-y-metal.jpg",
+        "Naranja": "https://alihogar.es/18634-large_default/taburete-alto-de-plastico-y-metal.jpg",
+        "Verde": "https://alihogar.es/18478-large_default/taburete-alto-de-plastico-y-metal.jpg"
+      }
     },
     {
       "id": "SIL-92",
@@ -22100,7 +23496,19 @@
         "Beige"
       ],
       "medidas_origen": "lidad y resistencia. Tamaño : 52,5 x 48 x 82 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/53935-large_default/silla-de-comedor-baya-con-pata-de-madera.jpg",
+        "Gris": "https://alihogar.es/53937-large_default/silla-de-comedor-baya-con-pata-de-madera.jpg",
+        "Gris Oscuro": "https://alihogar.es/53939-large_default/silla-de-comedor-baya-con-pata-de-madera.jpg",
+        "Negro": "https://alihogar.es/53933-large_default/silla-de-comedor-baya-con-pata-de-madera.jpg",
+        "Mostaza": "https://alihogar.es/53929-large_default/silla-de-comedor-baya-con-pata-de-madera.jpg",
+        "Amarillo": "https://alihogar.es/53941-large_default/silla-de-comedor-baya-con-pata-de-madera.jpg",
+        "Verde": "https://alihogar.es/53923-large_default/silla-de-comedor-baya-con-pata-de-madera.jpg",
+        "Azul Marino": "https://alihogar.es/53921-large_default/silla-de-comedor-baya-con-pata-de-madera.jpg",
+        "Rosa": "https://alihogar.es/53927-large_default/silla-de-comedor-baya-con-pata-de-madera.jpg",
+        "Beige": "https://alihogar.es/53931-large_default/silla-de-comedor-baya-con-pata-de-madera.jpg"
+      }
     },
     {
       "id": "SIL-93",
@@ -22148,7 +23556,12 @@
         "Roble"
       ],
       "medidas_origen": "e y moderno y unas medidas de 48 x 54 x 89 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/40923-large_default/silla-cana-roble-isak.jpg",
+        "Negro": "https://alihogar.es/40922-large_default/silla-cana-roble-isak.jpg",
+        "Roble": "https://alihogar.es/40920-large_default/silla-cana-roble-isak.jpg"
+      }
     },
     {
       "id": "SIL-95",
@@ -22174,7 +23587,12 @@
         "Beige"
       ],
       "medidas_origen": "r ocasión. Con dimensiones de 44 x 79 x 45 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/38557-large_default/silla-plegable-taupe-140293e.jpg",
+        "Negro": "https://alihogar.es/38812-large_default/silla-plegable-taupe-140293e.jpg",
+        "Beige": "https://alihogar.es/37884-large_default/silla-plegable-taupe-140293e.jpg"
+      }
     },
     {
       "id": "SIL-96",
@@ -22201,7 +23619,13 @@
         "Amarillo"
       ],
       "medidas_origen": "y resistencia. Con medidas de 43 x 37 x 86 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/7770-large_default/silla-estilo-moderno-modelo-taho.jpg",
+        "Gris": "https://alihogar.es/7775-large_default/silla-estilo-moderno-modelo-taho.jpg",
+        "Negro": "https://alihogar.es/7773-large_default/silla-estilo-moderno-modelo-taho.jpg",
+        "Amarillo": "https://alihogar.es/7774-large_default/silla-estilo-moderno-modelo-taho.jpg"
+      }
     },
     {
       "id": "SIL-97",
@@ -22229,7 +23653,14 @@
         "Beige"
       ],
       "medidas_origen": "s informales o cafés. Tamaño: 43 x 53 x 85 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/70830-large_default/silla-de-polipropileno-con-patas-acero-efecto-madera.jpg",
+        "Gris": "https://alihogar.es/70828-large_default/silla-de-polipropileno-con-patas-acero-efecto-madera.jpg",
+        "Negro": "https://alihogar.es/70829-large_default/silla-de-polipropileno-con-patas-acero-efecto-madera.jpg",
+        "Verde": "https://alihogar.es/70824-large_default/silla-de-polipropileno-con-patas-acero-efecto-madera.jpg",
+        "Beige": "https://alihogar.es/70831-large_default/silla-de-polipropileno-con-patas-acero-efecto-madera.jpg"
+      }
     },
     {
       "id": "SIL-98",
@@ -22257,7 +23688,14 @@
         "Beige"
       ],
       "medidas_origen": "cional del producto: Medidas: 52,5x43x80 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/3417-large_default/silla-clasica-de-polipropileno-con-patas-de-madera.jpg",
+        "Gris": "https://alihogar.es/3415-large_default/silla-clasica-de-polipropileno-con-patas-de-madera.jpg",
+        "Negro": "https://alihogar.es/3416-large_default/silla-clasica-de-polipropileno-con-patas-de-madera.jpg",
+        "Azul": "https://alihogar.es/3413-large_default/silla-clasica-de-polipropileno-con-patas-de-madera.jpg",
+        "Beige": "https://alihogar.es/3414-large_default/silla-clasica-de-polipropileno-con-patas-de-madera.jpg"
+      }
     },
     {
       "id": "SIL-99",
@@ -22306,7 +23744,13 @@
         "Verde"
       ],
       "medidas_origen": "cional del producto: Medidas: 55x45,9x81,9 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/3364-large_default/silla-de-comedor-de-polipropileno-y-madera-de-colores-phenix-escandinava.jpg",
+        "Negro": "https://alihogar.es/3358-large_default/silla-de-comedor-de-polipropileno-y-madera-de-colores-phenix-escandinava.jpg",
+        "Amarillo": "https://alihogar.es/3370-large_default/silla-de-comedor-de-polipropileno-y-madera-de-colores-phenix-escandinava.jpg",
+        "Verde": "https://alihogar.es/3376-large_default/silla-de-comedor-de-polipropileno-y-madera-de-colores-phenix-escandinava.jpg"
+      }
     },
     {
       "id": "SIL-101",
@@ -22354,7 +23798,12 @@
         "Beige"
       ],
       "medidas_origen": "ono del asiento. Dimensiones: 46,5 x 50 x 82 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Amarillo": "https://alihogar.es/70806-large_default/silla-nordica-de-polipropileno-y-patas-de-acero-mandy.jpg",
+        "Azul": "https://alihogar.es/70809-large_default/silla-nordica-de-polipropileno-y-patas-de-acero-mandy.jpg",
+        "Beige": "https://alihogar.es/70803-large_default/silla-nordica-de-polipropileno-y-patas-de-acero-mandy.jpg"
+      }
     },
     {
       "id": "SIL-103",
@@ -22380,7 +23829,12 @@
         "Negro"
       ],
       "medidas_origen": "e espera. Sus dimensiones son 53 x 46 x 82 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/70813-large_default/silla-nordica-de-polipropileno-y-patas-de-acero-mandy.jpg",
+        "Gris": "https://alihogar.es/70818-large_default/silla-nordica-de-polipropileno-y-patas-de-acero-mandy.jpg",
+        "Negro": "https://alihogar.es/70816-large_default/silla-nordica-de-polipropileno-y-patas-de-acero-mandy.jpg"
+      }
     },
     {
       "id": "SIL-104",
@@ -22407,7 +23861,13 @@
         "Verde"
       ],
       "medidas_origen": "u apariencia. Su tamaño es de 43 x 53 x 85 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/70844-large_default/silla-de-comedor-de-polipropileno-de-colores.jpg",
+        "Gris": "https://alihogar.es/70848-large_default/silla-de-comedor-de-polipropileno-de-colores.jpg",
+        "Amarillo": "https://alihogar.es/70850-large_default/silla-de-comedor-de-polipropileno-de-colores.jpg",
+        "Verde": "https://alihogar.es/70842-large_default/silla-de-comedor-de-polipropileno-de-colores.jpg"
+      }
     },
     {
       "id": "SIL-105",
@@ -22432,7 +23892,11 @@
         "Beige"
       ],
       "medidas_origen": "el espacio vertical. Medidas: 54.4 x 52.5 x 94.5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Verde": "https://alihogar.es/93433-large_default/silla-alta-zoe-de-metal-y-poliester.jpg",
+        "Beige": "https://alihogar.es/93431-large_default/silla-alta-zoe-de-metal-y-poliester.jpg"
+      }
     },
     {
       "id": "SIL-106",
@@ -22483,7 +23947,15 @@
         "Marrón"
       ],
       "medidas_origen": "on niños o mascotas. Medidas: 34 x 34 x 49 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/86168-large_default/taburete-scooby-de-cuero-sintetico-y-plastico.jpg",
+        "Gris Claro": "https://alihogar.es/86177-large_default/taburete-scooby-de-cuero-sintetico-y-plastico.jpg",
+        "Gris Oscuro": "https://alihogar.es/86179-large_default/taburete-scooby-de-cuero-sintetico-y-plastico.jpg",
+        "Negro": "https://alihogar.es/86182-large_default/taburete-scooby-de-cuero-sintetico-y-plastico.jpg",
+        "Verde": "https://alihogar.es/86174-large_default/taburete-scooby-de-cuero-sintetico-y-plastico.jpg",
+        "Marrón": "https://alihogar.es/86171-large_default/taburete-scooby-de-cuero-sintetico-y-plastico.jpg"
+      }
     },
     {
       "id": "SIL-108",
@@ -22530,7 +24002,11 @@
         "Marrón"
       ],
       "medidas_origen": "de alta resistencia. Medidas: 45 x 54.8 x 104.5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Negro": "https://alihogar.es/84939-large_default/silla-alta-de-bar-dario-con-patas-de-hierro.jpg",
+        "Marrón": "https://alihogar.es/84936-large_default/silla-alta-de-bar-dario-con-patas-de-hierro.jpg"
+      }
     },
     {
       "id": "SIL-110",
@@ -22599,7 +24075,11 @@
         "Negro"
       ],
       "medidas_origen": "tos de restauración. Medidas: 43 x 43 x 76 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/79300-large_default/taburete-de-bar-tolix-de-polipropileno-imitacion-metal.jpg",
+        "Negro": "https://alihogar.es/79297-large_default/taburete-de-bar-tolix-de-polipropileno-imitacion-metal.jpg"
+      }
     },
     {
       "id": "SIL-113",
@@ -22625,7 +24105,12 @@
         "Modelo 3"
       ],
       "medidas_origen": "uebles o accesorios. Medidas: 120 x 34 x 47 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Modelo 1": "https://alihogar.es/79041-large_default/banco-de-comedor-loft-de-madera-de-roble.jpg",
+        "Modelo 2": "https://alihogar.es/79043-large_default/banco-de-comedor-loft-de-madera-de-roble.jpg",
+        "Modelo 3": "https://alihogar.es/79044-large_default/banco-de-comedor-loft-de-madera-de-roble.jpg"
+      }
     },
     {
       "id": "SIL-114",
@@ -22672,7 +24157,11 @@
         "Beige"
       ],
       "medidas_origen": "Pequeño: 53 x 50 x 93 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/78998-large_default/silla-alta-de-bar.jpg",
+        "Beige": "https://alihogar.es/79001-large_default/silla-alta-de-bar.jpg"
+      }
     },
     {
       "id": "SIL-116",
@@ -22697,7 +24186,11 @@
         "Beige"
       ],
       "medidas_origen": "Grande: 53 x 50 x 103 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/79000-large_default/silla-alta-de-bar.jpg",
+        "Beige": "https://alihogar.es/79002-large_default/silla-alta-de-bar.jpg"
+      }
     },
     {
       "id": "SIL-117",
@@ -22722,7 +24215,11 @@
         "Beige"
       ],
       "medidas_origen": "a de lectura. Sus medidas son 140 x 63 x 84 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/79026-large_default/banco-tapizado-share-con-patas-de-metal.jpg",
+        "Beige": "https://alihogar.es/79030-large_default/banco-tapizado-share-con-patas-de-metal.jpg"
+      }
     },
     {
       "id": "SIL-118",
@@ -22791,7 +24288,11 @@
         "Modelo 2"
       ],
       "medidas_origen": "ry o contemporáneos. Medidas: 38 x 38 x 40 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Modelo 1": "https://alihogar.es/75200-large_default/taburete-chiara-estilo-vintage-de-madera.jpg",
+        "Modelo 2": "https://alihogar.es/75205-large_default/taburete-chiara-estilo-vintage-de-madera.jpg"
+      }
     },
     {
       "id": "SIL-121",
@@ -22926,7 +24427,11 @@
         "Gris"
       ],
       "medidas_origen": "para todo uso. Con medidas de 41,5 x 41,5 x 76 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/71837-large_default/taburete-de-bar-ilsa-ajustable-de-metal.jpg",
+        "Gris": "https://alihogar.es/71832-large_default/taburete-de-bar-ilsa-ajustable-de-metal.jpg"
+      }
     },
     {
       "id": "SIL-127",
@@ -23063,7 +24568,13 @@
         "Coral"
       ],
       "medidas_origen": "estilo único. Su tamaño es de 38 x 38 x 46 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/59233-large_default/taburete-jaspeado-de-acero-y-poliester.jpg",
+        "Negro": "https://alihogar.es/59230-large_default/taburete-jaspeado-de-acero-y-poliester.jpg",
+        "Verde": "https://alihogar.es/59236-large_default/taburete-jaspeado-de-acero-y-poliester.jpg",
+        "Coral": "https://alihogar.es/59227-large_default/taburete-jaspeado-de-acero-y-poliester.jpg"
+      }
     },
     {
       "id": "SIL-133",
@@ -23089,7 +24600,12 @@
         "Marrón"
       ],
       "medidas_origen": "piés o mesa auxiliar. Tamaño: 38 x 38 x 39 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/58696-large_default/taburete-auxiliar-spolo-de-chenilla.jpg",
+        "Verde": "https://alihogar.es/58693-large_default/taburete-auxiliar-spolo-de-chenilla.jpg",
+        "Marrón": "https://alihogar.es/58697-large_default/taburete-auxiliar-spolo-de-chenilla.jpg"
+      }
     },
     {
       "id": "SIL-134",
@@ -23202,7 +24718,11 @@
         "Terracota"
       ],
       "medidas_origen": "r diseño. Sus dimensiones son 44 x 51 x 104 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/54189-large_default/silla-de-bar-alta-sirac-de-tela-y-metal.jpg",
+        "Terracota": "https://alihogar.es/54190-large_default/silla-de-bar-alta-sirac-de-tela-y-metal.jpg"
+      }
     },
     {
       "id": "SIL-139",
@@ -23383,7 +24903,13 @@
         "Beige"
       ],
       "medidas_origen": "ibrio. Con un tamaño ideal de 37 x 37 x 46,5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/51889-large_default/taburete-alto-de-plastico.jpg",
+        "Verde": "https://alihogar.es/51891-large_default/taburete-alto-de-plastico.jpg",
+        "Rosa": "https://alihogar.es/51887-large_default/taburete-alto-de-plastico.jpg",
+        "Beige": "https://alihogar.es/51890-large_default/taburete-alto-de-plastico.jpg"
+      }
     },
     {
       "id": "SIL-147",
@@ -23410,7 +24936,13 @@
         "Marrón"
       ],
       "medidas_origen": "resistencia. Sus medidas son 42,2 x 44 x 46 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/51833-large_default/taburete-domus.jpg",
+        "Verde": "https://alihogar.es/51832-large_default/taburete-domus.jpg",
+        "Rosa": "https://alihogar.es/51829-large_default/taburete-domus.jpg",
+        "Marrón": "https://alihogar.es/51831-large_default/taburete-domus.jpg"
+      }
     },
     {
       "id": "SIL-148",
@@ -23436,7 +24968,12 @@
         "Marrón"
       ],
       "medidas_origen": "del agua. Sus dimensiones son 38 x 29 x 41,5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/49211-large_default/banqueta-lombok.jpg",
+        "Gris": "https://alihogar.es/49214-large_default/banqueta-lombok.jpg",
+        "Marrón": "https://alihogar.es/49208-large_default/banqueta-lombok.jpg"
+      }
     },
     {
       "id": "SIL-149",
@@ -23506,7 +25043,12 @@
         "Beige"
       ],
       "medidas_origen": "idad y estilo. Con medidas de 30 x 30 x 45 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/33706-large_default/taburete-plegable-30x46-cm-beige-140291e.jpg",
+        "Negro": "https://alihogar.es/33703-large_default/taburete-plegable-30x46-cm-beige-140291e.jpg",
+        "Beige": "https://alihogar.es/33708-large_default/taburete-plegable-30x46-cm-beige-140291e.jpg"
+      }
     },
     {
       "id": "SIL-152",
@@ -23574,7 +25116,11 @@
         "Negro"
       ],
       "medidas_origen": "alidad-precio. Medidas: Mesa (100 x 45 x 90 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/93406-large_default/set-de-mesa-y-2-sillas-altas-lizzy-de-metal-y-madera.jpg",
+        "Negro": "https://alihogar.es/93410-large_default/set-de-mesa-y-2-sillas-altas-lizzy-de-metal-y-madera.jpg"
+      }
     },
     {
       "id": "MCO-02",
@@ -23641,7 +25187,12 @@
         "Roble"
       ],
       "medidas_origen": "ocina office. Sus medidas son 120 x 70 x 100 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/79741-large_default/mesa-alta-de-bar-loft-con-apoyapies-de-madera-y-metal.jpg",
+        "Negro": "https://alihogar.es/79739-large_default/mesa-alta-de-bar-loft-con-apoyapies-de-madera-y-metal.jpg",
+        "Roble": "https://alihogar.es/79742-large_default/mesa-alta-de-bar-loft-con-apoyapies-de-madera-y-metal.jpg"
+      }
     },
     {
       "id": "MCO-05",
@@ -23665,7 +25216,11 @@
         "Roble"
       ],
       "medidas_origen": "diversas actividades. Tamaño: 60 x 60 x 102.5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Negro": "https://alihogar.es/65455-large_default/mesa-alta-plegable-cuadrada-de-madera.jpg",
+        "Roble": "https://alihogar.es/65461-large_default/mesa-alta-plegable-cuadrada-de-madera.jpg"
+      }
     },
     {
       "id": "MCO-06",
@@ -23775,7 +25330,13 @@
         "Trufa-Cañón"
       ],
       "medidas_origen": "euniones con amigos. Medidas: 140 x 80 x 75cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/17197-large_default/mesa-de-comedor-berta.jpg",
+        "Andersen": "https://alihogar.es/17194-large_default/mesa-de-comedor-berta.jpg",
+        "Cambria": "https://alihogar.es/17196-large_default/mesa-de-comedor-berta.jpg",
+        "Trufa-Cañón": "https://alihogar.es/17195-large_default/mesa-de-comedor-berta.jpg"
+      }
     },
     {
       "id": "MCO-11",
@@ -23800,7 +25361,12 @@
         "Marrón"
       ],
       "medidas_origen": "gro y marrón. Sus medidas son 60 x 60 x 75 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/33696-large_default/mesa-cuadrada-plegable-de-acero-y-pvc.jpg",
+        "Negro": "https://alihogar.es/33693-large_default/mesa-cuadrada-plegable-de-acero-y-pvc.jpg",
+        "Marrón": "https://alihogar.es/33699-large_default/mesa-cuadrada-plegable-de-acero-y-pvc.jpg"
+      }
     },
     {
       "id": "MCA-01",
@@ -23971,7 +25537,11 @@
         "Roble"
       ],
       "medidas_origen": "espacios reducidos. Medidas: 73 x 37 x 180 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/86550-large_default/armario-multiusos-con-2-puertas-y-3-zonas-de-melamina.jpg",
+        "Roble": "https://alihogar.es/86554-large_default/armario-multiusos-con-2-puertas-y-3-zonas-de-melamina.jpg"
+      }
     },
     {
       "id": "MCA-09",
@@ -23995,7 +25565,11 @@
         "Roble"
       ],
       "medidas_origen": "ecorativo. Sus dimensiones de 37 x 37 x 180 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/86527-large_default/armario-multiusos-de-2-puertas-y-3-baldas-de-melamina.jpg",
+        "Roble": "https://alihogar.es/86531-large_default/armario-multiusos-de-2-puertas-y-3-baldas-de-melamina.jpg"
+      }
     },
     {
       "id": "MCA-10",
@@ -24397,7 +25971,11 @@
         "Cambria"
       ],
       "medidas_origen": "cil y rápido. Sus medidas son 60 x 36 x 180 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/37210-large_default/armario-multiestante-jupiter-de-2-puertas.jpg",
+        "Cambria": "https://alihogar.es/37207-large_default/armario-multiestante-jupiter-de-2-puertas.jpg"
+      }
     },
     {
       "id": "MCA-29",
@@ -24445,7 +26023,11 @@
         "Roble"
       ],
       "medidas_origen": "Grande: 67.2 x 31 x 180 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Gris": "https://alihogar.es/37199-large_default/armario-estilo-buffet-.jpg",
+        "Roble": "https://alihogar.es/37202-large_default/armario-estilo-buffet-.jpg"
+      }
     },
     {
       "id": "MCA-31",
@@ -24511,7 +26093,11 @@
         "Negro"
       ],
       "medidas_origen": "ísticas del Producto Medidas: 44 x 32 x 78.5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/29165-large_default/carrito-auxiliar-de-con-tapa-de-madera.jpg",
+        "Negro": "https://alihogar.es/29166-large_default/carrito-auxiliar-de-con-tapa-de-madera.jpg"
+      }
     },
     {
       "id": "MCA-34",
@@ -24703,7 +26289,11 @@
         "Negro"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/38382-large_default/carrito-de-bambu-con-ruedas.jpg",
+        "Negro": "https://alihogar.es/38384-large_default/carrito-de-bambu-con-ruedas.jpg"
+      }
     },
     {
       "id": "MCA-43",
@@ -24769,7 +26359,11 @@
         "Negro"
       ],
       "medidas_origen": "cta para uso diario. Medidas: 87.5 x 48 x 100 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/72545-large_default/aparador-875x48x100-negro-.jpg",
+        "Negro": "https://alihogar.es/72543-large_default/aparador-875x48x100-negro-.jpg"
+      }
     },
     {
       "id": "MCA-46",
@@ -24795,7 +26389,13 @@
         "Arena"
       ],
       "medidas_origen": "3 Niveles, con dimensiones de 40x15x75cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/11702-large_default/carro-3-niveles-40x15x75-cm-mostaza.jpg",
+        "Mostaza": "https://alihogar.es/11693-large_default/carro-3-niveles-40x15x75-cm-mostaza.jpg",
+        "Turquesa": "https://alihogar.es/11695-large_default/carro-3-niveles-40x15x75-cm-mostaza.jpg",
+        "Arena": "https://alihogar.es/11698-large_default/carro-3-niveles-40x15x75-cm-mostaza.jpg"
+      }
     },
     {
       "id": "MCA-47",
@@ -25302,7 +26902,11 @@
         "Negro"
       ],
       "medidas_origen": "us productos diarios. Tamaño: 18 x 20 x 78,5 cm",
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/51652-large_default/estanteria-de-bano-de-2-modulos-con-portarrollos-de-madera.jpg",
+        "Negro": "https://alihogar.es/51654-large_default/estanteria-de-bano-de-2-modulos-con-portarrollos-de-madera.jpg"
+      }
     },
     {
       "id": "MBA-20",
@@ -25452,7 +27056,11 @@
         "Gris"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/9832-large_default/mueble-plachador-bakery2.jpg",
+        "Gris": "https://alihogar.es/9841-large_default/mueble-plachador-bakery2.jpg"
+      }
     },
     {
       "id": "MBA-27",
@@ -25476,7 +27084,11 @@
         "Gris"
       ],
       "medidas_origen": null,
-      "aviso_cliente": null
+      "aviso_cliente": null,
+      "fotos_color": {
+        "Blanco": "https://alihogar.es/9827-large_default/mueble-planchador-bakery2.jpg",
+        "Gris": "https://alihogar.es/9822-large_default/mueble-planchador-bakery2.jpg"
+      }
     },
     {
       "id": "MBA-28",
