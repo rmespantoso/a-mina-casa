@@ -538,8 +538,10 @@ export function crearEscena(contenedor, { alElegir, alMover, alSoltar, alTocar =
   }
 
   /**
-   * Distancias del mueble elegido: en el suelo, cuatro líneas hasta las paredes; si está
-   * colgado, sobre su pared, hasta los lados, el suelo y el techo. Cada una con sus cm.
+   * Distancias del mueble elegido: en el suelo, cuatro líneas hacia las paredes; si está
+   * colgado, sobre su pared, hacia los lados, el suelo y el techo. Cada una con sus cm.
+   * Si hay otro mueble por medio, la línea se para en él (16/11/2026) y se dibuja por la
+   * franja en la que los dos coinciden, para que se vea que toca al otro mueble.
    */
   function dibujarGuias(plano, id) {
     for (const hijo of guias.children) if (hijo.isMesh) hijo.geometry.dispose();
@@ -549,41 +551,67 @@ export function crearEscena(contenedor, { alElegir, alMover, alSoltar, alTocar =
     if (!espacio) return;
     const W = plano.habitacion.ancho_cm * CM;
     const L = plano.habitacion.largo_cm * CM;
-    const { w, h } = huella(pieza);
     const v = (x, y, z) => new THREE.Vector3(x, y, z);
+    // Caja de un mueble en metros: x y z en el suelo, y0-y1 en altura.
+    const caja = (actual) => {
+      const { w, h } = huella(actual);
+      const y0 = (enPared(actual) ? actual.altura_cm ?? 0 : 0) * CM;
+      return { x0: actual.x * CM, x1: (actual.x + w) * CM, z0: actual.y * CM, z1: (actual.y + h) * CM, y0, y1: y0 + altoDibujo(actual).alto * CM };
+    };
+    const yo = caja(pieza);
+    const otro = (lado) => {
+      const idOtro = espacio.hasta?.[lado];
+      const encontrada = idOtro && plano.piezas.find((actual) => actual.id === idOtro);
+      return encontrada ? caja(encontrada) : null;
+    };
+    // Mitad de la parte común de dos tramos (o la mitad del mío si no hay otro).
+    const mitad = (a0, a1, b) => (b ? (Math.max(a0, b[0]) + Math.min(a1, b[1])) / 2 : (a0 + a1) / 2);
     if (espacio.tipo === "suelo") {
       const suelo = 0.02;
-      const x0 = pieza.x * CM;
-      const x1 = (pieza.x + w) * CM;
-      const z0 = pieza.y * CM;
-      const z1 = (pieza.y + h) * CM;
-      const cx = (x0 + x1) / 2;
-      const cz = (z0 + z1) / 2;
-      guia(guias, v(0, suelo, cz), v(x0, suelo, cz), espacio.izquierda);
-      guia(guias, v(x1, suelo, cz), v(W, suelo, cz), espacio.derecha);
-      guia(guias, v(cx, suelo, 0), v(cx, suelo, z0), espacio.fondo);
-      guia(guias, v(cx, suelo, z1), v(cx, suelo, L), espacio.delante);
+      const d = (lado) => espacio[lado] * CM;
+      const oi = otro("izquierda");
+      const od = otro("derecha");
+      const of = otro("fondo");
+      const oe = otro("delante");
+      const zi = mitad(yo.z0, yo.z1, oi && [oi.z0, oi.z1]);
+      const zd = mitad(yo.z0, yo.z1, od && [od.z0, od.z1]);
+      const xf = mitad(yo.x0, yo.x1, of && [of.x0, of.x1]);
+      const xe = mitad(yo.x0, yo.x1, oe && [oe.x0, oe.x1]);
+      guia(guias, v(yo.x0 - d("izquierda"), suelo, zi), v(yo.x0, suelo, zi), espacio.izquierda);
+      guia(guias, v(yo.x1, suelo, zd), v(yo.x1 + d("derecha"), suelo, zd), espacio.derecha);
+      guia(guias, v(xf, suelo, yo.z0 - d("fondo")), v(xf, suelo, yo.z0), espacio.fondo);
+      guia(guias, v(xe, suelo, yo.z1), v(xe, suelo, yo.z1 + d("delante")), espacio.delante);
       return;
     }
     // Sobre la pared: u va de izquierda a derecha mirándola de frente; alto en metros.
     const e = 0.02;
+    const pared = espacio.pared;
     const enLaPared = {
       fondo: (u, alto) => v(u, alto, e),
       derecha: (u, alto) => v(W - e, alto, u),
       delante: (u, alto) => v(W - u, alto, L - e),
       izquierda: (u, alto) => v(e, alto, L - u),
-    }[espacio.pared];
-    const largo = espacio.pared === "fondo" || espacio.pared === "delante" ? W : L;
-    const u0 = espacio.izquierda * CM;
-    const u1 = largo - espacio.derecha * CM;
-    const base = espacio.suelo * CM;
-    const arriba = ALTO_PARED - espacio.techo * CM;
-    const medio = (base + arriba) / 2;
-    const centro = (u0 + u1) / 2;
-    guia(guias, enLaPared(0, medio), enLaPared(u0, medio), espacio.izquierda);
-    guia(guias, enLaPared(u1, medio), enLaPared(largo, medio), espacio.derecha);
-    guia(guias, enLaPared(centro, 0), enLaPared(centro, base), espacio.suelo);
-    guia(guias, enLaPared(centro, arriba), enLaPared(centro, ALTO_PARED), espacio.techo);
+    }[pared];
+    // Tramo de una caja a lo largo de la pared (u0 < u1), como se ve de frente.
+    const tramoU = (c) => ({
+      fondo: [c.x0, c.x1],
+      derecha: [c.z0, c.z1],
+      delante: [W - c.x1, W - c.x0],
+      izquierda: [L - c.z1, L - c.z0],
+    }[pared]);
+    const [u0, u1] = tramoU(yo);
+    const oi = otro("izquierda");
+    const od = otro("derecha");
+    const os = otro("suelo");
+    const ot = otro("techo");
+    const alturaI = mitad(yo.y0, yo.y1, oi && [oi.y0, oi.y1]);
+    const alturaD = mitad(yo.y0, yo.y1, od && [od.y0, od.y1]);
+    const uS = mitad(u0, u1, os && tramoU(os));
+    const uT = mitad(u0, u1, ot && tramoU(ot));
+    guia(guias, enLaPared(u0 - espacio.izquierda * CM, alturaI), enLaPared(u0, alturaI), espacio.izquierda);
+    guia(guias, enLaPared(u1, alturaD), enLaPared(u1 + espacio.derecha * CM, alturaD), espacio.derecha);
+    guia(guias, enLaPared(uS, yo.y0 - espacio.suelo * CM), enLaPared(uS, yo.y0), espacio.suelo);
+    guia(guias, enLaPared(uT, yo.y1), enLaPared(uT, yo.y1 + espacio.techo * CM), espacio.techo);
   }
 
   // ---------- Dedo y ratón ----------
@@ -694,6 +722,19 @@ export function crearEscena(contenedor, { alElegir, alMover, alSoltar, alTocar =
       const datos = piezas3d.get(id);
       if (!datos) return null;
       const punto = new THREE.Vector3(0, datos.alto + 0.5, 0); // por encima del número
+      datos.grupo.localToWorld(punto);
+      punto.project(camara);
+      if (punto.z > 1) return null;
+      return {
+        x: ((punto.x + 1) / 2) * lienzo.clientWidth,
+        y: ((1 - punto.y) / 2) * lienzo.clientHeight,
+      };
+    },
+    /** Centro del mueble en la pantalla (las flechas de los muebles de pared van a su alrededor). */
+    centroEnPantalla(id) {
+      const datos = piezas3d.get(id);
+      if (!datos) return null;
+      const punto = new THREE.Vector3(0, datos.alto / 2, 0);
       datos.grupo.localToWorld(punto);
       punto.project(camara);
       if (punto.z > 1) return null;

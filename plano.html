@@ -31,9 +31,10 @@
       <!-- Precio de la habitación: la suma de los muebles del plano (16/11/2026) -->
       <p class="escena__precio" id="precio-plano" aria-live="polite" hidden></p>
       <!-- ↻ encima del mueble elegido: cada toque lo gira 90° (16/11/2026: 4 toques = vuelta entera).
-           En un mueble de pared, lo pasa a la pared siguiente. -->
-      <button class="escena__girar" id="girar-elegido" type="button" hidden>↻<span class="solo-lector" id="girar-texto"> Girar el mueble elegido</span></button>
-      <!-- Flechas de los muebles de pared (baldas, estantes, mesitas flotantes): de 10 en 10 cm -->
+           Los muebles de pared no la llevan (16/11/2026): se mueven con las flechas. -->
+      <button class="escena__girar" id="girar-elegido" type="button" hidden>↻<span class="solo-lector"> Girar el mueble elegido 90°</span></button>
+      <!-- Flechas de los muebles de pared (baldas, estantes, mesitas flotantes), alrededor del
+           propio mueble (16/11/2026): de 10 en 10 cm -->
       <div class="escena__flechas" id="flechas-pared" role="group" aria-label="Mover el mueble por la pared" hidden>
         <button class="escena__flecha escena__flecha--arriba" type="button" data-direccion="arriba">↑<span class="solo-lector"> Subir 10 cm</span></button>
         <button class="escena__flecha escena__flecha--izquierda" type="button" data-direccion="izquierda">←<span class="solo-lector"> 10 cm a la izquierda</span></button>
@@ -45,7 +46,7 @@
         <ul>
           <li>☝️ Arrastra un mueble para moverlo</li>
           <li>↻ Toca un mueble y pulsa la flecha para girarlo</li>
-          <li>↑ Las baldas y estantes van en la pared: muévelos con las flechas</li>
+          <li>↑ Las baldas y estantes van en la pared: tócalos y muévelos con las flechas; arrástralos para cambiarlos de pared</li>
           <li>👆 Desliza el suelo para girar la vista</li>
           <li>🤏 Pellizca (o rueda del ratón) para el zoom</li>
         </ul>

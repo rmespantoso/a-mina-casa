@@ -221,7 +221,7 @@ grupo("Plano · distancias y precio");
 
 prueba("distancias de un mueble del suelo a las cuatro paredes", () => {
   const plano = moverPieza(ponerPieza(crearPlano(400, 300), MESITA, "a").plano, "a", 100, 50);
-  igual(distancias(plano, "a"), { tipo: "suelo", izquierda: 100, derecha: 400 - 100 - 61, fondo: 50, delante: 300 - 50 - 33 });
+  igual(distancias(plano, "a"), { tipo: "suelo", izquierda: 100, derecha: 400 - 100 - 61, fondo: 50, delante: 300 - 50 - 33, hasta: {} });
   igual(distancias(plano, "nada"), null);
 });
 
@@ -310,7 +310,62 @@ prueba("no pisa a un mueble bajo de debajo, pero sí a uno alto o a otro de pare
 
 prueba("distancias de un mueble de pared: lados, suelo y techo", () => {
   const plano = moverPieza(ponerPieza(crearPlano(400, 300), FLOTANTE, "a", COLOCACION).plano, "a", 100, 0);
-  igual(distancias(plano, "a"), { tipo: "pared", pared: "fondo", izquierda: 100, derecha: 400 - 100 - 47, suelo: 45, techo: 250 - 45 - 45 });
+  igual(distancias(plano, "a"), { tipo: "pared", pared: "fondo", izquierda: 100, derecha: 400 - 100 - 47, suelo: 45, techo: 250 - 45 - 45, hasta: {} });
+});
+
+grupo("Plano · distancias con otro mueble por medio");
+
+prueba("la línea se para en el mueble de al lado y dice cuál es", () => {
+  let plano = ponerPieza(crearPlano(400, 300), MESITA, "a").plano;
+  plano = ponerPieza(plano, MESITA, "b").plano;
+  plano = moverPieza(plano, "a", 100, 50);
+  plano = moverPieza(plano, "b", 250, 50);
+  const espacio = distancias(plano, "a");
+  igual(espacio.derecha, 250 - 161, "hasta la mesita b, no hasta la pared");
+  igual(espacio.hasta.derecha, "b");
+  igual(espacio.izquierda, 100, "a la izquierda no hay nada: hasta la pared");
+  igual(espacio.hasta.izquierda, undefined);
+  igual(distancias(plano, "b").izquierda, 89, "desde b, igual hacia el otro lado");
+});
+
+prueba("un mueble que no está en la misma fila no corta la línea", () => {
+  let plano = ponerPieza(crearPlano(400, 300), MESITA, "a").plano;
+  plano = ponerPieza(plano, MESITA, "b").plano;
+  plano = moverPieza(plano, "a", 100, 50);
+  plano = moverPieza(plano, "b", 250, 200);
+  igual(distancias(plano, "a").hasta.derecha, undefined);
+  igual(distancias(plano, "a").derecha, 400 - 161);
+});
+
+prueba("una balda colgada encima no corta la línea del suelo; un armario alto sí", () => {
+  let plano = ponerPieza(crearPlano(400, 300), MESITA, "a").plano;
+  plano = moverPieza(plano, "a", 100, 100);
+  plano = ponerPieza(plano, BALDA, "balda", COLOCACION).plano;
+  plano = moverPieza(plano, "balda", 60, 0);
+  igual(distancias(plano, "a").fondo, 100, "la balda está a 120 cm: la línea llega a la pared");
+  plano = ponerPieza(plano, ARMARIO, "armario").plano;
+  plano = moverPieza(plano, "armario", 90, 0);
+  igual(distancias(plano, "a").fondo, 40, "el armario (60 de fondo) sí la corta");
+  igual(distancias(plano, "a").hasta.fondo, "armario");
+});
+
+prueba("un mueble de pared mide hasta lo que tiene debajo y hasta otro de su pared", () => {
+  let plano = ponerPieza(crearPlano(400, 300), MESITA, "m").plano;
+  plano = moverPieza(plano, "m", 0, 0);
+  plano = ponerPieza(plano, BALDA, "x", COLOCACION).plano;
+  plano = moverPieza(plano, "x", 0, 0);
+  const altoMesita = altoDibujo(plano.piezas.find((pieza) => pieza.id === "m")).alto;
+  let espacio = distancias(plano, "x");
+  igual(espacio.suelo, 120 - altoMesita, "de la balda a la mesita de debajo");
+  igual(espacio.hasta.suelo, "m");
+  plano = ponerPieza(plano, BALDA, "y", COLOCACION).plano;
+  plano = moverPieza(plano, "y", 200, 0);
+  plano = moverEnPared(plano, "y", "arriba");
+  plano = moverEnPared(plano, "y", "abajo");
+  espacio = distancias(plano, "x");
+  igual(espacio.derecha, 200 - 138, "hasta la otra balda de la misma pared");
+  igual(espacio.hasta.derecha, "y");
+  igual(espacio.hasta.izquierda, undefined);
 });
 
 prueba("un plano guardado conserva la pared y descarta una pared inventada", () => {

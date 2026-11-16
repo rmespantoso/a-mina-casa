@@ -252,31 +252,86 @@ export function moverEnPared(plano, id, direccion) {
 }
 
 /**
- * Cuánto espacio queda alrededor de una pieza (cm, nunca negativo).
- * - Suelo: { tipo: "suelo", izquierda, derecha, fondo, delante } hasta las cuatro paredes.
- * - Pared: { tipo: "pared", pared, izquierda, derecha, suelo, techo }: los lados como se ven
- *   mirando la pared de frente, y lo que queda hasta el suelo y hasta el techo.
+ * El mueble más cercano en una dirección, si hay alguno entre la pieza y la pared (16/11/2026).
+ * Solo cuentan los que coinciden con ella en altura (la misma regla que «se pisan»): una balda
+ * colgada no corta la línea de un sofá, pero un armario alto sí.
+ * Direcciones: "izquierda" (-x), "derecha" (+x), "fondo" (-y), "delante" (+y) en el suelo;
+ * "abajo" y "arriba" en vertical (lo que hay debajo o encima de un mueble colgado).
+ * Devuelve { id, cm } o null.
+ */
+function muebleCercano(plano, pieza, direccion) {
+  const a = huella(pieza);
+  const fa = franja(pieza);
+  let mejor = null;
+  for (const otra of plano.piezas) {
+    if (otra.id === pieza.id) continue;
+    const b = huella(otra);
+    const fb = franja(otra);
+    const cruzaX = otra.x < pieza.x + a.w && pieza.x < otra.x + b.w;
+    const cruzaY = otra.y < pieza.y + a.h && pieza.y < otra.y + b.h;
+    const cruzaAlto = fb.base < fa.arriba && fa.base < fb.arriba;
+    let cm = null;
+    if (direccion === "izquierda" && cruzaY && cruzaAlto && otra.x + b.w <= pieza.x) cm = pieza.x - (otra.x + b.w);
+    if (direccion === "derecha" && cruzaY && cruzaAlto && otra.x >= pieza.x + a.w) cm = otra.x - (pieza.x + a.w);
+    if (direccion === "fondo" && cruzaX && cruzaAlto && otra.y + b.h <= pieza.y) cm = pieza.y - (otra.y + b.h);
+    if (direccion === "delante" && cruzaX && cruzaAlto && otra.y >= pieza.y + a.h) cm = otra.y - (pieza.y + a.h);
+    if (direccion === "abajo" && cruzaX && cruzaY && fb.arriba <= fa.base) cm = fa.base - fb.arriba;
+    if (direccion === "arriba" && cruzaX && cruzaY && fb.base >= fa.arriba) cm = fb.base - fa.arriba;
+    if (cm !== null && (!mejor || cm < mejor.cm)) mejor = { id: otra.id, cm };
+  }
+  return mejor;
+}
+
+/**
+ * Lo que queda alrededor del mueble elegido (en cm, redondeado).
+ * En el suelo: hasta la pared izquierda, derecha, del fondo y de delante.
+ * Colgado: a lo largo de su pared (izquierda y derecha mirándola de frente), hasta el suelo y el techo.
+ * Si hay otro mueble por medio, la medida llega hasta él y `hasta[lado]` dice cuál es (16/11/2026);
+ * sin mueble por medio, `hasta` no tiene ese lado (la medida es hasta la pared, el suelo o el techo).
  */
 export function distancias(plano, id) {
   const pieza = plano.piezas.find((actual) => actual.id === id);
   if (!pieza) return null;
   const { w, h } = huella(pieza);
   const positivo = (valor) => Math.max(0, Math.round(valor));
-  const lados = {
-    izquierda: positivo(pieza.x),
-    derecha: positivo(plano.habitacion.ancho_cm - pieza.x - w),
-    fondo: positivo(pieza.y),
-    delante: positivo(plano.habitacion.largo_cm - pieza.y - h),
+  const paredes = {
+    izquierda: pieza.x,
+    derecha: plano.habitacion.ancho_cm - pieza.x - w,
+    fondo: pieza.y,
+    delante: plano.habitacion.largo_cm - pieza.y - h,
   };
-  if (!enPared(pieza)) return { tipo: "suelo", ...lados };
+  const lados = {};
+  const choques = {};
+  for (const [lado, hastaPared] of Object.entries(paredes)) {
+    const otro = muebleCercano(plano, pieza, lado);
+    lados[lado] = positivo(otro ? otro.cm : hastaPared);
+    if (otro) choques[lado] = otro.id;
+  }
+  if (!enPared(pieza)) return { tipo: "suelo", ...lados, hasta: choques };
+  // Mirando la pared de frente: qué lado del suelo es su izquierda y cuál su derecha.
   const [izquierda, derecha] = {
-    fondo: [lados.izquierda, lados.derecha],
-    derecha: [lados.fondo, lados.delante],
-    delante: [lados.derecha, lados.izquierda],
-    izquierda: [lados.delante, lados.fondo],
+    fondo: ["izquierda", "derecha"],
+    derecha: ["fondo", "delante"],
+    delante: ["derecha", "izquierda"],
+    izquierda: ["delante", "fondo"],
   }[pieza.pared];
   const { base, arriba } = franja(pieza);
-  return { tipo: "pared", pared: pieza.pared, izquierda, derecha, suelo: positivo(base), techo: positivo(ALTO_HABITACION - arriba) };
+  const debajo = muebleCercano(plano, pieza, "abajo");
+  const encima = muebleCercano(plano, pieza, "arriba");
+  const hasta = {};
+  if (choques[izquierda]) hasta.izquierda = choques[izquierda];
+  if (choques[derecha]) hasta.derecha = choques[derecha];
+  if (debajo) hasta.suelo = debajo.id;
+  if (encima) hasta.techo = encima.id;
+  return {
+    tipo: "pared",
+    pared: pieza.pared,
+    izquierda: lados[izquierda],
+    derecha: lados[derecha],
+    suelo: positivo(debajo ? debajo.cm : base),
+    techo: positivo(encima ? encima.cm : ALTO_HABITACION - arriba),
+    hasta,
+  };
 }
 
 /** Lo que cuestan juntos los muebles del plano. `sinPrecio`: los que no tienen precio en la web. */

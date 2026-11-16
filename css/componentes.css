@@ -2322,17 +2322,23 @@ body.con-navegacion .whatsapp {
   font-size: 1.25rem;
 }
 
-/* Flechas de los muebles de pared: una cruz abajo a la derecha del 3D, botones de 48 px. */
+/* Flechas de los muebles de pared: una cruz alrededor del propio mueble (16/11/2026; la coloca
+   plano.js con transform), botones de 48 px. El hueco del centro deja ver y arrastrar el mueble. */
 .escena__flechas {
   position: absolute;
-  right: 0.6rem;
-  bottom: 0.6rem;
+  top: 0;
+  left: 0;
   z-index: 3;
   display: grid;
   grid-template-areas: ". arriba ." "izquierda . derecha" ". abajo .";
-  grid-template-columns: repeat(3, 3rem);
-  grid-template-rows: repeat(3, 3rem);
+  grid-template-columns: 3rem 6.5rem 3rem;
+  grid-template-rows: 3rem 5rem 3rem;
   gap: 0.15rem;
+  pointer-events: none;
+}
+
+.escena__flecha {
+  pointer-events: auto;
 }
 
 .escena__flechas[hidden] {

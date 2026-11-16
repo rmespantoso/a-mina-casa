@@ -265,9 +265,11 @@ function pintarDistancias() {
     ? [["izquierda", espacio.izquierda], ["derecha", espacio.derecha], ["fondo", espacio.fondo], ["delante", espacio.delante]]
     : [["izquierda", espacio.izquierda], ["derecha", espacio.derecha], ["suelo", espacio.suelo], ["techo", espacio.techo]];
   const titulo = espacio.tipo === "suelo"
-    ? `Mueble ${numeroDe(elegida)} · hasta las paredes:`
+    ? `Mueble ${numeroDe(elegida)} · lo que queda alrededor:`
     : `Mueble ${numeroDe(elegida)} · en la pared ${NOMBRE_PARED[espacio.pared]}:`;
-  linea.innerHTML = `<strong>${titulo}</strong> ${partes.map(([lado, valor]) => `${lado} <strong>${cm(valor)}</strong>`).join(" · ")}`;
+  // Si hay otro mueble por medio, la medida es hasta él (16/11/2026).
+  const hasta = (lado) => (espacio.hasta?.[lado] ? ` (hasta el mueble ${numeroDe(espacio.hasta[lado])})` : "");
+  linea.innerHTML = `<strong>${titulo}</strong> ${partes.map(([lado, valor]) => `${lado} <strong>${cm(valor)}</strong>${hasta(lado)}`).join(" · ")}`;
 }
 
 // «En el plano»: una tarjeta por mueble con su foto, medidas, precio, girar, quitar y ver ficha.
@@ -707,16 +709,18 @@ const botonGirar = document.getElementById("girar-elegido");
 
 const flechas = document.getElementById("flechas-pared");
 
-// Se llama cada vez que se dibuja el 3D: la flecha sigue al mueble al moverlo o al girar la vista.
-// Si el mueble va en la pared, ↻ lo pasa a la pared siguiente y salen las flechas.
+// Se llama cada vez que se dibuja el 3D: la flecha y las flechas siguen al mueble al moverlo o al
+// girar la vista. Mueble del suelo: ↻ encima (gira 90°). Mueble de pared (16/11/2026): sin ↻ y
+// con ↑ ↓ ← → alrededor del propio mueble; para cambiarlo de pared se arrastra.
 function colocarGirar() {
-  const posicion = elegida && escena ? escena.posicionEnPantalla(elegida) : null;
-  botonGirar.hidden = !posicion;
-  if (posicion) botonGirar.style.transform = `translate(${posicion.x}px, ${posicion.y}px) translate(-50%, -50%)`;
   const pieza = elegida && plano.piezas.find((actual) => actual.id === elegida);
   const colgado = Boolean(pieza && enPared(pieza));
-  flechas.hidden = !colgado;
-  document.getElementById("girar-texto").textContent = colgado ? " Pasar el mueble a la pared siguiente" : " Girar el mueble elegido 90°";
+  const encima = pieza && !colgado && escena ? escena.posicionEnPantalla(elegida) : null;
+  botonGirar.hidden = !encima;
+  if (encima) botonGirar.style.transform = `translate(${encima.x}px, ${encima.y}px) translate(-50%, -50%)`;
+  const centro = colgado && escena ? escena.centroEnPantalla(elegida) : null;
+  flechas.hidden = !centro;
+  if (centro) flechas.style.transform = `translate(${centro.x}px, ${centro.y}px) translate(-50%, -50%)`;
 }
 
 flechas.addEventListener("click", (evento) => {
