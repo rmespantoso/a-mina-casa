@@ -17,6 +17,25 @@ import { coloresDe, limpiarColores } from "./colores.js";
 export const PRECIO_TOPE = 2000;
 export const PASO_PRECIO = 25;
 
+/**
+ * Tope de la barra del precio según los muebles que se buscan (16/11/2026): el precio del más
+ * caro de esos tipos, redondeado hacia arriba a un número redondo (hasta 500 €, al múltiplo
+ * de 50; por encima, al de 100). Mesitas (169,99 €) → 200; sofás (1.223,99 €) → 1.300.
+ * Sin precios, el tope general (PRECIO_TOPE).
+ */
+export function topePrecio(productos, tipos) {
+  const precios = productos.filter((producto) => tipos.includes(producto.tipo) && producto.precio_eur > 0).map((producto) => producto.precio_eur);
+  if (precios.length === 0) return PRECIO_TOPE;
+  const mayor = Math.max(...precios);
+  const unidad = mayor <= 500 ? 50 : 100;
+  return Math.max(unidad, Math.ceil(mayor / unidad - 1e-9) * unidad);
+}
+
+/** Salto de la barra: de 10 en 10 € en las barras cortas (hasta 500 €) y de 25 en 25 € en las largas. */
+export function pasoPrecio(tope) {
+  return tope <= 500 ? 10 : 25;
+}
+
 /** Cuántos muebles se enseñan de cada vez (luego, «Ver más»). */
 export const POR_PAGINA = 12;
 

@@ -5,8 +5,9 @@
 //   (Estancia: solo en Mi plano 3D, donde no se viene de una estancia concreta.)
 //   1. ¿Qué buscas? → desplegable con los tipos de mueble de la estancia.
 //   2. Medidas → ancho, fondo y alto MÁXIMOS del mueble.
-//   3. Precio → barra de 0 a 2.000 € con dos tiradores (mínimo y máximo) y los recuadros
-//      «Desde» y «Hasta» para escribirlo a mano (desde el 15/11/2026).
+//   3. Precio → barra con dos tiradores (mínimo y máximo) y los recuadros «Desde» y «Hasta»
+//      para escribirlo a mano (desde el 15/11/2026). Desde el 16/11/2026 la barra llega hasta
+//      un número redondo según el mueble más caro del tipo elegido (topePrecio).
 //   4. Color → desplegable con casillas: varios o ninguno.
 //
 // `prefijo` hace únicos los id de los campos, por si hubiera dos filtros en una página.
@@ -14,7 +15,9 @@
 import { pintarErrores } from "./formularios.js";
 import { escapar } from "./textos.js";
 import { FAMILIAS, limpiarColores } from "./logica/colores.js";
-import { PASO_PRECIO, PRECIO_TOPE, estanciaPorId, leerPrecio, leerPrecioMin, validarPlan } from "./logica/planificador.js";
+import {
+  PASO_PRECIO, PRECIO_TOPE, estanciaPorId, leerPrecio, leerPrecioMin, pasoPrecio, tiposDeEstancia, topePrecio, validarPlan,
+} from "./logica/planificador.js";
 
 const NOMBRES_COLOR = Object.fromEntries(FAMILIAS.map((familia) => [familia.id, familia.nombre]));
 
@@ -111,7 +114,7 @@ export function htmlFiltro(prefijo, { conEstancia = false, textoBoton = "Buscar 
         <input class="barra barra--doble" type="range" min="0" max="${PRECIO_TOPE}" step="${PASO_PRECIO}" value="${PRECIO_TOPE}"
           aria-label="Precio máximo" data-barra-max>
       </div>
-      <div class="barra__extremos" aria-hidden="true"><span>0 €</span><span>2.000 €</span></div>
+      <div class="barra__extremos" aria-hidden="true"><span>0 €</span><span data-tope-precio>2.000 €</span></div>
       <div class="medidas-fila medidas-fila--dos">
         ${campoPrecio(prefijo, "precio_min", "Desde", "0")}
         ${campoPrecio(prefijo, "precio", "Hasta", "Sin límite")}
@@ -140,11 +143,13 @@ export function htmlFiltro(prefijo, { conEstancia = false, textoBoton = "Buscar 
 /**
  * Da vida a un filtro ya pintado con htmlFiltro.
  * - estancias: todas (para el desplegable de estancia) · estancia: la elegida al empezar.
+ * - productos: el catálogo, para que la barra del precio llegue hasta donde tiene sentido.
  * - alBuscar(busqueda, estancia): se llama al enviar el filtro si todo está bien.
  * Devuelve { rellenar(guardada), estancia() }.
  */
-export function montarFiltro(formulario, { prefijo, estancias, estancia, alBuscar }) {
+export function montarFiltro(formulario, { prefijo, estancias, estancia, productos = [], alBuscar }) {
   let actual = estancia ?? estancias[0];
+  let tope = PRECIO_TOPE; // final de la barra del precio (cambia con el tipo de mueble)
   const barraMin = formulario.querySelector("[data-barra-min]");
   const barraMax = formulario.querySelector("[data-barra-max]");
   const textoMin = formulario.elements.precio_min;
@@ -165,8 +170,8 @@ export function montarFiltro(formulario, { prefijo, estancias, estancia, alBusca
     barraMin.setAttribute("aria-valuetext", desde == null ? "Sin mínimo" : `${desde} €`);
     barraMax.setAttribute("aria-valuetext", hasta == null ? "Sin límite" : `${hasta} €`);
     const caja = formulario.querySelector("[data-barra-doble]");
-    caja.style.setProperty("--desde", `${(Number(barraMin.value) / PRECIO_TOPE) * 100}%`);
-    caja.style.setProperty("--hasta", `${(Number(barraMax.value) / PRECIO_TOPE) * 100}%`);
+    caja.style.setProperty("--desde", `${(Number(barraMin.value) / tope) * 100}%`);
+    caja.style.setProperty("--hasta", `${(Number(barraMax.value) / tope) * 100}%`);
   }
 
   // Barra -> recuadros. Un tirador no puede pasar al otro.
@@ -177,15 +182,30 @@ export function montarFiltro(formulario, { prefijo, estancias, estancia, alBusca
     }
     // Solo se reescribe el recuadro del tirador que se mueve (lo tecleado en el otro se respeta).
     if (evento.target === barraMin) textoMin.value = Number(barraMin.value) > 0 ? barraMin.value : "";
-    else textoMax.value = Number(barraMax.value) < PRECIO_TOPE ? barraMax.value : "";
+    else textoMax.value = Number(barraMax.value) < tope ? barraMax.value : "";
     pintarPrecio();
   }
 
-  // Recuadros -> barra (lo escrito se respeta tal cual; la barra se acerca al tramo de 25 €).
+  // Recuadros -> barra (lo escrito se respeta tal cual; la barra se acerca a su tramo).
   function alEscribirPrecio() {
     barraMin.value = leerPrecioMin(textoMin.value) ?? 0;
-    barraMax.value = leerPrecio(textoMax.value) ?? PRECIO_TOPE;
+    barraMax.value = leerPrecio(textoMax.value) ?? tope;
     pintarPrecio();
+  }
+
+  // La barra llega hasta un número redondo según los muebles que se buscan (16/11/2026).
+  // Lo escrito en los recuadros no se toca: si pasa del nuevo final, la barra se queda al final.
+  function ajustarBarra() {
+    const grupo = actual.grupos.find((opcion) => opcion.id === formulario.elements.grupo.value);
+    const tipos = grupo ? grupo.tipos : tiposDeEstancia(actual);
+    tope = productos.length ? topePrecio(productos, tipos) : PRECIO_TOPE;
+    const paso = productos.length ? pasoPrecio(tope) : PASO_PRECIO;
+    for (const barra of [barraMin, barraMax]) {
+      barra.max = String(tope);
+      barra.step = String(paso);
+    }
+    formulario.querySelector("[data-tope-precio]").textContent = `${String(tope).replace(/\B(?=(\d{3})+(?!\d))/g, ".")} €`;
+    alEscribirPrecio();
   }
 
   function pintarResumen() {
@@ -209,9 +229,11 @@ export function montarFiltro(formulario, { prefijo, estancias, estancia, alBusca
     formulario.elements.estancia.addEventListener("change", () => {
       actual = estanciaPorId(estancias, formulario.elements.estancia.value) ?? actual;
       pintarGrupos();
+      ajustarBarra();
     });
   }
   pintarGrupos();
+  formulario.elements.grupo.addEventListener("change", ajustarBarra);
 
   barraMin.addEventListener("input", alMoverBarra);
   barraMax.addEventListener("input", alMoverBarra);
@@ -237,13 +259,14 @@ export function montarFiltro(formulario, { prefijo, estancias, estancia, alBusca
     alBuscar(revision.busqueda, actual);
   });
 
-  pintarPrecio();
+  ajustarBarra();
   pintarResumen();
 
   return {
     /** Rellena el filtro con una búsqueda guardada ({ grupo, ancho, fondo, alto, precio_min, precio, colores }). */
     rellenar(guardada) {
       formulario.elements.grupo.value = actual.grupos.some((grupo) => grupo.id === guardada.grupo) ? guardada.grupo : "";
+      ajustarBarra();
       // Con coma decimal, como lo escribe el cliente («245,5»).
       for (const nombre of ["ancho", "fondo", "alto"]) formulario.elements[nombre].value = String(guardada[nombre] ?? "").replace(".", ",");
       textoMin.value = leerPrecioMin(guardada.precio_min) ?? "";

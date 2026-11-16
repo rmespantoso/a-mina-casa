@@ -6,6 +6,7 @@ import { NOMBRE_ESTANCIA, NOMBRE_TIPO } from "../js/textos.js";
 import { coloresDe, limpiarColores } from "../js/logica/colores.js";
 import {
   PRECIO_TOPE, buscarEnEstancia, busquedaDeDireccion, enlaceBusqueda, enlaceFiltro, leerPrecio, leerPrecioMin, paraGuardar,
+  pasoPrecio, topePrecio,
   validarPlan,
 } from "../js/logica/planificador.js";
 
@@ -200,6 +201,40 @@ prueba("ningún grupo está vacío: todos tienen muebles con medida en el catál
     for (const g of estancia.grupos) {
       const conMedida = productos.filter((p) => g.tipos.includes(p.tipo) && p.ancho_cm != null).length;
       cierto(conMedida > 0, `${estancia.id}/${g.id} no tiene muebles con medida`);
+    }
+  }
+});
+
+grupo("Planifica · barra del precio según el tipo (16/11/2026)");
+
+prueba("el final de la barra es el mueble más caro redondeado hacia arriba a un número redondo", () => {
+  const p = (tipo, precio) => ({ tipo, precio_eur: precio });
+  const catalogo = [p("mesita_noche", 169.99), p("mesita_noche", 40), p("cabecero", 305.99), p("mesa_centro", 509.99),
+    p("sofa", 1223.99), p("banqueta", 500), p("silla", 12)];
+  igual(topePrecio(catalogo, ["mesita_noche"]), 200);
+  igual(topePrecio(catalogo, ["cabecero"]), 350);
+  igual(topePrecio(catalogo, ["mesa_centro"]), 600);
+  igual(topePrecio(catalogo, ["sofa"]), 1300);
+  igual(topePrecio(catalogo, ["banqueta"]), 500, "un precio ya redondo se queda igual");
+  igual(topePrecio(catalogo, ["silla"]), 50, "nunca menos de 50 €");
+  igual(topePrecio(catalogo, ["mesita_noche", "sofa"]), 1300, "con varios tipos, el más caro de todos");
+  igual(topePrecio(catalogo, ["armario"]), PRECIO_TOPE, "sin muebles, el tope general");
+});
+
+prueba("el salto es de 10 € en las barras cortas y de 25 € en las largas", () => {
+  igual(pasoPrecio(200), 10);
+  igual(pasoPrecio(500), 10);
+  igual(pasoPrecio(600), 25);
+});
+
+prueba("en el catálogo real ningún grupo pasa de 2.000 € y todos los topes son redondos", async () => {
+  const [{ productos }, estancias] = await Promise.all([cargarDatos(), cargarEstancias()]);
+  for (const estancia of estancias) {
+    for (const grupo of estancia.grupos) {
+      const tope = topePrecio(productos, grupo.tipos);
+      cierto(tope <= PRECIO_TOPE && tope % 50 === 0, `${estancia.id}/${grupo.id}: ${tope}`);
+      const caro = Math.max(...productos.filter((x) => grupo.tipos.includes(x.tipo) && x.precio_eur).map((x) => x.precio_eur));
+      cierto(caro <= tope, `${grupo.id}: el más caro (${caro}) cabe en la barra`);
     }
   }
 });

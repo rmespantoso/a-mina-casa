@@ -40,6 +40,7 @@ function prepararEstancia() {
     prefijo: "plan",
     estancias,
     estancia,
+    productos,
     // La búsqueda viaja en la dirección (sin ningún dato personal). GA4 no la recibe (ver direccionLimpia).
     alBuscar: (busqueda) => window.location.assign(enlaceBusqueda(paraGuardar(busqueda))),
   });

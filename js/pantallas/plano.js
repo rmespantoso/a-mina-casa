@@ -388,7 +388,7 @@ function prepararAnadir() {
   // Se empieza por la estancia y los filtros de la última búsqueda, si se viene de una.
   const vuelta = new URLSearchParams((leerBusquedaDeVuelta() ?? "").split("?")[1] ?? "");
   const estancia = estanciaPorId(estancias, vuelta.get("e")) ?? estancias[0];
-  filtroAnadir = montarFiltro(formulario, { prefijo: "anadir", estancias, estancia, alBuscar: buscarParaPlano });
+  filtroAnadir = montarFiltro(formulario, { prefijo: "anadir", estancias, estancia, productos: catalogo, alBuscar: buscarParaPlano });
   if (vuelta.get("e")) {
     filtroAnadir.rellenar(busquedaDeDireccion(vuelta));
   }
