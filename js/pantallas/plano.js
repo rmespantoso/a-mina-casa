@@ -7,7 +7,7 @@
 //   - el mueble elegido (foto, medidas, precio, girar y quitar);
 //   - (16/11/2026) arriba a la derecha del 3D, lo que cuesta la habitación; al tocar un mueble,
 //     lo que queda hasta cada pared (en el 3D y en texto); los muebles de pared (baldas,
-//     estantes, mesitas flotantes) se cuelgan y se mueven con las flechas ↑ ↓ ← →;
+//     estantes, mesitas flotantes) se cuelgan y se arrastran por la pared, arriba, abajo o a otra;
 //   - «Guardar como nuevo plano» con un nombre (medidas y muebles incluidos);
 //   - «Escanea un código QR» (15/11/2026): abre la cámara, lee el QR de la etiqueta y enseña
 //     la ficha compacta con «+ Añadir a mi plano 3D», que mete el mueble en el plano abierto;
@@ -33,7 +33,7 @@ import { POR_PAGINA, buscarEnEstancia, busquedaDeDireccion, estanciaPorId } from
 import {
   MAX_PIEZAS, MAX_PLANOS, PRUEBA, abrirPlano, abrirPrueba, actualizarPlano, altoDibujo, cambiarHabitacion, coleccionValida,
   girarPieza, guardarComoNuevo, huella, moverPieza, planoActivo, planoDePruebaVacio, ponerPieza, problemas, quitarPieza,
-  quitarPlano, sePuedePoner, sueloLibre, distancias, enPared, moverEnPared, precioPlano,
+  quitarPlano, sePuedePoner, sueloLibre, distancias, enPared, colgarEn, precioPlano,
 } from "../logica/plano.js";
 import { leerLista } from "../mi-lista.js";
 import { crearEscena, hayWebGL } from "../escena3d.js";
@@ -707,29 +707,14 @@ document.addEventListener("keydown", (evento) => {
 
 const botonGirar = document.getElementById("girar-elegido");
 
-const flechas = document.getElementById("flechas-pared");
-
-// Se llama cada vez que se dibuja el 3D: la flecha y las flechas siguen al mueble al moverlo o al
-// girar la vista. Mueble del suelo: ↻ encima (gira 90°). Mueble de pared (16/11/2026): sin ↻ y
-// con ↑ ↓ ← → alrededor del propio mueble; para cambiarlo de pared se arrastra.
+// Se llama cada vez que se dibuja el 3D: la flecha sigue al mueble al moverlo o al girar la vista.
+// Los muebles de pared no llevan ↻ (16/11/2026): se arrastran por la pared, arriba, abajo o a otra.
 function colocarGirar() {
   const pieza = elegida && plano.piezas.find((actual) => actual.id === elegida);
-  const colgado = Boolean(pieza && enPared(pieza));
-  const encima = pieza && !colgado && escena ? escena.posicionEnPantalla(elegida) : null;
+  const encima = pieza && !enPared(pieza) && escena ? escena.posicionEnPantalla(elegida) : null;
   botonGirar.hidden = !encima;
   if (encima) botonGirar.style.transform = `translate(${encima.x}px, ${encima.y}px) translate(-50%, -50%)`;
-  const centro = colgado && escena ? escena.centroEnPantalla(elegida) : null;
-  flechas.hidden = !centro;
-  if (centro) flechas.style.transform = `translate(${centro.x}px, ${centro.y}px) translate(-50%, -50%)`;
 }
-
-flechas.addEventListener("click", (evento) => {
-  const boton = evento.target.closest("[data-direccion]");
-  if (!boton || !elegida) return;
-  plano = moverEnPared(plano, elegida, boton.dataset.direccion);
-  guardarCambios();
-  dibujar();
-});
 
 botonGirar.addEventListener("click", () => {
   if (!elegida) return;
@@ -759,6 +744,10 @@ function prepararEscena() {
     },
     alMover(id, x, y) {
       plano = moverPieza(plano, id, x, y);
+      dibujar({ soloEscena: true });
+    },
+    alMoverEnPared(id, pared, centro, altura) {
+      plano = colgarEn(plano, id, pared, centro, altura);
       dibujar({ soloEscena: true });
     },
     alSoltar() {

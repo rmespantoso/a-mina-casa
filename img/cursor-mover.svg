@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <!-- Cursor del 3D: mano abierta con flechas arriba, abajo, izquierda y derecha (16/11/2026) -->
+  <g fill="#D50D73" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round">
+    <path d="M24 1 L29.5 7.5 L18.5 7.5 Z"/>
+    <path d="M24 47 L29.5 40.5 L18.5 40.5 Z"/>
+    <path d="M1 24 L7.5 18.5 L7.5 29.5 Z"/>
+    <path d="M47 24 L40.5 18.5 L40.5 29.5 Z"/>
+  </g>
+  <!-- Mano: primero el contorno oscuro (trazo ancho) y encima el relleno blanco -->
+  <g id="mano" stroke="#222222" stroke-width="3" stroke-linejoin="round">
+    <rect x="15" y="13" width="4.4" height="14" rx="2.2"/>
+    <rect x="19.6" y="10.5" width="4.4" height="16" rx="2.2"/>
+    <rect x="24.2" y="11.5" width="4.4" height="15" rx="2.2"/>
+    <rect x="28.8" y="14.5" width="4.4" height="12" rx="2.2"/>
+    <rect x="9.5" y="22" width="4.4" height="10" rx="2.2" transform="rotate(-38 11.7 27)"/>
+    <rect x="14" y="21" width="19.2" height="14.5" rx="6"/>
+  </g>
+  <g fill="#ffffff">
+    <rect x="15" y="13" width="4.4" height="14" rx="2.2"/>
+    <rect x="19.6" y="10.5" width="4.4" height="16" rx="2.2"/>
+    <rect x="24.2" y="11.5" width="4.4" height="15" rx="2.2"/>
+    <rect x="28.8" y="14.5" width="4.4" height="12" rx="2.2"/>
+    <rect x="9.5" y="22" width="4.4" height="10" rx="2.2" transform="rotate(-38 11.7 27)"/>
+    <rect x="14" y="21" width="19.2" height="14.5" rx="6"/>
+  </g>
+  <g stroke="#222222" stroke-width="1" stroke-linecap="round">
+    <path d="M19.5 20 V24"/>
+    <path d="M24.1 19 V24"/>
+    <path d="M28.7 20 V24"/>
+  </g>
+</svg>

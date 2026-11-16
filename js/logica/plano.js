@@ -17,14 +17,11 @@ export const MAX_PIEZAS = 20;
 export const MAX_PLANOS = 10;
 export const LARGO_NOMBRE = 40;
 export const ALTO_HABITACION = 250; // cm: alto de las paredes del 3D (techo)
-export const PASO_PARED = 10;       // las flechas mueven los muebles de pared de 10 en 10 cm
 export const GIROS = [0, 90, 180, 270];
 /** Las cuatro paredes, en el orden en que ↻ pasa un mueble de pared a la siguiente. */
 export const PAREDES = ["fondo", "derecha", "delante", "izquierda"];
 // Giro con el que la trasera del mueble toca cada pared (el frente mira hacia dentro).
 const GIRO_DE_PARED = { fondo: 0, derecha: 90, delante: 180, izquierda: 270 };
-// Hacia dónde va «→» mirando de frente a cada pared, en (x, y) del plano.
-const DERECHA_DE_PARED = { fondo: [1, 0], derecha: [0, 1], delante: [-1, 0], izquierda: [0, -1] };
 
 /** Alturas aproximadas para dibujar un mueble cuya web no da el alto (solo para el dibujo). */
 export const ALTO_APROXIMADO = {
@@ -234,19 +231,26 @@ export function girarPieza(plano, id) {
 }
 
 /**
- * Flechas de un mueble de pared: "arriba" y "abajo" cambian su altura; "izquierda" y "derecha"
- * lo deslizan por la pared, tal como se ve mirándola de frente. De PASO_PARED en PASO_PARED cm.
+ * Arrastrar un mueble de pared por la pared (16/11/2026), como los del suelo por el suelo:
+ * `pared` es la pared que hay bajo el dedo, `centro_cm` dónde queda el centro del mueble a lo
+ * largo de ella (de izquierda a derecha mirándola de frente) y `altura_cm` su base sobre el suelo.
+ * Se redondea a 5 cm y no se sale por los lados, ni baja del suelo ni pasa del techo.
  */
-export function moverEnPared(plano, id, direccion) {
+export function colgarEn(plano, id, pared, centro_cm, altura_cm) {
+  if (!PAREDES.includes(pared)) return plano;
   return cambiar(plano, id, (pieza) => {
     if (!enPared(pieza)) return pieza;
-    const movida = { ...pieza };
-    if (direccion === "arriba") movida.altura_cm = (pieza.altura_cm ?? 0) + PASO_PARED;
-    if (direccion === "abajo") movida.altura_cm = (pieza.altura_cm ?? 0) - PASO_PARED;
-    const signo = direccion === "derecha" ? 1 : direccion === "izquierda" ? -1 : 0;
-    const [dx, dy] = DERECHA_DE_PARED[pieza.pared];
-    movida.x += signo * dx * PASO_PARED;
-    movida.y += signo * dy * PASO_PARED;
+    const girada = { ...pieza, pared, giro: GIRO_DE_PARED[pared] };
+    const { w, h } = huella(girada);
+    const { ancho_cm: W, largo_cm: L } = plano.habitacion;
+    // Del punto de la pared al centro del mueble en el plano del suelo.
+    const centro = {
+      fondo: [centro_cm, h / 2],
+      derecha: [W - w / 2, centro_cm],
+      delante: [W - centro_cm, L - h / 2],
+      izquierda: [w / 2, L - centro_cm],
+    }[pared];
+    const movida = { ...girada, x: centro[0] - w / 2, y: centro[1] - h / 2, altura_cm };
     return pegarAPared(movida, plano.habitacion);
   });
 }

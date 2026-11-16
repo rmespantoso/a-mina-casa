@@ -354,10 +354,11 @@ function contorno(W, H, D, estilo) {
  * Prepara la escena dentro de `contenedor`.
  * `alElegir(id | null)` se llama al tocar un mueble (o el suelo vacío).
  * `alMover(id, x_cm, y_cm)` se llama al arrastrar un mueble; `alSoltar()` al terminar.
+ * `alMoverEnPared(id, pared, centro_cm, altura_cm)` al arrastrar un mueble colgado por la pared.
  * `alTocar()` se llama la primera vez que el cliente toca la escena (para quitar la ayuda).
  * `alPintar()` se llama después de cada dibujo (para colocar la flecha ↻ encima del mueble elegido).
  */
-export function crearEscena(contenedor, { alElegir, alMover, alSoltar, alTocar = () => {}, alPintar = () => {} }) {
+export function crearEscena(contenedor, { alElegir, alMover, alMoverEnPared = () => {}, alSoltar, alTocar = () => {}, alPintar = () => {} }) {
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.shadowMap.enabled = true;
@@ -618,7 +619,7 @@ export function crearEscena(contenedor, { alElegir, alMover, alSoltar, alTocar =
   const rayo = new THREE.Raycaster();
   const sueloMatematico = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
   const punteros = new Map();
-  let gesto = null; // { tipo: "mover" | "girar" | "pellizco", … }
+  let gesto = null; // { tipo: "mover" | "colgado" | "girar" | "pellizco", … }
 
   function rayoDesde(evento) {
     const caja = lienzo.getBoundingClientRect();
@@ -641,6 +642,66 @@ export function crearEscena(contenedor, { alElegir, alMover, alSoltar, alTocar =
     return rayoDesde(evento).ray.intersectPlane(sueloMatematico, punto) ? punto : null;
   }
 
+  // Las cuatro paredes como planos matemáticos: normal hacia FUERA de la habitación y distancia.
+  const planoPared = (pared) => {
+    const { W, L } = medidas;
+    const datos = {
+      fondo: [new THREE.Vector3(0, 0, -1), 0],
+      delante: [new THREE.Vector3(0, 0, 1), L],
+      izquierda: [new THREE.Vector3(-1, 0, 0), 0],
+      derecha: [new THREE.Vector3(1, 0, 0), W],
+    }[pared];
+    return new THREE.Plane(datos[0], -datos[1]);
+  };
+  // Posición a lo largo de una pared, de izquierda a derecha mirándola de frente (metros).
+  const aLoLargo = (pared, punto) => ({
+    fondo: punto.x,
+    derecha: punto.z,
+    delante: medidas.W - punto.x,
+    izquierda: medidas.L - punto.z,
+  }[pared]);
+  const largoPared = (pared) => (pared === "fondo" || pared === "delante" ? medidas.W : medidas.L);
+
+  /**
+   * Punto de la pared que hay bajo el dedo (16/11/2026), para arrastrar los muebles colgados.
+   * Se ve la cara de dentro de las paredes del fondo, así que vale la pared por la que el rayo
+   * SALE de la habitación. Si el dedo no está sobre ninguna (por ejemplo, sobre el suelo), se
+   * usa la pared en la que ya está el mueble. Devuelve { pared, u, alto } en metros, o null.
+   */
+  function puntoPared(evento, paredActual, soloEsa = false) {
+    const ray = rayoDesde(evento).ray;
+    const punto = new THREE.Vector3();
+    let mejor = null;
+    if (!soloEsa) {
+      for (const pared of ["fondo", "derecha", "delante", "izquierda"]) {
+        const plano = planoPared(pared);
+        if (ray.direction.dot(plano.normal) <= 0) continue;
+        if (!ray.intersectPlane(plano, punto)) continue;
+        const u = aLoLargo(pared, punto);
+        if (u < 0 || u > largoPared(pared) || punto.y < 0 || punto.y > ALTO_PARED) continue;
+        const distancia = ray.origin.distanceTo(punto);
+        if (!mejor || distancia < mejor.distancia) mejor = { pared, u, alto: punto.y, distancia };
+      }
+    }
+    if (!mejor && ray.intersectPlane(planoPared(paredActual), punto)) {
+      mejor = { pared: paredActual, u: aLoLargo(paredActual, punto), alto: punto.y };
+    }
+    return mejor;
+  }
+
+  // Centro de un mueble colgado a lo largo de su pared (cm), como lo mide colgarEn.
+  function centroEnSuPared(pieza) {
+    const { w, h } = huella(pieza);
+    const W = medidas.W / CM;
+    const L = medidas.L / CM;
+    return {
+      fondo: pieza.x + w / 2,
+      derecha: pieza.y + h / 2,
+      delante: W - (pieza.x + w / 2),
+      izquierda: L - (pieza.y + h / 2),
+    }[pieza.pared];
+  }
+
   lienzo.addEventListener("pointerdown", (evento) => {
     alTocar();
     punteros.set(evento.pointerId, { x: evento.clientX, y: evento.clientY });
@@ -652,8 +713,22 @@ export function crearEscena(contenedor, { alElegir, alMover, alSoltar, alTocar =
     }
     const id = muebleTocado(evento);
     const pieza = id && ultimoPlano?.piezas.find((actual) => actual.id === id);
-    const altura = pieza && enPared(pieza) ? (pieza.altura_cm ?? 0) * CM : 0;
-    const suelo = pieza && puntoSuelo(evento, altura);
+    // Mueble colgado: se arrastra por la pared (arriba, abajo, a los lados o a otra pared).
+    const enLaPared = pieza && enPared(pieza) && puntoPared(evento, pieza.pared, true);
+    if (enLaPared) {
+      gesto = {
+        tipo: "colgado",
+        id,
+        pared: pieza.pared,
+        du: centroEnSuPared(pieza) - enLaPared.u / CM,
+        dalto: (pieza.altura_cm ?? 0) - enLaPared.alto / CM,
+        movido: false,
+      };
+      alElegir(id);
+      return;
+    }
+    const altura = 0;
+    const suelo = pieza && !enPared(pieza) && puntoSuelo(evento, altura);
     if (pieza && suelo) {
       // Se recuerda dónde se ha cogido el mueble, para que no salte al dedo.
       gesto = { tipo: "mover", id, altura, dx: pieza.x * CM - suelo.x, dz: pieza.y * CM - suelo.z, movido: false };
@@ -679,6 +754,12 @@ export function crearEscena(contenedor, { alElegir, alMover, alSoltar, alTocar =
       if (!suelo) return;
       gesto.movido = true;
       alMover(gesto.id, (suelo.x + gesto.dx) / CM, (suelo.z + gesto.dz) / CM);
+    } else if (gesto.tipo === "colgado") {
+      const punto = puntoPared(evento, gesto.pared);
+      if (!punto) return;
+      gesto.movido = true;
+      gesto.pared = punto.pared;
+      alMoverEnPared(gesto.id, punto.pared, punto.u / CM + gesto.du, punto.alto / CM + gesto.dalto);
     } else if (gesto.tipo === "girar") {
       const dx = evento.clientX - antes.x;
       const dy = evento.clientY - antes.y;
@@ -692,7 +773,7 @@ export function crearEscena(contenedor, { alElegir, alMover, alSoltar, alTocar =
   function terminar(evento) {
     punteros.delete(evento.pointerId);
     if (!gesto) return;
-    if (gesto.tipo === "mover") alSoltar();
+    if (gesto.tipo === "mover" || gesto.tipo === "colgado") alSoltar();
     if (gesto.tipo === "girar" && !gesto.movido) alElegir(null); // tocar el suelo vacío suelta el mueble
     gesto = null;
   }
@@ -722,19 +803,6 @@ export function crearEscena(contenedor, { alElegir, alMover, alSoltar, alTocar =
       const datos = piezas3d.get(id);
       if (!datos) return null;
       const punto = new THREE.Vector3(0, datos.alto + 0.5, 0); // por encima del número
-      datos.grupo.localToWorld(punto);
-      punto.project(camara);
-      if (punto.z > 1) return null;
-      return {
-        x: ((punto.x + 1) / 2) * lienzo.clientWidth,
-        y: ((1 - punto.y) / 2) * lienzo.clientHeight,
-      };
-    },
-    /** Centro del mueble en la pantalla (las flechas de los muebles de pared van a su alrededor). */
-    centroEnPantalla(id) {
-      const datos = piezas3d.get(id);
-      if (!datos) return null;
-      const punto = new THREE.Vector3(0, datos.alto / 2, 0);
       datos.grupo.localToWorld(punto);
       punto.project(camara);
       if (punto.z > 1) return null;

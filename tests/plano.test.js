@@ -5,7 +5,7 @@ import {
   LADO_ESTANDAR, MAX_PIEZAS, MAX_PLANOS, PRUEBA, abrirPlano, abrirPrueba, actualizarPlano, altoDibujo, cambiarHabitacion,
   coleccionValida, crearPlano, girarPieza, guardarComoNuevo, huella, moverPieza, nombreValido, planoActivo, planoDePruebaVacio,
   planoValido, ponerPieza, problemas, quitarPieza, quitarPlano, sueloLibre,
-  ALTO_HABITACION, distancias, esDePared, moverEnPared, precioPlano,
+  ALTO_HABITACION, colgarEn, distancias, esDePared, precioPlano,
 } from "../js/logica/plano.js";
 import { cargarColocacion, cargarDatos } from "../js/datos.js";
 
@@ -254,25 +254,35 @@ prueba("entra pegado a la pared del fondo, a la altura de su tipo", () => {
   igual(ponerPieza(crearPlano(400, 300), FLOTANTE, "b", COLOCACION).plano.piezas[0].altura_cm, 45);
 });
 
-prueba("flechas: sube y baja de 10 en 10 sin pasar del techo ni del suelo", () => {
+prueba("arrastrar por la pared: sube y baja sin pasar del techo ni del suelo", () => {
   let plano = ponerPieza(crearPlano(400, 300), FLOTANTE, "a", COLOCACION).plano;
-  plano = moverEnPared(plano, "a", "arriba");
-  igual(plano.piezas[0].altura_cm, 55);
-  for (let i = 0; i < 30; i++) plano = moverEnPared(plano, "a", "arriba");
+  plano = colgarEn(plano, "a", "fondo", 200, 92);
+  igual([plano.piezas[0].altura_cm, plano.piezas[0].x], [90, 175], "centro a 200 cm y altura de 5 en 5");
+  plano = colgarEn(plano, "a", "fondo", 200, 400);
   igual(plano.piezas[0].altura_cm, ALTO_HABITACION - 45, "el techo manda");
-  for (let i = 0; i < 30; i++) plano = moverEnPared(plano, "a", "abajo");
-  igual(plano.piezas[0].altura_cm, 0);
+  plano = colgarEn(plano, "a", "fondo", 200, -30);
+  igual(plano.piezas[0].altura_cm, 0, "no baja del suelo");
+  plano = colgarEn(plano, "a", "fondo", -100, 50);
+  igual(plano.piezas[0].x, 0, "no se sale por el lado");
 });
 
-prueba("flechas: izquierda y derecha como se ve la pared de frente", () => {
-  let plano = moverPieza(ponerPieza(crearPlano(400, 300), FLOTANTE, "a", COLOCACION).plano, "a", 100, 0);
-  plano = moverEnPared(plano, "a", "derecha");
-  igual(plano.piezas[0].x, 110, "en el fondo, → va hacia la derecha del plano");
-  plano = girarPieza(girarPieza(plano, "a"), "a"); // a la pared de delante
-  igual(plano.piezas[0].pared, "delante");
-  const antes = plano.piezas[0].x;
-  plano = moverEnPared(plano, "a", "derecha");
-  cierto(plano.piezas[0].x < antes && plano.piezas[0].x >= antes - 10, "en la de delante, → va al revés");
+prueba("arrastrar a otra pared: queda pegado a ella, con la trasera contra la pared", () => {
+  let plano = ponerPieza(crearPlano(400, 300), BALDA, "a", COLOCACION).plano;
+  plano = colgarEn(plano, "a", "derecha", 100, 150);
+  let [balda] = plano.piezas;
+  igual([balda.pared, balda.giro, balda.altura_cm], ["derecha", 90, 150]);
+  igual(balda.x + huella(balda).w, 400, "pegada a la pared derecha");
+  cierto(Math.abs(balda.y + huella(balda).h / 2 - 100) <= 3, "centro a unos 100 cm desde el fondo (de 5 en 5)");
+  plano = colgarEn(plano, "a", "delante", 100, 150);
+  [balda] = plano.piezas;
+  igual([balda.pared, balda.y + huella(balda).h], ["delante", 300]);
+  cierto(Math.abs(balda.x + huella(balda).w / 2 - 300) <= 3, "en la de delante, la izquierda de frente es la derecha del plano");
+  igual(colgarEn(plano, "a", "techo", 0, 0), plano, "una pared que no existe no cambia nada");
+});
+
+prueba("un mueble del suelo no se cuelga al arrastrarlo", () => {
+  const plano = ponerPieza(crearPlano(400, 300), MESITA, "a").plano;
+  igual(colgarEn(plano, "a", "fondo", 100, 100).piezas[0], plano.piezas[0]);
 });
 
 prueba("↻ lo pasa a la pared siguiente, con la trasera pegada", () => {
@@ -360,8 +370,6 @@ prueba("un mueble de pared mide hasta lo que tiene debajo y hasta otro de su par
   igual(espacio.hasta.suelo, "m");
   plano = ponerPieza(plano, BALDA, "y", COLOCACION).plano;
   plano = moverPieza(plano, "y", 200, 0);
-  plano = moverEnPared(plano, "y", "arriba");
-  plano = moverEnPared(plano, "y", "abajo");
   espacio = distancias(plano, "x");
   igual(espacio.derecha, 200 - 138, "hasta la otra balda de la misma pared");
   igual(espacio.hasta.derecha, "y");

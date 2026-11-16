@@ -1762,16 +1762,19 @@ ol.piezas .pieza__nombre::before {
   padding: 1rem;
 }
 
+/* Cursor del 3D (16/11/2026): una mano grande con flechas pequeñas alrededor (arriba, abajo,
+   izquierda y derecha) para que se entienda que los muebles se mueven hacia donde quieras.
+   Al agarrar, la mano se cierra. Si el navegador no puede, sale la mano normal. */
 .escena__lienzo {
   display: block;
   width: 100%;
   height: 100%;
   touch-action: none; /* el dedo mueve muebles y cámara, no la página */
-  cursor: grab;
+  cursor: url("../img/cursor-mover.svg") 24 24, grab;
 }
 
 .escena__lienzo:active {
-  cursor: grabbing;
+  cursor: url("../img/cursor-agarrar.svg") 24 24, grabbing;
 }
 
 .escena__botones {
@@ -2321,57 +2324,6 @@ body.con-navegacion .whatsapp {
   color: var(--titulo);
   font-size: 1.25rem;
 }
-
-/* Flechas de los muebles de pared: una cruz alrededor del propio mueble (16/11/2026; la coloca
-   plano.js con transform), botones de 48 px. El hueco del centro deja ver y arrastrar el mueble. */
-.escena__flechas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 3;
-  display: grid;
-  grid-template-areas: ". arriba ." "izquierda . derecha" ". abajo .";
-  grid-template-columns: 3rem 6.5rem 3rem;
-  grid-template-rows: 3rem 5rem 3rem;
-  gap: 0.15rem;
-  pointer-events: none;
-}
-
-.escena__flecha {
-  pointer-events: auto;
-}
-
-.escena__flechas[hidden] {
-  display: none;
-}
-
-.escena__flecha {
-  display: grid;
-  place-items: center;
-  padding: 0;
-  background: var(--marca);
-  border: 2px solid var(--fondo);
-  box-shadow: var(--sombra);
-  color: var(--sobre-marca);
-  font: inherit;
-  font-size: 1.5rem;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.escena__flecha:hover {
-  background: var(--marca-fuerte);
-}
-
-.escena__flecha:focus-visible {
-  outline: 3px solid var(--foco);
-  outline-offset: 2px;
-}
-
-.escena__flecha--arriba { grid-area: arriba; }
-.escena__flecha--abajo { grid-area: abajo; }
-.escena__flecha--izquierda { grid-area: izquierda; }
-.escena__flecha--derecha { grid-area: derecha; }
 
 /* Distancias del mueble elegido, en texto, debajo del 3D. */
 .distancias {
