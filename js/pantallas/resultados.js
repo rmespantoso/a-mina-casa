@@ -61,7 +61,8 @@ function tarjetaResultado(producto) {
       <button class="boton boton--secundario" type="button" data-guardar aria-pressed="${estaGuardado(producto.id)}">${textoGuardar(producto.id)}</button>
       ${plano}
     </div>`;
-  return `<li data-producto="${escapar(producto.id)}">${tarjetaProducto(producto, extra, botones)}</li>`;
+  // Si el cliente filtró por color, la foto sale en ese color (cuando la web la tiene).
+  return `<li data-producto="${escapar(producto.id)}">${tarjetaProducto(producto, extra, botones, { colores: busqueda.colores })}</li>`;
 }
 
 function pintarMas() {

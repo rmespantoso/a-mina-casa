@@ -3,7 +3,7 @@
 import { grupo, prueba, igual, cierto } from "./mini.js";
 import { cargarDatos, cargarEstancias } from "../js/datos.js";
 import { NOMBRE_ESTANCIA, NOMBRE_TIPO } from "../js/textos.js";
-import { coloresDe, limpiarColores } from "../js/logica/colores.js";
+import { coloresDe, fotoDelColor, limpiarColores } from "../js/logica/colores.js";
 import {
   PRECIO_TOPE, buscarEnEstancia, busquedaDeDireccion, enlaceBusqueda, enlaceFiltro, leerPrecio, leerPrecioMin, paraGuardar,
   pasoPrecio, topePrecio,
@@ -237,4 +237,16 @@ prueba("en el catálogo real ningún grupo pasa de 2.000 € y todos los topes s
       cierto(caro <= tope, `${grupo.id}: el más caro (${caro}) cabe en la barra`);
     }
   }
+});
+
+grupo("Planifica · foto en el color elegido (16/11/2026)");
+
+prueba("con un color elegido sale la foto de ese color; si no hay, ninguna (se usa la principal)", () => {
+  const sofa = { nombre: "Sofá Ejemplo", variantes: ["Beige", "Gris Oscuro"],
+    fotos_color: { Beige: "https://alihogar.es/1-large_default/a.jpg", "Gris Oscuro": "https://alihogar.es/2-large_default/b.jpg" } };
+  igual(fotoDelColor(sofa, ["gris"]), { url: "https://alihogar.es/2-large_default/b.jpg", color: "Gris Oscuro" });
+  igual(fotoDelColor(sofa, ["azul", "beige"]), { url: "https://alihogar.es/1-large_default/a.jpg", color: "Beige" });
+  igual(fotoDelColor(sofa, ["verde"]), null, "color que no tiene");
+  igual(fotoDelColor(sofa, []), null, "sin color elegido");
+  igual(fotoDelColor({ nombre: "Mesa", variantes: [] }, ["gris"]), null, "sin fotos por color");
 });

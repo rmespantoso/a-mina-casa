@@ -58,3 +58,17 @@ export function limpiarColores(lista) {
   if (!Array.isArray(lista)) return [];
   return [...new Set(lista.map((id) => ANTIGUAS[id] ?? id).filter((id) => IDS.includes(id)))];
 }
+
+/**
+ * Foto del mueble en uno de los colores que pide el cliente (16/11/2026). `producto.fotos_color`
+ * viene de data/fotos_color.json: { "Gris": "https://alihogar.es/…jpg", "Beige": "…" }.
+ * Devuelve { url, color } del primer color del mueble que es de una de esas familias, o null
+ * (entonces se enseña la foto principal). Nunca se inventa una foto.
+ */
+export function fotoDelColor(producto, colores = []) {
+  if (!producto?.fotos_color || colores.length === 0) return null;
+  for (const [color, url] of Object.entries(producto.fotos_color)) {
+    if (FAMILIAS.some((familia) => colores.includes(familia.id) && familia.palabras.test(color))) return { url, color };
+  }
+  return null;
+}

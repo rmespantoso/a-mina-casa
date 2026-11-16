@@ -3,6 +3,7 @@
 
 import { icono, silueta } from "./dibujos.js";
 import { NOMBRE_TIPO, escapar, euros, medidas } from "./textos.js";
+import { fotoDelColor } from "./logica/colores.js";
 
 /** Aviso de que las medidas son orientativas. */
 export function avisoOrientativo() {
@@ -17,10 +18,15 @@ export function marcadorFoto(producto) {
   </div>`;
 }
 
-/** Foto real del producto (cargada desde alihogar.es) si está autorizada; si no, el marcador. */
-export function fotoProducto(producto) {
+/**
+ * Foto real del producto (cargada desde alihogar.es) si está autorizada; si no, el marcador.
+ * Con `colores` (los que filtró el cliente), la foto del mueble en ese color si la web la tiene.
+ */
+export function fotoProducto(producto, { colores = [] } = {}) {
   if (producto.foto_autorizada && producto.url_foto) {
-    return `<img class="tarjeta__foto" src="${escapar(producto.url_foto)}" alt="${escapar(producto.nombre)}"
+    const delColor = fotoDelColor(producto, colores);
+    const alt = delColor ? `${producto.nombre}, en ${delColor.color.toLowerCase()}` : producto.nombre;
+    return `<img class="tarjeta__foto" src="${escapar(delColor?.url ?? producto.url_foto)}" alt="${escapar(alt)}"
       width="400" height="450" loading="lazy">`;
   }
   return marcadorFoto(producto);
@@ -30,10 +36,11 @@ export function fotoProducto(producto) {
  * Tarjeta de producto: foto, nombre en mayúsculas, medidas, precio y botón «Ver ficha».
  * `extra` es HTML opcional que va antes del botón (dónde verlo en la tienda, por ejemplo).
  * `botones` cambia el botón «Ver ficha» por otros (los resultados del recomendador lo usan).
+ * `colores`: los colores que filtró el cliente, para enseñar la foto en ese color.
  */
-export function tarjetaProducto(producto, extra = "", botones = null) {
+export function tarjetaProducto(producto, extra = "", botones = null, { colores = [] } = {}) {
   return `<article class="tarjeta">
-    ${fotoProducto(producto)}
+    ${fotoProducto(producto, { colores })}
     <div class="tarjeta__cuerpo">
       <p class="tarjeta__tipo">${escapar(NOMBRE_TIPO[producto.tipo] ?? producto.tipo)}</p>
       <h3 class="tarjeta__nombre">${escapar(producto.nombre)}</h3>

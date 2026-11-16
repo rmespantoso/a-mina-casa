@@ -25,6 +25,7 @@ RAIZ = Path(__file__).resolve().parent.parent
 RUTA_CSV = RAIZ / "data" / "productos.csv"
 RUTA_JSON = RAIZ / "data" / "products.json"
 RUTA_REGLAS = RAIZ / "data" / "reglas_proporcion.json"
+RUTA_FOTOS_COLOR = RAIZ / "data" / "fotos_color.json"  # lo genera scripts/fotos_por_color.py (16/11/2026)
 
 # Columnas que debe tener el CSV, en este orden.
 COLUMNAS = [
@@ -127,6 +128,17 @@ def main():
         filas = list(lector)
 
     productos = [convertir_fila(fila) for fila in filas]
+
+    # Foto de cada color (si existe data/fotos_color.json): { "Gris": "https://alihogar.es/...jpg" }.
+    # Solo se guardan los colores que el mueble tiene en el CSV y fotos de alihogar.es.
+    fotos_color = {}
+    if RUTA_FOTOS_COLOR.exists():
+        fotos_color = json.loads(RUTA_FOTOS_COLOR.read_text(encoding="utf-8")).get("fotos", {})
+    for producto in productos:
+        delmueble = {color: url for color, url in fotos_color.get(producto["id"], {}).items()
+                     if color in producto["variantes"] and str(url).startswith("https://alihogar.es/")}
+        if delmueble:
+            producto["fotos_color"] = delmueble
 
     # Ids repetidos.
     for id_producto, veces in Counter(p["id"] for p in productos).items():

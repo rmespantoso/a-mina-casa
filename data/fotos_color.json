@@ -1,0 +1,71 @@
+{
+ "_aviso": "Foto de cada color de los muebles con variantes, sacada de alihogar.es con scripts/fotos_por_color.py (16/11/2026). Solo direcciones de fotos de ALI Hogar, usadas con su permiso. No se edita a mano.",
+ "fotos": {
+  "SOF-02": {
+   "Gris": "https://alihogar.es/85091-large_default/sofa-turin-de-3-plazas-sintra-de-madera-de-pino.jpg",
+   "Beige": "https://alihogar.es/85087-large_default/sofa-turin-de-3-plazas-sintra-de-madera-de-pino.jpg"
+  },
+  "SOF-03": {
+   "Gris": "https://alihogar.es/85509-large_default/sofa-turin-de-2-plazas-tavira-de-madera-de-pino.jpg",
+   "Camel": "https://alihogar.es/85508-large_default/sofa-turin-de-2-plazas-tavira-de-madera-de-pino.jpg"
+  },
+  "SOF-06": {
+   "Marfil": "https://alihogar.es/66231-large_default/sofa-palma-efecto-chenilla-de-3-plazas.jpg",
+   "Gris": "https://alihogar.es/66411-large_default/sofa-palma-efecto-chenilla-de-3-plazas.jpg"
+  },
+  "SOF-08": {
+   "Gris": "https://alihogar.es/85520-large_default/sofa-chaise-longue-turin-reversible-de-3-plazas-sintra-de-madera-de-pino.jpg",
+   "Gris Oscuro": "https://alihogar.es/85521-large_default/sofa-chaise-longue-turin-reversible-de-3-plazas-sintra-de-madera-de-pino.jpg"
+  },
+  "TV-01": {
+   "Nogal": "https://alihogar.es/87480-large_default/mueble-de-tv-strait-de-melamina-y-mdf.jpg",
+   "Roble": "https://alihogar.es/87481-large_default/mueble-de-tv-strait-de-melamina-y-mdf.jpg"
+  },
+  "APA-01": {
+   "Nogal": "https://alihogar.es/87186-large_default/aparador-strait-con-1-cajon-y-4-puertas-de-melamina.jpg",
+   "Roble": "https://alihogar.es/87185-large_default/aparador-strait-con-1-cajon-y-4-puertas-de-melamina.jpg"
+  },
+  "APA-03": {
+   "Blanco": "https://alihogar.es/82665-large_default/aparador-turin-con-4-puertas-.jpg",
+   "Roble": "https://alihogar.es/82664-large_default/aparador-turin-con-4-puertas-.jpg"
+  },
+  "EST-05": {
+   "Blanco": "https://alihogar.es/82635-large_default/estante-flotante-de-pared-turin-liso.jpg",
+   "Roble": "https://alihogar.es/82633-large_default/estante-flotante-de-pared-turin-liso.jpg"
+  },
+  "CAM-01": {
+   "Blanco": "https://alihogar.es/87520-large_default/canape-strait-con-pata-alta-de-melamina-y-mdf.jpg",
+   "Nogal": "https://alihogar.es/87515-large_default/canape-strait-con-pata-alta-de-melamina-y-mdf.jpg",
+   "Roble": "https://alihogar.es/87505-large_default/canape-strait-con-pata-alta-de-melamina-y-mdf.jpg"
+  },
+  "CAM-02": {
+   "Blanco": "https://alihogar.es/86519-large_default/estructura-de-cama-kendra-con-4-cajones-sin-somier-de-melamina.jpg",
+   "Roble": "https://alihogar.es/86522-large_default/estructura-de-cama-kendra-con-4-cajones-sin-somier-de-melamina.jpg"
+  },
+  "CAM-03": {
+   "Blanco": "https://alihogar.es/73959-large_default/canape-abatible-con-tapa-3d.jpg",
+   "Nogal": "https://alihogar.es/87488-large_default/canape-abatible-con-tapa-3d.jpg",
+   "Cambria": "https://alihogar.es/42086-large_default/canape-abatible-con-tapa-3d.jpg",
+   "Roble": "https://alihogar.es/73952-large_default/canape-abatible-con-tapa-3d.jpg"
+  },
+  "CAM-04": {
+   "Gris": "https://alihogar.es/75116-large_default/canape-abatible-ivy-con-patas-metalicas-de-ecus.jpg",
+   "Beige": "https://alihogar.es/75120-large_default/canape-abatible-ivy-con-patas-metalicas-de-ecus.jpg"
+  },
+  "CAM-05": {
+   "Blanco": "https://alihogar.es/75134-large_default/canape-waterlilly-con-patas-antideslizante-ecus.jpg",
+   "Ártico": "https://alihogar.es/75130-large_default/canape-waterlilly-con-patas-antideslizante-ecus.jpg",
+   "Cambria": "https://alihogar.es/75125-large_default/canape-waterlilly-con-patas-antideslizante-ecus.jpg"
+  },
+  "COM-05": {
+   "Blanco": "https://alihogar.es/87258-large_default/comoda-strait-con-4-cajones-de-melamina.jpg",
+   "Nogal": "https://alihogar.es/87253-large_default/comoda-strait-con-4-cajones-de-melamina.jpg",
+   "Roble": "https://alihogar.es/87256-large_default/comoda-strait-con-4-cajones-de-melamina.jpg"
+  },
+  "MES-01": {
+   "Blanco": "https://alihogar.es/87404-large_default/mesa-de-comedor-extensible-toscana-de-melamina-y-mdf.jpg",
+   "Nogal": "https://alihogar.es/87405-large_default/mesa-de-comedor-extensible-toscana-de-melamina-y-mdf.jpg",
+   "Roble": "https://alihogar.es/87402-large_default/mesa-de-comedor-extensible-toscana-de-melamina-y-mdf.jpg"
+  }
+ }
+}
