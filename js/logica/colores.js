@@ -47,10 +47,21 @@ const IDS = FAMILIAS.map((familia) => familia.id);
 // ellas sigue funcionando.
 const ANTIGUAS = { marron: "nogal", rosa: "vivos", amarillo: "vivos", rojo: "vivos" };
 
-/** Familias de color de un mueble, leídas de sus variantes y de su nombre. [] si no hay ninguna. */
+// Palabras del nombre que no son un color (16/11/2026): «de Madera de Pino» en un sofá gris es
+// la estructura; «efecto cuero» puede ser negro; «San Marino» es un modelo, no azul marino.
+const NO_SON_COLOR = palabras("madera|cuero|san marino");
+
+const familiasDe = (texto) => FAMILIAS.filter((familia) => familia.palabras.test(texto)).map((familia) => familia.id);
+
+/**
+ * Familias de color de un mueble. [] si no hay ninguna.
+ * Si sus variantes de alihogar.es dicen colores, solo cuentan esas (el nombre puede hablar del
+ * material). Si no, se lee el nombre, sin las palabras de NO_SON_COLOR.
+ */
 export function coloresDe(producto) {
-  const texto = [...(producto.variantes ?? []), producto.nombre ?? ""].join(" · ");
-  return FAMILIAS.filter((familia) => familia.palabras.test(texto)).map((familia) => familia.id);
+  const deVariantes = familiasDe((producto.variantes ?? []).join(" · "));
+  if (deVariantes.length > 0) return deVariantes;
+  return familiasDe((producto.nombre ?? "").replace(new RegExp(NO_SON_COLOR.source, "giu"), " "));
 }
 
 /** Deja solo ids de familia válidos y sin repetir (por si vienen de la dirección o del navegador). */

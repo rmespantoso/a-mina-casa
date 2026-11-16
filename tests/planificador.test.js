@@ -39,6 +39,18 @@ prueba("no confunde trozos de palabras (Grisalla no es gris; Rosales no es rosa)
   igual(coloresDe({ nombre: "Cuadro Grisalla", variantes: ["Rosales"] }), []);
 });
 
+prueba("si las variantes dicen el color, el nombre no cuenta (la madera de pino del sofá es la estructura)", () => {
+  igual(coloresDe({ nombre: "Sofá Turin de 3 Plazas Sintra de Madera de Pino", variantes: ["Gris", "Beige"] }).sort(), ["beige", "gris"]);
+});
+
+prueba("en el nombre, madera, cuero y San Marino no son colores", () => {
+  igual(coloresDe({ nombre: "Sofá Ostuni de 3 Plazas de Madera", variantes: [] }), []);
+  igual(coloresDe({ nombre: "Mesita de Noche Negra de Madera", variantes: [] }), ["negro"]);
+  igual(coloresDe({ nombre: "Silla Olwen de Efecto Cuero y Acero", variantes: [] }), []);
+  igual(coloresDe({ nombre: "Carrito Auxiliar San Marino de 4 Niveles", variantes: [] }), []);
+  igual(coloresDe({ nombre: "Sofá Azul Marino", variantes: [] }), ["azul"]);
+});
+
 prueba("los colores que llegan de fuera se limpian", () => {
   igual(limpiarColores(["blanco", "<script>", "blanco", "gris"]), ["blanco", "gris"]);
   igual(limpiarColores("blanco"), []);
