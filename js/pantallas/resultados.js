@@ -185,6 +185,8 @@ try {
   const pedida = busquedaDeDireccion(window.location.search);
   estancia = estanciaPorId(estancias, pedida.estancia);
   const revision = estancia ? validarPlan(pedida, estancia) : { ok: false };
+  // Estancia que ya no existe (cocina y baño se quitaron el 16/11/2026): a la portada.
+  if (!estancia) window.location.replace("index.html");
   if (!revision.ok) {
     document.getElementById("titulo-resultados").textContent = "No encontramos esa búsqueda";
     document.getElementById("volver").href = estancia ? `espacio.html?e=${encodeURIComponent(estancia.id)}` : "index.html";

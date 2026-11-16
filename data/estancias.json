@@ -74,30 +74,6 @@
         { "id": "consolas", "nombre": "Consolas", "tipos": ["consola"] },
         { "id": "zapateros", "nombre": "Zapateros", "tipos": ["zapatero"] }
       ]
-    },
-    {
-      "id": "cocina",
-      "nombre": "Cocina",
-      "titulo": "Planifica tu cocina",
-      "frase": "Mesas, sillas, taburetes y armarios auxiliares.",
-      "foto": "https://alihogar.es/84935-large_default/silla-alta-de-bar-dario-con-patas-de-hierro.jpg",
-      "foto_de": "https://alihogar.es/sillas-taburetes-bancos/17084-18153-silla-alta-de-bar-dario-con-patas-de-hierro.html",
-      "grupos": [
-        { "id": "mesas", "nombre": "Mesas", "tipos": ["mesa_cocina", "mesa_comedor"] },
-        { "id": "sillas", "nombre": "Sillas y taburetes", "tipos": ["silla"] },
-        { "id": "armarios", "nombre": "Armarios y alacenas", "tipos": ["mueble_cocina"] }
-      ]
-    },
-    {
-      "id": "bano",
-      "nombre": "Baño",
-      "titulo": "Planifica tu baño",
-      "frase": "Muebles auxiliares, estantes y cajoneras.",
-      "foto": "https://alihogar.es/87570-large_default/mueble-cajonero-con-3-cestas-de-algodon-y-madera.jpg",
-      "foto_de": "https://alihogar.es/bano/17574-mueble-cajonero-con-3-cestas-de-algodon-y-madera-8420327615718.html",
-      "grupos": [
-        { "id": "muebles", "nombre": "Muebles de baño", "tipos": ["mueble_bano"] }
-      ]
     }
   ]
 }

@@ -1,5 +1,5 @@
 // Pantalla de INICIO = «Planifica tu espacio» (index.html, desde el 14/11/2026): lo
-// primero que ve el cliente son las estancias para elegir (salón, dormitorio, cocina…).
+// primero que ve el cliente son las estancias para elegir (salón, comedor, dormitorio…).
 // Debajo, cómo usar la herramienta en la tienda.
 
 import { iniciarPagina } from "../comun.js";

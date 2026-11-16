@@ -63,6 +63,8 @@ try {
 }
 
 if (productos && !estancia) {
+  // Estancia que ya no existe (cocina y baño se quitaron el 16/11/2026) o enlace roto: a la portada.
+  window.location.replace("index.html");
   document.getElementById("titulo").textContent = "No encontramos esa estancia";
   zonaAvisos.innerHTML = `<div class="acciones"><a class="boton boton--primario" href="index.html">Ver todas las estancias</a></div>`;
 } else if (estancia) {
