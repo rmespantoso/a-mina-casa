@@ -28,13 +28,24 @@
       <!-- «?»: vuelve a enseñar la ayuda al pasar el ratón por encima o al tocarlo (15/11/2026) -->
       <button class="escena__boton-ayuda" id="boton-ayuda" type="button" aria-expanded="true" aria-controls="ayuda-escena"
         title="Cómo moverte por el plano">?<span class="solo-lector"> Cómo moverte por el plano</span></button>
-      <!-- ↻ encima del mueble elegido: cada toque lo gira 90° (15/11/2026) -->
-      <button class="escena__girar" id="girar-elegido" type="button" hidden>↻<span class="solo-lector"> Girar el mueble elegido</span></button>
+      <!-- Precio de la habitación: la suma de los muebles del plano (16/11/2026) -->
+      <p class="escena__precio" id="precio-plano" aria-live="polite" hidden></p>
+      <!-- ↻ encima del mueble elegido: cada toque lo gira 90° (16/11/2026: 4 toques = vuelta entera).
+           En un mueble de pared, lo pasa a la pared siguiente. -->
+      <button class="escena__girar" id="girar-elegido" type="button" hidden>↻<span class="solo-lector" id="girar-texto"> Girar el mueble elegido</span></button>
+      <!-- Flechas de los muebles de pared (baldas, estantes, mesitas flotantes): de 10 en 10 cm -->
+      <div class="escena__flechas" id="flechas-pared" role="group" aria-label="Mover el mueble por la pared" hidden>
+        <button class="escena__flecha escena__flecha--arriba" type="button" data-direccion="arriba">↑<span class="solo-lector"> Subir 10 cm</span></button>
+        <button class="escena__flecha escena__flecha--izquierda" type="button" data-direccion="izquierda">←<span class="solo-lector"> 10 cm a la izquierda</span></button>
+        <button class="escena__flecha escena__flecha--derecha" type="button" data-direccion="derecha">→<span class="solo-lector"> 10 cm a la derecha</span></button>
+        <button class="escena__flecha escena__flecha--abajo" type="button" data-direccion="abajo">↓<span class="solo-lector"> Bajar 10 cm</span></button>
+      </div>
       <div class="escena__ayuda" id="ayuda-escena">
         <p><strong>Muévete con el dedo o el ratón</strong></p>
         <ul>
           <li>☝️ Arrastra un mueble para moverlo</li>
           <li>↻ Toca un mueble y pulsa la flecha para girarlo</li>
+          <li>↑ Las baldas y estantes van en la pared: muévelos con las flechas</li>
           <li>👆 Desliza el suelo para girar la vista</li>
           <li>🤏 Pellizca (o rueda del ratón) para el zoom</li>
         </ul>
@@ -42,6 +53,8 @@
       </div>
     </div>
     <p class="escena__pista">Arrastra los muebles · toca uno y pulsa ↻ para girarlo · pellizca para el zoom</p>
+    <!-- Distancias del mueble elegido a las paredes (16/11/2026); también se dibujan en el 3D -->
+    <p class="distancias" id="distancias-plano" hidden></p>
     <p class="mensaje" id="estado-plano" role="status"></p>
 
     <!-- 2. Medidas de la habitación: editables, se aplican al momento -->

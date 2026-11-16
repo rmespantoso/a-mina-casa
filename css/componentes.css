@@ -2190,11 +2190,12 @@ ol.piezas .pieza__nombre::before {
   pointer-events: auto;
 }
 
-/* Botón «?» del 3D: redondo, como los contadores. */
+/* Botón «?» del 3D: redondo, como los contadores. Arriba a la IZQUIERDA (16/11/2026):
+   la esquina derecha es para el precio de la habitación. */
 .escena__boton-ayuda {
   position: absolute;
   top: 0.6rem;
-  right: 0.6rem;
+  left: 0.6rem;
   z-index: 3;
   display: grid;
   place-items: center;
@@ -2289,6 +2290,94 @@ body.con-navegacion .whatsapp {
   .navegacion {
     display: none;
   }
+}
+
+/* Precio de la habitación, arriba a la derecha del 3D (16/11/2026). */
+.escena__precio {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  max-width: 55%;
+  margin: 0;
+  padding: 0.4rem 0.75rem;
+  background: var(--fondo);
+  border-left: 6px solid var(--marca);
+  box-shadow: var(--sombra);
+  color: var(--texto);
+  font-size: 1rem;
+  line-height: 1.25;
+  pointer-events: none;
+}
+
+.escena__precio[hidden] {
+  display: none;
+}
+
+.escena__precio strong {
+  color: var(--titulo);
+  font-size: 1.25rem;
+}
+
+/* Flechas de los muebles de pared: una cruz abajo a la derecha del 3D, botones de 48 px. */
+.escena__flechas {
+  position: absolute;
+  right: 0.6rem;
+  bottom: 0.6rem;
+  z-index: 3;
+  display: grid;
+  grid-template-areas: ". arriba ." "izquierda . derecha" ". abajo .";
+  grid-template-columns: repeat(3, 3rem);
+  grid-template-rows: repeat(3, 3rem);
+  gap: 0.15rem;
+}
+
+.escena__flechas[hidden] {
+  display: none;
+}
+
+.escena__flecha {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  background: var(--marca);
+  border: 2px solid var(--fondo);
+  box-shadow: var(--sombra);
+  color: var(--sobre-marca);
+  font: inherit;
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.escena__flecha:hover {
+  background: var(--marca-fuerte);
+}
+
+.escena__flecha:focus-visible {
+  outline: 3px solid var(--foco);
+  outline-offset: 2px;
+}
+
+.escena__flecha--arriba { grid-area: arriba; }
+.escena__flecha--abajo { grid-area: abajo; }
+.escena__flecha--izquierda { grid-area: izquierda; }
+.escena__flecha--derecha { grid-area: derecha; }
+
+/* Distancias del mueble elegido, en texto, debajo del 3D. */
+.distancias {
+  margin: 0 0 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--gris-claro);
+  border-left: 6px solid var(--marca);
+  font-size: 1rem;
+}
+
+.distancias[hidden] {
+  display: none;
 }
 
 /* Flecha ↻ encima del mueble elegido en el 3D (la coloca plano.js con transform). */

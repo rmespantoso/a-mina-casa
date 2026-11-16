@@ -12,7 +12,7 @@
 // Unidades: el plano está en centímetros; la escena, en metros (x → derecha, z → puerta).
 
 import * as THREE from "./vendor/three.module.min.js";
-import { altoDibujo, huella } from "./logica/plano.js";
+import { altoDibujo, distancias, enPared, huella } from "./logica/plano.js";
 
 const CM = 0.01;
 const ALTO_PARED = 2.5;
@@ -106,6 +106,52 @@ function etiquetaNumero(numero) {
   sprite.scale.set(0.28, 0.28, 1);
   sprite.renderOrder = 10;
   return sprite;
+}
+
+// Cartel con los centímetros que quedan hasta la pared (rectangular, como los botones de la marca).
+// Se guardan hechos: al arrastrar se repiten mucho los mismos números.
+const carteles = new Map();
+function cartelDistancia(texto) {
+  if (!carteles.has(texto)) {
+    const lienzo = document.createElement("canvas");
+    lienzo.width = 256;
+    lienzo.height = 96;
+    const ctx = lienzo.getContext("2d");
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(4, 4, 248, 88);
+    ctx.lineWidth = 6;
+    ctx.strokeStyle = "#d50d73";
+    ctx.strokeRect(4, 4, 248, 88);
+    ctx.fillStyle = "#000000";
+    ctx.font = "bold 52px Poppins, Arial, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(texto, 128, 52);
+    const textura = new THREE.CanvasTexture(lienzo);
+    textura.colorSpace = THREE.SRGBColorSpace;
+    // sizeAttenuation false: el cartel se ve del mismo tamaño de cerca y de lejos (legible en el móvil).
+    carteles.set(texto, new THREE.SpriteMaterial({ map: textura, depthTest: false, sizeAttenuation: false }));
+  }
+  const sprite = new THREE.Sprite(carteles.get(texto));
+  sprite.scale.set(0.125, 0.047, 1);
+  sprite.renderOrder = 12;
+  return sprite;
+}
+
+const materialGuia = new THREE.MeshBasicMaterial({ color: MAGENTA, depthTest: false });
+
+// Línea magenta (una barra fina) de a hasta b, con su cartel de centímetros en medio.
+function guia(grupo, a, b, centimetros) {
+  if (centimetros < 1) return; // pegado a la pared: no hay nada que dibujar
+  const largo = a.distanceTo(b);
+  const barra = new THREE.Mesh(new THREE.BoxGeometry(0.018, 0.018, largo), materialGuia);
+  barra.position.copy(a).add(b).multiplyScalar(0.5);
+  barra.lookAt(b);
+  barra.renderOrder = 11;
+  const cartel = cartelDistancia(`${String(centimetros).replace(/\B(?=(\d{3})+(?!\d))/g, ".")} cm`);
+  cartel.position.copy(barra.position);
+  cartel.position.y += 0.05;
+  grupo.add(barra, cartel);
 }
 
 // ---------- Muebles ----------
@@ -276,7 +322,8 @@ function construirMueble(pieza) {
     case "armario": almacen(grupo, m, W, H, D, { puertas: Math.max(2, Math.round(W / 0.5)) }); break;
     case "comoda":
       almacen(grupo, m, W, H, D, { pata: bajo(0.1), cajones: Math.max(2, Math.round(H / 0.22)), columnas: W > 1.2 ? 2 : 1 }); break;
-    case "mesita_noche": almacen(grupo, m, W, H, D, { pata: bajo(0.15), cajones: Math.max(1, Math.round(H / 0.2)) }); break;
+    case "mesita_noche": // la flotante va colgada: sin patas
+      almacen(grupo, m, W, H, D, { pata: enPared(pieza) ? 0 : bajo(0.15), cajones: Math.max(1, Math.round(H / 0.2)) }); break;
     case "zapatero": almacen(grupo, m, W, H, D, { pata: bajo(0.06), puertas: Math.max(1, Math.round(W / 0.5)) }); break;
     case "aparador": case "mueble_tv": case "recibidor":
       almacen(grupo, m, W, H, D, { pata: bajo(0.12), puertas: Math.max(1, Math.round(W / 0.55)) }); break;
@@ -336,7 +383,8 @@ export function crearEscena(contenedor, { alElegir, alMover, alSoltar, alTocar =
 
   const habitacion = new THREE.Group();
   const muebles = new THREE.Group();
-  escena.add(habitacion, muebles);
+  const guias = new THREE.Group(); // distancias del mueble elegido a las paredes
+  escena.add(habitacion, muebles, guias);
   const piezas3d = new Map(); // id → { grupo, clave, alto, W, D, numero, contorno }
   let ultimoPlano = null;
 
@@ -447,7 +495,7 @@ export function crearEscena(contenedor, { alElegir, alMover, alSoltar, alTocar =
     const vivos = new Set();
     plano.piezas.forEach((pieza, indice) => {
       vivos.add(pieza.id);
-      const clave = [pieza.tipo, pieza.ancho_cm, pieza.fondo_cm, pieza.alto_cm, pieza.color].join("|");
+      const clave = [pieza.tipo, pieza.ancho_cm, pieza.fondo_cm, pieza.alto_cm, pieza.color, enPared(pieza)].join("|");
       let datos = piezas3d.get(pieza.id);
       if (!datos || datos.clave !== clave) {
         if (datos) muebles.remove(datos.grupo);
@@ -473,11 +521,13 @@ export function crearEscena(contenedor, { alElegir, alMover, alSoltar, alTocar =
         if (datos.contorno) datos.grupo.add(datos.contorno);
         datos.estilo = estilo;
       }
-      // Posición y giro.
+      // Posición y giro (0, 90, 180 o 270°). Los muebles de pared, colgados a su altura.
       const { w, h } = huella(pieza);
-      datos.grupo.position.set((pieza.x + w / 2) * CM, 0, (pieza.y + h / 2) * CM);
-      datos.grupo.rotation.y = pieza.giro === 90 ? -Math.PI / 2 : 0;
+      const altura = enPared(pieza) ? (pieza.altura_cm ?? 0) * CM : 0;
+      datos.grupo.position.set((pieza.x + w / 2) * CM, altura, (pieza.y + h / 2) * CM);
+      datos.grupo.rotation.y = -THREE.MathUtils.degToRad(pieza.giro ?? 0);
     });
+    dibujarGuias(plano, elegida);
     for (const [id, datos] of piezas3d) {
       if (!vivos.has(id)) {
         muebles.remove(datos.grupo);
@@ -485,6 +535,55 @@ export function crearEscena(contenedor, { alElegir, alMover, alSoltar, alTocar =
       }
     }
     colocarCamara();
+  }
+
+  /**
+   * Distancias del mueble elegido: en el suelo, cuatro líneas hasta las paredes; si está
+   * colgado, sobre su pared, hasta los lados, el suelo y el techo. Cada una con sus cm.
+   */
+  function dibujarGuias(plano, id) {
+    for (const hijo of guias.children) if (hijo.isMesh) hijo.geometry.dispose();
+    guias.clear();
+    const pieza = id && plano.piezas.find((actual) => actual.id === id);
+    const espacio = pieza && distancias(plano, id);
+    if (!espacio) return;
+    const W = plano.habitacion.ancho_cm * CM;
+    const L = plano.habitacion.largo_cm * CM;
+    const { w, h } = huella(pieza);
+    const v = (x, y, z) => new THREE.Vector3(x, y, z);
+    if (espacio.tipo === "suelo") {
+      const suelo = 0.02;
+      const x0 = pieza.x * CM;
+      const x1 = (pieza.x + w) * CM;
+      const z0 = pieza.y * CM;
+      const z1 = (pieza.y + h) * CM;
+      const cx = (x0 + x1) / 2;
+      const cz = (z0 + z1) / 2;
+      guia(guias, v(0, suelo, cz), v(x0, suelo, cz), espacio.izquierda);
+      guia(guias, v(x1, suelo, cz), v(W, suelo, cz), espacio.derecha);
+      guia(guias, v(cx, suelo, 0), v(cx, suelo, z0), espacio.fondo);
+      guia(guias, v(cx, suelo, z1), v(cx, suelo, L), espacio.delante);
+      return;
+    }
+    // Sobre la pared: u va de izquierda a derecha mirándola de frente; alto en metros.
+    const e = 0.02;
+    const enLaPared = {
+      fondo: (u, alto) => v(u, alto, e),
+      derecha: (u, alto) => v(W - e, alto, u),
+      delante: (u, alto) => v(W - u, alto, L - e),
+      izquierda: (u, alto) => v(e, alto, L - u),
+    }[espacio.pared];
+    const largo = espacio.pared === "fondo" || espacio.pared === "delante" ? W : L;
+    const u0 = espacio.izquierda * CM;
+    const u1 = largo - espacio.derecha * CM;
+    const base = espacio.suelo * CM;
+    const arriba = ALTO_PARED - espacio.techo * CM;
+    const medio = (base + arriba) / 2;
+    const centro = (u0 + u1) / 2;
+    guia(guias, enLaPared(0, medio), enLaPared(u0, medio), espacio.izquierda);
+    guia(guias, enLaPared(u1, medio), enLaPared(largo, medio), espacio.derecha);
+    guia(guias, enLaPared(centro, 0), enLaPared(centro, base), espacio.suelo);
+    guia(guias, enLaPared(centro, arriba), enLaPared(centro, ALTO_PARED), espacio.techo);
   }
 
   // ---------- Dedo y ratón ----------
@@ -507,8 +606,10 @@ export function crearEscena(contenedor, { alElegir, alMover, alSoltar, alTocar =
     return objeto?.userData.id ?? null;
   }
 
-  function puntoSuelo(evento) {
+  // Punto donde el dedo toca el suelo (o, para un mueble colgado, el plano horizontal a su altura).
+  function puntoSuelo(evento, altura = 0) {
     const punto = new THREE.Vector3();
+    sueloMatematico.constant = -altura;
     return rayoDesde(evento).ray.intersectPlane(sueloMatematico, punto) ? punto : null;
   }
 
@@ -523,10 +624,11 @@ export function crearEscena(contenedor, { alElegir, alMover, alSoltar, alTocar =
     }
     const id = muebleTocado(evento);
     const pieza = id && ultimoPlano?.piezas.find((actual) => actual.id === id);
-    const suelo = pieza && puntoSuelo(evento);
+    const altura = pieza && enPared(pieza) ? (pieza.altura_cm ?? 0) * CM : 0;
+    const suelo = pieza && puntoSuelo(evento, altura);
     if (pieza && suelo) {
       // Se recuerda dónde se ha cogido el mueble, para que no salte al dedo.
-      gesto = { tipo: "mover", id, dx: pieza.x * CM - suelo.x, dz: pieza.y * CM - suelo.z, movido: false };
+      gesto = { tipo: "mover", id, altura, dx: pieza.x * CM - suelo.x, dz: pieza.y * CM - suelo.z, movido: false };
       alElegir(id);
     } else {
       gesto = { tipo: "girar", x: evento.clientX, y: evento.clientY, movido: false };
@@ -545,7 +647,7 @@ export function crearEscena(contenedor, { alElegir, alMover, alSoltar, alTocar =
       gesto.distancia = distancia;
       colocarCamara();
     } else if (gesto.tipo === "mover") {
-      const suelo = puntoSuelo(evento);
+      const suelo = puntoSuelo(evento, gesto.altura);
       if (!suelo) return;
       gesto.movido = true;
       alMover(gesto.id, (suelo.x + gesto.dx) / CM, (suelo.z + gesto.dz) / CM);

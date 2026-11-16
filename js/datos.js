@@ -53,3 +53,11 @@ export async function cargarComplementos() {
 export async function cargarEstancias() {
   return (await pedirJson(URL_ESTANCIAS)).estancias;
 }
+
+const URL_COLOCACION = new URL("../data/colocacion.json", import.meta.url);
+
+/** Qué muebles van colgados en la pared de Mi plano 3D (data/colocacion.json). */
+export async function cargarColocacion() {
+  const { palabras = [], altura_cm: alturas = {}, altura_por_defecto: porDefecto = 120 } = await pedirJson(URL_COLOCACION);
+  return { palabras, altura_cm: alturas, altura_por_defecto: porDefecto };
+}

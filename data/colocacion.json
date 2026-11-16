@@ -1,0 +1,9 @@
+{
+  "_aviso": "Qué muebles van colgados en la pared en Mi plano 3D (16/11/2026). Un mueble va a la pared si su nombre lleva alguna de estas palabras (sin mirar mayúsculas ni tildes). altura_cm es la altura desde el suelo hasta la BASE del mueble al ponerlo, según su tipo; el cliente la cambia con las flechas. Son orientativas y se pueden cambiar aquí sin tocar el código.",
+  "palabras": ["de pared", "para pared", "flotante", "mural", "colgar"],
+  "altura_cm": {
+    "estanteria": 120,
+    "mesita_noche": 45
+  },
+  "altura_por_defecto": 120
+}

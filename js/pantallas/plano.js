@@ -5,6 +5,9 @@
 // el PLANO DE PRUEBA, una habitación estándar de 500 × 500 cm. Debajo:
 //   - dos recuadros con el ancho y el largo de la habitación, que se cambian al momento;
 //   - el mueble elegido (foto, medidas, precio, girar y quitar);
+//   - (16/11/2026) arriba a la derecha del 3D, lo que cuesta la habitación; al tocar un mueble,
+//     lo que queda hasta cada pared (en el 3D y en texto); los muebles de pared (baldas,
+//     estantes, mesitas flotantes) se cuelgan y se mueven con las flechas ↑ ↓ ← →;
 //   - «Guardar como nuevo plano» con un nombre (medidas y muebles incluidos);
 //   - «Escanea un código QR» (15/11/2026): abre la cámara, lee el QR de la etiqueta y enseña
 //     la ficha compacta con «+ Añadir a mi plano 3D», que mete el mueble en el plano abierto;
@@ -17,7 +20,7 @@
 import { CONFIG } from "../config.js";
 import { iniciarPagina } from "../comun.js";
 import { leer, guardar } from "../almacen.js";
-import { cargarAmbientes, cargarComplementos, cargarDatos, cargarEstancias } from "../datos.js";
+import { cargarAmbientes, cargarColocacion, cargarComplementos, cargarDatos, cargarEstancias } from "../datos.js";
 import { htmlFiltro, montarFiltro } from "../filtro.js";
 import { medir } from "../medicion.js";
 import { comoTexto, pintarErrores } from "../formularios.js";
@@ -30,7 +33,7 @@ import { POR_PAGINA, buscarEnEstancia, busquedaDeDireccion, estanciaPorId } from
 import {
   MAX_PIEZAS, MAX_PLANOS, PRUEBA, abrirPlano, abrirPrueba, actualizarPlano, altoDibujo, cambiarHabitacion, coleccionValida,
   girarPieza, guardarComoNuevo, huella, moverPieza, planoActivo, planoDePruebaVacio, ponerPieza, problemas, quitarPieza,
-  quitarPlano, sePuedePoner, sueloLibre,
+  quitarPlano, sePuedePoner, sueloLibre, distancias, enPared, moverEnPared, precioPlano,
 } from "../logica/plano.js";
 import { leerLista } from "../mi-lista.js";
 import { crearEscena, hayWebGL } from "../escena3d.js";
@@ -56,6 +59,7 @@ let elegida = null;
 let catalogo = [];
 let estancias = [];
 let complementos = {};
+let colocacion = null; // qué muebles se cuelgan en la pared (data/colocacion.json)
 let escena = null;
 
 const nuevoId = (letra) => `${letra}${Date.now().toString(36)}${Math.random().toString(36).slice(2, 5)}`;
@@ -63,6 +67,7 @@ const nombreCorto = (nombre) => (nombre.length > 38 ? `${nombre.slice(0, 36)}…
 const numeroDe = (id) => plano.piezas.findIndex((pieza) => pieza.id === id) + 1;
 const fechaBonita = (fecha) => (fecha ? fecha.split("-").reverse().join("/") : "");
 const esPrueba = () => plano.id === PRUEBA;
+const NOMBRE_PARED = { fondo: "del fondo", derecha: "de la derecha", delante: "de delante", izquierda: "de la izquierda" };
 
 // ---------- Guardar ----------
 
@@ -214,7 +219,9 @@ function dibujar({ soloEscena = false } = {}) {
   const { noCaben, pisadas } = problemas(plano);
   const conAviso = new Set([...noCaben.map((pieza) => pieza.id), ...pisadas.flat().map((pieza) => pieza.id)]);
   escena?.dibujar(plano, { elegida, conAviso });
+  pintarDistancias();
   if (soloEscena) return;
+  pintarPrecio();
 
   // La etiqueta va en el dibujo (canvas), no en la caja, que también lleva el botón «?».
   const lienzo = document.querySelector("#escena canvas");
@@ -234,6 +241,33 @@ function dibujar({ soloEscena = false } = {}) {
   estado.classList.toggle("mensaje--aviso", avisos.length > 0);
 
   pintarPiezas(conAviso);
+}
+
+// Arriba a la derecha del 3D: lo que cuestan juntos todos los muebles del plano (precios de alihogar.es).
+function pintarPrecio() {
+  const caja = document.getElementById("precio-plano");
+  if (plano.piezas.length === 0) {
+    caja.hidden = true;
+    return;
+  }
+  const { total, sinPrecio } = precioPlano(plano, catalogo);
+  caja.innerHTML = `<span>Tu habitación</span> <strong>${euros(total)}</strong>${sinPrecio ? `<span>+ ${sinPrecio} sin precio</span>` : ""}`;
+  caja.hidden = false;
+}
+
+// Debajo del 3D, en texto, lo mismo que dibujan las líneas: cuánto queda hasta cada pared.
+function pintarDistancias() {
+  const linea = document.getElementById("distancias-plano");
+  const espacio = elegida ? distancias(plano, elegida) : null;
+  linea.hidden = !espacio;
+  if (!espacio) return;
+  const partes = espacio.tipo === "suelo"
+    ? [["izquierda", espacio.izquierda], ["derecha", espacio.derecha], ["fondo", espacio.fondo], ["delante", espacio.delante]]
+    : [["izquierda", espacio.izquierda], ["derecha", espacio.derecha], ["suelo", espacio.suelo], ["techo", espacio.techo]];
+  const titulo = espacio.tipo === "suelo"
+    ? `Mueble ${numeroDe(elegida)} · hasta las paredes:`
+    : `Mueble ${numeroDe(elegida)} · en la pared ${NOMBRE_PARED[espacio.pared]}:`;
+  linea.innerHTML = `<strong>${titulo}</strong> ${partes.map(([lado, valor]) => `${lado} <strong>${cm(valor)}</strong>`).join(" · ")}`;
 }
 
 // «En el plano»: una tarjeta por mueble con su foto, medidas, precio, girar, quitar y ver ficha.
@@ -261,7 +295,9 @@ function pintarPiezas(conAviso) {
         <p class="tarjeta__tipo"><span class="contador">${indice + 1}</span>${pieza.color ? escapar(NOMBRES_COLOR[pieza.color] ?? "") : ""}</p>
         <p class="en-plano__nombre">${nombre}</p>
         <p>${producto ? textoMedidas(producto) : `${cm(pieza.ancho_cm)} × ${cm(pieza.fondo_cm)}`}${producto ? ` · <strong>${euros(producto.precio_eur)}</strong>` : ""}</p>
-        <p class="nota">En el suelo: ${cm(w)} × ${cm(h)}${pieza.giro ? " (girado)" : ""}</p>
+        <p class="nota">${enPared(pieza)
+    ? `En la pared ${NOMBRE_PARED[pieza.pared]}, a ${cm(pieza.altura_cm)} del suelo`
+    : `En el suelo: ${cm(w)} × ${cm(h)}${pieza.giro ? ` (girado ${pieza.giro}°)` : ""}`}</p>
         ${notas.length ? `<p class="nota">${escapar(notas.join(" "))}</p>` : ""}
         <div class="elegido__botones">
           <button class="boton-mini" type="button" data-quitar>${icono("papelera")}Quitar<span class="solo-lector"> ${nombre}</span></button>
@@ -302,7 +338,7 @@ function pintarTodo() {
 /** Pone un mueble en el plano abierto. Devuelve true si se ha podido. */
 function poner(id, { avisar = true } = {}) {
   const producto = catalogo.find((actual) => actual.id === id);
-  const resultado = ponerPieza(plano, producto, nuevoId("p"));
+  const resultado = ponerPieza(plano, producto, nuevoId("p"), colocacion);
   if (!resultado.ok) {
     if (avisar) {
       estado.textContent = resultado.motivo === "lleno"
@@ -369,6 +405,7 @@ const resultadosAnadir = document.getElementById("resultados-anadir");
 const avisoAnadir = document.getElementById("aviso-anadir");
 let filtroAnadir = null;
 let encontradosAnadir = [];
+let coloresAnadir = []; // colores de la última búsqueda de «Añadir artículo» (para la foto)
 let mostradosAnadir = 0;
 
 botonAnadir.addEventListener("click", () => {
@@ -398,6 +435,7 @@ function buscarParaPlano(busqueda, estancia) {
   const { resultados, total } = buscarEnEstancia(catalogo, busqueda);
   medir("recommend_view", { estancia: estancia.id, tipo: busqueda.grupo ?? "todos", resultados: total, desde: "plano" });
   encontradosAnadir = resultados;
+  coloresAnadir = busqueda.colores ?? [];
   mostradosAnadir = 0;
   avisoAnadir.hidden = true;
   resultadosAnadir.innerHTML = total === 0
@@ -418,7 +456,7 @@ function tarjetaMini(producto) {
     ? `<button class="boton-mini boton-mini--primario" type="button" data-anadir="${escapar(producto.id)}">+ ${yaEsta ? "Añadir otro" : "Añadir al plano"}<span class="solo-lector">: ${nombre}</span></button>`
     : '<p class="nota">La web no da su ancho o su fondo: no se puede dibujar.</p>';
   return `<li class="resultado-mini">
-    <div class="resultado-mini__foto">${fotoProducto(producto)}</div>
+    <div class="resultado-mini__foto">${fotoProducto(producto, { colores: coloresAnadir })}</div>
     <div>
       <p class="resultado-mini__nombre">${nombre}</p>
       <p>${textoMedidas(producto)} · <strong>${euros(producto.precio_eur)}</strong></p>
@@ -667,12 +705,27 @@ document.addEventListener("keydown", (evento) => {
 
 const botonGirar = document.getElementById("girar-elegido");
 
+const flechas = document.getElementById("flechas-pared");
+
 // Se llama cada vez que se dibuja el 3D: la flecha sigue al mueble al moverlo o al girar la vista.
+// Si el mueble va en la pared, ↻ lo pasa a la pared siguiente y salen las flechas.
 function colocarGirar() {
   const posicion = elegida && escena ? escena.posicionEnPantalla(elegida) : null;
   botonGirar.hidden = !posicion;
   if (posicion) botonGirar.style.transform = `translate(${posicion.x}px, ${posicion.y}px) translate(-50%, -50%)`;
+  const pieza = elegida && plano.piezas.find((actual) => actual.id === elegida);
+  const colgado = Boolean(pieza && enPared(pieza));
+  flechas.hidden = !colgado;
+  document.getElementById("girar-texto").textContent = colgado ? " Pasar el mueble a la pared siguiente" : " Girar el mueble elegido 90°";
 }
+
+flechas.addEventListener("click", (evento) => {
+  const boton = evento.target.closest("[data-direccion]");
+  if (!boton || !elegida) return;
+  plano = moverEnPared(plano, elegida, boton.dataset.direccion);
+  guardarCambios();
+  dibujar();
+});
 
 botonGirar.addEventListener("click", () => {
   if (!elegida) return;
@@ -714,10 +767,13 @@ function prepararEscena() {
 // ---------- Arranque ----------
 
 try {
-  const [datos, todas, reglas] = await Promise.all([cargarDatos(), cargarEstancias(), cargarComplementos()]);
+  const [datos, todas, reglas, colgados] = await Promise.all([
+    cargarDatos(), cargarEstancias(), cargarComplementos(), cargarColocacion(),
+  ]);
   catalogo = datos.productos;
   estancias = todas;
   complementos = reglas;
+  colocacion = colgados;
 } catch (error) {
   console.error(error);
   estado.textContent = "No hemos podido cargar los muebles. Recarga la página.";
